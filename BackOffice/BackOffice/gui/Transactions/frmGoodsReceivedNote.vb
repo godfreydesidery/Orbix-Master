@@ -26,9 +26,7 @@ Public Class frmGoodsReceivedNote
         End Try
 
         '   json = JObject.Parse(response)
-        If status = "PRINTED" Or status = "REPRINTED" Then
-
-        Else
+        If Not (status = "PRINTED" Or status = "REPRINTED") Then
             If status = "PENDING" Or status = "APPROVED" Then
                 MsgBox("Goods can not be received. This order have not been printed!", vbOKOnly + vbCritical, "Error: Order not printed")
             ElseIf status = "COMPLETED" Then
@@ -592,7 +590,8 @@ Public Class frmGoodsReceivedNote
 
                 Dim grn As Grn = New Grn
                 grn.lpo.no = txtOrderNo.Text
-                grn.receiveDate = Day.DAY
+                grn.receivedDate = Day.DAY
+                grn.receivedUser.id = User.CURRENT_USER_ID
                 grn.supplier.code = txtSupplierCode.Text
                 grn.supplier.name = txtSupplier.Text
 
