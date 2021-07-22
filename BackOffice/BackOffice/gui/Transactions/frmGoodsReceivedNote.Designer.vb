@@ -22,8 +22,8 @@ Partial Class frmGoodsReceivedNote
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.btnReceive = New System.Windows.Forms.ToolStripButton()
         Me.btnClear = New System.Windows.Forms.ToolStripButton()
@@ -44,19 +44,19 @@ Partial Class frmGoodsReceivedNote
         Me.txtAmount = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.dtgrdItemList = New System.Windows.Forms.DataGridView()
+        Me.btnBack = New System.Windows.Forms.Button()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column7 = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.btnBack = New System.Windows.Forms.Button()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.dtgrdItemList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -194,11 +194,11 @@ Partial Class frmGoodsReceivedNote
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(11, 59)
+        Me.Label6.Location = New System.Drawing.Point(2, 62)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(92, 17)
+        Me.Label6.Size = New System.Drawing.Size(101, 17)
         Me.Label6.TabIndex = 20
-        Me.Label6.Text = "Date Created"
+        Me.Label6.Text = "Date Received"
         '
         'Label4
         '
@@ -263,62 +263,6 @@ Partial Class frmGoodsReceivedNote
         Me.dtgrdItemList.Size = New System.Drawing.Size(1117, 532)
         Me.dtgrdItemList.TabIndex = 104
         '
-        'Column1
-        '
-        Me.Column1.FillWeight = 76.15626!
-        Me.Column1.HeaderText = "Code"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        '
-        'Column2
-        '
-        Me.Column2.FillWeight = 159.8985!
-        Me.Column2.HeaderText = "Description"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        '
-        'Column3
-        '
-        Me.Column3.FillWeight = 92.78905!
-        Me.Column3.HeaderText = "Quantity Ordered"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        '
-        'Column4
-        '
-        Me.Column4.FillWeight = 92.78905!
-        Me.Column4.HeaderText = "Quantity Received"
-        Me.Column4.Name = "Column4"
-        '
-        'Column5
-        '
-        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column5.DefaultCellStyle = DataGridViewCellStyle21
-        Me.Column5.FillWeight = 92.78905!
-        Me.Column5.HeaderText = "Supplier Unit Cost"
-        Me.Column5.Name = "Column5"
-        '
-        'Column6
-        '
-        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column6.DefaultCellStyle = DataGridViewCellStyle22
-        Me.Column6.FillWeight = 92.78905!
-        Me.Column6.HeaderText = "Client Cost"
-        Me.Column6.Name = "Column6"
-        '
-        'Column7
-        '
-        Me.Column7.FillWeight = 92.78905!
-        Me.Column7.HeaderText = "Received"
-        Me.Column7.Name = "Column7"
-        Me.Column7.ReadOnly = True
-        '
-        'Column8
-        '
-        Me.Column8.HeaderText = "Sn"
-        Me.Column8.Name = "Column8"
-        Me.Column8.Visible = False
-        '
         'btnBack
         '
         Me.btnBack.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -370,6 +314,64 @@ Partial Class frmGoodsReceivedNote
         Me.Label3.TabIndex = 24
         Me.Label3.Text = "Supplier Name"
         '
+        'Column1
+        '
+        Me.Column1.FillWeight = 76.15626!
+        Me.Column1.HeaderText = "Code"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        '
+        'Column2
+        '
+        Me.Column2.FillWeight = 159.8985!
+        Me.Column2.HeaderText = "Description"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        '
+        'Column3
+        '
+        Me.Column3.FillWeight = 92.78905!
+        Me.Column3.HeaderText = "Quantity Ordered"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        '
+        'Column4
+        '
+        Me.Column4.FillWeight = 92.78905!
+        Me.Column4.HeaderText = "Quantity Received"
+        Me.Column4.Name = "Column4"
+        '
+        'Column5
+        '
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column5.DefaultCellStyle = DataGridViewCellStyle3
+        Me.Column5.FillWeight = 92.78905!
+        Me.Column5.HeaderText = "Supplier Unit Cost"
+        Me.Column5.Name = "Column5"
+        '
+        'Column6
+        '
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column6.DefaultCellStyle = DataGridViewCellStyle4
+        Me.Column6.FillWeight = 92.78905!
+        Me.Column6.HeaderText = "Client Cost"
+        Me.Column6.Name = "Column6"
+        '
+        'Column7
+        '
+        Me.Column7.FillWeight = 92.78905!
+        Me.Column7.HeaderText = "Received"
+        Me.Column7.Name = "Column7"
+        Me.Column7.ReadOnly = True
+        Me.Column7.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Column7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        '
+        'Column8
+        '
+        Me.Column8.HeaderText = "Sn"
+        Me.Column8.Name = "Column8"
+        Me.Column8.Visible = False
+        '
         'frmGoodsReceivedNote
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -417,17 +419,17 @@ Partial Class frmGoodsReceivedNote
     Friend WithEvents txtAmount As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents dtgrdItemList As DataGridView
+    Friend WithEvents btnBack As Button
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label3 As Label
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
     Friend WithEvents Column5 As DataGridViewTextBoxColumn
     Friend WithEvents Column6 As DataGridViewTextBoxColumn
-    Friend WithEvents Column7 As DataGridViewTextBoxColumn
+    Friend WithEvents Column7 As DataGridViewCheckBoxColumn
     Friend WithEvents Column8 As DataGridViewTextBoxColumn
-    Friend WithEvents btnBack As Button
-    Friend WithEvents Panel2 As Panel
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Label3 As Label
 End Class

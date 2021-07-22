@@ -175,6 +175,8 @@
     <Compile Include="general\Masters\Supplier.vb" />
     <Compile Include="general\Masters\SupplierService.vb" />
     <Compile Include="general\MaterialStockCard.vb" />
+    <Compile Include="general\Order\Grn.vb" />
+    <Compile Include="general\Order\GrnDetail.vb" />
     <Compile Include="general\Order\Lpo.vb" />
     <Compile Include="general\Order\LpoDetail.vb" />
     <Compile Include="general\Order\Order.vb" />

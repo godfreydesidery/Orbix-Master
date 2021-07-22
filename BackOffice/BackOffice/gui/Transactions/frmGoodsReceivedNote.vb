@@ -3,149 +3,105 @@ Imports Devart.Data.MySql
 Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class frmGoodsReceivedNote
-
+    Dim orderNo As String = ""
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         Me.Dispose()
     End Sub
-    Private Function SearchOrder(orderNo As String)
-        Dim found As Boolean = False
-        Dim order As New Order
+
+    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         If txtOrderNo.Text = "" Then
             MsgBox("Enter order number !", vbOKOnly + vbExclamation, "Error: Missing information")
-            Return found
-            Exit Function
+            Exit Sub
         End If
-        If order.getOrder(orderNo) = True Then
-            Dim orderStatus As String = order.GL_STATUS
-            If orderStatus = "PRINTED" Or orderStatus = "REPRINTED" Then
-                'proceed
 
-            Else
-                If orderStatus = "PENDING" Or orderStatus = "APPROVED" Then
-                    MsgBox("Goods can not be received. This order have not been printed!", vbOKOnly + vbCritical, "Error: Order not printed")
-                ElseIf orderStatus = "COMPLETED" Then
-                    MsgBox("Order already completed!", vbOKOnly + vbExclamation, "Error: Completed order")
-                ElseIf orderStatus = "CANCELLED" Then
-                    MsgBox("Order cancelled!", vbOKOnly + vbExclamation, "Error: Cancelled order")
-                Else
-                    MsgBox("Order not available!", vbOKOnly + vbExclamation, "Error: Not available")
-                End If
-                Return found
-                Exit Function
-
-            End If
-            txtOrderNo.Text = order.GL_ORDER_NO
-            txtSupplier.Text = (New Supplier).getSupplierName("", order.GL_SUPPLIER_CODE)
-            txtSupplierCode.Text = order.GL_SUPPLIER_CODE
-            found = True
-            txtOrderNo.ReadOnly = True
-        Else
-            MsgBox("No matching order", vbOKOnly + vbCritical, "Error: Not found")
-        End If
-        Return found
-    End Function
-    Private Function getOrderDetails(orderNo As String) As Boolean
-        Dim success As Boolean = False
-        If txtOrderNo.Text = "" Then
-            MsgBox("Enter order number!", vbOKOnly + vbExclamation, "Error: Missing information")
-            Return success
-            Exit Function
-        End If
+        Dim status As String = ""
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim codeQuery As String = "SELECT `sn`, `order_no`, `item_code`, `quantity`, `unit_cost_price`, `stock_size` FROM `order_details` WHERE `order_no`='" + orderNo + "'"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                Dim itemCode As String = reader.GetString("item_code")
-                Dim description As String = (New Item).getItemLongDescription(itemCode)
-                Dim orderedQty As String = reader.GetString("quantity")
-                Dim receivedQty As String = ""
-                Dim supplierCost As String = ""
-                Dim clientCost As String = reader.GetString("unit_cost_price")
-                Dim sn As String = reader.GetString("sn")
+            status = Web.get_("lpos/get_status/no=" + txtOrderNo.Text)
+        Catch ex As Exception
 
+        End Try
+
+        '   json = JObject.Parse(response)
+        If status = "PRINTED" Or status = "REPRINTED" Then
+
+        Else
+            If status = "PENDING" Or status = "APPROVED" Then
+                MsgBox("Goods can not be received. This order have not been printed!", vbOKOnly + vbCritical, "Error: Order not printed")
+            ElseIf status = "COMPLETED" Then
+                MsgBox("Order already completed!", vbOKOnly + vbExclamation, "Error: Completed order")
+            ElseIf status = "CANCELLED" Then
+                MsgBox("Order cancelled!", vbOKOnly + vbExclamation, "Error: Cancelled order")
+            Else
+                MsgBox("Order not available!", vbOKOnly + vbExclamation, "Error: Not available")
+            End If
+            Exit Sub
+        End If
+
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+        Dim lpo As Lpo = New Lpo
+        Try
+            response = Web.get_("lpos/no=" + txtOrderNo.Text)
+            json = JObject.Parse(response)
+            lpo = JsonConvert.DeserializeObject(Of Lpo)(json.ToString)
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+            Exit Sub
+        End Try
+        txtOrderNo.Text = lpo.no
+        If Not IsNothing(lpo.supplier) Then
+            txtSupplierCode.Text = lpo.supplier.code
+            txtSupplier.Text = lpo.supplier.name
+        End If
+        txtOrderNo.ReadOnly = True
+        If Not IsNothing(lpo.lpoDetails) Then
+            Dim details As List(Of LpoDetail) = lpo.lpoDetails
+            For Each detail In details
                 Dim dtgrdRow As New DataGridViewRow
                 Dim dtgrdCell As DataGridViewCell
 
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = itemCode
+                dtgrdCell.Value = detail.code
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = description
+                dtgrdCell.Value = detail.description
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = orderedQty
+                dtgrdCell.Value = detail.qty
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = receivedQty
+                dtgrdCell.Value = ""
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = supplierCost
+                dtgrdCell.Value = ""
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = clientCost
+                dtgrdCell.Value = detail.costPrice
+                dtgrdRow.Cells.Add(dtgrdCell)
+
+                dtgrdCell = New DataGridViewCheckBoxCell()
+                dtgrdCell.Value = True
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = "NO"
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = sn
+                dtgrdCell.Value = detail.id
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdItemList.Rows.Add(dtgrdRow)
-            End While
-            conn.Close()
-        Catch ex As Exception
-            success = False
-            MsgBox(ex.Message)
-        End Try
-        Return success
-    End Function
-    Dim orderNo As String = ""
-    Private Function getOrder(order_No As String) As Boolean
-        dtgrdItemList.Rows.Clear()
-        txtSupplier.Text = ""
-        If SearchOrder(order_No) = True Then
-            orderNo = order_No
-            If getOrderDetails(order_No) = True Then
-
-            End If
-        Else
-            orderNo = ""
+            Next
         End If
-        Return vbNull
-    End Function
-    Private Function search()
-        If txtOrderNo.Text = "" Then
-            txtOrderNo.ReadOnly = False
-            Return vbNull
-            Exit Function
-        End If
-        getOrder(txtOrderNo.Text)
-        Return vbNull
-    End Function
-    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-        search()
     End Sub
 
-    Private Sub dtgrdItemList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dtgrdItemList.CellContentClick
-
-    End Sub
     Private Function checkCost(supplierCost As Double, clientCost As Double) As Boolean
         Dim lessOrEqual As Boolean = True
         If (supplierCost - clientCost) > 0 Then
@@ -221,82 +177,7 @@ Public Class frmGoodsReceivedNote
     Private Sub frmGoodsReceivedNote_Load(sender As Object, e As EventArgs) Handles Me.Shown
         clear()
     End Sub
-    Private Function confirmReceive() As Boolean
-        Dim status As String = (New Order).getStatus(orderNo)
-        Dim success As Boolean = False
 
-        If status = "PRINTED" Or status = "REPRINTED" Then
-            'continue
-        Else
-            MsgBox("Can not complete order. Order already completed/canceled or has not been printed", vbOKOnly, "Invalid operation")
-            Return success
-            Exit Function
-        End If
-
-
-        If dtgrdItemList.RowCount = 0 Then
-            MsgBox("Enter order", vbOKOnly + vbExclamation, "Missing information")
-            Return success
-            Exit Function
-        End If
-        Dim res As Integer = MsgBox("Are you sure you want to complete this order?", vbYesNo + vbQuestion, "Complete Order?")
-        If res = DialogResult.Yes Then
-            'complete the order
-
-        Else
-            Return success
-            Exit Function
-        End If
-        If validateList() = False Then
-            'discard operation
-            'MsgBox("There is an error in the List. Please cross check the list.", vbOKOnly + vbExclamation, "Error: List invalid")
-            Return success
-            Exit Function
-        End If
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim codeQuery As String = "UPDATE `orders` SET `status`='COMPLETED' WHERE `order_no`='" + orderNo + "'"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            command.ExecuteNonQuery()
-            conn.Close()
-
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-
-        Dim supplierCost As Double = 0
-        Dim clientCost As Double = 0
-        Dim difference As Double = 0
-
-        createGRN(txtOrderNo.Text, txtInvoiceNo.Text, Day.DAY, "")
-        Dim grnNo As String = getGRNNo(txtOrderNo.Text, txtInvoiceNo.Text, Day.DAY, "")
-        txtGRNNo.Text = grnNo
-        Dim amount As Double = 0
-
-        For i As Integer = 0 To dtgrdItemList.RowCount - 1
-            Dim itemCode As String = dtgrdItemList.Item(0, i).Value
-            Dim qtyReceived As String = dtgrdItemList.Item(3, i).Value
-            Dim supplierUnitCost As Double = Val(dtgrdItemList.Item(4, i).Value)
-            Dim clientUnitCost As Double = Val(dtgrdItemList.Item(5, i).Value)
-            supplierCost = supplierCost + (supplierUnitCost * Val(qtyReceived))
-            clientCost = clientCost + (clientUnitCost * Val(qtyReceived))
-            If supplierCost > 0 Then
-                amount = supplierCost
-            End If
-            receiveGood(grnNo, itemCode, qtyReceived, supplierUnitCost.ToString) 'receive goods and update goods received note
-            updateInventory(itemCode, qtyReceived, grnNo) ' update inventory of the particular item
-        Next
-        Dim ok As Integer = MsgBox("Operation successiful. Print GRN Note?", vbYesNo + vbInformation, "Success: Received goods") 'to implement grn print functionality
-        If ok = DialogResult.Yes Then
-            printGRN(grnNo, txtOrderNo.Text, txtInvoiceNo.Text, txtSupplierCode.Text, txtDate.Text, LCurrency.displayValue(amount.ToString))
-        End If
-        clear()
-        Return vbNull
-    End Function
     Private Sub defineStyles(doc As Document)
         'Get the predefined style Normal.
         Dim style As Style = doc.Styles("Normal")
@@ -340,7 +221,6 @@ Public Class frmGoodsReceivedNote
         myRenderer.PdfDocument.Save(filename)
 
         Process.Start(filename)
-
 
         Return vbNull
     End Function
@@ -482,8 +362,6 @@ Public Class frmGoodsReceivedNote
         paragraph.AddFormattedText("Supplier:    " + (New Supplier).getSupplierName("", supplierCode))
         paragraph.Format.Font.Size = 8
 
-
-
         'Add the print date field
         paragraph = section.AddParagraph()
         paragraph.Format.SpaceBefore = "1cm"
@@ -541,7 +419,6 @@ Public Class frmGoodsReceivedNote
         row.Cells(4).AddParagraph("Amount")
         row.Cells(4).Format.Alignment = ParagraphAlignment.Center
 
-
         table.SetEdge(0, 0, 5, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         Dim totalAmount As Double = 0
@@ -595,7 +472,6 @@ Public Class frmGoodsReceivedNote
         row.Cells(4).AddParagraph()
         row.Cells(4).Format.Alignment = ParagraphAlignment.Right
 
-
         table.SetEdge(0, 0, 5, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         row = table.AddRow()
@@ -614,7 +490,6 @@ Public Class frmGoodsReceivedNote
         row.Cells(3).Format.Alignment = ParagraphAlignment.Right
         row.Cells(4).AddParagraph(totalQty)
         row.Cells(4).Format.Alignment = ParagraphAlignment.Right
-
 
         table.SetEdge(0, 0, 5, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
         row = table.AddRow()
@@ -650,9 +525,7 @@ Public Class frmGoodsReceivedNote
             If Val(qtyReceived) = 0 Then
                 emptyField = True
             End If
-            If received = "YES" Then
-                atLeastOne = atLeastOne + 1
-            End If
+            'modify this
             If supplierUnitCost <> clientUnitCost And received = "YES" Then
                 valid = False
             Else
@@ -680,13 +553,75 @@ Public Class frmGoodsReceivedNote
         End If
         Return valid
     End Function
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnReceive.Click
+    Private Sub btnReceive_Click(sender As Object, e As EventArgs) Handles btnReceive.Click
         If orderNo <> "" Then
             If txtInvoiceNo.Text <> "" Then
                 txtInvoiceNo.ReadOnly = True
                 txtOrderNo.ReadOnly = True
                 txtDate.Text = Day.DAY
-                confirmReceive()
+
+                Dim status As String = ""
+                Try
+                    status = Web.get_("lpos/get_status/no=" + txtOrderNo.Text)
+                Catch ex As Exception
+
+                End Try
+
+                If status = "PRINTED" Or status = "REPRINTED" Then
+                    'continue
+                Else
+                    MsgBox("Can not complete order. Order already completed/canceled or has not been printed", vbOKOnly, "Invalid operation")
+                    Exit Sub
+                End If
+
+                If dtgrdItemList.RowCount = 0 Then
+                    MsgBox("Can not complete an empty order", vbOKOnly + vbExclamation, "Error: Missing information")
+                    Exit Sub
+                End If
+                Dim res As Integer = MsgBox("Are you sure you want to complete this order?", vbYesNo + vbQuestion, "Complete Order?")
+                If res = DialogResult.Yes Then
+                    'complete the order
+                Else
+                    Exit Sub
+                End If
+                If validateList() = False Then
+                    'discard operation
+                    'MsgBox("There is an error in the List. Please cross check the list.", vbOKOnly + vbExclamation, "Error: List invalid")
+                    Exit Sub
+                End If
+
+                Dim grn As Grn = New Grn
+                grn.lpo.no = txtOrderNo.Text
+                grn.receiveDate = Day.DAY
+                grn.supplier.code = txtSupplierCode.Text
+                grn.supplier.name = txtSupplier.Text
+
+                Dim grnDetails As List(Of GrnDetail) = New List(Of GrnDetail)
+                Dim grnDetail As GrnDetail = New GrnDetail
+
+                For i As Integer = 0 To dtgrdItemList.RowCount - 1
+                    grnDetail.code = dtgrdItemList.Item(0, i).Value
+                    grnDetail.description = dtgrdItemList.Item(1, i).Value
+                    grnDetail.qtyOrdered = dtgrdItemList.Item(2, i).Value
+                    grnDetail.qtyReceived = dtgrdItemList.Item(3, i).Value
+                    grnDetail.supplierCostPrice = Val(dtgrdItemList.Item(4, i).Value)
+                    grnDetail.clientCostPrice = Val(dtgrdItemList.Item(5, i).Value)
+                    grnDetails.Add(grnDetail)
+                Next
+                grn.grnDetails = grnDetails
+                Dim response As Object = New Object
+                Dim json As JObject = New JObject
+                response = Web.post(grn, "grns/new")
+                json = JObject.Parse(response)
+                Dim grn_ As Grn = JsonConvert.DeserializeObject(Of Grn)(json.ToString)
+                If Not (grn_.id.ToString = "") Then
+                    txtGRNNo.Text = grn_.no
+                    Dim ok As Integer = MsgBox("Operation successiful. Print GRN Note?", vbYesNo + vbInformation, "Success: Received goods") 'to implement grn print functionality
+                    If ok = DialogResult.Yes Then
+                        printGRN(grn_.no, txtOrderNo.Text, txtInvoiceNo.Text, txtSupplierCode.Text, txtDate.Text, LCurrency.displayValue(txtAmount.Text.ToString))
+                    End If
+                End If
+                clear()
                 clearFields()
                 dtgrdItemList.Rows.Clear()
             Else
@@ -694,97 +629,11 @@ Public Class frmGoodsReceivedNote
             End If
         End If
     End Sub
-    Private Function updateInventory(itemCode As String, qty As String, grnNo As String)
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim codeQuery As String = "UPDATE `inventorys` SET `qty`=`qty`+" + Val(qty).ToString + " WHERE `item_code`='" + itemCode + "'"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            command.ExecuteNonQuery()
-            conn.Close()
-            Dim inventory As New Inventory
-
-            Dim stockCard As New StockCard
-            stockCard.qtyIn(Day.DAY, itemCode, Val(qty), inventory.getInventory(itemCode), "Received goods, GRN No: " + grnNo)
-        Catch ex As Exception
-            MsgBox(ex.StackTrace)
-        End Try
-        Return vbNull
-    End Function
-    Private Function receiveGood(grnNo As String, itemCode As String, qty As String, costPrice As String) As Boolean
-        Dim success As Boolean = False
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim codeQuery As String = "INSERT INTO `goods_received_note_particulars`(`grn_no`, `item_code`, `qty`, `unit_cost`) VALUES (@grn_no,@item_code,@qty,@unit_cost)"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            command.Parameters.AddWithValue("@grn_no", grnNo)
-            command.Parameters.AddWithValue("@item_code", itemCode)
-            command.Parameters.AddWithValue("@qty", qty)
-            command.Parameters.AddWithValue("@unit_cost", costPrice)
-            command.ExecuteNonQuery()
-            conn.Close()
-            success = True
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-        Return success
-    End Function
-    Private Function getGRNNo(orderNo As String, invoiceNo As String, date_ As String, amount As String) As String
-        Dim no As String = ""
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim codeQuery As String = "SELECT `grn_no`, `order_no`, `invoice_no`, `grn_date`, `amount` FROM `goods_received_note` WHERE `order_no`='" + orderNo + "' AND `invoice_no`='" + invoiceNo + "' AND `grn_date`='" + date_ + "' ORDER BY `grn_no` DESC LIMIT 1"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                no = reader.GetString("grn_no")
-                Exit While
-            End While
-            conn.Close()
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-        Return no
-    End Function
-    Private Function createGRN(orderNo As String, invoiceNo As String, date_ As String, amount As String) As Boolean
-        Dim success As Boolean = False
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim codeQuery As String = "INSERT INTO `goods_received_note`( `order_no`, `invoice_no`, `grn_date`, `amount`) VALUES (@order_no, @invoice_no, @grn_date, @amount)"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            command.Parameters.AddWithValue("@order_no", orderNo)
-            command.Parameters.AddWithValue("@invoice_no", invoiceNo)
-            command.Parameters.AddWithValue("@grn_date", date_)
-            command.Parameters.AddWithValue("@amount", amount)
-            command.ExecuteNonQuery()
-            conn.Close()
-            success = True
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-
-        Return success
-    End Function
 
 
     Private Sub txtOrderNo_PeviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles txtOrderNo.PreviewKeyDown
         If e.KeyCode = Keys.Tab Then
-            search()
+            '  search()
         End If
     End Sub
     Private Function refreshList()
@@ -812,20 +661,7 @@ Public Class frmGoodsReceivedNote
         dtgrdItemList.Rows.Clear()
     End Sub
 
-    Private Sub txtOrderNo_TextChanged(sender As Object, e As EventArgs) Handles txtOrderNo.TextChanged
-
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-
-    End Sub
-
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
-
         clearFields()
         dtgrdItemList.Rows.Clear()
     End Sub
@@ -839,9 +675,5 @@ Public Class frmGoodsReceivedNote
         txtSupplier.Text = ""
         txtOrderNo.ReadOnly = False
         txtInvoiceNo.ReadOnly = False
-    End Sub
-
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
-
     End Sub
 End Class
