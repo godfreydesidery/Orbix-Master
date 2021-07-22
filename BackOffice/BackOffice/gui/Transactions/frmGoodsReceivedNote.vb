@@ -7,7 +7,7 @@ Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 
 Public Class frmGoodsReceivedNote
-    Dim orderNo As String = ""
+    ' Dim orderNo As String = ""
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         Me.Dispose()
     End Sub
@@ -115,11 +115,11 @@ Public Class frmGoodsReceivedNote
         Return lessOrEqual
     End Function
     Private Function received(hasReceived As Boolean)
-        If hasReceived = True Then
-            dtgrdItemList.Item(6, dtgrdItemList.CurrentCell.RowIndex).Value = "YES"
-        Else
-            dtgrdItemList.Item(6, dtgrdItemList.CurrentCell.RowIndex).Value = "NO"
-        End If
+        '     If hasReceived = True Then
+        '      dtgrdItemList.Item(6, dtgrdItemList.CurrentCell.RowIndex).Value = "YES"
+        '      Else
+        '     dtgrdItemList.Item(6, dtgrdItemList.CurrentCell.RowIndex).Value = "NO"
+        '     End If
         refreshList()
         Return vbNull
     End Function
@@ -519,13 +519,15 @@ Public Class frmGoodsReceivedNote
             Dim qtyReceived As String = dtgrdItemList.Item(3, i).Value
             Dim supplierUnitCost As Double = Val(dtgrdItemList.Item(4, i).Value)
             Dim clientUnitCost As Double = Val(dtgrdItemList.Item(5, i).Value)
-            Dim received As String = dtgrdItemList.Item(6, i).Value
+            Dim received As Boolean = dtgrdItemList.Item(6, i).Value
             If Val(qtyReceived) = 0 Then
                 emptyField = True
+            Else
+                atLeastOne = atLeastOne + 1
             End If
             'modify this
-            If supplierUnitCost <> clientUnitCost And received = "YES" Then
-                valid = False
+            If supplierUnitCost <> clientUnitCost Then
+                valid = True ' False
             Else
                 valid = True
             End If
@@ -552,7 +554,7 @@ Public Class frmGoodsReceivedNote
         Return valid
     End Function
     Private Sub btnReceive_Click(sender As Object, e As EventArgs) Handles btnReceive.Click
-        If orderNo <> "" Then
+        If txtOrderNo.Text <> "" Then
             If txtInvoiceNo.Text <> "" Then
                 txtInvoiceNo.ReadOnly = True
                 txtOrderNo.ReadOnly = True
@@ -587,42 +589,58 @@ Public Class frmGoodsReceivedNote
                     'MsgBox("There is an error in the List. Please cross check the list.", vbOKOnly + vbExclamation, "Error: List invalid")
                     Exit Sub
                 End If
+                Try
+                    Dim grn As Grn = New Grn
+                    grn.no = "NA"
+                    grn.lpo.no = txtOrderNo.Text
+                    grn.invoiceNo = txtInvoiceNo.Text
+                    grn.invoiceTotal = Val(txtInvoiceTotal.Text)
+                    grn.receivedDate = Day.DAY
+                    grn.receivedUser.id = User.CURRENT_USER_ID
+                    grn.supplier.code = txtSupplierCode.Text
+                    grn.supplier.name = txtSupplier.Text
 
-                Dim grn As Grn = New Grn
-                grn.lpo.no = txtOrderNo.Text
-                grn.receivedDate = Day.DAY
-                grn.receivedUser.id = User.CURRENT_USER_ID
-                grn.supplier.code = txtSupplierCode.Text
-                grn.supplier.name = txtSupplier.Text
+                    Dim total As Double = Val(LCurrency.getValue(txtAmount.Text))
+                    Dim invoiceTotal As Double = Val(LCurrency.getValue(txtInvoiceTotal.Text))
 
-                Dim grnDetails As List(Of GrnDetail) = New List(Of GrnDetail)
-                Dim grnDetail As GrnDetail = New GrnDetail
-
-                For i As Integer = 0 To dtgrdItemList.RowCount - 1
-                    grnDetail.code = dtgrdItemList.Item(0, i).Value
-                    grnDetail.description = dtgrdItemList.Item(1, i).Value
-                    grnDetail.qtyOrdered = dtgrdItemList.Item(2, i).Value
-                    grnDetail.qtyReceived = dtgrdItemList.Item(3, i).Value
-                    grnDetail.supplierCostPrice = Val(dtgrdItemList.Item(4, i).Value)
-                    grnDetail.clientCostPrice = Val(dtgrdItemList.Item(5, i).Value)
-                    grnDetails.Add(grnDetail)
-                Next
-                grn.grnDetails = grnDetails
-                Dim response As Object = New Object
-                Dim json As JObject = New JObject
-                response = Web.post(grn, "grns/new")
-                json = JObject.Parse(response)
-                Dim grn_ As Grn = JsonConvert.DeserializeObject(Of Grn)(json.ToString)
-                If Not (grn_.id.ToString = "") Then
-                    txtGRNNo.Text = grn_.no
-                    Dim ok As Integer = MsgBox("Operation successiful. Print GRN Note?", vbYesNo + vbInformation, "Success: Received goods") 'to implement grn print functionality
-                    If ok = DialogResult.Yes Then
-                        printGRN(grn_.no, txtOrderNo.Text, txtInvoiceNo.Text, txtSupplierCode.Text, txtDate.Text, LCurrency.displayValue(txtAmount.Text.ToString))
+                    If total <> invoiceTotal Then
+                        MsgBox("Total goods and invoice total do not match")
+                        Exit Sub
                     End If
-                End If
-                clear()
-                clearFields()
-                dtgrdItemList.Rows.Clear()
+
+                    Dim grnDetails As List(Of GrnDetail) = New List(Of GrnDetail)
+
+                    For i As Integer = 0 To dtgrdItemList.RowCount - 1
+                        Dim grnDetail As GrnDetail = New GrnDetail
+                        grnDetail.code = dtgrdItemList.Item(0, i).Value
+                        grnDetail.description = dtgrdItemList.Item(1, i).Value
+                        grnDetail.qtyOrdered = dtgrdItemList.Item(2, i).Value
+                        grnDetail.qtyReceived = dtgrdItemList.Item(3, i).Value
+                        grnDetail.supplierCostPrice = Val(dtgrdItemList.Item(4, i).Value)
+                        grnDetail.clientCostPrice = Val(dtgrdItemList.Item(5, i).Value)
+                        grnDetails.Add(grnDetail)
+                    Next
+                    grn.grnDetails = grnDetails
+                    Dim response As Object = New Object
+                    Dim json As JObject = New JObject
+                    response = Web.post(grn, "grns/new")
+                    '  json = JObject.Parse(response)
+                    Dim grn_ As Grn = JsonConvert.DeserializeObject(Of Grn)(response.ToString)
+                    If Not (grn_.id.ToString = "") Then
+                        txtGRNNo.Text = grn_.no
+                        Dim ok As Integer = MsgBox("Operation successiful. Print GRN Note?", vbYesNo + vbInformation, "Success: Received goods") 'to implement grn print functionality
+                        If ok = DialogResult.Yes Then
+                            printGRN(grn_.no, txtOrderNo.Text, txtInvoiceNo.Text, txtSupplierCode.Text, txtDate.Text, LCurrency.displayValue(txtAmount.Text.ToString))
+                        End If
+                    End If
+                    clear()
+                    clearFields()
+                    dtgrdItemList.Rows.Clear()
+
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+                End Try
+
             Else
                 MsgBox("Please enter invoice No!", vbOKOnly + vbExclamation, "Error: Missing information")
             End If
@@ -653,7 +671,6 @@ Public Class frmGoodsReceivedNote
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         dtgrdItemList.Rows.Clear()
         txtOrderNo.Text = ""
-        orderNo = ""
         txtOrderNo.ReadOnly = False
         txtInvoiceNo.ReadOnly = False
         clearFields()
@@ -666,7 +683,6 @@ Public Class frmGoodsReceivedNote
     End Sub
     Private Sub clearFields()
         txtOrderNo.Text = ""
-        orderNo = ""
         txtInvoiceNo.Text = ""
         txtGRNNo.Text = ""
         txtDate.Text = ""

@@ -1,6 +1,8 @@
 ﻿Public Class Grn
     Public Property id As String
     Public Property no As String
+    Public Property invoiceNo As String
+    Public Property invoiceTotal As Double
     Public Property receivedDate As Date
     Public Property receivedUser As User = New User
     Public Property supplier As Supplier = New Supplier

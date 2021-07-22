@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="javax.annotation.PostConstruct"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.SalesInvoiceDetailRepository"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.SalesInvoiceRepository"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.SalesInvoice"/>
@@ -30,7 +29,6 @@
 <fullyQualifiedTypeName name="com.example.orbix_web.models.Product"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.ProductRepository"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.Supplier"/>
-<fullyQualifiedTypeName name="com.example.orbix_web.repositories.SupplierRepository"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.Department"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.DepartmentRepository"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.Clas"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
 <fullyQualifiedTypeName name="java.util.Optional"/>
 <fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.example.orbix_web.repositories.SupplierRepository"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
 </qualifiedTypeNameHistroy>

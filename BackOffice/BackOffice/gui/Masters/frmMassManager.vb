@@ -694,19 +694,22 @@ Public Class frmMassManager
             If objXLWs.Range("Y" & 1).Value.ToString <> itemMasterAttributes(24) Then
                 valid = False
             End If
-            If objXLWs.Range("AA" & 1).Value.ToString <> itemMasterAttributes(25) Then
+            If objXLWs.Range("Z" & 1).Value.ToString <> itemMasterAttributes(25) Then
                 valid = False
             End If
-            If objXLWs.Range("AB" & 1).Value.ToString <> itemMasterAttributes(25) Then
+            If objXLWs.Range("AA" & 1).Value.ToString <> itemMasterAttributes(26) Then
                 valid = False
             End If
-            If objXLWs.Range("AC" & 1).Value.ToString <> itemMasterAttributes(25) Then
+            If objXLWs.Range("AB" & 1).Value.ToString <> itemMasterAttributes(27) Then
                 valid = False
             End If
-            If objXLWs.Range("AD" & 1).Value.ToString <> itemMasterAttributes(25) Then
+            If objXLWs.Range("AC" & 1).Value.ToString <> itemMasterAttributes(28) Then
                 valid = False
             End If
-            If objXLWs.Range("AE" & 1).Value.ToString <> itemMasterAttributes(25) Then
+            If objXLWs.Range("AD" & 1).Value.ToString <> itemMasterAttributes(29) Then
+                valid = False
+            End If
+            If objXLWs.Range("AE" & 1).Value.ToString <> itemMasterAttributes(30) Then
                 valid = False
             End If
             lblOperation.Text = ""

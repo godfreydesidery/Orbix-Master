@@ -11363,3 +11363,15 @@ java.lang.InterruptedException
 	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:132)
 	at org.eclipse.jdt.internal.ui.text.java.hover.JavaEditorTextHoverProxy.getHoverInfo2(JavaEditorTextHoverProxy.java:89)
 	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:169)
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-22 22:41:36.488
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.azoOGaAd
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-22 22:41:36.498
+!MESSAGE unsubscribing from classpath changes: sts4.classpath.azoOGaAd
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-22 22:41:36.507
+!MESSAGE subsribers = {}
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-22 22:41:36.517
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.azoOGaAd => OK
