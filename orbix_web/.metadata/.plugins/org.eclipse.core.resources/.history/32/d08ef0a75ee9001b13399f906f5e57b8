@@ -1,0 +1,54 @@
+/**
+ * 
+ */
+package com.example.orbix_web.repositories;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.example.orbix_web.models.Item;
+import com.example.orbix_web.models.Product;
+import com.example.orbix_web.models.Supplier;
+
+/**
+ * @author GODFREY
+ *
+ */
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Long> {
+
+	/**
+	 * @param barcode
+	 * @return
+	 */
+	Optional<Product> findByPrimaryBarcode(String barcode);
+
+	/**
+	 * @param code
+	 * @return
+	 */
+	Optional<Product> findByCode(String code);
+
+	/**
+	 * @param description
+	 * @return
+	 */
+	Optional<Product> findByDescription(String description);
+
+	/**
+	 * @return
+	 */
+	@Query("select p.description from Product p")
+	Iterable<Product> getDescription();
+
+	/**
+	 * @param productCode
+	 * @param supplier
+	 * @return
+	 */
+	Optional<Product> isExistByCodeAndSupplier(String productCode, Supplier supplier);
+
+}

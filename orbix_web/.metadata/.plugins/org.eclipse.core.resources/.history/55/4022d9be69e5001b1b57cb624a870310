@@ -1,0 +1,398 @@
+/**
+ * 
+ */
+package com.example.orbix_web.models;
+
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.stereotype.Component;
+
+import com.example.orbix_web.database.Audit;
+
+/**
+ * @author GODFREY
+ *
+ */
+@Component
+@Entity
+@Table(name = "products")
+@EntityListeners(AuditingEntityListener.class)
+public class Product extends Audit<String>{
+	/**
+	 * Basic product information
+	 */
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+	@Column(unique = true)
+    private String primaryBarcode;
+	@NotBlank
+	@Column(unique = true)
+    private String code;	
+	@NotBlank
+	@Column(unique = true)
+	private String description;
+	@NotBlank
+	@Column(unique = true)
+	private String shortDescription;
+	@Column(unique = true)
+	private String commonDescription;
+	@Column(columnDefinition = "varchar(20) default 'NAN'")
+	private String standardUom;
+	@Column(columnDefinition = "double default 1")
+	private double packSize;
+	@Column(columnDefinition = "varchar(500) default 'NAN'")
+	private String ingredients;	
+	/**
+	 * Default supplier information
+	 */
+	//enter supplier here
+	/**
+	 * Default Pricing information
+	 */
+	private double costPriceVatIncl;
+	private double costPriceVatExcl;
+	private double sellingPriceVatIncl;
+	private double sellingPriceVatExcl;
+	@Column(columnDefinition = "double default 0")
+	private double profitMargin;
+	@Column(columnDefinition = "double default 0")
+	private double vat;
+	@Column(columnDefinition = "double default 0")
+	private double discount;
+	/**
+	 * Default inventory settings
+	 */
+	@Column(columnDefinition = "double default 0")
+	private double stock;
+	@Column(columnDefinition = "double default 0")
+	private double minimumStock;
+	@Column(columnDefinition = "double default 0")
+	private double maximumStock;
+	@Column(columnDefinition = "double default 0")
+	private double defaultReorderLevel;
+	@Column(columnDefinition = "double default 0")
+	private double defaultReorderQty;
+	/**
+	 * Default product flags
+	 */
+	@Column(columnDefinition = "varchar(15) default 'ACTIVE'")
+	private String status;	
+	@Column(columnDefinition = "boolean default true")
+	private String sellable;
+	@Column(columnDefinition = "boolean default false")
+	private String returnable;
+	
+	@ManyToOne(targetEntity = Supplier.class, fetch = FetchType.EAGER,  optional = true)
+    @JoinColumn(name = "supplier_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@Autowired
+	@Embedded
+    private Supplier primarySupplier;
+	
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+	/**
+	 * @return the primaryBarcode
+	 */
+	public String getPrimaryBarcode() {
+		return primaryBarcode;
+	}
+	/**
+	 * @param primaryBarcode the primaryBarcode to set
+	 */
+	public void setPrimaryBarcode(String primaryBarcode) {
+		this.primaryBarcode = primaryBarcode;
+	}
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
+	}
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	/**
+	 * @return the shortDescription
+	 */
+	public String getShortDescription() {
+		return shortDescription;
+	}
+	/**
+	 * @param shortDescription the shortDescription to set
+	 */
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
+	/**
+	 * @return the commonDescription
+	 */
+	public String getCommonDescription() {
+		return commonDescription;
+	}
+	/**
+	 * @param commonDescription the commonDescription to set
+	 */
+	public void setCommonDescription(String commonDescription) {
+		this.commonDescription = commonDescription;
+	}
+	/**
+	 * @return the standardUom
+	 */
+	public String getStandardUom() {
+		return standardUom;
+	}
+	/**
+	 * @param standardUom the standardUom to set
+	 */
+	public void setStandardUom(String standardUom) {
+		this.standardUom = standardUom;
+	}
+	/**
+	 * @return the packSize
+	 */
+	public double getPackSize() {
+		return packSize;
+	}
+	/**
+	 * @param packSize the packSize to set
+	 */
+	public void setPackSize(double packSize) {
+		this.packSize = packSize;
+	}
+	/**
+	 * @return the ingredients
+	 */
+	public String getIngredients() {
+		return ingredients;
+	}
+	/**
+	 * @param ingredients the ingredients to set
+	 */
+	public void setIngredients(String ingredients) {
+		this.ingredients = ingredients;
+	}
+	/**
+	 * @return the costPriceVatIncl
+	 */
+	public double getCostPriceVatIncl() {
+		return costPriceVatIncl;
+	}
+	/**
+	 * @param costPriceVatIncl the costPriceVatIncl to set
+	 */
+	public void setCostPriceVatIncl(double costPriceVatIncl) {
+		this.costPriceVatIncl = costPriceVatIncl;
+	}
+	/**
+	 * @return the costPriceVatExcl
+	 */
+	public double getCostPriceVatExcl() {
+		return costPriceVatExcl;
+	}
+	/**
+	 * @param costPriceVatExcl the costPriceVatExcl to set
+	 */
+	public void setCostPriceVatExcl(double costPriceVatExcl) {
+		this.costPriceVatExcl = costPriceVatExcl;
+	}
+	/**
+	 * @return the sellingPriceVatIncl
+	 */
+	public double getSellingPriceVatIncl() {
+		return sellingPriceVatIncl;
+	}
+	/**
+	 * @param sellingPriceVatIncl the sellingPriceVatIncl to set
+	 */
+	public void setSellingPriceVatIncl(double sellingPriceVatIncl) {
+		this.sellingPriceVatIncl = sellingPriceVatIncl;
+	}
+	/**
+	 * @return the sellingPriceVatExcl
+	 */
+	public double getSellingPriceVatExcl() {
+		return sellingPriceVatExcl;
+	}
+	/**
+	 * @param sellingPriceVatExcl the sellingPriceVatExcl to set
+	 */
+	public void setSellingPriceVatExcl(double sellingPriceVatExcl) {
+		this.sellingPriceVatExcl = sellingPriceVatExcl;
+	}
+	/**
+	 * @return the profitMargin
+	 */
+	public double getProfitMargin() {
+		return profitMargin;
+	}
+	/**
+	 * @param profitMargin the profitMargin to set
+	 */
+	public void setProfitMargin(double profitMargin) {
+		this.profitMargin = profitMargin;
+	}
+	/**
+	 * @return the vat
+	 */
+	public double getVat() {
+		return vat;
+	}
+	/**
+	 * @param vat the vat to set
+	 */
+	public void setVat(double vat) {
+		this.vat = vat;
+	}
+	/**
+	 * @return the discount
+	 */
+	public double getDiscount() {
+		return discount;
+	}
+	/**
+	 * @param discount the discount to set
+	 */
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
+	/**
+	 * @return the stock
+	 */
+	public double getStock() {
+		return stock;
+	}
+	/**
+	 * @param stock the stock to set
+	 */
+	public void setStock(double stock) {
+		this.stock = stock;
+	}
+	/**
+	 * @return the minimumStock
+	 */
+	public double getMinimumStock() {
+		return minimumStock;
+	}
+	/**
+	 * @param minimumStock the minimumStock to set
+	 */
+	public void setMinimumStock(double minimumStock) {
+		this.minimumStock = minimumStock;
+	}
+	/**
+	 * @return the maximumStock
+	 */
+	public double getMaximumStock() {
+		return maximumStock;
+	}
+	/**
+	 * @param maximumStock the maximumStock to set
+	 */
+	public void setMaximumStock(double maximumStock) {
+		this.maximumStock = maximumStock;
+	}
+	/**
+	 * @return the defaultReorderLevel
+	 */
+	public double getDefaultReorderLevel() {
+		return defaultReorderLevel;
+	}
+	/**
+	 * @param defaultReorderLevel the defaultReorderLevel to set
+	 */
+	public void setDefaultReorderLevel(double defaultReorderLevel) {
+		this.defaultReorderLevel = defaultReorderLevel;
+	}
+	/**
+	 * @return the defaultReorderQty
+	 */
+	public double getDefaultReorderQty() {
+		return defaultReorderQty;
+	}
+	/**
+	 * @param defaultReorderQty the defaultReorderQty to set
+	 */
+	public void setDefaultReorderQty(double defaultReorderQty) {
+		this.defaultReorderQty = defaultReorderQty;
+	}
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	/**
+	 * @return the sellable
+	 */
+	public String getSellable() {
+		return sellable;
+	}
+	/**
+	 * @param sellable the sellable to set
+	 */
+	public void setSellable(String sellable) {
+		this.sellable = sellable;
+	}
+	/**
+	 * @return the returnable
+	 */
+	public String getReturnable() {
+		return returnable;
+	}
+	/**
+	 * @param returnable the returnable to set
+	 */
+	public void setReturnable(String returnable) {
+		this.returnable = returnable;
+	}	
+	
+	
+}

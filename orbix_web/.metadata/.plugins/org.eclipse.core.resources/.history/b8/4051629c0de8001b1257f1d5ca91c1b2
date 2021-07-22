@@ -1,0 +1,185 @@
+package com.example.orbix_web.controllers;
+
+import java.util.List;
+import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.orbix_web.exceptions.InvalidOperationException;
+import com.example.orbix_web.exceptions.NotFoundException;
+import com.example.orbix_web.exceptions.ResourceNotFoundException;
+import com.example.orbix_web.models.Clas;
+import com.example.orbix_web.models.Department;
+import com.example.orbix_web.models.Product;
+import com.example.orbix_web.models.Role;
+import com.example.orbix_web.models.SubClass;
+import com.example.orbix_web.models.Supplier;
+import com.example.orbix_web.models.User;
+import com.example.orbix_web.repositories.RoleRepository;
+import com.example.orbix_web.repositories.UserRepository;
+
+@RestController
+@Service
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class UserServiceController {
+
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    RoleRepository roleRepository;
+    
+    // Get All Users
+    @RequestMapping(method = RequestMethod.GET, value = "/users", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+    
+    
+       
+    // Create a new User
+    @RequestMapping(method = RequestMethod.POST, value="/users/new", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public User createUser(@Valid @RequestBody User user ) throws Exception {
+    	Role role;
+    	try {
+    		String roleName = (user.getRole()).getName();
+    		role = roleRepository.findByName(roleName).get();
+    		role.setName(roleName);
+	    	roleRepository.save(role);
+	    	user.setRole(role);
+    	}catch(Exception e) {
+    		user.setRole(null);
+    	}		
+    	return userRepository.save(user);
+    }
+    //Update a user profile
+    @RequestMapping(method = RequestMethod.PUT, value="/users/edit/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public User updateUser(@PathVariable(value = "id") Long userId,
+            								@Valid @RequestBody User userDetails ) throws Exception {
+		User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+		if(user.getUsername().equals("default")) {
+			
+		}
+		Role role =new Role();
+    	try {
+    		String roleName = (user.getRole()).getName();
+    		role = roleRepository.findByName(roleName).get();
+    		role.setName(roleName);
+	    	roleRepository.save(role);
+	    	if(!user.getUsername().equals("default")) {
+				user.setRole(role);
+			}   		
+    	}catch(Exception e) {
+    		if(!user.getUsername().equals("default")) {
+    			user.setRole(null);
+    		}    		
+    	}
+    	if(!user.getUsername().equals("default")) {
+			user.setUsername(userDetails.getUsername());
+		}	
+		try {
+			if(userDetails.getPassword().length() > 0) {
+				user.setPassword(userDetails.getPassword());
+			}	
+		}catch(Exception e) {
+			
+		}		
+		user.setRollNo(userDetails.getRollNo());
+		user.setFirstName(userDetails.getFirstName());
+		user.setSecondName(userDetails.getSecondName());
+		user.setLastName(userDetails.getLastName());
+		user.setAccessToken(userDetails.getAccessToken());
+		user.setStatus(userDetails.getStatus());
+		
+    	return userRepository.saveAndFlush(user); 	
+    }
+    
+    // Get a Single User
+    @GetMapping("/users/{id}")
+    public User getUserById(@PathVariable(value = "id") Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+    }
+    
+ // Get a Single User by pay roll no
+    @GetMapping("/users/pay_roll_no={pay_roll_no}")
+    public User getUserByPayRollNo(@PathVariable(value = "pay_roll_no") String payRollNo) {
+        return userRepository.findByRollNo(payRollNo)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+    }
+
+    
+
+    // Delete a User
+    @RequestMapping(method = RequestMethod.DELETE, value="/users/delete/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long userId) {
+    	System.out.println(userId.toString());
+    	User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+    	if(user.getUsername().equals("default")) {
+    		return new ResponseEntity<>("Deleting the default user is not allowed", HttpStatus.OK);
+    	}
+    	userRepository.delete(user);
+    	return new ResponseEntity<>("User deleted successifully", HttpStatus.OK);
+    }
+	// Receives login req
+	@RequestMapping(method = RequestMethod.POST, value="/users/logins", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public User loginUser(@Valid @RequestBody User_ user_) throws Exception {
+    	User user = userRepository.findByUsername(user_.getUsername())
+                .orElseThrow(() -> new NotFoundException("User not found"));
+    	if(user.getPassword().equals(user_.getPassword())) {
+    		user.setPassword("");
+    		return user;
+    	}else {
+    		return new User();
+    	}	  
+    }
+    
+    public class User_{
+    	private String username;
+    	private String password;
+		/**
+		 * @return the username
+		 */
+		public String getUsername() {
+			return username;
+		}
+		/**
+		 * @param username the username to set
+		 */
+		public void setUsername(String username) {
+			this.username = username;
+		}
+		/**
+		 * @return the password
+		 */
+		public String getPassword() {
+			return password;
+		}
+		/**
+		 * @param password the password to set
+		 */
+		public void setPassword(String password) {
+			this.password = password;
+		}
+		
+    }
+}

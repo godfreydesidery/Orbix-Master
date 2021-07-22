@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;orbix_web&apos;&#x0D;&#x0A;- Original project: &apos;orbix_web&apos;&#x0D;&#x0A;- Original element: &apos;com.example.orbix_web.models.User_.java&apos;" description="Delete element" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.example.orbix_web.models{User_.java" elements="1" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1626643493024" subPackages="false" version="1.0"/>
+</session>

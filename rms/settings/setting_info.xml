@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+	<Database>
+		<Name>rmsdb2</Name>
+		<Address>127.0.0.1</Address>
+		<Password>rootroot</Password>
+		<UserID>root</UserID>
+	</Database>	
+</Settings>

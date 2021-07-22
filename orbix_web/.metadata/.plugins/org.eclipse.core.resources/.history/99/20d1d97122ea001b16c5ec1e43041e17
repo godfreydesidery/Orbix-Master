@@ -1,0 +1,363 @@
+/**
+ * 
+ */
+package com.example.orbix_web.controllers;
+
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.orbix_web.exceptions.NotFoundException;
+import com.example.orbix_web.models.Clas;
+import com.example.orbix_web.models.Department;
+import com.example.orbix_web.models.Item;
+import com.example.orbix_web.models.Product;
+import com.example.orbix_web.models.SubClass;
+import com.example.orbix_web.models.Supplier;
+import com.example.orbix_web.repositories.ClasRepository;
+import com.example.orbix_web.repositories.DepartmentRepository;
+import com.example.orbix_web.repositories.ItemRepository;
+import com.example.orbix_web.repositories.ProductRepository;
+import com.example.orbix_web.repositories.SubClassRepository;
+import com.example.orbix_web.repositories.SupplierRepository;
+
+/**
+ * @author GODFREY
+ *
+ */
+@RestController
+@Service
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class ProductServiceController {
+	@Autowired
+    ProductRepository productRepository;
+	@Autowired
+    SupplierRepository supplierRepository;
+	@Autowired
+    DepartmentRepository departmentRepository;
+	@Autowired
+    ClasRepository classRepository;
+	@Autowired
+    SubClassRepository subClassRepository;
+	
+	/**
+     * 
+     * @return array of items' long descriptions
+     */
+	//@Transactional
+    @RequestMapping(method = RequestMethod.GET, value="/products", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List <Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+	
+    //@Transactional
+    @RequestMapping(method = RequestMethod.GET, value="/products/descriptions", produces=MediaType.APPLICATION_JSON_VALUE)
+    public Iterable <Product> getAllProductsDescription() {
+        return productRepository.getDescription();
+    }
+	
+	@RequestMapping(method = RequestMethod.POST, value="/products/new", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Product createProduct(@Valid @RequestBody Product product ) throws Exception {
+		Supplier supplier;
+		try {
+    		String supplierName = (product.getPrimarySupplier()).getName();
+    		
+    		supplier = supplierRepository.findByName(supplierName).get();
+    		supplier.setName(supplierName);
+	    	supplierRepository.save(supplier);
+	    	product.setPrimarySupplier(supplier);
+    	}catch(Exception e) {
+    		product.setPrimarySupplier(null);
+    	}
+		Department department;
+		try {
+    		String departmentName = (product.getDepartment().getName());
+    		
+    		department = departmentRepository.findByName(departmentName).get();
+    		department.setName(departmentName);
+    		departmentRepository.save(department);
+	    	product.setDepartment(department);
+    	}catch(Exception e) {
+    		product.setDepartment(null);
+    	}
+		Clas clas;
+		try {
+    		String clasName = (product.getClas().getName());    		
+    		clas = classRepository.findByName(clasName).get();
+    		clas.setName(clasName);
+    		classRepository.save(clas);
+	    	product.setClas(clas);
+    	}catch(Exception e) {
+    		product.setClas(null);
+    	}
+		SubClass subClass;
+		try {
+    		String subClassName = (product.getSubClass().getName());    		
+    		subClass = subClassRepository.findByName(subClassName).get();
+    		subClass.setName(subClassName);
+    		subClassRepository.save(subClass);
+	    	product.setSubClass(subClass);
+    	}catch(Exception e) {
+    		product.setSubClass(null);
+    	}
+    	productRepository.saveAndFlush(product);
+    	return product;
+    }
+	
+	@RequestMapping(method = RequestMethod.PUT, value="/products/update_inventory/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Product updateInventory(@PathVariable(value = "id") Long productId,
+            								@Valid @RequestBody Product inventoryDetails ) throws Exception {
+		Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new NotFoundException("Item not found"));
+		product.setStock(inventoryDetails.getStock());
+		product.setMaximumStock(inventoryDetails.getMaximumStock()); 
+		product.setMinimumStock(inventoryDetails.getMinimumStock());
+		product.setDefaultReorderLevel(inventoryDetails.getDefaultReorderLevel());
+		product.setDefaultReorderQty(inventoryDetails.getDefaultReorderQty());			
+    	productRepository.saveAndFlush(product);
+    	System.out.println(product.getStock());
+    	System.out.println(inventoryDetails.getStock());
+    	return product;
+    }
+	@RequestMapping(method = RequestMethod.PUT, value="/products/edit/id={id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public Product updateProduct(@PathVariable(value = "id") Long productId,
+            								@Valid @RequestBody Product productDetails ) throws Exception {
+		Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new NotFoundException("Product not found"));
+		
+		Supplier supplier;
+		try {
+    		String supplierName = (productDetails.getPrimarySupplier()).getName();
+    		
+    		supplier = supplierRepository.findByName(supplierName).get();
+    		supplier.setName(supplierName);
+	    	supplierRepository.save(supplier);
+	    	product.setPrimarySupplier(supplier);
+    	}catch(Exception e) {
+    		product.setPrimarySupplier(null);
+    	}
+		
+		Department department;
+		try {
+    		String departmentName = (productDetails.getDepartment().getName());
+    		
+    		department = departmentRepository.findByName(departmentName).get();
+    		department.setName(departmentName);
+    		departmentRepository.save(department);
+    		product.setDepartment(department);
+    	}catch(Exception e) {
+    		product.setDepartment(null);
+    	}
+		Clas clas;
+		try {
+    		String clasName = (productDetails.getClas().getName());    		
+    		clas = classRepository.findByName(clasName).get();
+    		clas.setName(clasName);
+    		classRepository.save(clas);
+    		product.setClas(clas);
+    	}catch(Exception e) {
+    		product.setClas(null);
+    	}
+		SubClass subClass;
+		try {
+    		String subClassName = (productDetails.getSubClass().getName());  
+    		subClass = subClassRepository.findByName(subClassName).get();
+    		subClass.setName(subClassName);
+    		subClassRepository.save(subClass);
+    		product.setSubClass(subClass);
+    	}catch(Exception e) {
+    		product.setSubClass(null);
+    	}
+		/**
+		 * To avoid dirty wrinting the inventory
+		 */
+		product.setPrimaryBarcode(productDetails.getPrimaryBarcode());
+		product.setCode(productDetails.getCode());
+		product.setDescription(productDetails.getDescription());
+		product.setShortDescription(productDetails.getShortDescription());
+		product.setCommonDescription(productDetails.getCommonDescription());
+		product.setStandardUom(productDetails.getStandardUom());
+		product.setPackSize(productDetails.getPackSize());
+		product.setIngredients(productDetails.getIngredients());
+		product.setCostPriceVatIncl(productDetails.getCostPriceVatIncl());
+		product.setCostPriceVatExcl(productDetails.getCostPriceVatExcl());
+		product.setSellingPriceVatIncl(productDetails.getSellingPriceVatIncl());
+		product.setSellingPriceVatExcl(productDetails.getSellingPriceVatExcl());
+		product.setProfitMargin(productDetails.getProfitMargin());
+		product.setVat(productDetails.getVat());
+		product.setDiscount(productDetails.getDiscount());
+		product.setStatus(productDetails.getStatus());
+		product.setSellable(productDetails.getSellable());
+		product.setReturnable(productDetails.getReturnable());
+    	return productRepository.saveAndFlush(product); 	
+    }
+	
+	
+	@RequestMapping(method = RequestMethod.PUT, value="/products/edit/id={id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public Product updateProductByCode(@PathVariable(value = "code") String code,
+            								@Valid @RequestBody Product productDetails ) throws Exception {
+		Product product = productRepository.findByCode(code)
+                .orElseThrow(() -> new NotFoundException("Product not found"));		
+		Supplier supplier;
+		try {
+    		String supplierName = (productDetails.getPrimarySupplier()).getName();
+    		
+    		supplier = supplierRepository.findByName(supplierName).get();
+    		supplier.setName(supplierName);
+	    	supplierRepository.save(supplier);
+	    	product.setPrimarySupplier(supplier);
+    	}catch(Exception e) {
+    		product.setPrimarySupplier(null);
+    	}
+		
+		Department department;
+		try {
+    		String departmentName = (productDetails.getDepartment().getName());
+    		
+    		department = departmentRepository.findByName(departmentName).get();
+    		department.setName(departmentName);
+    		departmentRepository.save(department);
+    		product.setDepartment(department);
+    	}catch(Exception e) {
+    		product.setDepartment(null);
+    	}
+		Clas clas;
+		try {
+    		String clasName = (productDetails.getClas().getName());    		
+    		clas = classRepository.findByName(clasName).get();
+    		clas.setName(clasName);
+    		classRepository.save(clas);
+    		product.setClas(clas);
+    	}catch(Exception e) {
+    		product.setClas(null);
+    	}
+		SubClass subClass;
+		try {
+    		String subClassName = (productDetails.getSubClass().getName());  
+    		subClass = subClassRepository.findByName(subClassName).get();
+    		subClass.setName(subClassName);
+    		subClassRepository.save(subClass);
+    		product.setSubClass(subClass);
+    	}catch(Exception e) {
+    		product.setSubClass(null);
+    	}
+		/**
+		 * To avoid dirty wrinting the inventory
+		 */
+		product.setPrimaryBarcode(productDetails.getPrimaryBarcode());
+		product.setCode(productDetails.getCode());
+		product.setDescription(productDetails.getDescription());
+		product.setShortDescription(productDetails.getShortDescription());
+		product.setCommonDescription(productDetails.getCommonDescription());
+		product.setStandardUom(productDetails.getStandardUom());
+		product.setPackSize(productDetails.getPackSize());
+		product.setIngredients(productDetails.getIngredients());
+		product.setCostPriceVatIncl(productDetails.getCostPriceVatIncl());
+		product.setCostPriceVatExcl(productDetails.getCostPriceVatExcl());
+		product.setSellingPriceVatIncl(productDetails.getSellingPriceVatIncl());
+		product.setSellingPriceVatExcl(productDetails.getSellingPriceVatExcl());
+		product.setProfitMargin(productDetails.getProfitMargin());
+		product.setVat(productDetails.getVat());
+		product.setDiscount(productDetails.getDiscount());
+		product.setStatus(productDetails.getStatus());
+		product.setSellable(productDetails.getSellable());
+		product.setReturnable(productDetails.getReturnable());
+    	return productRepository.saveAndFlush(product); 	
+    }
+	
+	
+	
+	/**
+     * get item by barcode
+     * @param primaryBarcode
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/products/id={id}")
+    @Transactional
+    public Product getProductById(@PathVariable(value = "id") Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Product not found"));
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/products/barcode={barcode}")
+    @Transactional
+    public Product getProductByPrimaryBarcode(@PathVariable(value = "barcode") String barcode) {
+        return productRepository.findByPrimaryBarcode(barcode)
+                .orElseThrow(() -> new NotFoundException("Product not found"));
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/products/code={code}")
+    @Transactional
+    public Product getProductByCode(@PathVariable(value = "code") String code) {
+    	System.out.println("get success");
+        return productRepository.findByCode(code)
+                .orElseThrow(() -> new NotFoundException("Product not found"));
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/products/description={description}")
+    @Transactional
+    public Product getProductByDescription(@PathVariable(value = "description") String description) {
+    	System.out.println("get success");
+        return productRepository.findByDescription(description)
+                .orElseThrow(() -> new NotFoundException("Product not found"));
+    }
+    
+    /**
+     * @param productId
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.DELETE, value = "/products/delete/id={id}", produces = "text/html")
+    public ResponseEntity<?> deleteItem(@PathVariable(value = "id") Long productId) {
+    	Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new NotFoundException("Item not found"));
+    	//this.checkUsageBeforeDelete(product);
+    	try {
+    		productRepository.delete(product);
+    		return ResponseEntity.ok().build();
+    	}catch(Exception ex) {
+    		return new ResponseEntity<>("Could not delete item: "+ex.getMessage(),HttpStatus.EXPECTATION_FAILED);
+    	}
+    }
+    
+   
+    /**
+     * @param productCode
+     * @param supplierCode
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/products/is_supplied/product_code={product_code}&supplier_code={supplier_code}")
+    @Transactional
+    public boolean isSuppliedBySupplier(@PathVariable(value = "product_code") String productCode, @PathVariable(value = "supplier_code") String supplierCode) {
+    	try {
+	    		Optional<Supplier> supplier =supplierRepository.findByCode(supplierCode);
+	    	if(supplier.isPresent() == false) {
+	    		return false;
+	    	}
+	    	boolean present = productRepository.existsByCodeAndPrimarySupplier(productCode, supplier.get());
+	    	if(present == true) {
+	    		return true;
+	    	}
+    	}catch(Exception e) {
+    		return false;
+    	}    	
+        return false;
+    }
+}

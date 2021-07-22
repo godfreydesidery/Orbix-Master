@@ -1,0 +1,14 @@
+/**
+ * 
+ */
+package com.example.orbix_web.models;
+
+/**
+ * @author GODFREY
+ *
+ */
+public class User_ {
+	private String username;
+	private String password;
+	
+}

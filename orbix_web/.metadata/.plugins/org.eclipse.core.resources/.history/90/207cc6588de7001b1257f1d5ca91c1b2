@@ -1,0 +1,67 @@
+/**
+ * 
+ */
+package com.example.orbix_web.models;
+
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.envers.Audited;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.stereotype.Component;
+
+import com.example.orbix_web.database.Audit;
+
+/**
+ * @author GODFREY
+ *
+ */
+@Entity
+@Component
+@Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
+public class User extends Audit<String> {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+		
+	@NotBlank
+	@Column(unique = true)
+    private String username;
+	@NotBlank
+	@Column(unique = true)
+    private String rollNo;
+    private String firstName;
+    private String secondName;
+    private String lastName;
+    private String password;
+    private String accessToken;
+    private String status;
+    
+    @ManyToOne(targetEntity = Role.class, fetch = FetchType.EAGER,  optional = true)
+    @JoinColumn(name = "role_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@Autowired
+	@Embedded
+    private Role role;
+
+	
+	
+}

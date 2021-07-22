@@ -1,0 +1,52 @@
+/**
+ * 
+ */
+package com.example.orbix_web.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.orbix_web.exceptions.NotFoundException;
+import com.example.orbix_web.exceptions.ResourceNotFoundException;
+import com.example.orbix_web.models.Role;
+import com.example.orbix_web.repositories.RolePriveledgeRepository;
+import com.example.orbix_web.repositories.RoleRepository;
+
+/**
+ * @author GODFREY
+ *
+ */
+@RestController
+@Service
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class RolePriveledgeServiceController {
+	@Autowired
+    RoleRepository roleRepository;
+	@Autowired
+    RolePriveledgeRepository rolePriveledgeRepository;
+	
+	// Get All Priveledges by role
+    @RequestMapping(method = RequestMethod.GET, value = "/priveledges/role_name={role_name}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<Role> getAllRoles(@PathVariable(value = "role_name") String roleName) {
+    	Role role = roleRepository.findByName(roleName)
+                .orElseThrow(() -> new NotFoundException("Role not found"));
+        return rolePriveledgeRepository.findByRole(role);
+    }
+    
+ // Get a Single Role by name
+    @RequestMapping(method = RequestMethod.GET, value = "/priveledges/role_name={role_name}&name={name}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public Role getPriveledgeByRoleNameAndName(@PathVariable(value = "role_name") String roleName, @PathVariable(value = "name") String name) {
+        return roleRepository.findByName(roleName)
+                .orElseThrow(() -> new ResourceNotFoundException("Role", "rolename", roleName));
+    }
+ 
+	
+}

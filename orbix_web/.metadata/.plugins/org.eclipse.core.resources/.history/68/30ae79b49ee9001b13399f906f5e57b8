@@ -1,0 +1,40 @@
+/**
+ * 
+ */
+package com.example.orbix_web.repositories;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.example.orbix_web.models.Day;
+import com.example.orbix_web.models.Lpo;
+
+/**
+ * @author GODFREY
+ *
+ */
+@Repository
+public interface LpoRepository extends JpaRepository<Lpo, Long> {
+	/**
+	 * @return
+	 */
+	Lpo findTopByOrderByIdDesc();
+
+	/**
+	 * @param no
+	 * @return
+	 */
+	Optional<Lpo> findByNo(String no);
+
+	/**
+	 * @param statuses
+	 * @return
+	 */
+	@Query("SELECT s FROM Lpo l WHERE l.status IN (:statuses)")
+	List<Lpo> findAllByStatus(@Param("statuses") List<String> statuses);
+}

@@ -1,0 +1,65 @@
+/**
+ * 
+ */
+package com.example.orbix_web.models;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.stereotype.Component;
+
+import com.example.orbix_web.database.Audit;
+
+/**
+ * @author GODFREY
+ *
+ */
+@Component
+@Entity
+@Table(name = "products")
+@EntityListeners(AuditingEntityListener.class)
+public class Product extends Audit<String>{
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+	
+	@NotBlank
+	@Column(unique = true)
+    private String code;
+	@Column(unique = true)
+    private String primaryBarcode;
+	@NotBlank
+	@Column(unique = true)
+	private String description;
+	@NotBlank
+	private String shortDescription;
+	private String commonDescription;
+	private double costPriceVatExclusive;
+	private double costPriceVatInclusive;
+	private double sellingPriceVatExclusive;
+	private double sellingPriceVatInclusive;
+	private double vat;
+	private String uom;
+	private double packSize;
+	//vendor
+	private double unitCostPrice;
+	private double unitRetailPrice;
+	private double discount;
+	private double profitMargin;
+	private String standardUom;
+	private String status;
+	private String ingredients;
+	private double quantity;
+	private int returnPeriod;
+    private double maximumInventory;
+    private double minimumInventory;
+    private double defaultReOrderLevel;
+    private double reOrderQuantity;
+}

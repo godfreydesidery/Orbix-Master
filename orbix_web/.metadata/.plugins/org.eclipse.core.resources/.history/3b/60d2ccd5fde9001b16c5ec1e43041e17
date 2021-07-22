@@ -1,0 +1,181 @@
+/**
+ * 
+ */
+package com.example.orbix_web.controllers;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.orbix_web.accessories.Formater;
+import com.example.orbix_web.exceptions.MissingInformationException;
+import com.example.orbix_web.exceptions.NotFoundException;
+import com.example.orbix_web.exceptions.ResourceNotFoundException;
+import com.example.orbix_web.models.Clas;
+import com.example.orbix_web.models.Department;
+import com.example.orbix_web.repositories.ClasRepository;
+import com.example.orbix_web.repositories.DepartmentRepository;
+
+/**
+ * @author GODFREY
+ *
+ */
+@RestController
+@Service
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class ClassServiceController {
+
+    @Autowired
+    ClasRepository clasRepository;
+    @Autowired
+    DepartmentRepository departmentRepository;
+    
+    // Get All Classes
+    @GetMapping("/classes")
+    public List<Clas> getAllClasses() {
+        return clasRepository.findAll();
+    }
+    // Get All Classes
+    @RequestMapping(method = RequestMethod.GET, value = "/classes/department_name={department_name}")
+    public List<Clas> getAllDepartmentClasses(@PathVariable(value = "department_name") String department_name) {
+    	Department department = null;
+    	try {
+    		department = departmentRepository
+    				.findByName(department_name)
+    				.get();
+    		
+    	}catch(Exception e) {
+    		throw new NotFoundException("The "+department_name+" department does not exist");
+    	}
+    	
+        return clasRepository.findByDepartment(department);
+    }
+    
+    
+    
+    /**
+     * 
+     * @return array of classes' names
+     */
+    @GetMapping(value="/classes/class_names")
+    public Iterable<Clas> getAllClassByNames() {
+        return clasRepository.getNames();
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/classes/id={id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public Clas getById(@PathVariable(value = "id") Long id) {
+        return clasRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Class not found"));
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/classes/name={name}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public Clas getByName(@PathVariable(value = "name") String name) {
+        return clasRepository.findByName(name)
+                .orElseThrow(() -> new NotFoundException("Resource not found"));
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value="/classes/new", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Clas createClas(@Valid @RequestBody Clas clas ) throws Exception {    	
+    	Department department = departmentRepository.findByName(clas.getDepartment().getName())
+                .orElseThrow(() -> new MissingInformationException("Department required"));
+    	department.setName(clas.getDepartment().getName());
+    	departmentRepository.save(department);   	  	
+    	clas.setDepartment(department);
+    	
+    	String random = String.valueOf(Math.random()).replace(".", "");
+    	clas.setCode(random); 
+    	clasRepository.saveAndFlush(clas);    	
+    	String serial = clas.getId().toString();    	
+    	String code = Formater.formatFive(serial);
+    	clas.setCode(code); 
+    	clasRepository.saveAndFlush(clas);    	
+    	return clas;
+    }
+    @RequestMapping(method = RequestMethod.PUT, value="/classes/edit/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Clas updateClas(@PathVariable(value = "id") Long clasId,
+            								@Valid @RequestBody Clas clasDetails ) throws Exception {
+		Clas clas = clasRepository.findById(clasId)
+                .orElseThrow(() -> new NotFoundException("Class not found"));
+		clas = clasDetails;     		
+    	return clasRepository.saveAndFlush(clas);
+    }
+    
+    // Get a Single Class by class name
+    @GetMapping("/classes/class_name={class_name}")
+    public Clas getClassByClassName(@PathVariable(value = "class_name") String clasName) {
+    	
+        return clasRepository.findByName(clasName)
+                .orElseThrow(() -> new ResourceNotFoundException("Class", "class_name", clasName));
+    }
+    // Get a Single Class by class code
+    @GetMapping("/classes/class_code={class_code}")
+    public Clas getClassByClassCode(@PathVariable(value = "class_code") String clasCode) {
+        return clasRepository.findByCode(clasCode)
+                .orElseThrow(() -> new ResourceNotFoundException("Class", "class_code", clasCode));
+    }
+
+    // Get a Single Class
+    @GetMapping("/classes/{id}")
+    public Clas getClassById(@PathVariable(value = "id") Long clasId) {
+        return clasRepository.findById(clasId)
+                .orElseThrow(() -> new ResourceNotFoundException("Class", "id", clasId));
+    }
+
+    // Update a Class
+    @PutMapping("/classes/{id}")
+    public Clas updateClass(@PathVariable(value = "id") Long classId,
+                                            @Valid @RequestBody Clas clasDetails) {
+
+        Clas clas = clasRepository.findById(classId)
+                .orElseThrow(() -> new ResourceNotFoundException("Class", "id", classId));
+
+        clas = clasDetails;
+        
+    	Department department;
+    	try {
+    		String departmentName = (clas.getDepartment()).getName();
+    		department = departmentRepository.findByName(departmentName).get();
+    		department.setName(departmentName);
+	    	departmentRepository.save(department);
+	    	clas.setDepartment(department);
+    	}catch(Exception e) {
+    		clas.setDepartment(null);
+    	}
+
+        Clas updatedClass = clasRepository.save(clas);
+        return updatedClass;
+    }
+
+    // Delete a Department
+    @DeleteMapping("/classes/{id}")
+    public ResponseEntity<?> deleteClass(@PathVariable(value = "id") Long clasId) {
+    	Clas clas = clasRepository.findById(clasId)
+                .orElseThrow(() -> new ResourceNotFoundException("Class", "id", clasId));
+
+    	clasRepository.delete(clas);
+
+        return ResponseEntity.ok().build();
+    }
+}

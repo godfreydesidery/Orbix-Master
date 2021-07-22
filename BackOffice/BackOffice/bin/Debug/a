@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+  <Server>
+    <Address></Address>
+  </Server>
+  <Printer>
+    <Fiscal_printer>
+      <Enabled_fiscal>True</Enabled_fiscal>
+    </Fiscal_printer>
+    <POS_printer>
+      <Enabled_POS>True</Enabled_POS>
+    </POS_printer>
+  </Printer>
+</Settings>

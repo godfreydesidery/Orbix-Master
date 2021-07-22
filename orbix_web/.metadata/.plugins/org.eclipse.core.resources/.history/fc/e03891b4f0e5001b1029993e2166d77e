@@ -1,0 +1,57 @@
+/**
+ * 
+ */
+package com.example.orbix_web.models;
+
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.envers.Audited;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.stereotype.Component;
+
+import com.example.orbix_web.database.Audit;
+
+/**
+ * @author GODFREY
+ *
+ */
+@Component
+@Entity
+@Table(name = "company_profile")
+@EntityListeners(AuditingEntityListener.class)
+@Embeddable
+public class CompanyProfile extends Audit<String> {  
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+	@NotBlank
+    private String name;
+	private String contactName;
+	private String key;
+	@Lob
+    private Byte[] logo;
+    private String tin;
+    private String vrn;
+    private String physicalAddress;
+    private String postCode;
+    private String postAddress;
+    private String telephone; 
+    private String mobile;
+    private String email;
+    private String fax;
+    private String bankAccountName;
+    private String bankAddress;
+    private String bankPostCode;
+    private String bankName;
+    private String bankAccountNo;
+	
+}
+

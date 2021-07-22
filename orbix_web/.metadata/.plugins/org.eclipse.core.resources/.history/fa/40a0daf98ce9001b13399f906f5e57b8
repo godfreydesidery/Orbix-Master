@@ -1,0 +1,438 @@
+/**
+ * 
+ */
+package com.example.orbix_web.controllers;
+
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.PostPersist;
+import javax.persistence.PrePersist;
+import javax.swing.text.html.Option;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.orbix_web.accessories.Formater;
+import com.example.orbix_web.exceptions.InvalidEntryException;
+import com.example.orbix_web.exceptions.InvalidOperationException;
+import com.example.orbix_web.exceptions.MissingInformationException;
+import com.example.orbix_web.exceptions.NotFoundException;
+import com.example.orbix_web.exceptions.ResourceNotFoundException;
+import com.example.orbix_web.models.Day;
+import com.example.orbix_web.models.Lpo;
+import com.example.orbix_web.models.LpoDetail;
+import com.example.orbix_web.models.Supplier;
+import com.example.orbix_web.models.User;
+import com.example.orbix_web.repositories.DayRepository;
+import com.example.orbix_web.repositories.LpoDetailRepository;
+import com.example.orbix_web.repositories.LpoRepository;
+import com.example.orbix_web.repositories.SupplierRepository;
+import com.example.orbix_web.repositories.UserRepository;
+
+/**
+ * @author GODFREY
+ *
+ */
+@RestController
+@Service
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class LpoServiceController {
+
+	@Autowired
+    UserRepository userRepository;
+    @Autowired
+    LpoRepository lpoRepository;
+    @Autowired
+    LpoDetailRepository lpoDetailRepository;
+    @Autowired
+    DayRepository dayRepository;
+    @Autowired
+    SupplierRepository supplierRepository;
+    
+    // Get All LPOs
+    @RequestMapping(method = RequestMethod.GET, value = "/lpos", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<Lpo> getAllLpos() {
+        return lpoRepository.findAll();
+    }
+    
+ // Get All LPOs
+    @RequestMapping(method = RequestMethod.GET, value = "/lpo_details/lpo_id={lpo_id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<LpoDetail> getAllLpoDetailsByLpo(@PathVariable(value = "lpo_id") Long lpoId) {
+    	Optional<Lpo> lpo = lpoRepository.findById(lpoId);
+    	if(lpo.isPresent() == true) {
+    		return lpoDetailRepository.findByLpo(lpo.get());
+    	}
+        return null;
+    }
+    
+     //Create a new LPO
+    @RequestMapping(method = RequestMethod.POST, value = "/lpos/new", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional(noRollbackFor = Exception.class)
+    public Lpo createLpo(@Valid @RequestBody Lpo lpo) {
+    	LocalDate issueDate = lpo.getIssueDate();	
+    	Optional<Supplier> supplier;
+    	String supplierName = (lpo.getSupplier()).getName();
+    	supplier = supplierRepository.findByName(supplierName);
+//    	if(supplier != null) {
+//    		supplierRepository.save(supplier.get());
+//    		lpo.setSupplier(supplier.get());
+//    	}else {
+//    		lpo.setSupplier(null);
+//    	}
+    	lpo.setSupplier(null);
+    	Optional<User> createdUser;
+    	Long createdUserId = (lpo.getCreatedUser().getId());
+    	createdUser = userRepository.findById(createdUserId);
+    	if(createdUser != null) {
+    		userRepository.save(createdUser.get());
+    		lpo.setCreatedUser(createdUser.get());
+    	}else {
+    		lpo.setCreatedUser(null);
+    	}
+    	lpo.setApprovedUser(null);
+    	lpo.setCompletedUser(null);
+    	    	
+    	//Day day = dayRepository.findTopByOrderByIdDesc(); 	
+    	LocalDate systemDate =LocalDate.now(); //day.getSystemDate();
+    	System.out.println(systemDate);
+    	if(issueDate == null) {
+    		throw new MissingInformationException("Date required");
+    	}else if(!issueDate.equals(systemDate)) {
+    		throw new InvalidEntryException("Date does not match with System date");
+    	}  
+    	List<LpoDetail> lpoDetails = lpo.getLpoDetails();
+    	
+    	lpo.setIssueDate(systemDate);
+    	lpo.setStatus("PENDING");
+    	String serial;
+    	try {
+    		serial = String.valueOf(lpoRepository.findTopByOrderByIdDesc().getId()+1);
+    	}catch(Exception e) {
+    		serial = "1";
+    	}   	
+    	String lpoNo = "LPO-"+Formater.formatNine(serial);
+    	lpo.setNo(lpoNo); 
+    	lpoRepository.save(lpo);
+//    	if(lpoDetails != null) {   		
+//    		for(LpoDetail detail : lpoDetails) {
+//    			LpoDetail _lpoDetail = new LpoDetail();
+//    			_lpoDetail.setLpo(lpo);
+//    			_lpoDetail.setId(detail.getId());
+//    			_lpoDetail.setBarcode(detail.getBarcode());
+//    			_lpoDetail.setCode(detail.getCode());
+//    			_lpoDetail.setDescription(detail.getDescription());
+//    			_lpoDetail.setCostPrice(detail.getCostPrice());
+//    			_lpoDetail.setQty(detail.getQty());
+//    			_lpoDetail.setPackSize(detail.getPackSize());
+//    			System.out.println(detail.getDescription().toString());
+//    			lpoDetailRepository.save(_lpoDetail);
+//    		}
+//    	}
+        return lpoRepository.findById(lpo.getId()).get();
+    }
+    
+    
+  //Create a new LPO
+    @RequestMapping(method = RequestMethod.PUT, value = "/lpos/edit/id={id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional(noRollbackFor = Exception.class)
+    public Lpo updateLpo(@Valid @RequestBody Lpo lpo, @PathVariable(value = "id") Long id) {
+    	try {
+			Lpo lpo_;
+			if(lpoRepository.findById(id).isPresent()) {
+				lpo_ = lpoRepository.findById(id).get();
+				lpo_.setComment(lpo.getComment());
+				return lpoRepository.saveAndFlush(lpo_);
+			} else {
+				throw new NotFoundException("LPO not found");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new NotFoundException("Could not load LPO");
+		}
+    }
+    
+     
+    
+    
+    
+    
+    //Create or edit lpo detail
+    @RequestMapping(method = RequestMethod.POST, value = "/lpo_details/new_or_edit", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional(noRollbackFor = Exception.class)
+    public List<LpoDetail> createOrEditLpoDetail(@Valid @RequestBody LpoDetail lpoDetail) {    	
+    	Long lpoId = lpoDetail.getLpo().getId();
+    	if(lpoId == null) {
+    		throw new MissingInformationException("LPO not selected");
+    	}
+    	if(lpoDetail.getCode().equals("")) {
+    		throw new MissingInformationException("Product code required");
+    	}
+    	if(lpoDetail.getQty() <= 0) {
+    		throw new InvalidEntryException("Invalid entry in qty, qty should be more than zero");
+    	}
+    	Lpo lpo = lpoRepository.findById(lpoId).get();
+    	String code = lpoDetail.getCode();
+    	Optional<LpoDetail> lpoDetail_ = lpoDetailRepository.findByLpoAndCode(lpo, code);  	
+    	if(lpoDetail_.isPresent() == true) {    		
+    		lpoDetail_.get().setDescription(lpoDetail.getDescription());
+    		lpoDetail_.get().setQty(lpoDetail.getQty());
+    		lpoDetail_.get().setCostPrice(lpoDetail.getCostPrice());
+    		lpoDetail_.get().setPackSize(lpoDetail.getPackSize());
+    		lpoDetailRepository.save(lpoDetail_.get());
+    	}else {
+    		lpoDetailRepository.save(lpoDetail);
+    	}
+    	return lpoDetailRepository.findByLpo(lpo);   	
+    }
+    
+    
+    
+    
+    // Get a Single LPO
+    /**
+     * @param lpoId
+     * @return
+     */
+    @Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/lpos/id={id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public Lpo getLpoById(@PathVariable(value = "id") Long lpoId) {
+        return lpoRepository.findById(lpoId)
+                .orElseThrow(() -> new NotFoundException("LPO not found"));
+    }
+    
+    @Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/lpos/no={no}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public Lpo getLpoByNo(@PathVariable(value = "no") String no) {
+        return lpoRepository.findByNo(no)
+                .orElseThrow(() -> new NotFoundException("LPO not found"));
+    }
+    
+    @Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/lpos/exist/id={id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public boolean isLpoExistById(@PathVariable(value = "id") Long id) {
+    	try {
+			Optional<Lpo> lpo =lpoRepository.findById(id);
+			if(lpo.isPresent() == true) {
+				return true;
+			}
+			return false;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block			
+			e.printStackTrace();
+			return false;
+		}    	
+    }
+    
+    @Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/lpos/get_status/id={id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public String getLpoStatusById(@PathVariable(value = "id") Long lpoId) {
+    	try {
+			return lpoRepository.findById(lpoId).get().getStatus();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return "";
+		}
+        
+    }
+    
+//    // Get a Single LPO by lpo no
+//    @Transactional
+//    @RequestMapping(method = RequestMethod.GET, value = "/lpos/lpo_no={lpo_no}")
+//    public Lpo getLpoByLpoNo(@PathVariable(value = "lpo_no") String lpoNo) {
+//        return lpoRepository.findByLpoNo(lpoNo)
+//                .orElseThrow(() -> new NotFoundException("LPO not found"));
+//    }
+    // Update a LPO
+    @Transactional
+    @RequestMapping(method = RequestMethod.PUT, value = "/lpos/{id}", produces = "text/html")
+    public ResponseEntity<Object> updateLpo(@PathVariable(value = "id") Long lpoId,
+                                            @Valid @RequestBody Lpo lpoDetails) {
+    	Lpo lpo = lpoRepository.findById(lpoId)
+                .orElseThrow(() -> new NotFoundException("LPO not found"));
+    	lpo = lpoDetails;
+    	try {
+    		lpoRepository.save(lpo);
+    		return new ResponseEntity<>("LPO updated", HttpStatus.OK);
+    	}catch(Exception e) {
+    		return new ResponseEntity<>("Could not update LPO, "+e.getMessage(), HttpStatus.EXPECTATION_FAILED);
+    	}
+    }
+    //Approve LPO
+    @Transactional
+    @RequestMapping(method = RequestMethod.PUT, value = "/lpos/approve/id={id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean approveLpo(@PathVariable(value = "id") Long lpoId) {
+		try {
+			Lpo lpo = lpoRepository.findById(lpoId)
+			.orElseThrow(() -> new NotFoundException("LPO not found"));
+			if(lpo.getStatus().equals("PENDING")) {
+				lpo.setStatus("APPROVED");
+				lpoRepository.save(lpo);
+				return true;
+			}else {
+				throw new InvalidOperationException("Could not approve, Only pending LPO can be approved");
+			}
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+    
+    //Cancel LPO
+    @Transactional
+    @RequestMapping(method = RequestMethod.PUT, value = "/lpos/cancel/id={id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean cancelLpo(@PathVariable(value = "id") Long lpoId) {
+		try {
+			Lpo lpo = lpoRepository.findById(lpoId)
+			.orElseThrow(() -> new NotFoundException("LPO not found"));
+			if(lpo.getStatus().equals("PENDING") || lpo.getStatus().equals("APPROVED")) {
+				lpo.setStatus("CANCELED");
+				lpoRepository.save(lpo);
+				return true;
+			}else {
+				throw new InvalidOperationException("Could not cancel, Only pending LPO can be canceled");
+			}
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+    
+  //Cancel LPO
+    @Transactional
+    @RequestMapping(method = RequestMethod.PUT, value = "/lpos/print/id={id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean printLpo(@PathVariable(value = "id") Long lpoId) {
+		try {
+			Lpo lpo = lpoRepository.findById(lpoId)
+			.orElseThrow(() -> new NotFoundException("LPO not found"));
+			if(lpo.getStatus().equals("APPROVED")) {
+				lpo.setStatus("PRINTED");
+				lpoRepository.save(lpo);
+				return true;
+			}else if(lpo.getStatus().equals("PRINTED") || lpo.getStatus().equals("REPRINTED")){
+				lpo.setStatus("REPRINTED");
+				lpoRepository.save(lpo);
+				return true;
+			}else {
+				throw new InvalidOperationException("Could not print, Only printed or reprinted LPO can be printed");
+			}
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+    
+//    //Archive LPO
+//    @Transactional
+//    @RequestMapping(method = RequestMethod.PUT, value = "/lpos/archive/id={id}", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public boolean archiveLpo(@PathVariable(value = "id") Long lpoId) {
+//		try {
+//			Lpo lpo = lpoRepository.findById(lpoId)
+//			.orElseThrow(() -> new NotFoundException("LPO not found"));
+//			if(lpo.getStatus().equals("COMPLETED")) {
+//				lpo.setStatus("ARCHIVED");
+//				lpoRepository.save(lpo);
+//				return true;
+//			}else {
+//				throw new InvalidOperationException("Could not archive, Only completed LPO can be archived");
+//			}
+//		} catch (NotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return false;
+//		}
+//	}
+    
+//    //Print LPO
+//    @Transactional
+//    @RequestMapping(method = RequestMethod.PUT, value = "/lpos/print/{id}", produces = "text/html")
+//    public ResponseEntity<Object> printLpo(@PathVariable(value = "id") Long lpoId) {
+//		Lpo lpo = lpoRepository.findById(lpoId)
+//		.orElseThrow(() -> new NotFoundException("LPO not found"));
+//		String status = lpo.getStatus();
+//		if(status.equals("APPROVED")) {
+//			lpo.setStatus("PRINTED");
+//			lpoRepository.save(lpo);
+//			return new ResponseEntity<Object>("LPO printed successifully.", HttpStatus.OK);
+//		}else if(status.equals("PRINTED") || status.equals("REPRINTED")) {
+//			lpo.setStatus("REPRINTED");
+//			lpoRepository.save(lpo);
+//			return new ResponseEntity<Object>("LPO reprinted successifully.", HttpStatus.OK);
+//		}else {
+//			throw new InvalidOperationException("Could not approve, Only approved/Printed/Reprinted LPO can be printed");
+//		}
+//	}
+//    //Cancel LPO
+//    @Transactional
+//    @RequestMapping(method = RequestMethod.PUT, value = "/lpos/cancel/{id}", produces = "text/html")
+//    public ResponseEntity<Object> cancelLpo(@PathVariable(value = "id") Long lpoId) {
+//		Lpo lpo = lpoRepository.findById(lpoId)
+//		.orElseThrow(() -> new NotFoundException("LPO not found"));
+//		String status = lpo.getStatus();
+//		if(status.equals("PENDING") || status.equals("APPROVED") || status.equals("BLANK")) {
+//			lpo.setStatus("CANCELLED");
+//			lpoRepository.save(lpo);
+//			return new ResponseEntity<Object>("LPO cancelled.", HttpStatus.OK);
+//		}else if(status.equals("CANCELLED")) {
+//			throw new InvalidOperationException("Could not cancel, LPO already canceled.");
+//		}else if(status.equals("PRINTED") || status.equals("REPRINTED")) {
+//			throw new InvalidOperationException("Can not cancel a printed LPO.");			
+//		}else {
+//			throw new InvalidOperationException("Could not cancel, status unknown");
+//		}
+//	}
+    // Delete a LPO
+    @Transactional
+    @RequestMapping(method = RequestMethod.DELETE, value = "/lpos/{id}", produces = "text/html")
+    public ResponseEntity<?> deleteLPO(@PathVariable(value = "id") Long lpoId) {
+    	Lpo lpo = lpoRepository.findById(lpoId)
+                .orElseThrow(() -> new NotFoundException("LPO not found"));
+    	try {
+    		String status = lpo.getStatus();
+    		if(status.equals("PRINTED") || status.equals("REPRINTED") || status.equals("COMPLETED")) {
+    			throw new InvalidOperationException("Could not delete, LPO already printed. Only BLANK, PENDING, APPROVED  and ARCHIVED LPOs can be deleted.");
+    		}else {
+    			lpoRepository.delete(lpo);
+    			return new ResponseEntity<>("LPO deleted successifully.", HttpStatus.OK);
+    		}
+    	}catch(Exception ex) {
+    		throw new InvalidOperationException("Could not delete LPO: "+ex.getMessage());
+    	}    	
+    }
+    
+    // Delete a LPO
+    @Transactional
+    @RequestMapping(method = RequestMethod.DELETE, value = "/lpo_details/id={id}", produces = "text/html")
+    public ResponseEntity<?> deleteLPODetail(@PathVariable(value = "id") Long lpoDetailId) {
+    	LpoDetail lpoDetail = lpoDetailRepository.findById(lpoDetailId)
+                .orElseThrow(() -> new NotFoundException("LPO Detail not found"));
+    	lpoDetailRepository.delete(lpoDetail);
+    	return new ResponseEntity<>("LPO deleted successifully.", HttpStatus.OK);  	 	
+    }
+}
