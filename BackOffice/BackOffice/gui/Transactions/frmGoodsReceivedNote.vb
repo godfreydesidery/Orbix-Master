@@ -345,6 +345,7 @@ Public Class frmGoodsReceivedNote
         Return vbNull
     End Function
     Private Sub createDocument(doc As Document, grnNo As String, orderNo As String, invoiceNo As String, supplierCode As String, date_ As String, grnAmount As String)
+
         'Each MigraDoc document needs at least one section.
         Dim section As Section = doc.AddSection()
         section.PageSetup.DifferentFirstPageHeaderFooter = True
@@ -352,7 +353,7 @@ Public Class frmGoodsReceivedNote
         doc.FootnoteStartingNumber() = 1
         paragraph = section.Footers.Primary.AddParagraph()
         Dim _datetime As String = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
-        paragraph.AddText("Printed :" & _datetime + " By :" & User.CURRENT_ALIAS & " From :" & Company.name)
+        paragraph.AddText("Printed :" & _datetime + " By :" & User.CURRENT_ALIAS & " From :" & Company.GL_NAME)
         paragraph.Format.Font.Size = 8
         paragraph.Format.Alignment = ParagraphAlignment.Center
         paragraph.Format.Font.Color = Colors.GreenYellow
@@ -385,7 +386,7 @@ Public Class frmGoodsReceivedNote
         headerRow.Format.Alignment = ParagraphAlignment.Center
         headerRow.Borders.Color = Colors.White
         Try
-            Dim logo As New System.IO.MemoryStream(CType(Company.logo, Byte()))
+            Dim logo As New System.IO.MemoryStream(CType(Company.GL_LOGO, Byte()))
             logoImage = Image.FromStream(logo)
             logoPath = My.Computer.FileSystem.SpecialDirectories.MyDocuments + "TempDocumentLogo.png"
             If My.Computer.FileSystem.FileExists(logoPath) Then
@@ -400,23 +401,23 @@ Public Class frmGoodsReceivedNote
         End Try
         headerRow.Cells(1).AddParagraph("")
         Dim companyName As New Paragraph
-        companyName.AddText(Company.name + Environment.NewLine)
+        companyName.AddText(Company.GL_NAME + Environment.NewLine)
         companyName.Format.Font.Bold = True
         companyName.Format.Font.Size = 9
         Dim physicalAddress As New Paragraph
-        physicalAddress.AddText(Company.PHYSICAL_ADDRESS + Environment.NewLine)
+        physicalAddress.AddText(Company.GL_PHYSICAL_ADDRESS + Environment.NewLine)
         physicalAddress.Format.Font.Size = 8
         Dim address As New Paragraph
-        address.AddText(Company.ADDRESS + Environment.NewLine)
+        address.AddText(Company.GL_POST_ADDRESS + Environment.NewLine)
         address.Format.Font.Size = 8
         Dim postCode As New Paragraph
-        postCode.AddText(Company.POST_CODE + Environment.NewLine)
+        postCode.AddText(Company.GL_POST_CODE + Environment.NewLine)
         postCode.Format.Font.Size = 8
         Dim telephone As New Paragraph
-        telephone.AddText("Tel: " + Company.telephone + " Mob:" + Company.mobile + Environment.NewLine)
+        telephone.AddText("Tel: " + Company.GL_TELEPHONE + " Mob:" + Company.GL_MOBILE + Environment.NewLine)
         telephone.Format.Font.Size = 7
         Dim email As New Paragraph
-        email.AddText("Email: " + Company.email + Environment.NewLine)
+        email.AddText("Email: " + Company.GL_EMAIL + Environment.NewLine)
         email.Format.Font.Size = 7
         email.Format.Font.Italic = True
         headerRow.Cells(2).Add(companyName)
