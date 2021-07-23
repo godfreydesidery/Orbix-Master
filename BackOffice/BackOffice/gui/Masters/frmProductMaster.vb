@@ -469,7 +469,7 @@ Public Class frmProductMaster
                 btnSave.Enabled = False
                 Dim res As Integer = MsgBox("Product successifully saved. Edit inventory?", vbQuestion + vbYesNo, "Success: Product saved.")
                 If res = DialogResult.Yes Then
-                    response = Web.get_("products/id=" + txtId.Text)
+                    response = Web.get_("products/get_by_id?id=" + txtId.Text)
                     json = JObject.Parse(response)
                     product = JsonConvert.DeserializeObject(Of Product)(json.ToString)
                     Product.GLOBAL_PRODUCT = product
@@ -478,11 +478,11 @@ Public Class frmProductMaster
                     clearAll()
                 End If
             Else
-                If Web.put(product, "products/edit/id=" + txtId.Text) = True Then
+                If Web.put(product, "products/edit_by_id?id=" + txtId.Text) = True Then
                     btnSave.Enabled = False
                     Dim res As Integer = MsgBox("Product successifully modified. Edit inventory?", vbQuestion + vbYesNo, "Success: Product modified.")
                     If res = DialogResult.Yes Then
-                        response = Web.get_("products/id=" + txtId.Text)
+                        response = Web.get_("products/get_by_id?id=" + txtId.Text)
                         json = JObject.Parse(response)
                         product = JsonConvert.DeserializeObject(Of Product)(json.ToString)
                         Product.GLOBAL_PRODUCT = product
@@ -521,22 +521,13 @@ Public Class frmProductMaster
         Dim json As JObject = New JObject
         Try
             If txtPrimaryBarcode.Text <> "" Then
-                response = Web.get_("products/barcode=" + txtPrimaryBarcode.Text)
+                response = Web.get_("products/get_by_barcode?barcode=" + txtPrimaryBarcode.Text)
                 json = JObject.Parse(response)
-
-                ' If searchByBarCode(txtPrimaryBarcode.Text) = True Then
-                'itemCode = txtCode.Text
-                'Dim barcodes As List(Of String) = (New Item).getBarCodes(itemCode)
-                'lstBarCodes.Items.Clear()
-                'For i As Integer = 0 To barcodes.Count - 1
-                'lstBarCodes.Items.Add(barcodes.ElementAt(i))
-                'Next
-                'End If
             ElseIf txtCode.Text <> "" Then
-                response = Web.get_("products/code=" + txtCode.Text)
+                response = Web.get_("products/get_by_code?code=" + txtCode.Text)
                 json = JObject.Parse(response)
             ElseIf cmbDescription.Text <> "" Then
-                response = Web.get_("products/description=" + cmbDescription.Text)
+                response = Web.get_("products/get_by_description?description=" + cmbDescription.Text)
                 json = JObject.Parse(response)
             End If
         Catch ex As Exception
@@ -610,8 +601,6 @@ Public Class frmProductMaster
     End Function
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         search()
-
-
     End Sub
     Public Shared GLOBAL_ITEM_CODE As String = ""
     Private Sub btnAddBarcode_Click(sender As Object, e As EventArgs) Handles btnAddBarcode.Click
@@ -663,7 +652,7 @@ Public Class frmProductMaster
         'Return False
         Try
             Dim response As String
-            response = Web.delete("products/delete/id=" + txtId.Text)
+            response = Web.delete("products/delete_by_id?id=" + txtId.Text)
             success = True
             clearAll()
             MsgBox("Product successifully deleted", vbOKOnly + vbInformation, "Success: Delete success")
