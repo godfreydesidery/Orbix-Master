@@ -23,7 +23,7 @@ Partial Class frmReturnToVendor
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmReturnToVendor))
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.cmbDescription = New System.Windows.Forms.ComboBox()
         Me.txtQtyDamaged = New System.Windows.Forms.TextBox()
@@ -60,20 +60,18 @@ Partial Class frmReturnToVendor
         Me.btnApprove = New System.Windows.Forms.ToolStripButton()
         Me.btnPrint = New System.Windows.Forms.ToolStripButton()
         Me.btnComplete = New System.Windows.Forms.ToolStripButton()
-        Me.btnClearDebt = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnArchive = New System.Windows.Forms.ToolStripButton()
         Me.btnArchiveAll = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btnPrintReport = New System.Windows.Forms.ToolStripButton()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.txtRtvNo = New System.Windows.Forms.TextBox()
+        Me.txtIssueDate = New System.Windows.Forms.TextBox()
+        Me.txtSupplierCode = New System.Windows.Forms.TextBox()
+        Me.txtStatus = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.cmbSupplierName = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -89,6 +87,10 @@ Partial Class frmReturnToVendor
         Me.Label7 = New System.Windows.Forms.Label()
         Me.TextBox7 = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtComments = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.TextBox9 = New System.Windows.Forms.TextBox()
         Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -96,11 +98,8 @@ Partial Class frmReturnToVendor
         Me.Column16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column19 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TextBox8 = New System.Windows.Forms.TextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.TextBox9 = New System.Windows.Forms.TextBox()
         Me.Panel2.SuspendLayout()
         CType(Me.dtgrdItemList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtgrdPackingLists, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -327,7 +326,7 @@ Partial Class frmReturnToVendor
         Me.dtgrdItemList.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         Me.dtgrdItemList.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dtgrdItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dtgrdItemList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.Column7, Me.Column15, Me.Column16, Me.Column17, Me.Column18, Me.Column19})
+        Me.dtgrdItemList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.Column7, Me.Column15, Me.Column16, Me.Column17, Me.Column18, Me.Column1, Me.Column19})
         Me.dtgrdItemList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dtgrdItemList.Location = New System.Drawing.Point(441, 317)
         Me.dtgrdItemList.Name = "dtgrdItemList"
@@ -366,7 +365,7 @@ Partial Class frmReturnToVendor
         'ToolStrip1
         '
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnNew, Me.btnEdit, Me.btnClear, Me.btnSave, Me.ToolStripSeparator1, Me.ToolStripSeparator2, Me.ToolStripSeparator3, Me.ToolStripSeparator4, Me.btnCancel, Me.btnApprove, Me.btnPrint, Me.btnComplete, Me.btnClearDebt, Me.ToolStripSeparator6, Me.btnArchive, Me.btnArchiveAll, Me.ToolStripSeparator5, Me.btnPrintReport})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnNew, Me.btnEdit, Me.btnClear, Me.btnSave, Me.ToolStripSeparator1, Me.ToolStripSeparator2, Me.ToolStripSeparator3, Me.ToolStripSeparator4, Me.btnCancel, Me.btnApprove, Me.btnPrint, Me.btnComplete, Me.ToolStripSeparator6, Me.btnArchive, Me.btnArchiveAll, Me.ToolStripSeparator5})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(1520, 27)
@@ -465,16 +464,6 @@ Partial Class frmReturnToVendor
         Me.btnComplete.Text = "Complete and post"
         Me.btnComplete.ToolTipText = "Complete sales made from the packing list"
         '
-        'btnClearDebt
-        '
-        Me.btnClearDebt.Enabled = False
-        Me.btnClearDebt.Image = Global.BackOffice.My.Resources.Resources.money
-        Me.btnClearDebt.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnClearDebt.Name = "btnClearDebt"
-        Me.btnClearDebt.Size = New System.Drawing.Size(92, 24)
-        Me.btnClearDebt.Text = "Pay Debt"
-        Me.btnClearDebt.ToolTipText = "Receive debts from sales persons"
-        '
         'ToolStripSeparator6
         '
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
@@ -503,68 +492,59 @@ Partial Class frmReturnToVendor
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
         Me.ToolStripSeparator5.Size = New System.Drawing.Size(6, 27)
         '
-        'btnPrintReport
-        '
-        Me.btnPrintReport.Image = Global.BackOffice.My.Resources.Resources.printer
-        Me.btnPrintReport.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnPrintReport.Name = "btnPrintReport"
-        Me.btnPrintReport.Size = New System.Drawing.Size(112, 24)
-        Me.btnPrintReport.Text = "Print Report"
-        Me.btnPrintReport.ToolTipText = "Print packing list as report to pdf"
-        '
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel1.Controls.Add(Me.Label10)
         Me.Panel1.Controls.Add(Me.TextBox9)
         Me.Panel1.Controls.Add(Me.Label9)
-        Me.Panel1.Controls.Add(Me.TextBox8)
+        Me.Panel1.Controls.Add(Me.txtComments)
         Me.Panel1.Controls.Add(Me.Label5)
         Me.Panel1.Controls.Add(Me.Button1)
         Me.Panel1.Controls.Add(Me.Label4)
         Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Controls.Add(Me.ComboBox1)
+        Me.Panel1.Controls.Add(Me.cmbSupplierName)
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Controls.Add(Me.TextBox4)
-        Me.Panel1.Controls.Add(Me.TextBox3)
-        Me.Panel1.Controls.Add(Me.TextBox2)
-        Me.Panel1.Controls.Add(Me.TextBox1)
+        Me.Panel1.Controls.Add(Me.txtStatus)
+        Me.Panel1.Controls.Add(Me.txtSupplierCode)
+        Me.Panel1.Controls.Add(Me.txtIssueDate)
+        Me.Panel1.Controls.Add(Me.txtRtvNo)
         Me.Panel1.Location = New System.Drawing.Point(12, 51)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(423, 260)
         Me.Panel1.TabIndex = 103
         '
-        'TextBox1
+        'txtRtvNo
         '
-        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(108, 9)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(197, 24)
-        Me.TextBox1.TabIndex = 0
+        Me.txtRtvNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRtvNo.Location = New System.Drawing.Point(108, 9)
+        Me.txtRtvNo.Name = "txtRtvNo"
+        Me.txtRtvNo.Size = New System.Drawing.Size(197, 24)
+        Me.txtRtvNo.TabIndex = 0
         '
-        'TextBox2
+        'txtIssueDate
         '
-        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(108, 37)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(197, 24)
-        Me.TextBox2.TabIndex = 1
+        Me.txtIssueDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIssueDate.Location = New System.Drawing.Point(108, 37)
+        Me.txtIssueDate.Name = "txtIssueDate"
+        Me.txtIssueDate.Size = New System.Drawing.Size(197, 24)
+        Me.txtIssueDate.TabIndex = 1
         '
-        'TextBox3
+        'txtSupplierCode
         '
-        Me.TextBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox3.Location = New System.Drawing.Point(108, 65)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(197, 24)
-        Me.TextBox3.TabIndex = 2
+        Me.txtSupplierCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSupplierCode.Location = New System.Drawing.Point(108, 65)
+        Me.txtSupplierCode.Name = "txtSupplierCode"
+        Me.txtSupplierCode.Size = New System.Drawing.Size(197, 24)
+        Me.txtSupplierCode.TabIndex = 2
         '
-        'TextBox4
+        'txtStatus
         '
-        Me.TextBox4.Location = New System.Drawing.Point(108, 130)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(197, 22)
-        Me.TextBox4.TabIndex = 3
+        Me.txtStatus.Location = New System.Drawing.Point(108, 130)
+        Me.txtStatus.Name = "txtStatus"
+        Me.txtStatus.Size = New System.Drawing.Size(197, 22)
+        Me.txtStatus.TabIndex = 3
         '
         'Label1
         '
@@ -584,14 +564,14 @@ Partial Class frmReturnToVendor
         Me.Label2.TabIndex = 47
         Me.Label2.Text = "Issue Date"
         '
-        'ComboBox1
+        'cmbSupplierName
         '
-        Me.ComboBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(108, 96)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(303, 28)
-        Me.ComboBox1.TabIndex = 100
+        Me.cmbSupplierName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbSupplierName.FormattingEnabled = True
+        Me.cmbSupplierName.Location = New System.Drawing.Point(108, 96)
+        Me.cmbSupplierName.Name = "cmbSupplierName"
+        Me.cmbSupplierName.Size = New System.Drawing.Size(303, 28)
+        Me.cmbSupplierName.TabIndex = 100
         '
         'Label3
         '
@@ -639,9 +619,9 @@ Partial Class frmReturnToVendor
         '
         'DataGridViewTextBoxColumn1
         '
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black
-        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridViewTextBoxColumn1.FillWeight = 76.14213!
         Me.DataGridViewTextBoxColumn1.HeaderText = "RTV No"
         Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
@@ -725,11 +705,50 @@ Partial Class frmReturnToVendor
         Me.Label8.TabIndex = 111
         Me.Label8.Text = "Selling Price (Excl)"
         '
+        'txtComments
+        '
+        Me.txtComments.Location = New System.Drawing.Point(108, 158)
+        Me.txtComments.MaxLength = 50
+        Me.txtComments.Multiline = True
+        Me.txtComments.Name = "txtComments"
+        Me.txtComments.Size = New System.Drawing.Size(303, 68)
+        Me.txtComments.TabIndex = 105
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(31, 158)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(74, 17)
+        Me.Label9.TabIndex = 106
+        Me.Label9.Text = "Comments"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(106, 234)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(132, 17)
+        Me.Label10.TabIndex = 107
+        Me.Label10.Text = "Total Cost (Vat Incl)"
+        Me.Label10.Visible = False
+        '
+        'TextBox9
+        '
+        Me.TextBox9.Location = New System.Drawing.Point(244, 231)
+        Me.TextBox9.MaxLength = 50
+        Me.TextBox9.Name = "TextBox9"
+        Me.TextBox9.ReadOnly = True
+        Me.TextBox9.Size = New System.Drawing.Size(167, 22)
+        Me.TextBox9.TabIndex = 108
+        Me.TextBox9.Visible = False
+        '
         'DataGridViewTextBoxColumn4
         '
         Me.DataGridViewTextBoxColumn4.HeaderText = "ID"
         Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
         Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Visible = False
         '
         'DataGridViewTextBoxColumn5
         '
@@ -767,49 +786,17 @@ Partial Class frmReturnToVendor
         Me.Column18.Name = "Column18"
         Me.Column18.ReadOnly = True
         '
+        'Column1
+        '
+        Me.Column1.HeaderText = "Amount"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        '
         'Column19
         '
         Me.Column19.HeaderText = "Reason"
         Me.Column19.Name = "Column19"
         Me.Column19.ReadOnly = True
-        '
-        'TextBox8
-        '
-        Me.TextBox8.Location = New System.Drawing.Point(108, 158)
-        Me.TextBox8.MaxLength = 50
-        Me.TextBox8.Multiline = True
-        Me.TextBox8.Name = "TextBox8"
-        Me.TextBox8.Size = New System.Drawing.Size(303, 68)
-        Me.TextBox8.TabIndex = 105
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(31, 158)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(74, 17)
-        Me.Label9.TabIndex = 106
-        Me.Label9.Text = "Comments"
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(106, 234)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(132, 17)
-        Me.Label10.TabIndex = 107
-        Me.Label10.Text = "Total Cost (Vat Incl)"
-        Me.Label10.Visible = False
-        '
-        'TextBox9
-        '
-        Me.TextBox9.Location = New System.Drawing.Point(244, 231)
-        Me.TextBox9.MaxLength = 50
-        Me.TextBox9.Name = "TextBox9"
-        Me.TextBox9.ReadOnly = True
-        Me.TextBox9.Size = New System.Drawing.Size(167, 22)
-        Me.TextBox9.TabIndex = 108
-        Me.TextBox9.Visible = False
         '
         'frmReturnToVendor
         '
@@ -823,7 +810,10 @@ Partial Class frmReturnToVendor
         Me.Controls.Add(Me.dtgrdItemList)
         Me.Controls.Add(Me.Panel2)
         Me.Name = "frmReturnToVendor"
-        Me.Text = "frmReturnToVendor"
+        Me.ShowIcon = False
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.Text = "Return to Vendor"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         CType(Me.dtgrdItemList, System.ComponentModel.ISupportInitialize).EndInit()
@@ -873,22 +863,20 @@ Partial Class frmReturnToVendor
     Friend WithEvents btnApprove As ToolStripButton
     Friend WithEvents btnPrint As ToolStripButton
     Friend WithEvents btnComplete As ToolStripButton
-    Friend WithEvents btnClearDebt As ToolStripButton
     Friend WithEvents ToolStripSeparator6 As ToolStripSeparator
     Friend WithEvents btnArchive As ToolStripButton
     Friend WithEvents btnArchiveAll As ToolStripButton
     Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
-    Friend WithEvents btnPrintReport As ToolStripButton
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents TextBox4 As TextBox
-    Friend WithEvents TextBox3 As TextBox
-    Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents txtStatus As TextBox
+    Friend WithEvents txtSupplierCode As TextBox
+    Friend WithEvents txtIssueDate As TextBox
+    Friend WithEvents txtRtvNo As TextBox
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cmbSupplierName As ComboBox
     Friend WithEvents Button1 As Button
     Friend WithEvents Label5 As Label
     Friend WithEvents Column6 As DataGridViewTextBoxColumn
@@ -902,6 +890,10 @@ Partial Class frmReturnToVendor
     Friend WithEvents Label8 As Label
     Friend WithEvents TextBox6 As TextBox
     Friend WithEvents Label7 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents txtComments As TextBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents TextBox9 As TextBox
     Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn5 As DataGridViewTextBoxColumn
     Friend WithEvents Column7 As DataGridViewTextBoxColumn
@@ -909,9 +901,6 @@ Partial Class frmReturnToVendor
     Friend WithEvents Column16 As DataGridViewTextBoxColumn
     Friend WithEvents Column17 As DataGridViewTextBoxColumn
     Friend WithEvents Column18 As DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
     Friend WithEvents Column19 As DataGridViewTextBoxColumn
-    Friend WithEvents Label9 As Label
-    Friend WithEvents TextBox8 As TextBox
-    Friend WithEvents Label10 As Label
-    Friend WithEvents TextBox9 As TextBox
 End Class

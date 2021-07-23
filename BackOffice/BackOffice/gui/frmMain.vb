@@ -358,7 +358,7 @@ Public Class frmMain
 
     Private Sub ReturnToVendorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReturnToVendorToolStripMenuItem.Click
         If User.authorize("PROCUREMENT") Then
-            frmGoodsReturnedNote.ShowDialog()
+            frmReturnToVendor.ShowDialog()
         Else
             MsgBox("Access denied!", vbOKOnly + vbExclamation)
         End If

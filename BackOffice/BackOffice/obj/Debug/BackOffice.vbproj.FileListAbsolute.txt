@@ -264,3 +264,4 @@ D:\Orbix Master\BackOffice\BackOffice\bin\Debug\Newtonsoft.Json.pdb
 D:\Orbix Master\BackOffice\BackOffice\bin\Debug\Newtonsoft.Json.xml
 D:\Orbix Master\BackOffice\BackOffice\bin\Debug\Newtonsoft.Json.Bson.pdb
 D:\Orbix Master\BackOffice\BackOffice\bin\Debug\Newtonsoft.Json.Bson.xml
+D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmReturnToVendor.resources
