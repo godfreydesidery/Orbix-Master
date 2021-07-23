@@ -299,7 +299,7 @@ Public Class frmCompany
             department_ = New Department
             txtDepartmentCode.Text = generateCode()
         Else
-            response = Web.get_("departments/id=" + txtDeptId.Text)
+            response = Web.get_("departments/get_by_id?id=" + txtDeptId.Text)
             json = JObject.Parse(response)
             department_ = JsonConvert.DeserializeObject(Of Department)(json.ToString)
         End If
@@ -501,7 +501,7 @@ Public Class frmCompany
         Dim response As Object = New Object
         Dim json As JObject = New JObject
         Try
-            response = Web.get_("classes/department_name=" + cmbSubClassDepartment.Text)
+            response = Web.get_("classes/get_by_department_name?department_name=" + cmbSubClassDepartment.Text)
             list = JsonConvert.DeserializeObject(Of List(Of Class_))(response.ToString)
         Catch ex As Exception
             ' MsgBox(ex.ToString)
@@ -644,7 +644,7 @@ Public Class frmCompany
                 txtSubClasscode.Text = subClass_.code
                 MsgBox("Sub-Class successifully saved.", vbOKOnly + vbInformation, "Success: Sub-Class saved.")
             Else
-                If Web.put(subClass_, "sub_classes/edit_by_id" + txtSubClassId.Text) = True Then
+                If Web.put(subClass_, "sub_classes/edit_by_id?id=" + txtSubClassId.Text) = True Then
                     MsgBox("Sub-Class successifully modified.", vbOKOnly + vbInformation, "Success: Sub-Class saved.")
                 Else
                     MsgBox("Update failed")
