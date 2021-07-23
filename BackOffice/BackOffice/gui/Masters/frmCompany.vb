@@ -274,7 +274,7 @@ Public Class frmCompany
         End If
         Try
             Dim response As String
-            response = Web.delete("departments/delete/id=" + txtDeptId.Text)
+            response = Web.delete("departments/delete_by_id?id=" + txtDeptId.Text)
             MsgBox("Department successifully deleted", vbOKOnly + vbInformation, "Success: Delete success")
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -317,7 +317,7 @@ Public Class frmCompany
                 txtDepartmentCode.Text = department_.code
                 MsgBox("Department successifully saved.", vbOKOnly + vbInformation, "Success: Department saved.")
             Else
-                If Web.put(department_, "departments/edit/" + txtDeptId.Text) = True Then
+                If Web.put(department_, "departments/edit_by_id?id=" + txtDeptId.Text) = True Then
                     MsgBox("Department successifully modified.", vbOKOnly + vbInformation, "Success: Department saved.")
                 Else
                     MsgBox("Update failed")
@@ -447,7 +447,7 @@ Public Class frmCompany
             class_ = New Class_
             txtClassCode.Text = generateCode()
         Else
-            response = Web.get_("classes/id=" + txtClassId.Text)
+            response = Web.get_("classes/get_by_id?id=" + txtClassId.Text)
             json = JObject.Parse(response)
             class_ = JsonConvert.DeserializeObject(Of Class_)(json.ToString)
         End If
@@ -465,7 +465,7 @@ Public Class frmCompany
                 txtClassCode.Text = class_.code
                 MsgBox("Class successifully saved.", vbOKOnly + vbInformation, "Success: Class saved.")
             Else
-                If Web.put(class_, "classes/edit/" + txtClassId.Text) = True Then
+                If Web.put(class_, "classes/edit_by_id?id=" + txtClassId.Text) = True Then
                     MsgBox("Class successifully modified.", vbOKOnly + vbInformation, "Success: Class saved.")
                 Else
                     MsgBox("Update failed")
@@ -564,7 +564,7 @@ Public Class frmCompany
         End If
         Try
             Dim response As String
-            response = Web.delete("classes/delete/id=" + txtClassId.Text)
+            response = Web.delete("classes/delete_by_id?id=" + txtClassId.Text)
             MsgBox("Class successifully deleted", vbOKOnly + vbInformation, "Success: Delete success")
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -591,7 +591,7 @@ Public Class frmCompany
 
         Try
             Dim response As String
-            response = Web.delete("sub_classes/delete/id=" + txtDeptId.Text)
+            response = Web.delete("sub_classes/delete_by_id?id=" + txtDeptId.Text)
             MsgBox("Sub-Class successifully deleted", vbOKOnly + vbInformation, "Success: Delete success")
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -625,7 +625,7 @@ Public Class frmCompany
             subClass_ = New SubClass
             txtSubClasscode.Text = generateCode()
         Else
-            response = Web.get_("sub_classes/id=" + txtSubClassId.Text)
+            response = Web.get_("sub_classes/get_by_id?id=" + txtSubClassId.Text)
             json = JObject.Parse(response)
             subClass_ = JsonConvert.DeserializeObject(Of SubClass)(json.ToString)
         End If
@@ -644,7 +644,7 @@ Public Class frmCompany
                 txtSubClasscode.Text = subClass_.code
                 MsgBox("Sub-Class successifully saved.", vbOKOnly + vbInformation, "Success: Sub-Class saved.")
             Else
-                If Web.put(subClass_, "sub_classes/edit/" + txtSubClassId.Text) = True Then
+                If Web.put(subClass_, "sub_classes/edit_by_id" + txtSubClassId.Text) = True Then
                     MsgBox("Sub-Class successifully modified.", vbOKOnly + vbInformation, "Success: Sub-Class saved.")
                 Else
                     MsgBox("Update failed")
@@ -789,7 +789,4 @@ Public Class frmCompany
         Return str + RandomKey.ToString
     End Function
 
-    Private Sub dtgrdsubClass_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dtgrdsubClass.CellContentClick
-
-    End Sub
 End Class
