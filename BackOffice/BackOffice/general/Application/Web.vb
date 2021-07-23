@@ -130,9 +130,11 @@ Public Class Web
         End Try
     End Function
     Public Shared Function get_(url As String) As Object
+        '    url = System.Web.HttpUtility.UrlEncode(url)
         Try
             Dim baseUrl As String = "http://127.0.0.1:8080"
             'Create initial request
+
             Dim request As HttpWebRequest = HttpWebRequest.Create(baseUrl + "/" + url)
             request.Proxy = Nothing
             request.UserAgent = "Test"
@@ -149,6 +151,7 @@ Public Class Web
             streamReader.Close()
             Return responseFromServer
         Catch ex As System.Net.WebException
+            MsgBox(ex.ToString)
             Return vbNull
             '  Dim statusCode = DirectCast(ex.Response, HttpWebResponse).StatusCode
             '   If statusCode = 404 Then
@@ -158,10 +161,12 @@ Public Class Web
             '   End If
             '  Return vbNull
         Catch ex As Exception
+            MsgBox(ex.ToString)
             '  Return vbNull
             '  MsgBox(ex.ToString)
             Return vbNull
         End Try
         Return vbNull
     End Function
+
 End Class

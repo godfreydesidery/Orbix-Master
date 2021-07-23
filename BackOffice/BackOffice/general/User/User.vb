@@ -322,7 +322,7 @@ Public Class User
         Try
             response = Web.get_("users/authorize/user_id=" + User.CURRENT_USER_ID + "&priveledge=" + priveledge)
         Catch ex As Exception
-
+            MsgBox(ex.ToString)
         End Try
         If response = True Then
             Return True
