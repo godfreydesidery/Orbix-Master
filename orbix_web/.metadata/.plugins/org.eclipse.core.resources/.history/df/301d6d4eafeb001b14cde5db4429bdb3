@@ -1,0 +1,149 @@
+/**
+ * 
+ */
+package com.example.orbix_web.controllers;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.orbix_web.exceptions.InvalidOperationException;
+import com.example.orbix_web.exceptions.NotFoundException;
+import com.example.orbix_web.exceptions.ResourceNotFoundException;
+import com.example.orbix_web.models.Item;
+import com.example.orbix_web.models.Product;
+import com.example.orbix_web.models.Supplier;
+import com.example.orbix_web.repositories.SupplierRepository;
+
+/**
+ * @author GODFREY
+ *
+ */
+@RestController
+@Service
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class SupplierServiceController {
+
+    @Autowired
+    SupplierRepository supplierRepository;
+       
+    @RequestMapping(method = RequestMethod.GET, value = "/suppliers", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<Supplier> getAllSuppliers() {
+        return supplierRepository.findAll();
+    }
+    
+    /**
+     * 
+     * @return array of suppliers' names
+     */
+    @GetMapping(value="/suppliers/names")
+    public Iterable<Supplier> getAllSupplierNames() {
+        return supplierRepository.getNames();
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/suppliers/get_by_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public Supplier getSupplierById(@RequestParam(name = "id") Long id) {
+        return supplierRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Supplier not found"));
+    }
+    
+    /**
+     * @param code
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/suppliers/get_by_code", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public Supplier getSupplierByCode(@RequestParam(name = "code") String code) {
+        return supplierRepository.findByCode(code)
+                .orElseThrow(() -> new NotFoundException("Resource not found"));
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/suppliers/get_by_name", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public Supplier getSupplierByName(@RequestParam(name = "name") String name) {
+        return supplierRepository.findByName(name)
+                .orElseThrow(() -> new NotFoundException("Resource not found"));
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value="/suppliers/new", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Supplier createSupplier(@Valid @RequestBody Supplier supplier ) throws Exception {
+    	supplierRepository.saveAndFlush(supplier);
+    	return supplier;
+    }
+    @RequestMapping(method = RequestMethod.PUT, value="/suppliers/edit_by_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Supplier updateSupplier(@RequestParam(name = "id") Long supplierId,
+            								@Valid @RequestBody Supplier supplierDetails ) throws Exception {
+		Supplier supplier = supplierRepository.findById(supplierId)
+                .orElseThrow(() -> new NotFoundException("Supplier not found"));
+		supplier = supplierDetails;     
+		
+    	return supplierRepository.saveAndFlush(supplier);
+    }
+    
+    @RequestMapping(method = RequestMethod.PUT, value="/suppliers/edit_by_code", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public Supplier updateSupplierByCode(@RequestParam(name = "code") String code,
+            								@Valid @RequestBody Supplier supplierDetails ) throws Exception {
+		Supplier supplier = supplierRepository.findByCode(code)
+                .orElseThrow(() -> new NotFoundException("Supplier not found"));
+		supplier = supplierDetails;     
+		
+    	return supplierRepository.saveAndFlush(supplier);
+    }
+
+    // Create a new Supplier
+    @RequestMapping(method = RequestMethod.POST,value="/suppliers")
+    @ResponseBody
+    public Supplier createSupplier1(@Valid @RequestBody Supplier supplier) {
+        return supplierRepository.save(supplier);
+        
+    }
+
+    private boolean checkUsageBeforeDelete(Supplier supplier) {
+    	/**
+    	 * Checks whether an supplier has been used any where
+    	 * returns false if it has not been used
+    	 * throw invalid operation exception if it has been used
+    	 * to prevent deletion
+    	 */
+    	boolean used = false;
+    	//assume it has been used, to be implemented later
+    	used = true;
+    	//throw exception
+    	if(used == true) {
+    		throw new InvalidOperationException("Could not delete. Supplier already in use within the system.");
+    	}
+    	return used;
+    }
+    // Delete a Supplier
+    @DeleteMapping("/suppliers/delete_by_id")
+    public ResponseEntity<?> deleteSupplier(@RequestParam(name = "id") Long supplierId) {
+    	Supplier supplier = supplierRepository.findById(supplierId)
+                .orElseThrow(() -> new ResourceNotFoundException("Supplier", "id", supplierId));
+    	this.checkUsageBeforeDelete(supplier);
+    	supplierRepository.delete(supplier);
+        return ResponseEntity.ok().build();
+    }
+}

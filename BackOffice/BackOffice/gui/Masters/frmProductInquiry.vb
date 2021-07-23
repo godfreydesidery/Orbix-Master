@@ -8,92 +8,7 @@ Public Class frmProductInquiry
         Me.Dispose()
     End Sub
 
-    Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs)
-
-    End Sub
-    Private Function searchInventory(itemCode As String) As Boolean
-        Dim found As Boolean = False
-
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-
-            Dim codeQuery As String = "SELECT  `qty`, `min_inventory`, `max_inventory`, `def_reorder_qty`, `reorder_level` FROM `inventorys` WHERE `item_code`='" + itemCode + "'"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-
-                txtMinInventory.Text = reader.GetString("min_inventory")
-                txtMaxInventory.Text = reader.GetString("max_inventory")
-                txtDefReorderLevel.Text = reader.GetString("reorder_level")
-                txtDefReorderQty.Text = reader.GetString("def_reorder_qty")
-                txtQty.Text = reader.GetString("qty")
-
-                found = True
-                Exit While
-            End While
-            conn.Close()
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
-
-        Return found
-    End Function
-    Dim itemCodes As String = ""
-    Private Function searchItem(itemCode As String) As Boolean
-        Dim found As Boolean = False
-
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-
-            Dim codeQuery As String = "SELECT `item_code`, `item_scan_code`, `item_long_description`, `item_description`, `pck`, `department_id`, `class_id`, `sub_class_id`, `supplier_id`, `unit_cost_price`, `retail_price`, `discount`, `vat`, `margin`, `standard_uom`,`active` FROM `items` WHERE `item_code`='" + itemCode + "'"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                txtCode.Text = reader.GetString("item_code")
-                itemCode = txtCode.Text
-                cmbDescription.Text = reader.GetString("item_long_description")
-                txtShortDescription.Text = reader.GetString("item_description")
-                txtPacksize.Text = reader.GetString("pck")
-                txtVat.Text = LCurrency.displayValue(reader.GetString("vat"))
-                txtDiscount.Text = LCurrency.displayValue(reader.GetString("discount"))
-                txtCostPriceVatIncl.Text = LCurrency.displayValue(reader.GetString("unit_cost_price"))
-                txtSellingPriceVatIncl.Text = LCurrency.displayValue(reader.GetString("retail_price"))
-                txtPrimarySupplier.Text = (New Supplier).getSupplierName(reader.GetString("supplier_id"), "")
-                txtProfitMargin.Text = LCurrency.displayValue(reader.GetString("margin"))
-                txtStandardUOM.Text = reader.GetString("standard_uom")
-                txtDepartment.Text = (New Department).getDepartmentName(reader.GetString("department_id"))
-                txtClass.Text = (New Class_).getClassName(reader.GetString("class_id"))
-                txtSubClass.Text = (New SubClass).getSubClassName(reader.GetString("sub_class_id"))
-                If reader.GetString("active") = "1" Then
-                    chkDiscontinued.Checked = True
-                Else
-                    chkDiscontinued.Checked = False
-                End If
-                found = True
-                Exit While
-            End While
-            conn.Close()
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
-        Return found
-    End Function
     Private Function search()
-
-
-
-
-
         txtId.Text = ""
         If txtPrimaryBarcode.Text = "" And txtCode.Text = "" And cmbDescription.Text = "" Then
             MsgBox("Please specify a record to search. Enter barcode, itemcode or long description.", vbOKOnly + vbExclamation, "Error: Search key not specified")
@@ -106,7 +21,7 @@ Public Class frmProductInquiry
         Dim json As JObject = New JObject
         Try
             If txtPrimaryBarcode.Text <> "" Then
-                response = Web.get_("products/barcode=" + txtPrimaryBarcode.Text)
+                response = Web.get_("products/get_by_barcode?barcode=" + txtPrimaryBarcode.Text)
                 json = JObject.Parse(response)
 
                 ' If searchByBarCode(txtPrimaryBarcode.Text) = True Then
@@ -118,10 +33,10 @@ Public Class frmProductInquiry
                 'Next
                 'End If
             ElseIf txtCode.Text <> "" Then
-                response = Web.get_("products/code=" + txtCode.Text)
+                response = Web.get_("products/get_by_code?code=" + txtCode.Text)
                 json = JObject.Parse(response)
             ElseIf cmbDescription.Text <> "" Then
-                response = Web.get_("products/description=" + cmbDescription.Text)
+                response = Web.get_("products/get_by_description?description=" + cmbDescription.Text)
                 json = JObject.Parse(response)
             End If
         Catch ex As Exception
@@ -251,17 +166,6 @@ Public Class frmProductInquiry
         clearFields()
     End Sub
 
-    Private Sub txtLongDescription_mouseenter(sender As Object, e As EventArgs)
-        Dim list As New List(Of String)
-        Dim mySource As New AutoCompleteStringCollection
-        Dim item As New Item
-        list = item.getItems(cmbDescription.Text)
-        mySource.AddRange(list.ToArray)
-        cmbDescription.AutoCompleteCustomSource = mySource
-        cmbDescription.AutoCompleteMode = AutoCompleteMode.SuggestAppend
-        cmbDescription.AutoCompleteSource = AutoCompleteSource.CustomSource
-    End Sub
-
     Private Sub txtBarCode_preview(sender As Object, e As PreviewKeyDownEventArgs) Handles txtPrimaryBarcode.PreviewKeyDown
         If e.KeyCode = Keys.Tab Then
             txtCode.Text = ""
@@ -292,114 +196,11 @@ Public Class frmProductInquiry
         longList = product_.getDescriptions
     End Sub
     Public Shared GLOBAL_ITEM_CODE As String = ""
-    Private Sub txtBarCode_TextChanged(sender As Object, e As EventArgs) Handles txtPrimaryBarcode.TextChanged
-
-    End Sub
-
-    Private Sub txtBarCode_LostFocus(sender As Object, e As EventArgs) Handles txtPrimaryBarcode.LostFocus
-
-    End Sub
 
     Private Sub txtBarCode_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPrimaryBarcode.KeyDown
         If e.KeyCode = Keys.Enter Then
             search()
         End If
-    End Sub
-
-    Private Sub txtLongDescription_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label15_Click(sender As Object, e As EventArgs) Handles Label15.Click
-
-    End Sub
-
-    Private Sub txtReorderQty_TextChanged(sender As Object, e As EventArgs) Handles txtDefReorderQty.TextChanged
-
-    End Sub
-
-    Private Sub txtReorderLevel_TextChanged(sender As Object, e As EventArgs) Handles txtDefReorderLevel.TextChanged
-
-    End Sub
-
-    Private Sub Label17_Click(sender As Object, e As EventArgs) Handles Label17.Click
-
-    End Sub
-
-    Private Sub Label9_Click(sender As Object, e As EventArgs) Handles Label9.Click
-
-    End Sub
-
-    Private Sub txtMaxInventory_TextChanged(sender As Object, e As EventArgs) Handles txtMaxInventory.TextChanged
-
-    End Sub
-
-    Private Sub txtMinInventory_TextChanged(sender As Object, e As EventArgs) Handles txtMinInventory.TextChanged
-
-    End Sub
-
-    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles Label11.Click
-
-    End Sub
-
-    Private Sub Label21_Click(sender As Object, e As EventArgs) Handles Label21.Click
-
-    End Sub
-
-    Private Sub txtQty_TextChanged(sender As Object, e As EventArgs) Handles txtQty.TextChanged
-
-    End Sub
-
-    Private Sub Label8_Click(sender As Object, e As EventArgs) Handles Label8.Click
-
-    End Sub
-
-    Private Sub txtStandardUOM_TextChanged(sender As Object, e As EventArgs) Handles txtStandardUOM.TextChanged
-
-    End Sub
-
-    Private Sub Label14_Click(sender As Object, e As EventArgs) Handles Label14.Click
-
-    End Sub
-
-    Private Sub Label13_Click(sender As Object, e As EventArgs) Handles Label13.Click
-
-    End Sub
-
-    Private Sub txtMargin_TextChanged(sender As Object, e As EventArgs) Handles txtProfitMargin.TextChanged
-
-    End Sub
-
-    Private Sub txtDiscount_TextChanged(sender As Object, e As EventArgs) Handles txtDiscount.TextChanged
-
-    End Sub
-
-    Private Sub Label7_Click(sender As Object, e As EventArgs) Handles Label7.Click
-
-    End Sub
-
-    Private Sub Label6_Click(sender As Object, e As EventArgs) Handles Label6.Click
-
-    End Sub
-
-    Private Sub txtVAT_TextChanged(sender As Object, e As EventArgs) Handles txtVat.TextChanged
-
-    End Sub
-
-    Private Sub txtRetailPrice_TextChanged(sender As Object, e As EventArgs) Handles txtSellingPriceVatIncl.TextChanged
-
-    End Sub
-
-    Private Sub Label10_Click(sender As Object, e As EventArgs) Handles Label10.Click
-
-    End Sub
-
-    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
-
-    End Sub
-
-    Private Sub txtCostPrice_TextChanged(sender As Object, e As EventArgs) Handles txtCostPriceVatIncl.TextChanged
-
     End Sub
 
     Private Sub btnViewSuppliers_Click(sender As Object, e As EventArgs)

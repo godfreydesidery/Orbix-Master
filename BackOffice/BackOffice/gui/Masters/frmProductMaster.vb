@@ -236,21 +236,16 @@ Public Class frmProductMaster
         Else
             txtCode.Text = code
         End If
-
     End Sub
 
     Private Sub frmProductMaster_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lock()
-
         If User.authorize("EDIT INVENTORY") Then
             btnEditInventory.Enabled = True
         End If
         Dim supplier As New Supplier
-
         cmbSupplier.Items.AddRange(supplier.getNames().ToArray)
-
         cmbDepartment.Items.Clear()
-
         Dim list As New List(Of Department)
         Dim response As Object = New Object
         Dim json As JObject = New JObject
@@ -265,24 +260,20 @@ Public Class frmProductMaster
         For Each department_ As Department In list
             cmbDepartment.Items.Add(department_.name)
         Next
-
         Dim product_ As New Product
         longList = product_.getDescriptions
     End Sub
 
     Private Sub cmbDepartment_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDepartment.SelectedIndexChanged
-
         classID = ""
         cmbClass.Text = ""
         cmbClass.Items.Clear()
         subClassID = ""
         cmbSubClass.Text = ""
         cmbSubClass.Items.Clear()
-
         If cmbDepartment.Text = "" Then
             Exit Sub
         End If
-
         Dim list As New List(Of Class_)
         Dim response As Object = New Object
         Dim json As JObject = New JObject
