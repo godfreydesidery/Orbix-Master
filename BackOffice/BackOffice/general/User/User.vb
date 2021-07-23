@@ -245,129 +245,20 @@ Public Class User
             End If
         End If
         Return auth
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        Try
-            Dim command As New MySqlCommand()
-            Dim conn As New MySqlConnection
-            conn.ConnectionString = Database.conString
-            Dim Query As String = "SELECT `id`, `first_name`, `second_name`, `last_name`, `pay_roll_no`, `username`, `password`, `role_id`, `alias`, `status`FROM `users` WHERE `username`='" + username + "' "
-            conn.Open()
-            command.CommandText = Query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader
-            If reader.HasRows Then
-                Dim i As Integer = 0
-                While reader.Read
-                    i = i + 1
-                    User.CURRENT_USER_ID = reader.GetString("id")
-                    User.CURRENT_USERNAME = reader.GetString("username")
-                    User.CURRENT_PASSWORD = reader.GetString("password")
-                    User.CURRENT_STATUS = reader.GetString("status")
-                    User.CURRENT_ROLE = (New Role).getRole(reader.GetString("role_id"))
-                    User.CURRENT_FIRST_NAME = reader.GetString("first_name")
-                    User.CURRENT_SECOND_NAME = reader.GetString("second_name")
-                    User.CURRENT_LAST_NAME = reader.GetString("last_name")
-                    User.CURRENT_ALIAS = User.CURRENT_FIRST_NAME + " " + User.CURRENT_LAST_NAME 'reader.GetString("alias")
-                    If User.CURRENT_STATUS = "ACTIVE" Then
-                        If Hash.check(password, User.CURRENT_PASSWORD) = True Then
-                            auth = 0 'user valid and login
-                        Else
-                            auth = 1 'invalid credentials
-                        End If
-                    Else
-                        auth = 2 'user blocked
-                    End If
-                    If i <> 1 Then 'duplicate username
-                        auth = 2
-                    End If
-                End While
-            Else
-                auth = 1 'invalid credentials
-            End If
-            conn.Close()
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            Return vbNull
-            Exit Function
-        End Try
-        Return auth
     End Function
     Public Shared Function authorize(priveledge As String) As Boolean
-
-        Dim response As Object = New Object
+        Dim response As Boolean = False
         Try
-            response = Web.get_("users/authorize/user_id=" + User.CURRENT_USER_ID + "&priveledge=" + priveledge)
+            response = Web.get_("users/authorize?user_id=" + User.CURRENT_USER_ID + "&priveledge=" + priveledge)
+            '  response = Web.get_("users/authorize/user_id=" + User.CURRENT_USER_ID + "&priveledge=" + priveledge)
+            If response = True Then
+                Return True
+            Else
+                Return False
+            End If
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            response = False
         End Try
-        If response = True Then
-            Return True
-        Else
-            Return False
-        End If
         Return False
-
-        Dim allowed As Boolean = False
-        Dim role_id As String = ""
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim query As String = "SELECT `role_id` FROM `users` WHERE `id`='" + User.CURRENT_USER_ID + "'"
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                role_id = reader.GetString("role_id")
-                Exit While
-            End While
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            allowed = False
-        End Try
-
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim query As String = "SELECT `role_id` FROM `role_priveledge` WHERE `role_id`='" + role_id + "'AND `priveledge`='" + priveledge + "'"
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                allowed = True
-                Exit While
-            End While
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            allowed = False
-        End Try
-        Return allowed
     End Function
 End Class

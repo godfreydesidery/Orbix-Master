@@ -134,8 +134,8 @@ Public Class Web
         Try
             Dim baseUrl As String = "http://127.0.0.1:8080"
             'Create initial request
-
             Dim request As HttpWebRequest = HttpWebRequest.Create(baseUrl + "/" + url)
+            '    MsgBox(baseUrl + "/" + System.Web.HttpUtility.UrlEncode(url))
             request.Proxy = Nothing
             request.UserAgent = "Test"
 
