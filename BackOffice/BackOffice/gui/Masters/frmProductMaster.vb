@@ -493,11 +493,18 @@ Public Class frmProductMaster
     End Sub
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
-        unlock()
-        btnSave.Enabled = False
-        btnSearch.Enabled = True
-        txtCode.ReadOnly = False
-        clearAll()
+        If txtId.Text = "" Then
+            unlock()
+            btnSave.Enabled = False
+            btnSearch.Enabled = True
+            txtCode.ReadOnly = False
+            clearAll()
+        Else
+            unlock()
+            btnSave.Enabled = True
+            btnSearch.Enabled = True
+            txtCode.ReadOnly = True
+        End If
     End Sub
     Private Function search()
         txtId.Text = ""

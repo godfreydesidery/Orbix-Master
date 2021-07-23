@@ -164,10 +164,10 @@ Public Class frmSuppliers
         Dim json As JObject = New JObject
         Try
             If supplierCode <> "" Then
-                response = Web.get_("suppliers/code=" + supplierCode)
+                response = Web.get_("suppliers/get_by_code?code=" + supplierCode)
                 json = JObject.Parse(response)
             ElseIf supplierName <> "" Then
-                response = Web.get_("suppliers/name=" + supplierName)
+                response = Web.get_("suppliers/get_by_name?name=" + supplierName)
                 json = JObject.Parse(response)
             End If
         Catch ex As Exception
@@ -236,7 +236,7 @@ Public Class frmSuppliers
         If txtId.Text = "" Then
             supplier_ = New Supplier
         Else
-            response = Web.get_("suppliers/id=" + txtId.Text)
+            response = Web.get_("suppliers/get_by_id?id=" + txtId.Text)
             json = JObject.Parse(response)
             supplier_ = JsonConvert.DeserializeObject(Of Supplier)(json.ToString)
         End If
@@ -283,7 +283,7 @@ Public Class frmSuppliers
 
                 MsgBox("Supplier created successifully", vbOKOnly + vbInformation, "Success: Supplier saved.")
             Else
-                If Web.put(supplier_, "suppliers/edit/" + txtId.Text) = True Then
+                If Web.put(supplier_, "suppliers/edit_by_id?id=" + txtId.Text) = True Then
                     ' btnSave.Enabled = False
                     dtgrdSuppliers.Enabled = True
                     btnProductAndService.Enabled = True
@@ -555,9 +555,5 @@ Public Class frmSuppliers
         'txtCode.Text = code
         ' End If
         txtCode.Text = code
-    End Sub
-
-    Private Sub ToolStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ToolStrip1.ItemClicked
-
     End Sub
 End Class
