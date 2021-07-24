@@ -330,7 +330,7 @@ Public Class frmReturnToVendor
         txtStatus.Text = ""
 
         txtTotal.Text = ""
-        txtComments.Text = ""
+        txtComment.Text = ""
         dtgrdProductList.Rows.Clear()
         Return vbNull
     End Function
@@ -389,24 +389,24 @@ Public Class frmReturnToVendor
             json = JObject.Parse(response)
             rtv = JsonConvert.DeserializeObject(Of Rtv)(json.ToString)
             txtRtvNo.ReadOnly = True
-            If IsNothing(rtv.) Then
+            If IsNothing(rtv.supplier) Then
                 txtSupplierCode.Text = ""
                 cmbSupplierName.Text = ""
             Else
-                txtSupplierCode.Text = lpo_.supplier.code
-                cmbSupplierName.Text = lpo_.supplier.name
+                txtSupplierCode.Text = rtv.supplier.code
+                cmbSupplierName.Text = rtv.supplier.name
             End If
-            txtId.Text = lpo_.id
-            txtIssueDate.Text = lpo_.issueDate
+            txtId.Text = rtv.id
+            txtIssueDate.Text = rtv.issueDate
 
-            txtStatus.Text = lpo_.status
-            txtComments.Text = lpo_.comment
+            txtStatus.Text = rtv.status
+            txtComment.Text = rtv.comment
             lock()
-            If Not IsNothing(lpo_.lpoDetails) Then
-                refreshList(lpo_.lpoDetails)
+            If Not IsNothing(rtv.rtvDetails) Then
+                refreshList(rtv.rtvDetails)
             End If
-            Dim status As String = lpo_.status
-            If status = "APPROVED" Or status = "PRINTED" Or status = "REPRINTED" Or status = "COMPLETED" Or status = "CANCELED" Then
+            Dim status As String = rtv.status
+            If status = "APPROVED" Or status = "COMPLETED" Or status = "CANCELED" Then
                 btnApprove.Enabled = False
             Else
                 btnApprove.Enabled = True
@@ -420,8 +420,8 @@ Public Class frmReturnToVendor
     End Function
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-        If txtOrderNo.ReadOnly = False Then
-            search("", txtOrderNo.Text)
+        If txtRtvNo.ReadOnly = False Then
+            search("", txtRtvNo.Text)
             Exit Sub
         End If
         If txtId.Text <> "" Then
@@ -441,77 +441,74 @@ Public Class frmReturnToVendor
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
         clear()
         clearFields()
-        cmbValidityPeriod.Text = "30"
-        dateValidUntil.Value = ((New Day).getCurrentDay.AddDays(Val(cmbValidityPeriod.Text)))
-        txtOrderNo.ReadOnly = True
+        txtRtvNo.ReadOnly = True
         txtSupplierCode.ReadOnly = False
         cmbSupplierName.Enabled = True
-        txtOrderStatus.Text = ""
-        dateIssueDate.Value = Date.Now() ' Day.DAY
+        txtStatus.Text = ""
+        txtIssueDate.Text = Day.DAY  ' Day.DAY
         unlock()
         btnSave.Enabled = False
-        txtOrderNo.Text = "NA"
-        dtgrdItemList.Rows.Clear()
+        txtRtvNo.Text = "NA"
+        dtgrdProductList.Rows.Clear()
     End Sub
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
-        If User.authorize("EDIT LPO") = True Then
+        'If User.authorize("EDIT LPO") = True Then
 
-        Else
-            MsgBox("Action denied for current user.", vbOKOnly + vbExclamation, "Action denied")
-            Exit Sub
-        End If
+        ' Else
+        'MsgBox("Action denied for current user.", vbOKOnly + vbExclamation, "Action denied")
+        'Exit Sub
+        ' End If
         If txtId.Text = "" Then
             clear()
-            txtOrderNo.ReadOnly = False
+            txtRtvNo.ReadOnly = False
             btnSave.Enabled = False
         Else
             lock()
-            txtOrderNo.ReadOnly = True
+            txtRtvNo.ReadOnly = True
             btnSave.Enabled = True
         End If
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        Dim lpo_ As Lpo
+        Dim rtv As Rtv
         Dim response As Object = New Object
         Dim json As JObject = New JObject
         If txtId.Text = "" Then
-            lpo_ = New Lpo
+            rtv = New Rtv
         Else
-            response = Web.get_("lpos/id=" + txtId.Text)
+            response = Web.get_("rtvs/get_by_id?id=" + txtId.Text)
             json = JObject.Parse(response)
-            lpo_ = JsonConvert.DeserializeObject(Of Lpo)(json.ToString)
+            rtv = JsonConvert.DeserializeObject(Of Rtv)(json.ToString)
         End If
         If txtId.Text <> "" Then
-            lpo_.id = txtId.Text
+            rtv.id = txtId.Text
         Else
-            lpo_.no = "NA"
-            lpo_.createdUser.id = User.CURRENT_USER_ID
+            rtv.no = "NA"
+            rtv.createdUser.id = User.CURRENT_USER_ID
         End If
-        lpo_.issueDate = dateIssueDate.Value.ToString("yyyy-MM-dd")
-        lpo_.validityDays = cmbValidityPeriod.Text
-        lpo_.validUntil = dateValidUntil.Value.ToString("yyyy-MM-dd")
-        lpo_.comment = txtComment.Text
+        rtv.issueDate = Day.DAY
 
-        If dtgrdItemList.RowCount = 0 Then
-            Dim res As Integer = MsgBox("No items listed. Would you like to save an empty LPO?", vbYesNo + vbQuestion, "Save empty LPO?")
+        rtv.comment = txtComment.Text
+
+        If dtgrdProductList.RowCount = 0 Then
+            Dim res As Integer = MsgBox("No items listed. Would you like to save an empty RTV?", vbYesNo + vbQuestion, "Save empty RTV?")
             If Not res = DialogResult.Yes Then
                 Exit Sub
             End If
         End If
         Try
             If txtId.Text = "" Then
-                response = Web.post(lpo_, "lpos/new")
+                response = Web.post(rtv, "rtvs/new")
                 json = JObject.Parse(response)
                 txtId.Text = json.SelectToken("id")
-                MsgBox("LPO created successifully", vbOKOnly + vbInformation, "Success: LPO saved.")
+                MsgBox("RTV created successifully", vbOKOnly + vbInformation, "Success: RTV saved.")
             Else
-                response = Web.put(lpo_, "lpos/edit/id=" + txtId.Text)
+                response = Web.put(rtv, "rtvs/edit_by_id?id=" + txtId.Text)
                 If response = True Then
-                    MsgBox("LPO updated successifully", vbOKOnly + vbInformation, "Success: LPO updated.")
+                    MsgBox("RTV updated successifully", vbOKOnly + vbInformation, "Success: RTV updated.")
                 Else
-                    MsgBox("Could not update LPO", vbOKOnly + vbExclamation, "Error: operation failed")
+                    MsgBox("Could not update RTV", vbOKOnly + vbExclamation, "Error: operation failed")
                 End If
             End If
             refreshLPOList()
@@ -521,14 +518,18 @@ Public Class frmReturnToVendor
         End Try
     End Sub
 
-    Private Function refreshList(lpoDetails As List(Of LpoDetail))
-        dtgrdItemList.Rows.Clear()
+    Private Function refreshList(rtvDetails As List(Of RtvDetail))
+        dtgrdProductList.Rows.Clear()
         Dim total As Double = 0
-        For Each detail In lpoDetails
-            total = total + detail.qty * detail.costPrice
+        For Each detail In rtvDetails
+            total = total + detail.qty * detail.costPriceVatIncl
 
             Dim dtgrdRow As New DataGridViewRow
             Dim dtgrdCell As DataGridViewCell
+
+            dtgrdCell = New DataGridViewTextBoxCell()
+            dtgrdCell.Value = detail.id
+            dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
             dtgrdCell.Value = detail.barcode
@@ -543,19 +544,35 @@ Public Class frmReturnToVendor
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = detail.packSize
-            dtgrdRow.Cells.Add(dtgrdCell)
-
-            dtgrdCell = New DataGridViewTextBoxCell()
             dtgrdCell.Value = detail.qty
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = LCurrency.displayValue(detail.costPrice)
+            dtgrdCell.Value = detail.costPriceVatIncl
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = LCurrency.displayValue(detail.qty * detail.costPrice)
+            dtgrdCell.Value = detail.costPriceVatExcl
+            dtgrdRow.Cells.Add(dtgrdCell)
+
+            dtgrdCell = New DataGridViewTextBoxCell()
+            dtgrdCell.Value = detail.sellingPriceVatIncl
+            dtgrdRow.Cells.Add(dtgrdCell)
+
+            dtgrdCell = New DataGridViewTextBoxCell()
+            dtgrdCell.Value = detail.sellingPriceVatExc
+            dtgrdRow.Cells.Add(dtgrdCell)
+
+            dtgrdCell = New DataGridViewTextBoxCell()
+            dtgrdCell.Value = LCurrency.displayValue(detail.qty * detail.costPriceVatIncl)
+            dtgrdRow.Cells.Add(dtgrdCell)
+
+            dtgrdCell = New DataGridViewTextBoxCell()
+            dtgrdCell.Value = detail.packSize
+            dtgrdRow.Cells.Add(dtgrdCell)
+
+            dtgrdCell = New DataGridViewTextBoxCell()
+            dtgrdCell.Value = detail.reason
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
@@ -566,59 +583,64 @@ Public Class frmReturnToVendor
             dtgrdCell.Value = detail.id
             dtgrdRow.Cells.Add(dtgrdCell)
 
-            dtgrdItemList.Rows.Add(dtgrdRow)
+            dtgrdProductList.Rows.Add(dtgrdRow)
         Next
         txtTotal.Text = LCurrency.displayValue(total)
         Return vbNull
     End Function
 
-    Private Sub dtgrdItemList_RowHeaderMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dtgrdItemList.RowHeaderMouseDoubleClick
+    Private Sub dtgrdItemList_RowHeaderMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dtgrdProductList.RowHeaderMouseDoubleClick
         Dim status As String
         Try
-            status = Web.get_("lpos/id=" + txtId.Text)
+            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
         If status = "APPROVED" Then
-            MsgBox("You can not edit this LPO. LPO already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
-            clearFields()
-            Exit Sub
-        End If
-        If status = "PRINTED" Then
-            MsgBox("You can not edit this LPO. LPO already printed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
-            clearFields()
-            Exit Sub
-        End If
-        If status = "REPRINTED" Then
-            MsgBox("You can not edit this LPO. LPO already printed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this RTV. RTV already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "COMPLETED" Then
-            MsgBox("You can not edit this LPO. LPO already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this RTV. RTV already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "CANCELED" Then
-            MsgBox("You can not edit this LPO. LPO canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this RTV. RTV canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "" Then
-            MsgBox("You can not edit this LPO. LPO status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this RTV. RTV status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
 
-        Dim lpo_ As Lpo
+        Dim rtv As Rtv
         Dim response As Object = New Object
         Dim json As JObject = New JObject
-        response = Web.get_("lpos/id=" + txtId.Text)
+        response = Web.get_("rtvs/get_by_id?id=" + txtId.Text)
         json = JObject.Parse(response)
-        lpo_ = JsonConvert.DeserializeObject(Of Lpo)(json.ToString)
+        rtv = JsonConvert.DeserializeObject(Of Rtv)(json.ToString)
 
         Dim row As Integer = -1
-        row = dtgrdItemList.CurrentRow.Index
+        row = dtgrdProductList.CurrentRow.Index
+
+        Dim barcode As String = dtgrdProductList.Item(1, row).Value.ToString
+        Dim code As String = dtgrdProductList.Item(2, row).Value.ToString
+        Dim description As String = dtgrdProductList.Item(3, row).Value.ToString
+        Dim qty As String = dtgrdProductList.Item(4, i).Value.ToString
+        Dim costPriceIncl As String = dtgrdProductList.Item(5, i).Value.ToString
+        Dim costPriceExcl As String = dtgrdProductList.Item(6, i).Value.ToString
+        Dim sellingPriceIncl As String = dtgrdProductList.Item(7, i).Value.ToString
+        Dim sellingPriceExcl As String = dtgrdProductList.Item(8, i).Value.ToString
+        Dim amount As String = dtgrdProductList.Item(9, i).Value.ToString
+        Dim packSize As String = dtgrdProductList.Item(10, i).Value.ToString
+        Dim reason As String = dtgrdProductList.Item(11, i).Value.ToString
+
+
+
         Dim barCode As String = dtgrdItemList.Item(0, row).Value
         Dim itemCode As String = dtgrdItemList.Item(1, row).Value
         Dim description As String = dtgrdItemList.Item(2, row).Value

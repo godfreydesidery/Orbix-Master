@@ -91,7 +91,7 @@ Partial Class frmReturnToVendor
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txtTotalCostIncl = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.txtComments = New System.Windows.Forms.TextBox()
+        Me.txtComment = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -672,7 +672,7 @@ Partial Class frmReturnToVendor
         Me.Panel1.Controls.Add(Me.Label10)
         Me.Panel1.Controls.Add(Me.txtTotalCostIncl)
         Me.Panel1.Controls.Add(Me.Label9)
-        Me.Panel1.Controls.Add(Me.txtComments)
+        Me.Panel1.Controls.Add(Me.txtComment)
         Me.Panel1.Controls.Add(Me.Label5)
         Me.Panel1.Controls.Add(Me.btnSearch)
         Me.Panel1.Controls.Add(Me.Label4)
@@ -718,14 +718,14 @@ Partial Class frmReturnToVendor
         Me.Label9.TabIndex = 106
         Me.Label9.Text = "Comments"
         '
-        'txtComments
+        'txtComment
         '
-        Me.txtComments.Location = New System.Drawing.Point(108, 158)
-        Me.txtComments.MaxLength = 50
-        Me.txtComments.Multiline = True
-        Me.txtComments.Name = "txtComments"
-        Me.txtComments.Size = New System.Drawing.Size(303, 68)
-        Me.txtComments.TabIndex = 105
+        Me.txtComment.Location = New System.Drawing.Point(108, 158)
+        Me.txtComment.MaxLength = 50
+        Me.txtComment.Multiline = True
+        Me.txtComment.Name = "txtComment"
+        Me.txtComment.Size = New System.Drawing.Size(303, 68)
+        Me.txtComment.TabIndex = 105
         '
         'Label5
         '
@@ -935,7 +935,7 @@ Partial Class frmReturnToVendor
     Friend WithEvents txtSellingPriceVatIncl As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents Label9 As Label
-    Friend WithEvents txtComments As TextBox
+    Friend WithEvents txtComment As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents txtTotalCostIncl As TextBox
     Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
