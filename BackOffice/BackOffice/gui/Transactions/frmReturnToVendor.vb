@@ -205,22 +205,19 @@ Public Class frmReturnToVendor
         column = table.AddColumn("1.5cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("1.5cm")
+        column = table.AddColumn("6.0cm")
+        column.Format.Alignment = ParagraphAlignment.Left
+
+        column = table.AddColumn("1.0cm")
+        column.Format.Alignment = ParagraphAlignment.Left
+
+        column = table.AddColumn("2.0cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
         column = table.AddColumn("3.0cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
         column = table.AddColumn("1.0cm")
-        column.Format.Alignment = ParagraphAlignment.Left
-
-        column = table.AddColumn("1.5cm")
-        column.Format.Alignment = ParagraphAlignment.Left
-
-        column = table.AddColumn("1.5cm")
-        column.Format.Alignment = ParagraphAlignment.Left
-
-        column = table.AddColumn("1.5cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
         column = table.AddColumn("3.0cm")
@@ -230,32 +227,32 @@ Public Class frmReturnToVendor
         Dim row As Row
 
         row = table.AddRow()
-        row.Format.Font.Bold = True
         row.HeadingFormat = True
+        row.Format.Font.Size = 8
         row.Format.Alignment = ParagraphAlignment.Center
         row.Format.Font.Bold = True
         row.Borders.Color = Colors.White
         'row.Shading.Color = TableBlue
-        row.Cells(0).AddParagraph("Barcode")
+        row.Cells(0).AddParagraph("Code")
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(1).AddParagraph("Code")
+        row.Cells(1).AddParagraph("Description")
         row.Cells(1).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(2).AddParagraph("Description")
+        row.Cells(2).AddParagraph("Qty")
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(3).AddParagraph("Qty")
+        row.Cells(3).AddParagraph("Cost Price")
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(4).AddParagraph("Cost Price")
+        row.Cells(4).AddParagraph("Amount")
         row.Cells(4).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(5).AddParagraph("Amount")
+        row.Cells(5).AddParagraph("Pack Size")
         row.Cells(5).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(6).AddParagraph("Pack Size")
+        row.Cells(6).AddParagraph("Reason")
         row.Cells(6).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(7).AddParagraph("Reason")
-        row.Cells(7).Format.Alignment = ParagraphAlignment.Left
 
-        table.SetEdge(0, 0, 8, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+        table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         Dim totalQty As Double = 0
+        Dim totalAmount As Double = 0
+
 
         For i As Integer = 0 To dtgrdProductList.RowCount - 1
             Dim barcode As String = dtgrdProductList.Item(1, i).Value.ToString
@@ -268,30 +265,30 @@ Public Class frmReturnToVendor
             Dim reason As String = dtgrdProductList.Item(11, i).Value.ToString
 
             totalQty = totalQty + Val(qty)
+            totalAmount = totalAmount + LCurrency.getValue(amount)
+
             row = table.AddRow()
             row.Format.Font.Bold = False
+            row.Format.Font.Size = 8
             row.HeadingFormat = False
             row.Format.Alignment = ParagraphAlignment.Center
             row.Borders.Color = Colors.White
-            row.Cells(0).AddParagraph(barcode)
+            row.Cells(0).AddParagraph(code)
             row.Cells(0).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(1).AddParagraph(code)
+            row.Cells(1).AddParagraph(description)
             row.Cells(1).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(2).AddParagraph(description)
+            row.Cells(2).AddParagraph(qty)
             row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(3).AddParagraph(qty)
-            row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(4).AddParagraph(costPriceIncl)
+            row.Cells(3).AddParagraph(costPriceIncl)
+            row.Cells(3).Format.Alignment = ParagraphAlignment.Right
+            row.Cells(4).AddParagraph(amount)
             row.Cells(4).Format.Alignment = ParagraphAlignment.Right
-            row.Cells(5).AddParagraph(amount)
-            row.Cells(5).Format.Alignment = ParagraphAlignment.Right
+            row.Cells(5).AddParagraph(packSize)
+            row.Cells(5).Format.Alignment = ParagraphAlignment.Left
             row.Cells(6).AddParagraph(reason)
             row.Cells(6).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(7).AddParagraph(reason)
-            row.Cells(7).Format.Alignment = ParagraphAlignment.Left
 
-
-            table.SetEdge(0, 0, 8, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+            table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
         Next
         row = table.AddRow()
         row.Format.Font.Bold = True
@@ -302,12 +299,18 @@ Public Class frmReturnToVendor
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
         row.Cells(1).AddParagraph("")
         row.Cells(1).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(2).AddParagraph("Total Qty")
+        row.Cells(2).AddParagraph("")
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(3).AddParagraph(totalQty.ToString)
+        row.Cells(3).AddParagraph("")
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
+        row.Cells(4).AddParagraph(LCurrency.displayValue(totalAmount.ToString))
+        row.Cells(4).Format.Alignment = ParagraphAlignment.Right
+        row.Cells(5).AddParagraph("")
+        row.Cells(5).Format.Alignment = ParagraphAlignment.Left
+        row.Cells(6).AddParagraph("")
+        row.Cells(6).Format.Alignment = ParagraphAlignment.Left
 
-        table.SetEdge(0, 0, 4, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+        table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
     End Sub
 
     Private Function lock()
@@ -371,6 +374,7 @@ Public Class frmReturnToVendor
     End Function
 
     Private Function search(id As String, no As String)
+        clear()
         Dim rtv As Rtv = New Rtv
 
         Dim response As Object = New Object
@@ -396,6 +400,7 @@ Public Class frmReturnToVendor
                 cmbSupplierName.Text = rtv.supplier.name
             End If
             txtId.Text = rtv.id
+            txtRtvNo.Text = rtv.no
             txtIssueDate.Text = rtv.issueDate
 
             txtStatus.Text = rtv.status
@@ -547,19 +552,19 @@ Public Class frmReturnToVendor
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = detail.costPriceVatIncl
+            dtgrdCell.Value = LCurrency.displayValue(detail.costPriceVatIncl)
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = detail.costPriceVatExcl
+            dtgrdCell.Value = LCurrency.displayValue(detail.costPriceVatExcl)
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = detail.sellingPriceVatIncl
+            dtgrdCell.Value = LCurrency.displayValue(detail.sellingPriceVatIncl)
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = detail.sellingPriceVatExcl
+            dtgrdCell.Value = LCurrency.displayValue(detail.sellingPriceVatExcl)
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
@@ -576,6 +581,7 @@ Public Class frmReturnToVendor
 
             dtgrdProductList.Rows.Add(dtgrdRow)
         Next
+        dtgrdProductList.ClearSelection()
         txtTotal.Text = LCurrency.displayValue(total)
         Return vbNull
     End Function
@@ -636,10 +642,10 @@ Public Class frmReturnToVendor
         txtCode.Text = code
         cmbDescription.Text = description
         txtQty.Text = qty
-        txtCostPriceVatIncl.Text = costPriceIncl
-        txtCostPriceVatExcl.Text = costPriceExcl
-        txtSellingPriceVatIncl.Text = sellingPriceIncl
-        txtSellingPriceVatExcl.Text = sellingPriceExcl
+        txtCostPriceVatIncl.Text = LCurrency.displayValue(costPriceIncl)
+        txtCostPriceVatExcl.Text = LCurrency.displayValue(costPriceExcl)
+        txtSellingPriceVatIncl.Text = LCurrency.displayValue(sellingPriceIncl)
+        txtSellingPriceVatExcl.Text = LCurrency.displayValue(sellingPriceExcl)
         txtPackSize.Text = packSize
         txtReason.Text = reason
         If txtDetailId.Text <> "" Then
@@ -714,10 +720,10 @@ Public Class frmReturnToVendor
         txtCode.Text = code
         cmbDescription.Text = description
         txtQty.Text = qty
-        txtCostPriceVatIncl.Text = costPriceIncl
-        txtCostPriceVatExcl.Text = costPriceExcl
-        txtSellingPriceVatIncl.Text = sellingPriceIncl
-        txtSellingPriceVatExcl.Text = sellingPriceExcl
+        txtCostPriceVatIncl.Text = LCurrency.displayValue(costPriceIncl)
+        txtCostPriceVatExcl.Text = LCurrency.displayValue(costPriceExcl)
+        txtSellingPriceVatIncl.Text = LCurrency.displayValue(sellingPriceIncl)
+        txtSellingPriceVatExcl.Text = LCurrency.displayValue(sellingPriceExcl)
         txtPackSize.Text = packSize
         txtReason.Text = reason
 
@@ -796,6 +802,7 @@ Public Class frmReturnToVendor
 
                 dtgrdRtvList.Rows.Add(dtgrdRow)
             Next
+            dtgrdRtvList.ClearSelection()
         Catch ex As Exception
 
         End Try
@@ -870,10 +877,10 @@ Public Class frmReturnToVendor
             txtCode.Text = product.code
             cmbDescription.Text = product.description
             txtPackSize.Text = product.packSize
-            txtCostPriceVatIncl.Text = product.costPriceVatIncl
-            txtCostPriceVatExcl.Text = product.costPriceVatExcl
-            txtSellingPriceVatIncl.Text = product.sellingPriceVatIncl
-            txtSellingPriceVatExcl.Text = product.sellingPriceVatExcl
+            txtCostPriceVatIncl.Text = LCurrency.displayValue(product.costPriceVatIncl)
+            txtCostPriceVatExcl.Text = LCurrency.displayValue(product.costPriceVatExcl)
+            txtSellingPriceVatIncl.Text = LCurrency.displayValue(product.sellingPriceVatIncl)
+            txtSellingPriceVatExcl.Text = LCurrency.displayValue(product.sellingPriceVatExcl)
             txtStockSize.Text = product.stock
             txtPackSize.Text = product.packSize
             found = True
@@ -906,6 +913,7 @@ Public Class frmReturnToVendor
         txtSellingPriceVatIncl.Text = ""
         txtSellingPriceVatExcl.Text = ""
         txtStockSize.Text = ""
+        txtReason.Text = ""
     End Sub
     Private Sub lockFields()
         txtBarCode.ReadOnly = True
@@ -951,10 +959,10 @@ Public Class frmReturnToVendor
         Dim code As String = txtCode.Text
         Dim description As String = cmbDescription.Text
         Dim qty As String = txtQty.Text
-        Dim costPriceVatInvl As String = txtCostPriceVatIncl.Text
-        Dim costPriceVatExcl As String = txtCostPriceVatExcl.Text
-        Dim sellingPriceVatIncl As String = txtSellingPriceVatIncl.Text
-        Dim sellingPriceVatExcl As String = txtSellingPriceVatExcl.Text
+        Dim costPriceVatInvl As String = LCurrency.getValue(txtCostPriceVatIncl.Text)
+        Dim costPriceVatExcl As String = LCurrency.getValue(txtCostPriceVatExcl.Text)
+        Dim sellingPriceVatIncl As String = LCurrency.getValue(txtSellingPriceVatIncl.Text)
+        Dim sellingPriceVatExcl As String = LCurrency.getValue(txtSellingPriceVatExcl.Text)
         Dim reason As String = txtReason.Text
         Dim packSize As String = txtPackSize.Text
         If code = "" Then
@@ -1003,16 +1011,16 @@ Public Class frmReturnToVendor
             rtvDetail.code = code
             rtvDetail.description = description
             rtvDetail.qty = qty
-            rtvDetail.costPriceVatIncl = txtCostPriceVatIncl.Text
-            rtvDetail.costPriceVatExcl = txtCostPriceVatExcl.Text
-            rtvDetail.sellingPriceVatIncl = txtSellingPriceVatIncl.Text
-            rtvDetail.sellingPriceVatExcl = txtSellingPriceVatExcl.Text
+            rtvDetail.costPriceVatIncl = LCurrency.getValue(txtCostPriceVatIncl.Text)
+            rtvDetail.costPriceVatExcl = LCurrency.getValue(txtCostPriceVatExcl.Text)
+            rtvDetail.sellingPriceVatIncl = LCurrency.getValue(txtSellingPriceVatIncl.Text)
+            rtvDetail.sellingPriceVatExcl = LCurrency.getValue(txtSellingPriceVatExcl.Text)
             rtvDetail.reason = txtReason.Text
             rtvDetail.packSize = packSize
             If txtDetailId.Text = "" Then
                 response = Web.post(rtvDetail, "rtv_details/new")
             Else
-                response = Web.post(rtvDetail, "rtv_details/edit_by_id?id=" + txtDetailId.Text)
+                response = Web.put(rtvDetail, "rtv_details/edit_by_id?id=" + txtDetailId.Text)
             End If
             refreshRtvList()
             search(txtId.Text, "")
@@ -1240,7 +1248,7 @@ Public Class frmReturnToVendor
         End Try
         If Not (status = "APPROVED" Or status = "COMPLETED" Or status = "ARCHIVED") Then
             MsgBox("Could not print RTV. Only approved, completed or archived RTV can be printed", vbOKOnly + vbExclamation, "Invalid operation")
-            Exit Sub
+            ' Exit Sub
         End If
 
         search(txtId.Text, "")
@@ -1267,5 +1275,19 @@ Public Class frmReturnToVendor
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         clear()
         clearFields()
+    End Sub
+
+    Private Sub txtDetailId_TextChanged(sender As Object, e As EventArgs) Handles txtDetailId.TextChanged
+        If txtDetailId.Text = "" Then
+            btnSearchItem.Enabled = True
+            txtBarCode.ReadOnly = False
+            txtCode.ReadOnly = False
+            cmbDescription.Enabled = True
+        Else
+            btnSearchItem.Enabled = False
+            txtBarCode.ReadOnly = True
+            txtCode.ReadOnly = True
+            cmbDescription.Enabled = False
+        End If
     End Sub
 End Class
