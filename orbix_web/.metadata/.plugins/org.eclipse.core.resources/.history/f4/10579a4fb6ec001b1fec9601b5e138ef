@@ -1,0 +1,17 @@
+/**
+ * 
+ */
+package com.example.orbix_web.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.orbix_web.models.CompanyProfile;
+import com.example.orbix_web.models.CorporateCustomer;
+
+/**
+ * @author GODFREY
+ *
+ */
+public interface CorporateCustomerRepository extends JpaRepository <CorporateCustomer, Long> {
+
+}

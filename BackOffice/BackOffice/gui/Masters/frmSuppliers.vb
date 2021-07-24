@@ -4,7 +4,6 @@ Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 
 Public Class frmSuppliers
-    Dim RECORD_MODE As String = ""
     Private Function clearFields()
         txtId.Text = ""
         txtCode.Text = ""
@@ -68,31 +67,8 @@ Public Class frmSuppliers
         txtFax.ReadOnly = False
         Return vbNull
     End Function
-    Private Function getValues()
-        Dim supplier As New Supplier
 
-        ' supplier.GL_SUPPLIER_CODE = txtCode.Text
-        'supplier.GL_SUPPLIER_NAME = cmbName.Text
-        ' supplier.GL_CONTACT_NAME = txtContactName.Text
-        'supplier.GL_TIN = txtTIN.Text
-        'supplier.GL_VRN = txtVRN.Text
-        'supplier.GL_BANK_ACC_NAME = txtBankAccountName.Text
-        'supplier.GL_BANK_ACC_ADDRESS = txtBankPostAddress.Text
-        'supplier.GL_BANK_POST_CODE = txtBankPostCode.Text
-        'supplier.GL_BANK_NAME = txtBankName.Text
-        'supplier.GL_BANK_ACC_NO = txtBankAccountNo.Text
-        'supplier.GL_ADDRESS = txtPostAddress.Text
-        'supplier.GL_POSTAL_CODE = txtPostCode.Text
-        'supplier.GL_PHYSICAL_ADDRESS = txtPhysicalAdrress.Text
-        'supplier.GL_TELEPHONE = txtTelephone.Text
-        'supplier.GL_MOBILE = txtMobile.Text
-        'supplier.GL_EMAIL = txtEmail.Text
-        'supplier.GL_FAX = txtFax.Text
-
-        Return vbNull
-    End Function
     Private Function setValues()
-
         Return vbNull
     End Function
 
@@ -183,7 +159,6 @@ Public Class frmSuppliers
             cmbName.Enabled = True
         Else
             txtId.Text = supplier_.id
-            ' supplier.GLOBAL_PRODUCT = Product
             txtCode.Text = supplier_.code
             cmbName.Text = supplier_.name
             txtContactName.Text = supplier_.contactName
@@ -209,14 +184,12 @@ Public Class frmSuppliers
             btnDelete.Enabled = True
             txtCode.ReadOnly = True
             lock()
-            REC_PRESENT = True
 
             If supplier_.status = "DISCONTINUED" Then
                 chkDiscontinued.Checked = True
             Else
                 chkDiscontinued.Checked = False
             End If
-            ' assignValues()
         End If
 
         Return vbNull
@@ -277,9 +250,7 @@ Public Class frmSuppliers
 
                 dtgrdSuppliers.Enabled = True
                 btnProductAndService.Enabled = True
-                RECORD_MODE = ""
                 refreshList()
-                REC_PRESENT = True
 
                 MsgBox("Supplier created successifully", vbOKOnly + vbInformation, "Success: Supplier saved.")
             Else
@@ -288,7 +259,6 @@ Public Class frmSuppliers
                     dtgrdSuppliers.Enabled = True
                     btnProductAndService.Enabled = True
                     refreshList()
-                    REC_PRESENT = True
                     MsgBox("Supplier successifully modified", vbOKOnly + vbInformation, "Success: Supplier modified.")
                 Else
                     MsgBox("Update failed")
@@ -300,7 +270,7 @@ Public Class frmSuppliers
             Exit Sub
         End Try
     End Sub
-    Dim REC_PRESENT As Boolean = False
+    '   Dim REC_PRESENT As Boolean = False
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
         btnDelete.Enabled = False
         btnSearch.Enabled = True
@@ -331,7 +301,6 @@ Public Class frmSuppliers
             'dtgrdSuppliers.Enabled = False
             clearFields() 'clear the fields
             refreshList()
-            REC_PRESENT = False
             MsgBox("Supplier record deleted successifully", vbOKOnly + vbInformation, "Success: Delete supplier record")
         Else
             MsgBox("Could not delete the selected supplier record", vbOKOnly + vbCritical, "Error: Delete failed")

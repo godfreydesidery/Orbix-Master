@@ -73,6 +73,11 @@ Partial Class frmCorporateCustomers
         Me.Label21 = New System.Windows.Forms.Label()
         Me.chkActive = New System.Windows.Forms.CheckBox()
         Me.dgrdCustomerList = New System.Windows.Forms.DataGridView()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtVrn = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtTin = New System.Windows.Forms.TextBox()
+        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -87,7 +92,11 @@ Partial Class frmCorporateCustomers
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.Label12)
+        Me.Panel1.Controls.Add(Me.txtTin)
         Me.Panel1.Controls.Add(Me.chkActive)
+        Me.Panel1.Controls.Add(Me.Label4)
+        Me.Panel1.Controls.Add(Me.txtVrn)
         Me.Panel1.Controls.Add(Me.btnSearch)
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Controls.Add(Me.txtContactName)
@@ -98,7 +107,7 @@ Partial Class frmCorporateCustomers
         Me.Panel1.Controls.Add(Me.txtId)
         Me.Panel1.Location = New System.Drawing.Point(12, 59)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(528, 155)
+        Me.Panel1.Size = New System.Drawing.Size(528, 175)
         Me.Panel1.TabIndex = 0
         '
         'ToolStrip1
@@ -262,7 +271,7 @@ Partial Class frmCorporateCustomers
         Me.Panel2.Controls.Add(Me.txtPostAddress)
         Me.Panel2.Controls.Add(Me.Label7)
         Me.Panel2.Controls.Add(Me.txtPhysicalAddress)
-        Me.Panel2.Location = New System.Drawing.Point(12, 237)
+        Me.Panel2.Location = New System.Drawing.Point(12, 257)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(528, 211)
         Me.Panel2.TabIndex = 104
@@ -392,7 +401,7 @@ Partial Class frmCorporateCustomers
         Me.Panel3.Controls.Add(Me.txtBankAddress)
         Me.Panel3.Controls.Add(Me.Label18)
         Me.Panel3.Controls.Add(Me.txtBankAccountName)
-        Me.Panel3.Location = New System.Drawing.Point(12, 471)
+        Me.Panel3.Location = New System.Drawing.Point(12, 491)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(528, 160)
         Me.Panel3.TabIndex = 105
@@ -489,7 +498,7 @@ Partial Class frmCorporateCustomers
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(12, 217)
+        Me.Label20.Location = New System.Drawing.Point(12, 237)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(140, 17)
         Me.Label20.TabIndex = 107
@@ -498,7 +507,7 @@ Partial Class frmCorporateCustomers
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(12, 451)
+        Me.Label21.Location = New System.Drawing.Point(11, 471)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(59, 17)
         Me.Label21.TabIndex = 108
@@ -507,7 +516,7 @@ Partial Class frmCorporateCustomers
         'chkActive
         '
         Me.chkActive.AutoSize = True
-        Me.chkActive.Location = New System.Drawing.Point(139, 114)
+        Me.chkActive.Location = New System.Drawing.Point(297, 114)
         Me.chkActive.Name = "chkActive"
         Me.chkActive.Size = New System.Drawing.Size(68, 21)
         Me.chkActive.TabIndex = 7
@@ -521,13 +530,51 @@ Partial Class frmCorporateCustomers
         Me.dgrdCustomerList.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         Me.dgrdCustomerList.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgrdCustomerList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgrdCustomerList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4})
+        Me.dgrdCustomerList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column5, Me.Column1, Me.Column2, Me.Column3, Me.Column4})
         Me.dgrdCustomerList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgrdCustomerList.Location = New System.Drawing.Point(546, 59)
         Me.dgrdCustomerList.Name = "dgrdCustomerList"
         Me.dgrdCustomerList.RowTemplate.Height = 24
         Me.dgrdCustomerList.Size = New System.Drawing.Size(993, 592)
         Me.dgrdCustomerList.TabIndex = 109
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(96, 146)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(37, 17)
+        Me.Label4.TabIndex = 9
+        Me.Label4.Text = "VRN"
+        '
+        'txtVrn
+        '
+        Me.txtVrn.Location = New System.Drawing.Point(138, 141)
+        Me.txtVrn.Name = "txtVrn"
+        Me.txtVrn.Size = New System.Drawing.Size(153, 22)
+        Me.txtVrn.TabIndex = 8
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(102, 116)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(30, 17)
+        Me.Label12.TabIndex = 11
+        Me.Label12.Text = "TIN"
+        '
+        'txtTin
+        '
+        Me.txtTin.Location = New System.Drawing.Point(138, 113)
+        Me.txtTin.Name = "txtTin"
+        Me.txtTin.Size = New System.Drawing.Size(153, 22)
+        Me.txtTin.TabIndex = 10
+        '
+        'Column5
+        '
+        Me.Column5.HeaderText = "ID"
+        Me.Column5.Name = "Column5"
+        Me.Column5.Visible = False
         '
         'Column1
         '
@@ -634,6 +681,11 @@ Partial Class frmCorporateCustomers
     Friend WithEvents Label21 As Label
     Friend WithEvents chkActive As CheckBox
     Friend WithEvents dgrdCustomerList As DataGridView
+    Friend WithEvents Label12 As Label
+    Friend WithEvents txtTin As TextBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents txtVrn As TextBox
+    Friend WithEvents Column5 As DataGridViewTextBoxColumn
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
