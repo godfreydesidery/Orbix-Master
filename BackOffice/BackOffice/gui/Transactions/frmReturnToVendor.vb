@@ -762,27 +762,9 @@ Public Class frmReturnToVendor
         End If
     End Sub
 
-    Private Sub btnDelete_Click(sender As Object, e As EventArgs)
-        If txtRtvNo.Text = "" Then
-            MsgBox("Please select an order to delete.", vbOKOnly + vbExclamation, "Error: No selection")
-            Exit Sub
-        End If
-        Dim order As New Order
-        If order.isOrderExist(txtRtvNo.Text) <> True Then
-            MsgBox("No matching order", vbOKOnly + vbExclamation, "")
-            Exit Sub
-        End If
-        search(txtId.Text, txtOrderNo.Text)
-        Dim res As Integer = MsgBox("Are you sure you want to delete the selected order: " + txtOrderNo.Text + " ? Information on this order will be removed from the system.", vbYesNo + vbQuestion, "Delete order?")
-        If res = DialogResult.Yes Then
-            order.deleteOrder(txtOrderNo.Text)
-            MsgBox("Order Successively removed", vbOKOnly + vbInformation, "")
-        End If
-    End Sub
-
-    Private Sub txtOrderNo_preview(sender As Object, e As PreviewKeyDownEventArgs) Handles txtOrderNo.PreviewKeyDown
+    Private Sub txtOrderNo_preview(sender As Object, e As PreviewKeyDownEventArgs) Handles txtRtvNo.PreviewKeyDown
         If e.KeyCode = Keys.Tab Then
-            search("", txtOrderNo.Text)
+            search("", txtRtvNo.Text)
         End If
     End Sub
 
@@ -794,7 +776,7 @@ Public Class frmReturnToVendor
         Dim found As Boolean = False
         Dim valid As Boolean = False
         Dim barcode As String = txtBarCode.Text
-        Dim code As String = txtItemCodeS.Text
+        Dim code As String = txtCode.Text
         Dim description As String = cmbDescription.Text
         Try
             Dim product As Product
@@ -818,19 +800,23 @@ Public Class frmReturnToVendor
                 Exit Sub
             End If
 
-            txtItemCodeS.Text = product.code
+            txtCode.Text = product.code
             cmbDescription.Text = product.description
             txtPackSize.Text = product.packSize
-            txtCostPrice.Text = product.costPriceVatIncl
+            txtCostPriceVatIncl.Text = product.costPriceVatIncl
+            txtCostPriceVatExcl.Text = product.costPriceVatExcl
+            txtSellingPriceVatIncl.Text = product.sellingPriceVatIncl
+            txtSellingPriceVatExcl.Text = product.sellingPriceVatExcl
             txtStockSize.Text = product.stock
+            txtPackSize.Text = product.packSize
             found = True
-            If isSupply(txtItemCodeS.Text, txtSupplierCode.Text) = False And found = True Then
-                MsgBox("Can not add product to this order. Product not available for this Supplier")
+            If isSupply(txtCostPriceVatExcl.Text, txtSupplierCode.Text) = False And found = True Then
+                MsgBox("Can not add product to this RTV. Product not available for this Supplier")
                 clearFields()
             Else
                 valid = True
                 lockFields()
-                txtQuantity.ReadOnly = False
+                txtQty.ReadOnly = False
             End If
             If found = False Then
                 MsgBox("Product not found", vbOKOnly + vbCritical, "Item not found")
@@ -842,24 +828,26 @@ Public Class frmReturnToVendor
     End Sub
     Private Sub clearFields()
         txtBarCode.Text = ""
-        txtItemCodeS.Text = ""
+        txtCode.Text = ""
         cmbDescription.SelectedItem = Nothing
         cmbDescription.Text = ""
         txtPackSize.Text = ""
-        txtQuantity.Text = ""
-        txtCostPrice.Text = ""
+        txtQty.Text = ""
+        txtCostPriceVatIncl.Text = ""
+        txtCostPriceVatExcl.Text = ""
+        txtSellingPriceVatIncl.Text = ""
+        txtSellingPriceVatExcl.Text = ""
         txtStockSize.Text = ""
     End Sub
     Private Sub lockFields()
         txtBarCode.ReadOnly = True
-        txtItemCodeS.ReadOnly = True
+        txtCode.ReadOnly = True
         cmbDescription.Enabled = False
-
         btnAdd.Enabled = True
     End Sub
     Private Sub unLockFields()
         txtBarCode.ReadOnly = False
-        txtItemCodeS.ReadOnly = False
+        txtCode.ReadOnly = False
         cmbDescription.Enabled = True
 
         btnAdd.Enabled = False
@@ -867,45 +855,35 @@ Public Class frmReturnToVendor
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim status As String
         Try
-            status = Web.get_("lpos/get_status/id=" + txtId.Text)
+            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
         If status = "APPROVED" Then
-            MsgBox("You can not edit this order. Order already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
-            clearFields()
-            Exit Sub
-        End If
-        If status = "PRINTED" Then
-            MsgBox("You can not edit this order. Order already printed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
-            clearFields()
-            Exit Sub
-        End If
-        If status = "REPRINTED" Then
-            MsgBox("You can not edit this order. Order already printed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this RTV. RTV already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "COMPLETED" Then
-            MsgBox("You can not edit this order. Order already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this RTV. RTV already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "CANCELED" Then
-            MsgBox("You can not edit this order. Order canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this RTV. RTV canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "" Then
-            MsgBox("You can not edit this order. Order status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this RTV. RTV status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         Dim barCode As String = txtBarCode.Text
-        Dim code As String = txtItemCodeS.Text
+        Dim code As String = txtCode.Text
         Dim description As String = cmbDescription.Text
-        Dim qty As String = txtQuantity.Text
-        Dim costPrice As String = txtCostPrice.Text
+        Dim qty As String = txtQty.Text
+        Dim costPrice As String = txtCostPriceVatIncl.Text
         Dim packSize As String = txtPackSize.Text
         If code = "" Then
             MsgBox("Invalid entry")
@@ -921,25 +899,24 @@ Public Class frmReturnToVendor
         End If
         Try
 
-            Dim lpo_ As Lpo
+            Dim rtv As Rtv
             Dim response As Object = New Object
             Dim json As JObject = New JObject
             If txtId.Text = "" Then
-                lpo_ = New Lpo
-                lpo_.no = "NA"
-                lpo_.createdUser.id = User.CURRENT_USER_ID
-                lpo_.supplier.code = txtSupplierCode.Text
-                lpo_.supplier.name = cmbSupplierName.Text
-                lpo_.issueDate = dateIssueDate.Value.ToString("yyyy-MM-dd")
-                lpo_.validityDays = cmbValidityPeriod.Text
-                lpo_.validUntil = dateValidUntil.Value.ToString("yyyy-MM-dd")
-                lpo_.comment = txtComment.Text
+                rtv = New Rtv
+                rtv.no = "NA"
+                rtv.createdUser.id = User.CURRENT_USER_ID
+                rtv.supplier.code = txtSupplierCode.Text
+                rtv.supplier.name = cmbSupplierName.Text
+                rtv.issueDate = Day.DAY
 
-                response = Web.post(lpo_, "lpos/new")
+                rtv.comment = txtComment.Text
+
+                response = Web.post(rtv, "rtvs/new")
                 json = JObject.Parse(response)
-                lpo_ = JsonConvert.DeserializeObject(Of Lpo)(json.ToString)
-                txtId.Text = lpo_.id
-                txtOrderNo.Text = lpo_.no
+                rtv = JsonConvert.DeserializeObject(Of Rtv)(json.ToString)
+                txtId.Text = rtv.id
+                txtRtvNo.Text = rtv.no
             End If
 
 
