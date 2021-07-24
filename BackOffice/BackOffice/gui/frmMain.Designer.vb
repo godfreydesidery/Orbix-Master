@@ -235,12 +235,12 @@ Partial Class frmMain
         'ToolStripDropDownButton3
         '
         Me.ToolStripDropDownButton3.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ToolStripMenuItem2, Me.MassManagementToolStripMenuItem, Me.CorporateCustomersToolStripMenuItem, Me.CompanyProfileToolStripMenuItem, Me.SuppliersToolStripMenuItem})
-        Me.ToolStripDropDownButton3.Font = New System.Drawing.Font("Constantia", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripDropDownButton3.Font = New System.Drawing.Font("Candara", 12.0!)
         Me.ToolStripDropDownButton3.ForeColor = System.Drawing.Color.MidnightBlue
         Me.ToolStripDropDownButton3.Image = CType(resources.GetObject("ToolStripDropDownButton3.Image"), System.Drawing.Image)
         Me.ToolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripDropDownButton3.Name = "ToolStripDropDownButton3"
-        Me.ToolStripDropDownButton3.Size = New System.Drawing.Size(113, 28)
+        Me.ToolStripDropDownButton3.Size = New System.Drawing.Size(111, 28)
         Me.ToolStripDropDownButton3.Text = "&Masters"
         '
         'ToolStripMenuItem1
@@ -269,7 +269,6 @@ Partial Class frmMain
         '
         'CorporateCustomersToolStripMenuItem
         '
-        Me.CorporateCustomersToolStripMenuItem.Enabled = False
         Me.CorporateCustomersToolStripMenuItem.Font = New System.Drawing.Font("Candara", 12.0!)
         Me.CorporateCustomersToolStripMenuItem.ForeColor = System.Drawing.SystemColors.InfoText
         Me.CorporateCustomersToolStripMenuItem.Name = "CorporateCustomersToolStripMenuItem"
@@ -295,12 +294,12 @@ Partial Class frmMain
         'ToolStripDropDownButton4
         '
         Me.ToolStripDropDownButton4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem3, Me.ToolStripMenuItem4, Me.ToolStripMenuItem5, Me.ToolStripMenuItem6})
-        Me.ToolStripDropDownButton4.Font = New System.Drawing.Font("Constantia", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripDropDownButton4.Font = New System.Drawing.Font("Candara", 12.0!)
         Me.ToolStripDropDownButton4.ForeColor = System.Drawing.Color.MidnightBlue
         Me.ToolStripDropDownButton4.Image = CType(resources.GetObject("ToolStripDropDownButton4.Image"), System.Drawing.Image)
         Me.ToolStripDropDownButton4.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripDropDownButton4.Name = "ToolStripDropDownButton4"
-        Me.ToolStripDropDownButton4.Size = New System.Drawing.Size(105, 28)
+        Me.ToolStripDropDownButton4.Size = New System.Drawing.Size(101, 28)
         Me.ToolStripDropDownButton4.Text = "&Orders"
         '
         'ToolStripMenuItem3
@@ -341,12 +340,12 @@ Partial Class frmMain
         'ToolStripDropDownButton2
         '
         Me.ToolStripDropDownButton2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FrontOfficeReportsToolStripMenuItem, Me.BackOfficeReportsToolStripMenuItem})
-        Me.ToolStripDropDownButton2.Font = New System.Drawing.Font("Constantia", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripDropDownButton2.Font = New System.Drawing.Font("Candara", 12.0!)
         Me.ToolStripDropDownButton2.ForeColor = System.Drawing.Color.MidnightBlue
         Me.ToolStripDropDownButton2.Image = CType(resources.GetObject("ToolStripDropDownButton2.Image"), System.Drawing.Image)
         Me.ToolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripDropDownButton2.Name = "ToolStripDropDownButton2"
-        Me.ToolStripDropDownButton2.Size = New System.Drawing.Size(112, 28)
+        Me.ToolStripDropDownButton2.Size = New System.Drawing.Size(110, 28)
         Me.ToolStripDropDownButton2.Text = "&Reports"
         '
         'FrontOfficeReportsToolStripMenuItem
@@ -503,12 +502,12 @@ Partial Class frmMain
         'ToolStripDropDownButton5
         '
         Me.ToolStripDropDownButton5.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem7, Me.ToolStripMenuItem8, Me.ToolStripMenuItem9, Me.ToolStripMenuItem10, Me.AllocationsToolStripMenuItem, Me.ReceiptsToolStripMenuItem, Me.QuotationsToolStripMenuItem, Me.ReturnToVendorToolStripMenuItem, Me.SalesLedgeToolStripMenuItem, Me.SalesJournalToolStripMenuItem, Me.VendorsInvoiceBookToolStripMenuItem, Me.SalesInvoiceToolStripMenuItem})
-        Me.ToolStripDropDownButton5.Font = New System.Drawing.Font("Constantia", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripDropDownButton5.Font = New System.Drawing.Font("Candara", 12.0!)
         Me.ToolStripDropDownButton5.ForeColor = System.Drawing.Color.MidnightBlue
         Me.ToolStripDropDownButton5.Image = CType(resources.GetObject("ToolStripDropDownButton5.Image"), System.Drawing.Image)
         Me.ToolStripDropDownButton5.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripDropDownButton5.Name = "ToolStripDropDownButton5"
-        Me.ToolStripDropDownButton5.Size = New System.Drawing.Size(156, 28)
+        Me.ToolStripDropDownButton5.Size = New System.Drawing.Size(149, 28)
         Me.ToolStripDropDownButton5.Text = "&Transactions"
         Me.ToolStripDropDownButton5.ToolTipText = "Transactions"
         '
@@ -516,28 +515,28 @@ Partial Class frmMain
         '
         Me.ToolStripMenuItem7.ForeColor = System.Drawing.SystemColors.InfoText
         Me.ToolStripMenuItem7.Name = "ToolStripMenuItem7"
-        Me.ToolStripMenuItem7.Size = New System.Drawing.Size(329, 28)
+        Me.ToolStripMenuItem7.Size = New System.Drawing.Size(315, 28)
         Me.ToolStripMenuItem7.Text = "Goods Received Note(GRN)"
         '
         'ToolStripMenuItem8
         '
         Me.ToolStripMenuItem8.ForeColor = System.Drawing.SystemColors.InfoText
         Me.ToolStripMenuItem8.Name = "ToolStripMenuItem8"
-        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(329, 28)
+        Me.ToolStripMenuItem8.Size = New System.Drawing.Size(315, 28)
         Me.ToolStripMenuItem8.Text = "Return by Customers"
         '
         'ToolStripMenuItem9
         '
         Me.ToolStripMenuItem9.ForeColor = System.Drawing.SystemColors.InfoText
         Me.ToolStripMenuItem9.Name = "ToolStripMenuItem9"
-        Me.ToolStripMenuItem9.Size = New System.Drawing.Size(329, 28)
+        Me.ToolStripMenuItem9.Size = New System.Drawing.Size(315, 28)
         Me.ToolStripMenuItem9.Text = "Customer Credit Notes"
         '
         'ToolStripMenuItem10
         '
         Me.ToolStripMenuItem10.ForeColor = System.Drawing.SystemColors.InfoText
         Me.ToolStripMenuItem10.Name = "ToolStripMenuItem10"
-        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(329, 28)
+        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(315, 28)
         Me.ToolStripMenuItem10.Text = "Supplier Credit Notes"
         '
         'AllocationsToolStripMenuItem
@@ -545,14 +544,14 @@ Partial Class frmMain
         Me.AllocationsToolStripMenuItem.Enabled = False
         Me.AllocationsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.InfoText
         Me.AllocationsToolStripMenuItem.Name = "AllocationsToolStripMenuItem"
-        Me.AllocationsToolStripMenuItem.Size = New System.Drawing.Size(329, 28)
+        Me.AllocationsToolStripMenuItem.Size = New System.Drawing.Size(315, 28)
         Me.AllocationsToolStripMenuItem.Text = "Allocations"
         '
         'ReceiptsToolStripMenuItem
         '
         Me.ReceiptsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.InfoText
         Me.ReceiptsToolStripMenuItem.Name = "ReceiptsToolStripMenuItem"
-        Me.ReceiptsToolStripMenuItem.Size = New System.Drawing.Size(329, 28)
+        Me.ReceiptsToolStripMenuItem.Size = New System.Drawing.Size(315, 28)
         Me.ReceiptsToolStripMenuItem.Text = "Receipts"
         '
         'QuotationsToolStripMenuItem
@@ -560,14 +559,14 @@ Partial Class frmMain
         Me.QuotationsToolStripMenuItem.Enabled = False
         Me.QuotationsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.InfoText
         Me.QuotationsToolStripMenuItem.Name = "QuotationsToolStripMenuItem"
-        Me.QuotationsToolStripMenuItem.Size = New System.Drawing.Size(329, 28)
+        Me.QuotationsToolStripMenuItem.Size = New System.Drawing.Size(315, 28)
         Me.QuotationsToolStripMenuItem.Text = "Quotations"
         '
         'ReturnToVendorToolStripMenuItem
         '
         Me.ReturnToVendorToolStripMenuItem.ForeColor = System.Drawing.SystemColors.InfoText
         Me.ReturnToVendorToolStripMenuItem.Name = "ReturnToVendorToolStripMenuItem"
-        Me.ReturnToVendorToolStripMenuItem.Size = New System.Drawing.Size(329, 28)
+        Me.ReturnToVendorToolStripMenuItem.Size = New System.Drawing.Size(315, 28)
         Me.ReturnToVendorToolStripMenuItem.Text = "Return to Vendor"
         '
         'SalesLedgeToolStripMenuItem
@@ -575,7 +574,7 @@ Partial Class frmMain
         Me.SalesLedgeToolStripMenuItem.Enabled = False
         Me.SalesLedgeToolStripMenuItem.ForeColor = System.Drawing.SystemColors.InfoText
         Me.SalesLedgeToolStripMenuItem.Name = "SalesLedgeToolStripMenuItem"
-        Me.SalesLedgeToolStripMenuItem.Size = New System.Drawing.Size(329, 28)
+        Me.SalesLedgeToolStripMenuItem.Size = New System.Drawing.Size(315, 28)
         Me.SalesLedgeToolStripMenuItem.Text = "Sales Ledge"
         '
         'SalesJournalToolStripMenuItem
@@ -583,32 +582,32 @@ Partial Class frmMain
         Me.SalesJournalToolStripMenuItem.Enabled = False
         Me.SalesJournalToolStripMenuItem.ForeColor = System.Drawing.SystemColors.InfoText
         Me.SalesJournalToolStripMenuItem.Name = "SalesJournalToolStripMenuItem"
-        Me.SalesJournalToolStripMenuItem.Size = New System.Drawing.Size(329, 28)
+        Me.SalesJournalToolStripMenuItem.Size = New System.Drawing.Size(315, 28)
         Me.SalesJournalToolStripMenuItem.Text = "Sales Journal"
         '
         'VendorsInvoiceBookToolStripMenuItem
         '
         Me.VendorsInvoiceBookToolStripMenuItem.ForeColor = System.Drawing.SystemColors.InfoText
         Me.VendorsInvoiceBookToolStripMenuItem.Name = "VendorsInvoiceBookToolStripMenuItem"
-        Me.VendorsInvoiceBookToolStripMenuItem.Size = New System.Drawing.Size(329, 28)
+        Me.VendorsInvoiceBookToolStripMenuItem.Size = New System.Drawing.Size(315, 28)
         Me.VendorsInvoiceBookToolStripMenuItem.Text = "Vendors Invoice Book"
         '
         'SalesInvoiceToolStripMenuItem
         '
         Me.SalesInvoiceToolStripMenuItem.ForeColor = System.Drawing.SystemColors.InfoText
         Me.SalesInvoiceToolStripMenuItem.Name = "SalesInvoiceToolStripMenuItem"
-        Me.SalesInvoiceToolStripMenuItem.Size = New System.Drawing.Size(329, 28)
+        Me.SalesInvoiceToolStripMenuItem.Size = New System.Drawing.Size(315, 28)
         Me.SalesInvoiceToolStripMenuItem.Text = "Sales Invoice"
         '
         'ToolStripDropDownButton6
         '
         Me.ToolStripDropDownButton6.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem11, Me.ToolStripMenuItem12, Me.StockConversionToolStripMenuItem, Me.ToolStripSeparator1, Me.ToolStripMenuItem15, Me.ToolStripMenuItem16, Me.CustomProductionToolStripMenuItem, Me.ToolStripSeparator2, Me.ToolStripMenuItem14, Me.ToolStripSeparator6, Me.tlstripReports})
-        Me.ToolStripDropDownButton6.Font = New System.Drawing.Font("Constantia", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripDropDownButton6.Font = New System.Drawing.Font("Candara", 12.0!)
         Me.ToolStripDropDownButton6.ForeColor = System.Drawing.Color.MidnightBlue
         Me.ToolStripDropDownButton6.Image = CType(resources.GetObject("ToolStripDropDownButton6.Image"), System.Drawing.Image)
         Me.ToolStripDropDownButton6.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripDropDownButton6.Name = "ToolStripDropDownButton6"
-        Me.ToolStripDropDownButton6.Size = New System.Drawing.Size(229, 28)
+        Me.ToolStripDropDownButton6.Size = New System.Drawing.Size(220, 28)
         Me.ToolStripDropDownButton6.Text = "&Production and Sales"
         '
         'ToolStripMenuItem11
@@ -792,12 +791,12 @@ Partial Class frmMain
         'ToolStripDropDownButton8
         '
         Me.ToolStripDropDownButton8.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem23, Me.ToolStripMenuItem24})
-        Me.ToolStripDropDownButton8.Font = New System.Drawing.Font("Constantia", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripDropDownButton8.Font = New System.Drawing.Font("Candara", 12.0!)
         Me.ToolStripDropDownButton8.ForeColor = System.Drawing.Color.MidnightBlue
         Me.ToolStripDropDownButton8.Image = CType(resources.GetObject("ToolStripDropDownButton8.Image"), System.Drawing.Image)
         Me.ToolStripDropDownButton8.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripDropDownButton8.Name = "ToolStripDropDownButton8"
-        Me.ToolStripDropDownButton8.Size = New System.Drawing.Size(183, 28)
+        Me.ToolStripDropDownButton8.Size = New System.Drawing.Size(173, 28)
         Me.ToolStripDropDownButton8.Text = "&Day Operations"
         '
         'ToolStripMenuItem23
@@ -820,30 +819,30 @@ Partial Class frmMain
         'ToolStripDropDownButton1
         '
         Me.ToolStripDropDownButton1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PrintPriceLabelsToolStripMenuItem})
-        Me.ToolStripDropDownButton1.Font = New System.Drawing.Font("Constantia", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripDropDownButton1.Font = New System.Drawing.Font("Candara", 12.0!)
         Me.ToolStripDropDownButton1.ForeColor = System.Drawing.Color.MidnightBlue
         Me.ToolStripDropDownButton1.Image = CType(resources.GetObject("ToolStripDropDownButton1.Image"), System.Drawing.Image)
         Me.ToolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripDropDownButton1.Name = "ToolStripDropDownButton1"
-        Me.ToolStripDropDownButton1.Size = New System.Drawing.Size(202, 28)
+        Me.ToolStripDropDownButton1.Size = New System.Drawing.Size(191, 28)
         Me.ToolStripDropDownButton1.Text = "&Cashier Functions"
         '
         'PrintPriceLabelsToolStripMenuItem
         '
         Me.PrintPriceLabelsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.InfoText
         Me.PrintPriceLabelsToolStripMenuItem.Name = "PrintPriceLabelsToolStripMenuItem"
-        Me.PrintPriceLabelsToolStripMenuItem.Size = New System.Drawing.Size(242, 28)
+        Me.PrintPriceLabelsToolStripMenuItem.Size = New System.Drawing.Size(229, 28)
         Me.PrintPriceLabelsToolStripMenuItem.Text = "Print Price Labels"
         '
         'ToolStripDropDownButton7
         '
         Me.ToolStripDropDownButton7.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem17, Me.ToolStripMenuItem18, Me.ToolStripMenuItem19, Me.ToolStripMenuItem20, Me.ToolStripMenuItem21, Me.ToolStripMenuItem22})
-        Me.ToolStripDropDownButton7.Font = New System.Drawing.Font("Constantia", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripDropDownButton7.Font = New System.Drawing.Font("Candara", 12.0!)
         Me.ToolStripDropDownButton7.ForeColor = System.Drawing.Color.MidnightBlue
         Me.ToolStripDropDownButton7.Image = CType(resources.GetObject("ToolStripDropDownButton7.Image"), System.Drawing.Image)
         Me.ToolStripDropDownButton7.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripDropDownButton7.Name = "ToolStripDropDownButton7"
-        Me.ToolStripDropDownButton7.Size = New System.Drawing.Size(195, 28)
+        Me.ToolStripDropDownButton7.Size = New System.Drawing.Size(184, 28)
         Me.ToolStripDropDownButton7.Text = "&Admin Functions"
         '
         'ToolStripMenuItem17

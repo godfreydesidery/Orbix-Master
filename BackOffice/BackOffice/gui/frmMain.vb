@@ -244,7 +244,7 @@ Public Class frmMain
     End Sub
 
     Private Sub CorporateCustomersToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CorporateCustomersToolStripMenuItem.Click
-        'frmCorporateCustomers.ShowDialog()
+        frmCorporateCustomers.ShowDialog()
     End Sub
 
     Private Sub CompanyProfileToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CompanyProfileToolStripMenuItem.Click

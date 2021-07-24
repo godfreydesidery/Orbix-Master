@@ -2,7 +2,7 @@
 
 Public Class frmCorporateCustomers
 
-    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+    Private Sub btnBack_Click(sender As Object, e As EventArgs)
         Me.Dispose()
     End Sub
     Private Function lock()
@@ -118,12 +118,12 @@ Public Class frmCorporateCustomers
 
     End Sub
 
-    Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
+    Private Sub btnNew_Click(sender As Object, e As EventArgs)
         clear()
         unlock()
     End Sub
 
-    Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
+    Private Sub btnEdit_Click(sender As Object, e As EventArgs)
         unlock()
     End Sub
 
@@ -135,17 +135,17 @@ Public Class frmCorporateCustomers
         searchCustomers(txtCustomerNo.Text, "")
     End Sub
 
-    Private Sub dtgrdCustomerList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dtgrdCustomerList.CellClick
+    Private Sub dtgrdCustomerList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
         lock()
         Dim custNo As String = dtgrdCustomerList.Item(0, dtgrdCustomerList.CurrentRow.Index).Value.ToString
         search(custNo)
     End Sub
 
-    Private Sub txtCustomerNo_TextChanged(sender As Object, e As KeyEventArgs) Handles txtCustomerNo.KeyDown
+    Private Sub txtCustomerNo_TextChanged(sender As Object, e As KeyEventArgs)
 
     End Sub
 
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs)
 
     End Sub
 End Class
