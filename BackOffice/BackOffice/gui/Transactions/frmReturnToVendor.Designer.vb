@@ -22,18 +22,24 @@ Partial Class frmReturnToVendor
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmReturnToVendor))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmReturnToVendor))
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.txtSellingPriceVatExcl = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtSellingPriceVatIncl = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtCostPriceVatExcl = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.cmbDescription = New System.Windows.Forms.ComboBox()
-        Me.txtQty = New System.Windows.Forms.TextBox()
-        Me.Label21 = New System.Windows.Forms.Label()
-        Me.Label20 = New System.Windows.Forms.Label()
-        Me.txtReason = New System.Windows.Forms.TextBox()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.btnReset = New System.Windows.Forms.Button()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.txtQty = New System.Windows.Forms.TextBox()
         Me.txtPackSize = New System.Windows.Forms.TextBox()
+        Me.txtReason = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.btnSearchItem = New System.Windows.Forms.Button()
         Me.txtStockSize = New System.Windows.Forms.TextBox()
@@ -45,8 +51,25 @@ Partial Class frmReturnToVendor
         Me.txtCostPriceVatIncl = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.dtgrdProductList = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column19 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btnBack = New System.Windows.Forms.Button()
         Me.dtgrdRtvList = New System.Windows.Forms.DataGridView()
+        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.btnNew = New System.Windows.Forms.ToolStripButton()
         Me.btnEdit = New System.Windows.Forms.ToolStripButton()
@@ -65,41 +88,21 @@ Partial Class frmReturnToVendor
         Me.btnArchiveAll = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.txtRtvNo = New System.Windows.Forms.TextBox()
-        Me.txtIssueDate = New System.Windows.Forms.TextBox()
-        Me.txtSupplierCode = New System.Windows.Forms.TextBox()
-        Me.txtStatus = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.cmbSupplierName = New System.Windows.Forms.ComboBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.btnSearch = New System.Windows.Forms.Button()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.txtCostPriceVatExcl = New System.Windows.Forms.TextBox()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.txtSellingPriceVatIncl = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.txtSellingPriceVatExcl = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.txtComments = New System.Windows.Forms.TextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txtTotalCostIncl = New System.Windows.Forms.TextBox()
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column19 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtComments = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.btnSearch = New System.Windows.Forms.Button()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.cmbSupplierName = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtStatus = New System.Windows.Forms.TextBox()
+        Me.txtSupplierCode = New System.Windows.Forms.TextBox()
+        Me.txtIssueDate = New System.Windows.Forms.TextBox()
+        Me.txtRtvNo = New System.Windows.Forms.TextBox()
         Me.Panel2.SuspendLayout()
         CType(Me.dtgrdProductList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtgrdRtvList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -140,6 +143,63 @@ Partial Class frmReturnToVendor
         Me.Panel2.Size = New System.Drawing.Size(423, 358)
         Me.Panel2.TabIndex = 94
         '
+        'txtSellingPriceVatExcl
+        '
+        Me.txtSellingPriceVatExcl.Location = New System.Drawing.Point(175, 268)
+        Me.txtSellingPriceVatExcl.MaxLength = 50
+        Me.txtSellingPriceVatExcl.Name = "txtSellingPriceVatExcl"
+        Me.txtSellingPriceVatExcl.ReadOnly = True
+        Me.txtSellingPriceVatExcl.Size = New System.Drawing.Size(130, 22)
+        Me.txtSellingPriceVatExcl.TabIndex = 112
+        Me.txtSellingPriceVatExcl.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(49, 273)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(125, 17)
+        Me.Label8.TabIndex = 111
+        Me.Label8.Text = "Selling Price (Excl)"
+        '
+        'txtSellingPriceVatIncl
+        '
+        Me.txtSellingPriceVatIncl.Location = New System.Drawing.Point(175, 240)
+        Me.txtSellingPriceVatIncl.MaxLength = 50
+        Me.txtSellingPriceVatIncl.Name = "txtSellingPriceVatIncl"
+        Me.txtSellingPriceVatIncl.ReadOnly = True
+        Me.txtSellingPriceVatIncl.Size = New System.Drawing.Size(130, 22)
+        Me.txtSellingPriceVatIncl.TabIndex = 110
+        Me.txtSellingPriceVatIncl.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(28, 243)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(146, 17)
+        Me.Label7.TabIndex = 109
+        Me.Label7.Text = "Selling Price (Vat Incl)"
+        '
+        'txtCostPriceVatExcl
+        '
+        Me.txtCostPriceVatExcl.Location = New System.Drawing.Point(175, 212)
+        Me.txtCostPriceVatExcl.MaxLength = 50
+        Me.txtCostPriceVatExcl.Name = "txtCostPriceVatExcl"
+        Me.txtCostPriceVatExcl.ReadOnly = True
+        Me.txtCostPriceVatExcl.Size = New System.Drawing.Size(130, 22)
+        Me.txtCostPriceVatExcl.TabIndex = 108
+        Me.txtCostPriceVatExcl.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(41, 215)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(133, 17)
+        Me.Label6.TabIndex = 107
+        Me.Label6.Text = "Cost Price (Vat Exc)"
+        '
         'cmbDescription
         '
         Me.cmbDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -148,41 +208,6 @@ Partial Class frmReturnToVendor
         Me.cmbDescription.Name = "cmbDescription"
         Me.cmbDescription.Size = New System.Drawing.Size(322, 28)
         Me.cmbDescription.TabIndex = 99
-        '
-        'txtQty
-        '
-        Me.txtQty.Location = New System.Drawing.Point(90, 99)
-        Me.txtQty.MaxLength = 50
-        Me.txtQty.Name = "txtQty"
-        Me.txtQty.Size = New System.Drawing.Size(215, 22)
-        Me.txtQty.TabIndex = 62
-        '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(57, 99)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(30, 17)
-        Me.Label21.TabIndex = 59
-        Me.Label21.Text = "Qty"
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(30, 127)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(57, 17)
-        Me.Label20.TabIndex = 57
-        Me.Label20.Text = "Reason"
-        '
-        'txtReason
-        '
-        Me.txtReason.Location = New System.Drawing.Point(89, 127)
-        Me.txtReason.MaxLength = 50
-        Me.txtReason.Multiline = True
-        Me.txtReason.Name = "txtReason"
-        Me.txtReason.Size = New System.Drawing.Size(322, 51)
-        Me.txtReason.TabIndex = 58
         '
         'btnAdd
         '
@@ -213,6 +238,32 @@ Partial Class frmReturnToVendor
         Me.btnReset.Text = "Reset"
         Me.btnReset.UseVisualStyleBackColor = True
         '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(57, 99)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(30, 17)
+        Me.Label21.TabIndex = 59
+        Me.Label21.Text = "Qty"
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(30, 127)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(57, 17)
+        Me.Label20.TabIndex = 57
+        Me.Label20.Text = "Reason"
+        '
+        'txtQty
+        '
+        Me.txtQty.Location = New System.Drawing.Point(90, 99)
+        Me.txtQty.MaxLength = 50
+        Me.txtQty.Name = "txtQty"
+        Me.txtQty.Size = New System.Drawing.Size(215, 22)
+        Me.txtQty.TabIndex = 62
+        '
         'txtPackSize
         '
         Me.txtPackSize.Location = New System.Drawing.Point(175, 297)
@@ -222,6 +273,15 @@ Partial Class frmReturnToVendor
         Me.txtPackSize.Size = New System.Drawing.Size(130, 22)
         Me.txtPackSize.TabIndex = 44
         Me.txtPackSize.Visible = False
+        '
+        'txtReason
+        '
+        Me.txtReason.Location = New System.Drawing.Point(89, 127)
+        Me.txtReason.MaxLength = 50
+        Me.txtReason.Multiline = True
+        Me.txtReason.Name = "txtReason"
+        Me.txtReason.Size = New System.Drawing.Size(322, 51)
+        Me.txtReason.TabIndex = 58
         '
         'Label17
         '
@@ -326,7 +386,7 @@ Partial Class frmReturnToVendor
         Me.dtgrdProductList.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         Me.dtgrdProductList.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dtgrdProductList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dtgrdProductList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.Column7, Me.Column15, Me.Column16, Me.Column17, Me.Column18, Me.Column1, Me.Column19})
+        Me.dtgrdProductList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.Column7, Me.Column15, Me.Column16, Me.Column17, Me.Column2, Me.Column3, Me.Column18, Me.Column1, Me.Column4, Me.Column19})
         Me.dtgrdProductList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dtgrdProductList.Location = New System.Drawing.Point(441, 317)
         Me.dtgrdProductList.Name = "dtgrdProductList"
@@ -334,6 +394,79 @@ Partial Class frmReturnToVendor
         Me.dtgrdProductList.RowTemplate.Height = 24
         Me.dtgrdProductList.Size = New System.Drawing.Size(1067, 358)
         Me.dtgrdProductList.TabIndex = 95
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.HeaderText = "ID"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Visible = False
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.HeaderText = "Barcode"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        '
+        'Column7
+        '
+        Me.Column7.HeaderText = "Code"
+        Me.Column7.Name = "Column7"
+        Me.Column7.ReadOnly = True
+        '
+        'Column15
+        '
+        Me.Column15.HeaderText = "Description"
+        Me.Column15.Name = "Column15"
+        Me.Column15.ReadOnly = True
+        '
+        'Column16
+        '
+        Me.Column16.HeaderText = "Cost Price(Vat Incl)"
+        Me.Column16.Name = "Column16"
+        Me.Column16.ReadOnly = True
+        '
+        'Column17
+        '
+        Me.Column17.HeaderText = "Cost Price (Vat Excl)"
+        Me.Column17.Name = "Column17"
+        Me.Column17.ReadOnly = True
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "Selling Price (VatIncl)"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "Selling Price (Vat Excl)"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        '
+        'Column18
+        '
+        Me.Column18.HeaderText = "Qty"
+        Me.Column18.Name = "Column18"
+        Me.Column18.ReadOnly = True
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "Amount"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        '
+        'Column4
+        '
+        Me.Column4.HeaderText = "Pack Size"
+        Me.Column4.Name = "Column4"
+        Me.Column4.ReadOnly = True
+        '
+        'Column19
+        '
+        Me.Column19.HeaderText = "Reason"
+        Me.Column19.Name = "Column19"
+        Me.Column19.ReadOnly = True
         '
         'btnBack
         '
@@ -361,6 +494,45 @@ Partial Class frmReturnToVendor
         Me.dtgrdRtvList.RowTemplate.Height = 24
         Me.dtgrdRtvList.Size = New System.Drawing.Size(686, 260)
         Me.dtgrdRtvList.TabIndex = 97
+        '
+        'Column6
+        '
+        Me.Column6.FillWeight = 23.93785!
+        Me.Column6.HeaderText = "ID"
+        Me.Column6.Name = "Column6"
+        Me.Column6.ReadOnly = True
+        Me.Column6.Visible = False
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle1
+        Me.DataGridViewTextBoxColumn1.FillWeight = 76.14213!
+        Me.DataGridViewTextBoxColumn1.HeaderText = "RTV No"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.FillWeight = 66.82724!
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Issue Date"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.FillWeight = 221.1833!
+        Me.DataGridViewTextBoxColumn3.HeaderText = "Supplier"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        '
+        'Column5
+        '
+        Me.Column5.FillWeight = 111.9094!
+        Me.Column5.HeaderText = "Status"
+        Me.Column5.Name = "Column5"
+        Me.Column5.ReadOnly = True
         '
         'ToolStrip1
         '
@@ -515,214 +687,6 @@ Partial Class frmReturnToVendor
         Me.Panel1.Size = New System.Drawing.Size(423, 260)
         Me.Panel1.TabIndex = 103
         '
-        'txtRtvNo
-        '
-        Me.txtRtvNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtRtvNo.Location = New System.Drawing.Point(108, 9)
-        Me.txtRtvNo.Name = "txtRtvNo"
-        Me.txtRtvNo.Size = New System.Drawing.Size(197, 24)
-        Me.txtRtvNo.TabIndex = 0
-        '
-        'txtIssueDate
-        '
-        Me.txtIssueDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtIssueDate.Location = New System.Drawing.Point(108, 37)
-        Me.txtIssueDate.Name = "txtIssueDate"
-        Me.txtIssueDate.Size = New System.Drawing.Size(197, 24)
-        Me.txtIssueDate.TabIndex = 1
-        '
-        'txtSupplierCode
-        '
-        Me.txtSupplierCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSupplierCode.Location = New System.Drawing.Point(108, 65)
-        Me.txtSupplierCode.Name = "txtSupplierCode"
-        Me.txtSupplierCode.Size = New System.Drawing.Size(197, 24)
-        Me.txtSupplierCode.TabIndex = 2
-        '
-        'txtStatus
-        '
-        Me.txtStatus.Location = New System.Drawing.Point(108, 130)
-        Me.txtStatus.Name = "txtStatus"
-        Me.txtStatus.Size = New System.Drawing.Size(197, 22)
-        Me.txtStatus.TabIndex = 3
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(44, 9)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(58, 17)
-        Me.Label1.TabIndex = 46
-        Me.Label1.Text = "RTV No"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(24, 40)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(75, 17)
-        Me.Label2.TabIndex = 47
-        Me.Label2.Text = "Issue Date"
-        '
-        'cmbSupplierName
-        '
-        Me.cmbSupplierName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbSupplierName.FormattingEnabled = True
-        Me.cmbSupplierName.Location = New System.Drawing.Point(108, 96)
-        Me.cmbSupplierName.Name = "cmbSupplierName"
-        Me.cmbSupplierName.Size = New System.Drawing.Size(303, 28)
-        Me.cmbSupplierName.TabIndex = 100
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(4, 65)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(97, 17)
-        Me.Label3.TabIndex = 101
-        Me.Label3.Text = "Supplier Code"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(4, 96)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(101, 17)
-        Me.Label4.TabIndex = 102
-        Me.Label4.Text = "Supplier Name"
-        '
-        'btnSearch
-        '
-        Me.btnSearch.Location = New System.Drawing.Point(311, 9)
-        Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(100, 40)
-        Me.btnSearch.TabIndex = 103
-        Me.btnSearch.Text = "Search"
-        Me.btnSearch.UseVisualStyleBackColor = True
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(57, 130)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(48, 17)
-        Me.Label5.TabIndex = 104
-        Me.Label5.Text = "Status"
-        '
-        'Column6
-        '
-        Me.Column6.FillWeight = 23.93785!
-        Me.Column6.HeaderText = "ID"
-        Me.Column6.Name = "Column6"
-        Me.Column6.ReadOnly = True
-        Me.Column6.Visible = False
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
-        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle1
-        Me.DataGridViewTextBoxColumn1.FillWeight = 76.14213!
-        Me.DataGridViewTextBoxColumn1.HeaderText = "RTV No"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.FillWeight = 66.82724!
-        Me.DataGridViewTextBoxColumn2.HeaderText = "Issue Date"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.FillWeight = 221.1833!
-        Me.DataGridViewTextBoxColumn3.HeaderText = "Supplier"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        '
-        'Column5
-        '
-        Me.Column5.FillWeight = 111.9094!
-        Me.Column5.HeaderText = "Status"
-        Me.Column5.Name = "Column5"
-        Me.Column5.ReadOnly = True
-        '
-        'txtCostPriceVatExcl
-        '
-        Me.txtCostPriceVatExcl.Location = New System.Drawing.Point(175, 212)
-        Me.txtCostPriceVatExcl.MaxLength = 50
-        Me.txtCostPriceVatExcl.Name = "txtCostPriceVatExcl"
-        Me.txtCostPriceVatExcl.ReadOnly = True
-        Me.txtCostPriceVatExcl.Size = New System.Drawing.Size(130, 22)
-        Me.txtCostPriceVatExcl.TabIndex = 108
-        Me.txtCostPriceVatExcl.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(41, 215)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(133, 17)
-        Me.Label6.TabIndex = 107
-        Me.Label6.Text = "Cost Price (Vat Exc)"
-        '
-        'txtSellingPriceVatIncl
-        '
-        Me.txtSellingPriceVatIncl.Location = New System.Drawing.Point(175, 240)
-        Me.txtSellingPriceVatIncl.MaxLength = 50
-        Me.txtSellingPriceVatIncl.Name = "txtSellingPriceVatIncl"
-        Me.txtSellingPriceVatIncl.ReadOnly = True
-        Me.txtSellingPriceVatIncl.Size = New System.Drawing.Size(130, 22)
-        Me.txtSellingPriceVatIncl.TabIndex = 110
-        Me.txtSellingPriceVatIncl.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(28, 243)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(146, 17)
-        Me.Label7.TabIndex = 109
-        Me.Label7.Text = "Selling Price (Vat Incl)"
-        '
-        'txtSellingPriceVatExcl
-        '
-        Me.txtSellingPriceVatExcl.Location = New System.Drawing.Point(175, 268)
-        Me.txtSellingPriceVatExcl.MaxLength = 50
-        Me.txtSellingPriceVatExcl.Name = "txtSellingPriceVatExcl"
-        Me.txtSellingPriceVatExcl.ReadOnly = True
-        Me.txtSellingPriceVatExcl.Size = New System.Drawing.Size(130, 22)
-        Me.txtSellingPriceVatExcl.TabIndex = 112
-        Me.txtSellingPriceVatExcl.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(49, 273)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(125, 17)
-        Me.Label8.TabIndex = 111
-        Me.Label8.Text = "Selling Price (Excl)"
-        '
-        'txtComments
-        '
-        Me.txtComments.Location = New System.Drawing.Point(108, 158)
-        Me.txtComments.MaxLength = 50
-        Me.txtComments.Multiline = True
-        Me.txtComments.Name = "txtComments"
-        Me.txtComments.Size = New System.Drawing.Size(303, 68)
-        Me.txtComments.TabIndex = 105
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(31, 158)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(74, 17)
-        Me.Label9.TabIndex = 106
-        Me.Label9.Text = "Comments"
-        '
         'Label10
         '
         Me.Label10.AutoSize = True
@@ -743,60 +707,117 @@ Partial Class frmReturnToVendor
         Me.txtTotalCostIncl.TabIndex = 108
         Me.txtTotalCostIncl.Visible = False
         '
-        'DataGridViewTextBoxColumn4
+        'Label9
         '
-        Me.DataGridViewTextBoxColumn4.HeaderText = "ID"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
-        Me.DataGridViewTextBoxColumn4.Visible = False
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(31, 158)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(74, 17)
+        Me.Label9.TabIndex = 106
+        Me.Label9.Text = "Comments"
         '
-        'DataGridViewTextBoxColumn5
+        'txtComments
         '
-        Me.DataGridViewTextBoxColumn5.HeaderText = "Barcode"
-        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
-        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        Me.txtComments.Location = New System.Drawing.Point(108, 158)
+        Me.txtComments.MaxLength = 50
+        Me.txtComments.Multiline = True
+        Me.txtComments.Name = "txtComments"
+        Me.txtComments.Size = New System.Drawing.Size(303, 68)
+        Me.txtComments.TabIndex = 105
         '
-        'Column7
+        'Label5
         '
-        Me.Column7.HeaderText = "Code"
-        Me.Column7.Name = "Column7"
-        Me.Column7.ReadOnly = True
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(57, 130)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(48, 17)
+        Me.Label5.TabIndex = 104
+        Me.Label5.Text = "Status"
         '
-        'Column15
+        'btnSearch
         '
-        Me.Column15.HeaderText = "Description"
-        Me.Column15.Name = "Column15"
-        Me.Column15.ReadOnly = True
+        Me.btnSearch.Location = New System.Drawing.Point(311, 9)
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(100, 40)
+        Me.btnSearch.TabIndex = 103
+        Me.btnSearch.Text = "Search"
+        Me.btnSearch.UseVisualStyleBackColor = True
         '
-        'Column16
+        'Label4
         '
-        Me.Column16.HeaderText = "Cost Price(Vat Incl)"
-        Me.Column16.Name = "Column16"
-        Me.Column16.ReadOnly = True
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(4, 96)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(101, 17)
+        Me.Label4.TabIndex = 102
+        Me.Label4.Text = "Supplier Name"
         '
-        'Column17
+        'Label3
         '
-        Me.Column17.HeaderText = "Cost Price (Vat Excl)"
-        Me.Column17.Name = "Column17"
-        Me.Column17.ReadOnly = True
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(4, 65)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(97, 17)
+        Me.Label3.TabIndex = 101
+        Me.Label3.Text = "Supplier Code"
         '
-        'Column18
+        'cmbSupplierName
         '
-        Me.Column18.HeaderText = "Qty"
-        Me.Column18.Name = "Column18"
-        Me.Column18.ReadOnly = True
+        Me.cmbSupplierName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbSupplierName.FormattingEnabled = True
+        Me.cmbSupplierName.Location = New System.Drawing.Point(108, 96)
+        Me.cmbSupplierName.Name = "cmbSupplierName"
+        Me.cmbSupplierName.Size = New System.Drawing.Size(303, 28)
+        Me.cmbSupplierName.TabIndex = 100
         '
-        'Column1
+        'Label2
         '
-        Me.Column1.HeaderText = "Amount"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(24, 40)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(75, 17)
+        Me.Label2.TabIndex = 47
+        Me.Label2.Text = "Issue Date"
         '
-        'Column19
+        'Label1
         '
-        Me.Column19.HeaderText = "Reason"
-        Me.Column19.Name = "Column19"
-        Me.Column19.ReadOnly = True
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(44, 9)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(58, 17)
+        Me.Label1.TabIndex = 46
+        Me.Label1.Text = "RTV No"
+        '
+        'txtStatus
+        '
+        Me.txtStatus.Location = New System.Drawing.Point(108, 130)
+        Me.txtStatus.Name = "txtStatus"
+        Me.txtStatus.Size = New System.Drawing.Size(197, 22)
+        Me.txtStatus.TabIndex = 3
+        '
+        'txtSupplierCode
+        '
+        Me.txtSupplierCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSupplierCode.Location = New System.Drawing.Point(108, 65)
+        Me.txtSupplierCode.Name = "txtSupplierCode"
+        Me.txtSupplierCode.Size = New System.Drawing.Size(197, 24)
+        Me.txtSupplierCode.TabIndex = 2
+        '
+        'txtIssueDate
+        '
+        Me.txtIssueDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIssueDate.Location = New System.Drawing.Point(108, 37)
+        Me.txtIssueDate.Name = "txtIssueDate"
+        Me.txtIssueDate.Size = New System.Drawing.Size(197, 24)
+        Me.txtIssueDate.TabIndex = 1
+        '
+        'txtRtvNo
+        '
+        Me.txtRtvNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRtvNo.Location = New System.Drawing.Point(108, 9)
+        Me.txtRtvNo.Name = "txtRtvNo"
+        Me.txtRtvNo.Size = New System.Drawing.Size(197, 24)
+        Me.txtRtvNo.TabIndex = 0
         '
         'frmReturnToVendor
         '
@@ -900,7 +921,10 @@ Partial Class frmReturnToVendor
     Friend WithEvents Column15 As DataGridViewTextBoxColumn
     Friend WithEvents Column16 As DataGridViewTextBoxColumn
     Friend WithEvents Column17 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents Column18 As DataGridViewTextBoxColumn
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column4 As DataGridViewTextBoxColumn
     Friend WithEvents Column19 As DataGridViewTextBoxColumn
 End Class
