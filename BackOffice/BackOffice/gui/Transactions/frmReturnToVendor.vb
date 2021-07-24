@@ -1,6 +1,9 @@
 ﻿Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
+
 
 Public Class frmReturnToVendor
     '   Dim EDIT_MODE As String = ""
@@ -199,17 +202,29 @@ Public Class frmReturnToVendor
         'Before you can add a row, you must define the columns
         Dim column As Column
 
-        column = table.AddColumn("3cm")
-        column.Format.Alignment = ParagraphAlignment.Center
+        column = table.AddColumn("1.5cm")
+        column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("9cm")
-        column.Format.Alignment = ParagraphAlignment.Right
+        column = table.AddColumn("1.5cm")
+        column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("2cm")
-        column.Format.Alignment = ParagraphAlignment.Right
+        column = table.AddColumn("3.0cm")
+        column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("2cm")
-        column.Format.Alignment = ParagraphAlignment.Right
+        column = table.AddColumn("1.0cm")
+        column.Format.Alignment = ParagraphAlignment.Left
+
+        column = table.AddColumn("1.5cm")
+        column.Format.Alignment = ParagraphAlignment.Left
+
+        column = table.AddColumn("1.5cm")
+        column.Format.Alignment = ParagraphAlignment.Left
+
+        column = table.AddColumn("1.5cm")
+        column.Format.Alignment = ParagraphAlignment.Left
+
+        column = table.AddColumn("3.0cm")
+        column.Format.Alignment = ParagraphAlignment.Left
 
         'Create the header of the table
         Dim row As Row
@@ -221,49 +236,62 @@ Public Class frmReturnToVendor
         row.Format.Font.Bold = True
         row.Borders.Color = Colors.White
         'row.Shading.Color = TableBlue
-        row.Cells(0).AddParagraph("Code")
+        row.Cells(0).AddParagraph("Barcode")
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(1).AddParagraph("Description")
+        row.Cells(1).AddParagraph("Code")
         row.Cells(1).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(2).AddParagraph("Pack Size")
+        row.Cells(2).AddParagraph("Description")
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
         row.Cells(3).AddParagraph("Qty")
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
+        row.Cells(4).AddParagraph("Cost Price")
+        row.Cells(4).Format.Alignment = ParagraphAlignment.Left
+        row.Cells(5).AddParagraph("Amount")
+        row.Cells(5).Format.Alignment = ParagraphAlignment.Left
+        row.Cells(6).AddParagraph("Pack Size")
+        row.Cells(6).Format.Alignment = ParagraphAlignment.Left
+        row.Cells(7).AddParagraph("Reason")
+        row.Cells(7).Format.Alignment = ParagraphAlignment.Left
 
-        table.SetEdge(0, 0, 4, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+        table.SetEdge(0, 0, 8, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         Dim totalQty As Double = 0
 
         For i As Integer = 0 To dtgrdProductList.RowCount - 1
             Dim barcode As String = dtgrdProductList.Item(1, i).Value.ToString
-            Dim code As String = dtgrdProductList.Item(1, i).Value.ToString
-            Dim description As String = dtgrdProductList.Item(1, i).Value.ToString
-            Dim costPriceIncl As String = dtgrdProductList.Item(1, i).Value.ToString
-            Dim qty As String = dtgrdProductList.Item(1, i).Value.ToString
-            Dim amount As String = dtgrdProductList.Item(1, i).Value.ToString
-            Dim reason As String = dtgrdProductList.Item(1, i).Value.ToString
+            Dim code As String = dtgrdProductList.Item(2, i).Value.ToString
+            Dim description As String = dtgrdProductList.Item(3, i).Value.ToString
+            Dim qty As String = dtgrdProductList.Item(4, i).Value.ToString
+            Dim costPriceIncl As String = dtgrdProductList.Item(5, i).Value.ToString
+            Dim amount As String = dtgrdProductList.Item(9, i).Value.ToString
+            Dim packSize As String = dtgrdProductList.Item(10, i).Value.ToString
+            Dim reason As String = dtgrdProductList.Item(11, i).Value.ToString
 
-
-            Dim code As String = dtgrdItemList.Item(1, i).Value.ToString
-            Dim descr As String = dtgrdItemList.Item(2, i).Value.ToString
-            Dim packing As String = dtgrdItemList.Item(3, i).Value.ToString
-            Dim qty As String = dtgrdItemList.Item(4, i).Value.ToString
             totalQty = totalQty + Val(qty)
             row = table.AddRow()
             row.Format.Font.Bold = False
             row.HeadingFormat = False
             row.Format.Alignment = ParagraphAlignment.Center
             row.Borders.Color = Colors.White
-            row.Cells(0).AddParagraph(code)
+            row.Cells(0).AddParagraph(barcode)
             row.Cells(0).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(1).AddParagraph(descr)
+            row.Cells(1).AddParagraph(code)
             row.Cells(1).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(2).AddParagraph(packing)
+            row.Cells(2).AddParagraph(description)
             row.Cells(2).Format.Alignment = ParagraphAlignment.Left
             row.Cells(3).AddParagraph(qty)
             row.Cells(3).Format.Alignment = ParagraphAlignment.Left
+            row.Cells(4).AddParagraph(costPriceIncl)
+            row.Cells(4).Format.Alignment = ParagraphAlignment.Right
+            row.Cells(5).AddParagraph(amount)
+            row.Cells(5).Format.Alignment = ParagraphAlignment.Right
+            row.Cells(6).AddParagraph(reason)
+            row.Cells(6).Format.Alignment = ParagraphAlignment.Left
+            row.Cells(7).AddParagraph(reason)
+            row.Cells(7).Format.Alignment = ParagraphAlignment.Left
 
-            table.SetEdge(0, 0, 4, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+
+            table.SetEdge(0, 0, 8, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
         Next
         row = table.AddRow()
         row.Format.Font.Bold = True
@@ -294,18 +322,16 @@ Public Class frmReturnToVendor
     End Function
     Private Function clear()
         txtId.Text = ""
-        txtOrderNo.Text = ""
+        txtRtvNo.Text = ""
         txtSupplierCode.Text = ""
         cmbSupplierName.SelectedItem = Nothing
         cmbSupplierName.Text = ""
-        '     dateIssueDate.Value = Nothing
-        '    dateValidUntil.Value = Nothing
-        txtOrderStatus.Text = ""
-        cmbValidityPeriod.SelectedItem = Nothing
-        cmbValidityPeriod.Text = ""
+        txtIssueDate.Text = ""
+        txtStatus.Text = ""
+
         txtTotal.Text = ""
-        txtComment.Text = ""
-        dtgrdItemList.Rows.Clear()
+        txtComments.Text = ""
+        dtgrdProductList.Rows.Clear()
         Return vbNull
     End Function
     Private Function isSupply(code As String, supplierCode As String) As Boolean
@@ -346,23 +372,24 @@ Public Class frmReturnToVendor
     End Function
 
     Private Function search(id As String, no As String)
-        Dim lpo_ As Lpo
+        Dim rtv As Rtv = New Rtv
+
         Dim response As Object = New Object
         Dim json As JObject = New JObject
         Try
             If no <> "" Then
-                response = Web.get_("lpos/no=" + no)
+                response = Web.get_("rtvs/get_by_no?no=" + no)
             ElseIf id <> "" Then
-                response = Web.get_("lpos/id=" + id)
+                response = Web.get_("rtvs/get_by_id?id=" + id)
             Else
                 MsgBox("Please enter a search key", vbOKOnly + vbExclamation, "Error: No selection")
                 Return vbNull
                 Exit Function
             End If
             json = JObject.Parse(response)
-            lpo_ = JsonConvert.DeserializeObject(Of Lpo)(json.ToString)
-            txtOrderNo.ReadOnly = True
-            If IsNothing(lpo_.supplier) Then
+            rtv = JsonConvert.DeserializeObject(Of Rtv)(json.ToString)
+            txtRtvNo.ReadOnly = True
+            If IsNothing(rtv.) Then
                 txtSupplierCode.Text = ""
                 cmbSupplierName.Text = ""
             Else
@@ -370,11 +397,10 @@ Public Class frmReturnToVendor
                 cmbSupplierName.Text = lpo_.supplier.name
             End If
             txtId.Text = lpo_.id
-            dateIssueDate.Value = lpo_.issueDate
+            txtIssueDate.Text = lpo_.issueDate
 
-            txtOrderStatus.Text = lpo_.status
-            cmbValidityPeriod.Text = lpo_.validityDays
-            txtComment.Text = lpo_.comment
+            txtStatus.Text = lpo_.status
+            txtComments.Text = lpo_.comment
             lock()
             If Not IsNothing(lpo_.lpoDetails) Then
                 refreshList(lpo_.lpoDetails)

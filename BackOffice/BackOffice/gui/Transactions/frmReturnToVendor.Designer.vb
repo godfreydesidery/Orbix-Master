@@ -103,6 +103,8 @@ Partial Class frmReturnToVendor
         Me.txtSupplierCode = New System.Windows.Forms.TextBox()
         Me.txtIssueDate = New System.Windows.Forms.TextBox()
         Me.txtRtvNo = New System.Windows.Forms.TextBox()
+        Me.txtId = New System.Windows.Forms.TextBox()
+        Me.txtTotal = New System.Windows.Forms.TextBox()
         Me.Panel2.SuspendLayout()
         CType(Me.dtgrdProductList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtgrdRtvList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -819,11 +821,32 @@ Partial Class frmReturnToVendor
         Me.txtRtvNo.Size = New System.Drawing.Size(197, 24)
         Me.txtRtvNo.TabIndex = 0
         '
+        'txtId
+        '
+        Me.txtId.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtId.Location = New System.Drawing.Point(481, 51)
+        Me.txtId.Name = "txtId"
+        Me.txtId.ReadOnly = True
+        Me.txtId.Size = New System.Drawing.Size(41, 24)
+        Me.txtId.TabIndex = 104
+        '
+        'txtTotal
+        '
+        Me.txtTotal.Location = New System.Drawing.Point(481, 120)
+        Me.txtTotal.MaxLength = 50
+        Me.txtTotal.Name = "txtTotal"
+        Me.txtTotal.ReadOnly = True
+        Me.txtTotal.Size = New System.Drawing.Size(130, 22)
+        Me.txtTotal.TabIndex = 105
+        Me.txtTotal.Visible = False
+        '
         'frmReturnToVendor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1520, 766)
+        Me.Controls.Add(Me.txtTotal)
+        Me.Controls.Add(Me.txtId)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.dtgrdRtvList)
@@ -927,4 +950,6 @@ Partial Class frmReturnToVendor
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
     Friend WithEvents Column19 As DataGridViewTextBoxColumn
+    Friend WithEvents txtId As TextBox
+    Friend WithEvents txtTotal As TextBox
 End Class
