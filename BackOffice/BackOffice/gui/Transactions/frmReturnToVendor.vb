@@ -695,55 +695,51 @@ Public Class frmReturnToVendor
         Try
             Dim response As Object = New Object
             Dim json As JObject = New JObject
-            Dim lpos As List(Of Lpo)
+            Dim rtvs As List(Of Rtv)
             response = Web.get_("rtvs/visible")
-            lpos = JsonConvert.DeserializeObject(Of List(Of Lpo))(response)
+            rtvs = JsonConvert.DeserializeObject(Of List(Of Rtv))(response)
 
-            For Each lpo In lpos
+            For Each rtv In rtvs
                 Dim dtgrdRow As New DataGridViewRow
                 Dim dtgrdCell As DataGridViewCell
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = lpo.id
+                dtgrdCell.Value = rtv.id
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = lpo.no
+                dtgrdCell.Value = rtv.no
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = lpo.issueDate.ToString("yyyy-MM-dd")
+                dtgrdCell.Value = rtv.issueDate.ToString("yyyy-MM-dd")
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = lpo.status
+                If Not IsNothing(rtv.supplier) Then
+                    dtgrdCell.Value = rtv.supplier.name
+                Else
+                    dtgrdCell.Value = ""
+                End If
                 dtgrdRow.Cells.Add(dtgrdCell)
 
-                dtgrdLPOList.Rows.Add(dtgrdRow)
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = rtv.status
+                dtgrdRow.Cells.Add(dtgrdCell)
+
+                dtgrdRtvList.Rows.Add(dtgrdRow)
             Next
         Catch ex As Exception
 
         End Try
-        dtgrdLPOList.ClearSelection()
+        dtgrdRtvList.ClearSelection()
     End Sub
 
-    Private Sub frmPurchaseOrder_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        txtOrderNo.Text = ""
-        dtgrdItemList.Rows.Clear()
+    Private Sub frmReturnToVendorr_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        txtRtvNo.Text = ""
+        dtgrdProductList.Rows.Clear()
         Dim product As New Product
         longList = product.getDescriptions
-    End Sub
-
-    Private Sub cmbValidityPeriod_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbValidityPeriod.SelectedIndexChanged
-        If txtId.Text = "" Then
-            Exit Sub
-        End If
-        Dim validityPeriod As Integer = Val(cmbValidityPeriod.Text)
-        If validityPeriod > 0 And validityPeriod <= 60 Then
-            dateValidUntil.Value = ((New Day).getCurrentDay.AddDays(validityPeriod))
-        Else
-            dateValidUntil.Value = Nothing
-        End If
     End Sub
 
     Private Sub txtSupplierCode_preview(sender As Object, e As PreviewKeyDownEventArgs) Handles txtSupplierCode.PreviewKeyDown
@@ -753,7 +749,7 @@ Public Class frmReturnToVendor
             End If
             If searchSupplier(txtSupplierCode.Text, cmbSupplierName.Text) = True Then
                 If txtId.Text = "" Then
-                    txtOrderStatus.Text = "NEW"
+                    txtRtvNo.Text = "NEW"
                 End If
                 btnSave.Enabled = True
             Else
@@ -767,12 +763,12 @@ Public Class frmReturnToVendor
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs)
-        If txtOrderNo.Text = "" Then
+        If txtRtvNo.Text = "" Then
             MsgBox("Please select an order to delete.", vbOKOnly + vbExclamation, "Error: No selection")
             Exit Sub
         End If
         Dim order As New Order
-        If order.isOrderExist(txtOrderNo.Text) <> True Then
+        If order.isOrderExist(txtRtvNo.Text) <> True Then
             MsgBox("No matching order", vbOKOnly + vbExclamation, "")
             Exit Sub
         End If
