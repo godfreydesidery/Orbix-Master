@@ -112,7 +112,7 @@ Public Class frmCorporateCustomers
         btnSave.Enabled = True
         unlock()
         txtNo.ReadOnly = True
-        generateCode()
+        txtNo.Text = "NA"
     End Sub
     Private Function search(customerNo As String, customerName As String) As Boolean
 
@@ -164,7 +164,7 @@ Public Class frmCorporateCustomers
             txtBankAddress.Text = customer.bankPostAddress
             txtBankName.Text = customer.bankName
             txtBankAccountNo.Text = customer.bankAccountNo
-            txtMaximumInvoice.Text = customer.maximumInvoice
+            txtInvoiceLimit.Text = customer.invoiceLimit
             txtCreditLimit.Text = customer.creditLimit
             txtCreditDays.Text = customer.creditDays
 
@@ -202,53 +202,52 @@ Public Class frmCorporateCustomers
             json = JObject.Parse(response)
             customer = JsonConvert.DeserializeObject(Of CorporateCustomer)(json.ToString)
         End If
-        supplier_.id = txtId.Text
-        supplier_.code = txtCode.Text
-        supplier_.name = cmbName.Text
-        supplier_.contactName = txtContactName.Text
-        supplier_.tin = txtTin.Text
-        supplier_.vrn = txtVrn.Text
-        supplier_.termsOfContract = txtTermsOfContract.Text
-        supplier_.postAddress = txtPostAddress.Text
-        supplier_.postCode = txtPostCode.Text
-        supplier_.physicalAddress = txtPhysicalAdrress.Text
-        supplier_.telephone = txtTelephone.Text
-        supplier_.mobile = txtMobile.Text
-        supplier_.email = txtEmail.Text
-        supplier_.fax = txtFax.Text
-        supplier_.bankAccountName = txtBankAccountName.Text
-        supplier_.bankPostCode = txtBankPostCode.Text
-        supplier_.bankPostAddress = txtBankPostAddress.Text
-        supplier_.bankName = txtBankName.Text
-        supplier_.bankAccountNo = txtBankAccountNo.Text
-
-        If chkDiscontinued.Checked = True Then
-            supplier_.status = "DISCONTINUED"
+        customer.id = txtId.Text
+        customer.no = txtNo.Text
+        customer.name = cmbName.Text
+        customer.contactName = txtContactName.Text
+        customer.tin = txtTin.Text
+        customer.vrn = txtVrn.Text
+        customer.postAddress = txtPostAddress.Text
+        customer.postCode = txtPostCode.Text
+        customer.physicalAddress = txtPhysicalAddress.Text
+        customer.telephone = txtTelephone.Text
+        customer.mobile = txtMobile.Text
+        customer.email = txtEmail.Text
+        customer.fax = txtFax.Text
+        customer.bankAccountName = txtBankAccountName.Text
+        customer.bankPostCode = txtBankPostCode.Text
+        customer.bankPostAddress = txtBankAddress.Text
+        customer.bankName = txtBankName.Text
+        customer.bankAccountNo = txtBankAccountNo.Text
+        customer.invoiceLimit = Val(txtInvoiceLimit.Text)
+        customer.creditLimit = Val(txtCreditLimit.Text)
+        customer.creditDays = Val(txtCreditDays.Text)
+        If chkActive.Checked = True Then
+            customer.active = 1
         Else
-            supplier_.status = "ACTIVE"
+            customer.active = 0
         End If
 
         Try
             Dim success As Boolean = False
             If txtId.Text = "" Then
-                response = Web.post(supplier_, "suppliers/new")
+                response = Web.post(customer, "corporate_customers/new")
                 json = JObject.Parse(response)
                 txtId.Text = json.SelectToken("id")
                 success = True
                 ' btnSave.Enabled = False
 
-                dtgrdSuppliers.Enabled = True
-                btnProductAndService.Enabled = True
+                dtgrdCustomerList.Enabled = True
                 refreshList()
 
-                MsgBox("Supplier created successifully", vbOKOnly + vbInformation, "Success: Supplier saved.")
+                MsgBox("Customer created successifully", vbOKOnly + vbInformation, "Success: Customer saved.")
             Else
-                If Web.put(supplier_, "suppliers/edit_by_id?id=" + txtId.Text) = True Then
+                If Web.put(customer, "corporate_customers/edit_by_id?id=" + txtId.Text) = True Then
                     ' btnSave.Enabled = False
-                    dtgrdSuppliers.Enabled = True
-                    btnProductAndService.Enabled = True
+                    dtgrdCustomerList.Enabled = True
                     refreshList()
-                    MsgBox("Supplier successifully modified", vbOKOnly + vbInformation, "Success: Supplier modified.")
+                    MsgBox("Customer successifully modified", vbOKOnly + vbInformation, "Success: Customer modified.")
                 Else
                     MsgBox("Update failed")
                 End If
@@ -263,50 +262,49 @@ Public Class frmCorporateCustomers
         btnDelete.Enabled = False
         btnSearch.Enabled = True
         If txtId.Text = "" Then
-            txtCode.ReadOnly = False
+            txtNo.ReadOnly = False
             btnSave.Enabled = False
         Else
-            txtCode.ReadOnly = True
+            txtNo.ReadOnly = True
             btnSave.Enabled = True
         End If
-        dtgrdSuppliers.Enabled = True
+        dtgrdCustomerList.Enabled = True
         'clearFields()
         unlock()
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
-        Dim res As Integer = MsgBox("Are you sure you want to delete the selected supplier? All information about the supplier will be removed from the system. This action can not be undone.", vbYesNo + vbQuestion, "Delete Supplier")
+        Dim res As Integer = MsgBox("Are you sure you want to delete the selected customer? All information about the customer will be removed from the system. This action can not be undone.", vbYesNo + vbQuestion, "Delete Customer")
         If res = DialogResult.Yes Then
             'proceed
         Else
             'discard operation
             Exit Sub
         End If
-        Dim supplier As New Supplier
-        If supplier.deleteSupplier(supplier.getSupplierID(txtCode.Text, "")) = True Then
+        Try
+            Dim response As String
+            response = Web.delete("corporate_customers/delete_by_id?id=" + txtId.Text)
             btnDelete.Enabled = False
-            btnProductAndService.Enabled = False
-            'dtgrdSuppliers.Enabled = False
             clearFields() 'clear the fields
             refreshList()
-            MsgBox("Supplier record deleted successifully", vbOKOnly + vbInformation, "Success: Delete supplier record")
-        Else
-            MsgBox("Could not delete the selected supplier record", vbOKOnly + vbCritical, "Error: Delete failed")
-        End If
+            MsgBox("Customer record deleted successifully", vbOKOnly + vbInformation, "Success: Delete customer record")
+            Exit Sub
+        Catch ex As Exception
 
+        End Try
     End Sub
 
-    Private Sub txtSupplierCode_TextChanged(sender As Object, e As EventArgs) Handles txtCode.TextChanged
-        If txtCode.Text.Contains("'") Then
-            txtCode.Text = ""
+    Private Sub txtSupplierCode_TextChanged(sender As Object, e As EventArgs) Handles txtNo.TextChanged
+        If txtNo.Text.Contains("'") Then
+            txtNo.Text = ""
         End If
     End Sub
-    Private Sub txtSupplierCode_preview(sender As Object, e As PreviewKeyDownEventArgs) Handles txtCode.PreviewKeyDown
+    Private Sub txtSupplierCode_preview(sender As Object, e As PreviewKeyDownEventArgs) Handles txtNo.PreviewKeyDown
         If e.KeyCode = Keys.Tab Then
-            search(txtCode.Text, cmbName.Text)
+            search(txtNo.Text, cmbName.Text)
         End If
     End Sub
-    Private Sub txtSupplierCode_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCode.KeyDown
+    Private Sub txtSupplierCode_KeyDown(sender As Object, e As KeyEventArgs) Handles txtNo.KeyDown
         If Keys.KeyCode = Keys.Down Then
             cmbName.Focus()
         End If
@@ -349,63 +347,73 @@ Public Class frmCorporateCustomers
     Private Sub frmSuppliers_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         clearFields()
         refreshList()
-        Dim supplier As New Supplier
-        longList = supplier.getNames()
+        Dim customer As New CorporateCustomer
+        longList = customer.getNames()
     End Sub
     Private Function refreshList()
-        dtgrdSuppliers.Rows.Clear()
+        dtgrdCustomerList.Rows.Clear()
 
-        Dim list As New List(Of Supplier)
+        Dim list As New List(Of CorporateCustomer)
         Dim response As Object = New Object
         Dim json As JObject = New JObject
         Try
-            response = Web.get_("suppliers")
-            list = JsonConvert.DeserializeObject(Of List(Of Supplier))(response.ToString)
+            response = Web.get_("corporate_customers")
+            list = JsonConvert.DeserializeObject(Of List(Of CorporateCustomer))(response.ToString)
         Catch ex As Exception
             MsgBox(ex.ToString)
             Return vbNull
             Exit Function
         End Try
 
-        For Each supplier_ As Supplier In list
+        For Each customer As CorporateCustomer In list
 
             Dim dtgrdRow As New DataGridViewRow
             Dim dtgrdCell As DataGridViewCell
 
 
             dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = supplier_.code
+            dtgrdCell.Value = customer.id
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = supplier_.name
+            dtgrdCell.Value = customer.no
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = supplier_.contactName
+            dtgrdCell.Value = customer.name
             dtgrdRow.Cells.Add(dtgrdCell)
 
-            dtgrdSuppliers.Rows.Add(dtgrdRow)
+            dtgrdCell = New DataGridViewTextBoxCell()
+            dtgrdCell.Value = customer.contactName
+            dtgrdRow.Cells.Add(dtgrdCell)
+
+            dtgrdCell = New DataGridViewTextBoxCell()
+            If customer.active = 0 Then
+                dtgrdCell.Value = "DEACTIVATED"
+            Else
+                dtgrdCell.Value = "ACTIVE"
+            End If
+            dtgrdRow.Cells.Add(dtgrdCell)
+
+            dtgrdCustomerList.Rows.Add(dtgrdRow)
         Next
 
         Return vbNull
     End Function
 
-    Private Sub dtgrdSuppliers_RowHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dtgrdSuppliers.RowHeaderMouseClick
-        btnProductAndService.Enabled = False
+    Private Sub dtgrdSuppliers_RowHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dtgrdCustomerList.RowHeaderMouseClick
         Dim row As Integer = -1
         Dim col As Integer = -1
         Try
-            row = dtgrdSuppliers.CurrentRow.Index
-            col = dtgrdSuppliers.CurrentCell.ColumnIndex
+            row = dtgrdCustomerList.CurrentRow.Index
+            col = dtgrdCustomerList.CurrentCell.ColumnIndex
         Catch ex As Exception
             row = -1
         End Try
-        Dim supplierCode As String = ""
-        row = dtgrdSuppliers.CurrentRow.Index
-        supplierCode = dtgrdSuppliers.Item(0, row).Value.ToString
-        search(supplierCode, "")
-        btnProductAndService.Enabled = True
+        Dim customerNo As String = ""
+        row = dtgrdCustomerList.CurrentRow.Index
+        customerNo = dtgrdCustomerList.Item(1, row).Value.ToString
+        search(customerNo, "")
     End Sub
 
 
@@ -452,16 +460,10 @@ Public Class frmCorporateCustomers
         End If
     End Sub
 
-    Private Sub txtPhysicalAdrress_TextChanged(sender As Object, e As EventArgs) Handles txtPhysicalAdrress.TextChanged
-        If txtPhysicalAdrress.Text.Contains("'") Then
-            txtPhysicalAdrress.Text = ""
-        End If
-    End Sub
-
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         clearFields()
         If txtId.Text = "" Then
-            txtCode.ReadOnly = False
+            txtNo.ReadOnly = False
         End If
     End Sub
 
@@ -493,7 +495,7 @@ Public Class frmCorporateCustomers
         End While
         Dim code As String = str + RandomKey.ToString
 
-        txtCode.Text = code
+        txtNo.Text = code
     End Sub
 
     Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint

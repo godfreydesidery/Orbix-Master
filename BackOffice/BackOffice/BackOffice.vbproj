@@ -154,6 +154,7 @@
     <Compile Include="general\Application\LApplication.vb" />
     <Compile Include="general\Application\LSystem.vb" />
     <Compile Include="general\Application\Web.vb" />
+    <Compile Include="general\CorporateCustomer.vb" />
     <Compile Include="general\Crypt.vb" />
     <Compile Include="general\CustomerClaim.vb" />
     <Compile Include="general\Day.vb" />

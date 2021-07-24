@@ -83,7 +83,7 @@ Partial Class frmCorporateCustomers
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.txtMaximumInvoice = New System.Windows.Forms.TextBox()
+        Me.txtInvoiceLimit = New System.Windows.Forms.TextBox()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.txtCreditLimit = New System.Windows.Forms.TextBox()
         Me.Label23 = New System.Windows.Forms.Label()
@@ -224,8 +224,10 @@ Partial Class frmCorporateCustomers
         '
         Me.txtId.Location = New System.Drawing.Point(19, 29)
         Me.txtId.Name = "txtId"
+        Me.txtId.ReadOnly = True
         Me.txtId.Size = New System.Drawing.Size(48, 22)
         Me.txtId.TabIndex = 6
+        Me.txtId.Visible = False
         '
         'ToolStrip1
         '
@@ -233,7 +235,7 @@ Partial Class frmCorporateCustomers
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnNew, Me.btnEdit, Me.btnClear, Me.btnSave, Me.ToolStripSeparator1, Me.ToolStripSeparator2, Me.ToolStripSeparator3, Me.ToolStripSeparator4, Me.btnDelete, Me.ToolStripSeparator5})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(1551, 27)
+        Me.ToolStrip1.Size = New System.Drawing.Size(1566, 27)
         Me.ToolStrip1.TabIndex = 103
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -616,12 +618,12 @@ Partial Class frmCorporateCustomers
         Me.Label13.TabIndex = 111
         Me.Label13.Text = "Maximum Invoice"
         '
-        'txtMaximumInvoice
+        'txtInvoiceLimit
         '
-        Me.txtMaximumInvoice.Location = New System.Drawing.Point(137, 9)
-        Me.txtMaximumInvoice.Name = "txtMaximumInvoice"
-        Me.txtMaximumInvoice.Size = New System.Drawing.Size(153, 22)
-        Me.txtMaximumInvoice.TabIndex = 110
+        Me.txtInvoiceLimit.Location = New System.Drawing.Point(137, 9)
+        Me.txtInvoiceLimit.Name = "txtInvoiceLimit"
+        Me.txtInvoiceLimit.Size = New System.Drawing.Size(153, 22)
+        Me.txtInvoiceLimit.TabIndex = 110
         '
         'Label22
         '
@@ -662,7 +664,7 @@ Partial Class frmCorporateCustomers
         Me.Panel4.Controls.Add(Me.txtCreditDays)
         Me.Panel4.Controls.Add(Me.Label23)
         Me.Panel4.Controls.Add(Me.txtCreditLimit)
-        Me.Panel4.Controls.Add(Me.txtMaximumInvoice)
+        Me.Panel4.Controls.Add(Me.txtInvoiceLimit)
         Me.Panel4.Controls.Add(Me.Label22)
         Me.Panel4.Location = New System.Drawing.Point(12, 267)
         Me.Panel4.Name = "Panel4"
@@ -680,11 +682,12 @@ Partial Class frmCorporateCustomers
         '
         'btnBack
         '
+        Me.btnBack.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnBack.BackColor = System.Drawing.SystemColors.Control
         Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
         Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.btnBack.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnBack.Location = New System.Drawing.Point(1439, 744)
+        Me.btnBack.Location = New System.Drawing.Point(1424, 744)
         Me.btnBack.Name = "btnBack"
         Me.btnBack.Size = New System.Drawing.Size(100, 40)
         Me.btnBack.TabIndex = 118
@@ -694,7 +697,7 @@ Partial Class frmCorporateCustomers
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1551, 796)
+        Me.ClientSize = New System.Drawing.Size(1566, 796)
         Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.Label24)
         Me.Controls.Add(Me.Panel4)
@@ -712,7 +715,6 @@ Partial Class frmCorporateCustomers
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Corporate Customers"
-        Me.TopMost = True
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
@@ -790,7 +792,7 @@ Partial Class frmCorporateCustomers
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
     Friend WithEvents cmbName As ComboBox
     Friend WithEvents Label13 As Label
-    Friend WithEvents txtMaximumInvoice As TextBox
+    Friend WithEvents txtInvoiceLimit As TextBox
     Friend WithEvents Label22 As Label
     Friend WithEvents txtCreditLimit As TextBox
     Friend WithEvents Label23 As Label
