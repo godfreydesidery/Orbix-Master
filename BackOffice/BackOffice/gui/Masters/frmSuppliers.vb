@@ -270,7 +270,6 @@ Public Class frmSuppliers
             Exit Sub
         End Try
     End Sub
-    '   Dim REC_PRESENT As Boolean = False
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
         btnDelete.Enabled = False
         btnSearch.Enabled = True
@@ -322,10 +321,6 @@ Public Class frmSuppliers
         If Keys.KeyCode = Keys.Down Then
             cmbName.Focus()
         End If
-
-    End Sub
-
-    Private Sub txtSupplierName_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -424,13 +419,6 @@ Public Class frmSuppliers
         btnProductAndService.Enabled = True
     End Sub
 
-    Private Sub dtgrdSuppliers_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dtgrdSuppliers.CellContentClick
-
-    End Sub
-
-
-    Dim file As String = "C:\suppliers.xls"
-
 
     Dim longList As New List(Of String)
     Dim shortList As New List(Of String)
@@ -518,11 +506,6 @@ Public Class frmSuppliers
         End While
         Dim code As String = str + RandomKey.ToString
 
-        ' If search(code, "") Then
-        'generateCode()
-        '  Else
-        'txtCode.Text = code
-        ' End If
         txtCode.Text = code
     End Sub
 End Class

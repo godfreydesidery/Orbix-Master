@@ -23,6 +23,19 @@ Partial Class frmCorporateCustomers
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.cmbName = New System.Windows.Forms.ComboBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtTin = New System.Windows.Forms.TextBox()
+        Me.chkActive = New System.Windows.Forms.CheckBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtVrn = New System.Windows.Forms.TextBox()
+        Me.btnSearch = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtContactName = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtNo = New System.Windows.Forms.TextBox()
+        Me.txtId = New System.Windows.Forms.TextBox()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.btnNew = New System.Windows.Forms.ToolStripButton()
         Me.btnEdit = New System.Windows.Forms.ToolStripButton()
@@ -34,32 +47,24 @@ Partial Class frmCorporateCustomers
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnDelete = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
-        Me.txtNo = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.txtName = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtContactName = New System.Windows.Forms.TextBox()
-        Me.txtId = New System.Windows.Forms.TextBox()
-        Me.btnSearch = New System.Windows.Forms.Button()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.txtFax = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtEmail = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtMobile = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtTelephone = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.txtPostCode = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtPostAddress = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtPhysicalAddress = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.txtTelephone = New System.Windows.Forms.TextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.txtMobile = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.txtEmail = New System.Windows.Forms.TextBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.txtFax = New System.Windows.Forms.TextBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Label14 = New System.Windows.Forms.Label()
-        Me.txtBankAcountNo = New System.Windows.Forms.TextBox()
+        Me.txtBankAccountNo = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.txtBankName = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -71,27 +76,33 @@ Partial Class frmCorporateCustomers
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
-        Me.chkActive = New System.Windows.Forms.CheckBox()
-        Me.dgrdCustomerList = New System.Windows.Forms.DataGridView()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.txtVrn = New System.Windows.Forms.TextBox()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.txtTin = New System.Windows.Forms.TextBox()
+        Me.dtgrdCustomerList = New System.Windows.Forms.DataGridView()
         Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.txtMaximumInvoice = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.txtCreditLimit = New System.Windows.Forms.TextBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.txtCreditDays = New System.Windows.Forms.TextBox()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.btnBack = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
-        CType(Me.dgrdCustomerList, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtgrdCustomerList, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel4.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.cmbName)
         Me.Panel1.Controls.Add(Me.Label12)
         Me.Panel1.Controls.Add(Me.txtTin)
         Me.Panel1.Controls.Add(Me.chkActive)
@@ -101,14 +112,120 @@ Partial Class frmCorporateCustomers
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Controls.Add(Me.txtContactName)
         Me.Panel1.Controls.Add(Me.Label2)
-        Me.Panel1.Controls.Add(Me.txtName)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.txtNo)
         Me.Panel1.Controls.Add(Me.txtId)
-        Me.Panel1.Location = New System.Drawing.Point(12, 59)
+        Me.Panel1.Location = New System.Drawing.Point(12, 62)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(528, 175)
+        Me.Panel1.Size = New System.Drawing.Size(528, 174)
         Me.Panel1.TabIndex = 0
+        '
+        'cmbName
+        '
+        Me.cmbName.FormattingEnabled = True
+        Me.cmbName.Location = New System.Drawing.Point(138, 50)
+        Me.cmbName.Name = "cmbName"
+        Me.cmbName.Size = New System.Drawing.Size(372, 24)
+        Me.cmbName.TabIndex = 110
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(102, 116)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(30, 17)
+        Me.Label12.TabIndex = 11
+        Me.Label12.Text = "TIN"
+        '
+        'txtTin
+        '
+        Me.txtTin.Location = New System.Drawing.Point(138, 113)
+        Me.txtTin.Name = "txtTin"
+        Me.txtTin.Size = New System.Drawing.Size(153, 22)
+        Me.txtTin.TabIndex = 10
+        '
+        'chkActive
+        '
+        Me.chkActive.AutoSize = True
+        Me.chkActive.Location = New System.Drawing.Point(297, 114)
+        Me.chkActive.Name = "chkActive"
+        Me.chkActive.Size = New System.Drawing.Size(68, 21)
+        Me.chkActive.TabIndex = 7
+        Me.chkActive.Text = "Active"
+        Me.chkActive.UseVisualStyleBackColor = True
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(96, 146)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(37, 17)
+        Me.Label4.TabIndex = 9
+        Me.Label4.Text = "VRN"
+        '
+        'txtVrn
+        '
+        Me.txtVrn.Location = New System.Drawing.Point(138, 141)
+        Me.txtVrn.Name = "txtVrn"
+        Me.txtVrn.Size = New System.Drawing.Size(153, 22)
+        Me.txtVrn.TabIndex = 8
+        '
+        'btnSearch
+        '
+        Me.btnSearch.Location = New System.Drawing.Point(410, 6)
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(100, 40)
+        Me.btnSearch.TabIndex = 6
+        Me.btnSearch.Text = "Search"
+        Me.btnSearch.UseVisualStyleBackColor = True
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(35, 81)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(97, 17)
+        Me.Label3.TabIndex = 5
+        Me.Label3.Text = "Contact Name"
+        '
+        'txtContactName
+        '
+        Me.txtContactName.Location = New System.Drawing.Point(138, 81)
+        Me.txtContactName.Name = "txtContactName"
+        Me.txtContactName.Size = New System.Drawing.Size(372, 22)
+        Me.txtContactName.TabIndex = 4
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(23, 53)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(109, 17)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "Customer Name"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(42, 9)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(90, 17)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "Customer No"
+        '
+        'txtNo
+        '
+        Me.txtNo.Location = New System.Drawing.Point(138, 6)
+        Me.txtNo.Name = "txtNo"
+        Me.txtNo.Size = New System.Drawing.Size(153, 22)
+        Me.txtNo.TabIndex = 0
+        '
+        'txtId
+        '
+        Me.txtId.Location = New System.Drawing.Point(19, 29)
+        Me.txtId.Name = "txtId"
+        Me.txtId.Size = New System.Drawing.Size(48, 22)
+        Me.txtId.TabIndex = 6
         '
         'ToolStrip1
         '
@@ -190,70 +307,6 @@ Partial Class frmCorporateCustomers
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
         Me.ToolStripSeparator5.Size = New System.Drawing.Size(6, 27)
         '
-        'txtNo
-        '
-        Me.txtNo.Location = New System.Drawing.Point(138, 6)
-        Me.txtNo.Name = "txtNo"
-        Me.txtNo.Size = New System.Drawing.Size(153, 22)
-        Me.txtNo.TabIndex = 0
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(42, 9)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(90, 17)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Customer No"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(23, 53)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(109, 17)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "Customer Name"
-        '
-        'txtName
-        '
-        Me.txtName.Location = New System.Drawing.Point(138, 53)
-        Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(372, 22)
-        Me.txtName.TabIndex = 2
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(35, 81)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(97, 17)
-        Me.Label3.TabIndex = 5
-        Me.Label3.Text = "Contact Name"
-        '
-        'txtContactName
-        '
-        Me.txtContactName.Location = New System.Drawing.Point(138, 81)
-        Me.txtContactName.Name = "txtContactName"
-        Me.txtContactName.Size = New System.Drawing.Size(372, 22)
-        Me.txtContactName.TabIndex = 4
-        '
-        'txtId
-        '
-        Me.txtId.Location = New System.Drawing.Point(19, 29)
-        Me.txtId.Name = "txtId"
-        Me.txtId.Size = New System.Drawing.Size(48, 22)
-        Me.txtId.TabIndex = 6
-        '
-        'btnSearch
-        '
-        Me.btnSearch.Location = New System.Drawing.Point(410, 6)
-        Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(100, 40)
-        Me.btnSearch.TabIndex = 6
-        Me.btnSearch.Text = "Search"
-        Me.btnSearch.UseVisualStyleBackColor = True
-        '
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
@@ -271,10 +324,74 @@ Partial Class frmCorporateCustomers
         Me.Panel2.Controls.Add(Me.txtPostAddress)
         Me.Panel2.Controls.Add(Me.Label7)
         Me.Panel2.Controls.Add(Me.txtPhysicalAddress)
-        Me.Panel2.Location = New System.Drawing.Point(12, 257)
+        Me.Panel2.Location = New System.Drawing.Point(12, 390)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(528, 211)
         Me.Panel2.TabIndex = 104
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(102, 174)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(30, 17)
+        Me.Label11.TabIndex = 13
+        Me.Label11.Text = "Fax"
+        '
+        'txtFax
+        '
+        Me.txtFax.Location = New System.Drawing.Point(138, 174)
+        Me.txtFax.Name = "txtFax"
+        Me.txtFax.Size = New System.Drawing.Size(372, 22)
+        Me.txtFax.TabIndex = 12
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(90, 146)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(42, 17)
+        Me.Label10.TabIndex = 11
+        Me.Label10.Text = "Email"
+        '
+        'txtEmail
+        '
+        Me.txtEmail.Location = New System.Drawing.Point(138, 146)
+        Me.txtEmail.Name = "txtEmail"
+        Me.txtEmail.Size = New System.Drawing.Size(372, 22)
+        Me.txtEmail.TabIndex = 10
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(83, 118)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(49, 17)
+        Me.Label9.TabIndex = 9
+        Me.Label9.Text = "Mobile"
+        '
+        'txtMobile
+        '
+        Me.txtMobile.Location = New System.Drawing.Point(138, 118)
+        Me.txtMobile.Name = "txtMobile"
+        Me.txtMobile.Size = New System.Drawing.Size(372, 22)
+        Me.txtMobile.TabIndex = 8
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(56, 90)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(76, 17)
+        Me.Label8.TabIndex = 7
+        Me.Label8.Text = "Telephone"
+        '
+        'txtTelephone
+        '
+        Me.txtTelephone.Location = New System.Drawing.Point(138, 90)
+        Me.txtTelephone.Name = "txtTelephone"
+        Me.txtTelephone.Size = New System.Drawing.Size(372, 22)
+        Me.txtTelephone.TabIndex = 6
         '
         'Label5
         '
@@ -324,75 +441,11 @@ Partial Class frmCorporateCustomers
         Me.txtPhysicalAddress.Size = New System.Drawing.Size(372, 22)
         Me.txtPhysicalAddress.TabIndex = 0
         '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(56, 90)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(76, 17)
-        Me.Label8.TabIndex = 7
-        Me.Label8.Text = "Telephone"
-        '
-        'txtTelephone
-        '
-        Me.txtTelephone.Location = New System.Drawing.Point(138, 90)
-        Me.txtTelephone.Name = "txtTelephone"
-        Me.txtTelephone.Size = New System.Drawing.Size(372, 22)
-        Me.txtTelephone.TabIndex = 6
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(83, 118)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(49, 17)
-        Me.Label9.TabIndex = 9
-        Me.Label9.Text = "Mobile"
-        '
-        'txtMobile
-        '
-        Me.txtMobile.Location = New System.Drawing.Point(138, 118)
-        Me.txtMobile.Name = "txtMobile"
-        Me.txtMobile.Size = New System.Drawing.Size(372, 22)
-        Me.txtMobile.TabIndex = 8
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(90, 146)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(42, 17)
-        Me.Label10.TabIndex = 11
-        Me.Label10.Text = "Email"
-        '
-        'txtEmail
-        '
-        Me.txtEmail.Location = New System.Drawing.Point(138, 146)
-        Me.txtEmail.Name = "txtEmail"
-        Me.txtEmail.Size = New System.Drawing.Size(372, 22)
-        Me.txtEmail.TabIndex = 10
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(102, 174)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(30, 17)
-        Me.Label11.TabIndex = 13
-        Me.Label11.Text = "Fax"
-        '
-        'txtFax
-        '
-        Me.txtFax.Location = New System.Drawing.Point(138, 174)
-        Me.txtFax.Name = "txtFax"
-        Me.txtFax.Size = New System.Drawing.Size(372, 22)
-        Me.txtFax.TabIndex = 12
-        '
         'Panel3
         '
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel3.Controls.Add(Me.Label14)
-        Me.Panel3.Controls.Add(Me.txtBankAcountNo)
+        Me.Panel3.Controls.Add(Me.txtBankAccountNo)
         Me.Panel3.Controls.Add(Me.Label15)
         Me.Panel3.Controls.Add(Me.txtBankName)
         Me.Panel3.Controls.Add(Me.Label16)
@@ -401,7 +454,7 @@ Partial Class frmCorporateCustomers
         Me.Panel3.Controls.Add(Me.txtBankAddress)
         Me.Panel3.Controls.Add(Me.Label18)
         Me.Panel3.Controls.Add(Me.txtBankAccountName)
-        Me.Panel3.Location = New System.Drawing.Point(12, 491)
+        Me.Panel3.Location = New System.Drawing.Point(12, 624)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(528, 160)
         Me.Panel3.TabIndex = 105
@@ -415,12 +468,12 @@ Partial Class frmCorporateCustomers
         Me.Label14.TabIndex = 9
         Me.Label14.Text = "Bank Acc No"
         '
-        'txtBankAcountNo
+        'txtBankAccountNo
         '
-        Me.txtBankAcountNo.Location = New System.Drawing.Point(138, 118)
-        Me.txtBankAcountNo.Name = "txtBankAcountNo"
-        Me.txtBankAcountNo.Size = New System.Drawing.Size(372, 22)
-        Me.txtBankAcountNo.TabIndex = 8
+        Me.txtBankAccountNo.Location = New System.Drawing.Point(138, 118)
+        Me.txtBankAccountNo.Name = "txtBankAccountNo"
+        Me.txtBankAccountNo.Size = New System.Drawing.Size(372, 22)
+        Me.txtBankAccountNo.TabIndex = 8
         '
         'Label15
         '
@@ -489,7 +542,7 @@ Partial Class frmCorporateCustomers
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(9, 39)
+        Me.Label19.Location = New System.Drawing.Point(9, 42)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(61, 17)
         Me.Label19.TabIndex = 106
@@ -498,7 +551,7 @@ Partial Class frmCorporateCustomers
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(12, 237)
+        Me.Label20.Location = New System.Drawing.Point(9, 370)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(140, 17)
         Me.Label20.TabIndex = 107
@@ -507,68 +560,26 @@ Partial Class frmCorporateCustomers
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(11, 471)
+        Me.Label21.Location = New System.Drawing.Point(11, 604)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(59, 17)
         Me.Label21.TabIndex = 108
         Me.Label21.Text = "Bank Inf"
         '
-        'chkActive
+        'dtgrdCustomerList
         '
-        Me.chkActive.AutoSize = True
-        Me.chkActive.Location = New System.Drawing.Point(297, 114)
-        Me.chkActive.Name = "chkActive"
-        Me.chkActive.Size = New System.Drawing.Size(68, 21)
-        Me.chkActive.TabIndex = 7
-        Me.chkActive.Text = "Active"
-        Me.chkActive.UseVisualStyleBackColor = True
-        '
-        'dgrdCustomerList
-        '
-        Me.dgrdCustomerList.AllowUserToAddRows = False
-        Me.dgrdCustomerList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgrdCustomerList.BackgroundColor = System.Drawing.SystemColors.ButtonFace
-        Me.dgrdCustomerList.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgrdCustomerList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgrdCustomerList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column5, Me.Column1, Me.Column2, Me.Column3, Me.Column4})
-        Me.dgrdCustomerList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgrdCustomerList.Location = New System.Drawing.Point(546, 59)
-        Me.dgrdCustomerList.Name = "dgrdCustomerList"
-        Me.dgrdCustomerList.RowTemplate.Height = 24
-        Me.dgrdCustomerList.Size = New System.Drawing.Size(993, 592)
-        Me.dgrdCustomerList.TabIndex = 109
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(96, 146)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(37, 17)
-        Me.Label4.TabIndex = 9
-        Me.Label4.Text = "VRN"
-        '
-        'txtVrn
-        '
-        Me.txtVrn.Location = New System.Drawing.Point(138, 141)
-        Me.txtVrn.Name = "txtVrn"
-        Me.txtVrn.Size = New System.Drawing.Size(153, 22)
-        Me.txtVrn.TabIndex = 8
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(102, 116)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(30, 17)
-        Me.Label12.TabIndex = 11
-        Me.Label12.Text = "TIN"
-        '
-        'txtTin
-        '
-        Me.txtTin.Location = New System.Drawing.Point(138, 113)
-        Me.txtTin.Name = "txtTin"
-        Me.txtTin.Size = New System.Drawing.Size(153, 22)
-        Me.txtTin.TabIndex = 10
+        Me.dtgrdCustomerList.AllowUserToAddRows = False
+        Me.dtgrdCustomerList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dtgrdCustomerList.BackgroundColor = System.Drawing.SystemColors.ButtonFace
+        Me.dtgrdCustomerList.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dtgrdCustomerList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dtgrdCustomerList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column5, Me.Column1, Me.Column2, Me.Column3, Me.Column4})
+        Me.dtgrdCustomerList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.dtgrdCustomerList.Location = New System.Drawing.Point(546, 59)
+        Me.dtgrdCustomerList.Name = "dtgrdCustomerList"
+        Me.dtgrdCustomerList.RowTemplate.Height = 24
+        Me.dtgrdCustomerList.Size = New System.Drawing.Size(993, 592)
+        Me.dtgrdCustomerList.TabIndex = 109
         '
         'Column5
         '
@@ -596,12 +607,98 @@ Partial Class frmCorporateCustomers
         Me.Column4.HeaderText = "Status"
         Me.Column4.Name = "Column4"
         '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(15, 9)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(114, 17)
+        Me.Label13.TabIndex = 111
+        Me.Label13.Text = "Maximum Invoice"
+        '
+        'txtMaximumInvoice
+        '
+        Me.txtMaximumInvoice.Location = New System.Drawing.Point(137, 9)
+        Me.txtMaximumInvoice.Name = "txtMaximumInvoice"
+        Me.txtMaximumInvoice.Size = New System.Drawing.Size(153, 22)
+        Me.txtMaximumInvoice.TabIndex = 110
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(54, 39)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(78, 17)
+        Me.Label22.TabIndex = 113
+        Me.Label22.Text = "Credit Limit"
+        '
+        'txtCreditLimit
+        '
+        Me.txtCreditLimit.Location = New System.Drawing.Point(137, 39)
+        Me.txtCreditLimit.Name = "txtCreditLimit"
+        Me.txtCreditLimit.Size = New System.Drawing.Size(153, 22)
+        Me.txtCreditLimit.TabIndex = 112
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(49, 67)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(81, 17)
+        Me.Label23.TabIndex = 115
+        Me.Label23.Text = "Credit Days"
+        '
+        'txtCreditDays
+        '
+        Me.txtCreditDays.Location = New System.Drawing.Point(137, 67)
+        Me.txtCreditDays.Name = "txtCreditDays"
+        Me.txtCreditDays.Size = New System.Drawing.Size(153, 22)
+        Me.txtCreditDays.TabIndex = 114
+        '
+        'Panel4
+        '
+        Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel4.Controls.Add(Me.Label13)
+        Me.Panel4.Controls.Add(Me.txtCreditDays)
+        Me.Panel4.Controls.Add(Me.Label23)
+        Me.Panel4.Controls.Add(Me.txtCreditLimit)
+        Me.Panel4.Controls.Add(Me.txtMaximumInvoice)
+        Me.Panel4.Controls.Add(Me.Label22)
+        Me.Panel4.Location = New System.Drawing.Point(12, 267)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(526, 100)
+        Me.Panel4.TabIndex = 116
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(12, 247)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(64, 17)
+        Me.Label24.TabIndex = 117
+        Me.Label24.Text = "Credit Inf"
+        '
+        'btnBack
+        '
+        Me.btnBack.BackColor = System.Drawing.SystemColors.Control
+        Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
+        Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnBack.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnBack.Location = New System.Drawing.Point(1439, 744)
+        Me.btnBack.Name = "btnBack"
+        Me.btnBack.Size = New System.Drawing.Size(100, 40)
+        Me.btnBack.TabIndex = 118
+        Me.btnBack.UseVisualStyleBackColor = False
+        '
         'frmCorporateCustomers
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1551, 740)
-        Me.Controls.Add(Me.dgrdCustomerList)
+        Me.ClientSize = New System.Drawing.Size(1551, 796)
+        Me.Controls.Add(Me.btnBack)
+        Me.Controls.Add(Me.Label24)
+        Me.Controls.Add(Me.Panel4)
+        Me.Controls.Add(Me.dtgrdCustomerList)
         Me.Controls.Add(Me.Label21)
         Me.Controls.Add(Me.Label20)
         Me.Controls.Add(Me.Label19)
@@ -624,7 +721,9 @@ Partial Class frmCorporateCustomers
         Me.Panel2.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
-        CType(Me.dgrdCustomerList, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtgrdCustomerList, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -647,7 +746,6 @@ Partial Class frmCorporateCustomers
     Friend WithEvents Label3 As Label
     Friend WithEvents txtContactName As TextBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents txtName As TextBox
     Friend WithEvents txtId As TextBox
     Friend WithEvents btnSearch As Button
     Friend WithEvents Panel2 As Panel
@@ -667,7 +765,7 @@ Partial Class frmCorporateCustomers
     Friend WithEvents txtTelephone As TextBox
     Friend WithEvents Panel3 As Panel
     Friend WithEvents Label14 As Label
-    Friend WithEvents txtBankAcountNo As TextBox
+    Friend WithEvents txtBankAccountNo As TextBox
     Friend WithEvents Label15 As Label
     Friend WithEvents txtBankName As TextBox
     Friend WithEvents Label16 As Label
@@ -680,7 +778,7 @@ Partial Class frmCorporateCustomers
     Friend WithEvents Label20 As Label
     Friend WithEvents Label21 As Label
     Friend WithEvents chkActive As CheckBox
-    Friend WithEvents dgrdCustomerList As DataGridView
+    Friend WithEvents dtgrdCustomerList As DataGridView
     Friend WithEvents Label12 As Label
     Friend WithEvents txtTin As TextBox
     Friend WithEvents Label4 As Label
@@ -690,4 +788,14 @@ Partial Class frmCorporateCustomers
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
+    Friend WithEvents cmbName As ComboBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents txtMaximumInvoice As TextBox
+    Friend WithEvents Label22 As Label
+    Friend WithEvents txtCreditLimit As TextBox
+    Friend WithEvents Label23 As Label
+    Friend WithEvents txtCreditDays As TextBox
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents Label24 As Label
+    Friend WithEvents btnBack As Button
 End Class
