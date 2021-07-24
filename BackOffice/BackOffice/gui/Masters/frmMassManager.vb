@@ -1212,7 +1212,7 @@ Public Class frmMassManager
                             product.defaultReorderQty = defaultReorderQty
 
                             Try
-                                Web.put(product, "products/edit/code=" + code)
+                                Web.put(product, "products/edit_by_code?code=" + code)
                             Catch ex As Exception
 
                             End Try

@@ -151,7 +151,7 @@ Public Class Web
             streamReader.Close()
             Return responseFromServer
         Catch ex As System.Net.WebException
-            MsgBox(ex.ToString)
+            '    MsgBox(ex.ToString)
             Return vbNull
             '  Dim statusCode = DirectCast(ex.Response, HttpWebResponse).StatusCode
             '   If statusCode = 404 Then

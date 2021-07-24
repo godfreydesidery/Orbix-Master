@@ -328,7 +328,6 @@ Public Class frmReturnToVendor
         cmbSupplierName.Text = ""
         txtIssueDate.Text = ""
         txtStatus.Text = ""
-
         txtTotal.Text = ""
         txtComment.Text = ""
         dtgrdProductList.Rows.Clear()
@@ -340,7 +339,7 @@ Public Class frmReturnToVendor
         Dim response As Object = New Object
         Dim json As JObject = New JObject
         Try
-            Return Web.get_("products/is_supplied/product_code=" + code + "&supplier_code=" + supplierCode)
+            Return Web.get_("products/is_supplied?product_code=" + code + "&supplier_code=" + supplierCode)
         Catch ex As Exception
             Return False
         End Try
@@ -351,14 +350,14 @@ Public Class frmReturnToVendor
         Dim json As JObject = New JObject
         Try
             If txtSupplierCode.Text <> "" Then
-                response = Web.get_("suppliers/code=" + code)
+                response = Web.get_("suppliers/get_by_code?code=" + code)
                 json = JObject.Parse(response)
                 supplier_ = JsonConvert.DeserializeObject(Of Supplier)(json.ToString)
                 cmbSupplierName.Text = supplier_.name
                 Return True
                 lock()
             ElseIf cmbSupplierName.Text <> "" Then
-                response = Web.get_("suppliers/name=" + name)
+                response = Web.get_("suppliers/get_by_name?name=" + name)
                 json = JObject.Parse(response)
                 supplier_ = JsonConvert.DeserializeObject(Of Supplier)(json.ToString)
                 txtSupplierCode.Text = supplier_.code
@@ -511,7 +510,7 @@ Public Class frmReturnToVendor
                     MsgBox("Could not update RTV", vbOKOnly + vbExclamation, "Error: operation failed")
                 End If
             End If
-            refreshLPOList()
+            refreshRtvList()
         Catch ex As Exception
             MsgBox("Operation failed")
             Exit Sub
@@ -688,9 +687,9 @@ Public Class frmReturnToVendor
 
         Dim supplier As New Supplier
         longSupplier = supplier.getNames()
-        refreshLPOList()
+        refreshRtvList()
     End Sub
-    Private Sub refreshLPOList()
+    Private Sub refreshRtvList()
         dtgrdRtvList.Rows.Clear()
         Try
             Dim response As Object = New Object
@@ -784,15 +783,15 @@ Public Class frmReturnToVendor
             Dim json As JObject = New JObject
 
             If barcode <> "" Then
-                response = Web.get_("products/barcode=" + barcode)
+                response = Web.get_("products/get_by_barcode?barcode=" + barcode)
                 json = JObject.Parse(response)
                 product = JsonConvert.DeserializeObject(Of Product)(json.ToString)
             ElseIf code <> "" Then
-                response = Web.get_("products/code=" + code)
+                response = Web.get_("products/get_by_code?code=" + code)
                 json = JObject.Parse(response)
                 product = JsonConvert.DeserializeObject(Of Product)(json.ToString)
             ElseIf description <> "" Then
-                response = Web.get_("products/description=" + description)
+                response = Web.get_("products/get_by_description?description=" + description)
                 json = JObject.Parse(response)
                 product = JsonConvert.DeserializeObject(Of Product)(json.ToString)
             Else
@@ -810,7 +809,7 @@ Public Class frmReturnToVendor
             txtStockSize.Text = product.stock
             txtPackSize.Text = product.packSize
             found = True
-            If isSupply(txtCostPriceVatExcl.Text, txtSupplierCode.Text) = False And found = True Then
+            If isSupply(txtCode.Text, txtSupplierCode.Text) = False And found = True Then
                 MsgBox("Can not add product to this RTV. Product not available for this Supplier")
                 clearFields()
             Else
@@ -899,10 +898,10 @@ Public Class frmReturnToVendor
         End If
         Try
 
-            Dim rtv As Rtv
             Dim response As Object = New Object
-            Dim json As JObject = New JObject
             If txtId.Text = "" Then
+                Dim rtv As Rtv
+                Dim json As JObject = New JObject
                 rtv = New Rtv
                 rtv.no = "NA"
                 rtv.createdUser.id = User.CURRENT_USER_ID
@@ -923,21 +922,25 @@ Public Class frmReturnToVendor
 
             '   txtVaildUntil.Text = ((New Day).getCurrentDay.AddDays(validityPeriod)).ToString("yyyy-MM-dd")  sample code
 
-            Dim lpoDetail As LpoDetail = New LpoDetail
-            lpoDetail.lpo.id = txtId.Text
-            lpoDetail.barcode = barCode
-            lpoDetail.code = code
-            lpoDetail.description = description
-            lpoDetail.qty = qty
-            lpoDetail.packSize = packSize
-            lpoDetail.costPrice = costPrice
+            Dim rtvDetail As RtvDetail = New RtvDetail
 
-            response = Web.post(lpoDetail, "lpo_details/new_or_edit")
-            Dim lpoDetails As List(Of LpoDetail) = New List(Of LpoDetail)
-            lpoDetails = JsonConvert.DeserializeObject(Of List(Of LpoDetail))(response.ToString)
-            refreshList(lpoDetails)
-            If dtgrdItemList.RowCount <= 1 Then
-                refreshLPOList()
+            rtvDetail.rtv.id = txtId.Text
+            rtvDetail.barcode = barCode
+            rtvDetail.code = code
+            rtvDetail.description = description
+            rtvDetail.qty = qty
+            rtvDetail.costPriceVatIncl = txtCostPriceVatIncl.Text
+            rtvDetail.costPriceVatExcl = txtCostPriceVatExcl.Text
+            rtvDetail.sellingPriceVatIncl = txtSellingPriceVatIncl.Text
+            rtvDetail.sellingPriceVatExc = txtSellingPriceVatExcl.Text
+            rtvDetail.packSize = packSize
+
+            response = Web.post(rtvDetail, "rtv_details/new_or_edit")
+            Dim rtvDetails As List(Of RtvDetail) = New List(Of RtvDetail)
+            rtvDetails = JsonConvert.DeserializeObject(Of List(Of RtvDetail))(response.ToString)
+            refreshList(rtvDetails)
+            If dtgrdProductList.RowCount <= 1 Then
+                refreshRTVList()
                 search(txtId.Text, "")
             End If
         Catch ex As Exception
@@ -956,80 +959,65 @@ Public Class frmReturnToVendor
     Private Sub btnApprove_Click(sender As Object, e As EventArgs) Handles btnApprove.Click
         Dim status As String
         Try
-            status = Web.get_("lpos/get_status/id=" + txtId.Text)
+            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
         If status = "APPROVED" Then
-            MsgBox("You can not approve this LPO. LPO already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
-            clearFields()
-            Exit Sub
-        End If
-        If status = "PRINTED" Then
-            MsgBox("You can not approve this LPO. LPO already printed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
-            clearFields()
-            Exit Sub
-        End If
-        If status = "REPRINTED" Then
-            MsgBox("You can not approve this LPO. LPO already printed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not approve this RTV. RTV already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "COMPLETED" Then
-            MsgBox("You can not approve this LPO. LPO already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not approve this RTV. RTV already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "CANCELED" Then
-            MsgBox("You can not approve this LPO. LPO canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
-            clearFields()
-            Exit Sub
-        End If
-        If status = "BLANK" Then
-            MsgBox("Could not approve a blank LPO", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not approve this RTV. RTV canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "" Then
-            MsgBox("You can not approve this LPO. Order status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not approve this RTV. Order status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
-        If User.authorize("APPROVE LPO") = True Then
-            If txtOrderNo.Text = "" Then
-                MsgBox("Please select an LPO to approve", vbOKOnly + vbInformation, "")
+        '    If User.authorize("APPROVE LPO") = True Then
+        If txtRtvNo.Text = "" Then
+            MsgBox("Please select an RTV to approve", vbOKOnly + vbInformation, "")
+            Exit Sub
+        End If
+        Dim res As Integer = MsgBox("Are you sure you want to approve RTV : " + txtRtvNo.Text + " ? Once approved, the RTV can not be edited", vbYesNo + vbQuestion, "Approve RTV?")
+        If res = DialogResult.Yes Then
+            'approve order
+
+            If dtgrdProductList.RowCount = 0 Then
+                MsgBox("You can not approve an empty RTV", vbOKOnly + vbInformation, "")
                 Exit Sub
             End If
-            Dim res As Integer = MsgBox("Are you sure you want to approve LPO : " + txtOrderNo.Text + " ? Once approved, the LPO can not be edited", vbYesNo + vbQuestion, "Approve LPO?")
-            If res = DialogResult.Yes Then
-                'approve order
 
-                If dtgrdItemList.RowCount = 0 Then
-                    MsgBox("You can not approve an empty LPO", vbOKOnly + vbInformation, "")
-                    Exit Sub
-                End If
-
-                Dim approved As Boolean = False
+            Dim approved As Boolean = False
                 Try
-                    approved = Web.put(vbNull, "lpos/approve/id=" + txtId.Text)
-                Catch ex As Exception
+                approved = Web.put(vbNull, "rtvs/approve_by_id?id=" + txtId.Text)
+            Catch ex As Exception
                     approved = False
                 End Try
                 If approved = True Then
-                    MsgBox("LPO Successively approved", vbOKOnly + vbInformation, "")
-                Else
+                MsgBox("RTV Successively approved", vbOKOnly + vbInformation, "")
+            Else
                     MsgBox("Operation failed")
                 End If
                 search(txtId.Text, "")
-                refreshLPOList()
-            End If
-        Else
-            MsgBox("Access denied!", vbOKOnly + vbExclamation)
+            refreshRTVList()
         End If
+        '   Else
+        '   MsgBox("Access denied!", vbOKOnly + vbExclamation)
+        '   End If
     End Sub
 
-    Private Sub txtOrderNo_TextChanged(sender As Object, e As EventArgs) Handles txtOrderNo.TextChanged
-        If txtOrderNo.Text = "" Then
+    Private Sub txtRtvNo_TextChanged(sender As Object, e As EventArgs) Handles txtRtvNo.TextChanged
+        If txtRtvNo.Text = "" Then
             btnApprove.Enabled = False
         Else
             btnApprove.Enabled = True
@@ -1072,46 +1060,46 @@ Public Class frmReturnToVendor
         Cursor.Current = Cursors.Default
     End Sub
 
-    Private Sub dtgrdLPOList_CellContentClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dtgrdLPOList.RowHeaderMouseClick
-        Dim r As Integer = dtgrdLPOList.CurrentRow.Index
-        Dim lpoId As String = dtgrdLPOList.Item(0, r).Value.ToString
-        Dim lpoNo As String = dtgrdLPOList.Item(1, r).Value.ToString
-        txtId.Text = lpoId
-        txtOrderNo.Text = lpoNo
-        search(lpoId, "")
+    Private Sub dtgrdLPOList_CellContentClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dtgrdRtvList.RowHeaderMouseClick
+        Dim r As Integer = dtgrdRtvList.CurrentRow.Index
+        Dim rtvId As String = dtgrdRtvList.Item(0, r).Value.ToString
+        Dim rtvNo As String = dtgrdRtvList.Item(1, r).Value.ToString
+        txtId.Text = rtvId
+        txtRtvNo.Text = rtvNo
+        search(rtvId, "")
     End Sub
 
     Private Sub btnArchive_Click(sender As Object, e As EventArgs) Handles btnArchive.Click
         Dim status As String
         Try
-            status = Web.get_("lpos/get_status/id=" + txtId.Text)
+            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
         If Not status = "COMPLETED" Then
-            MsgBox("Only COMPLETED LPO can be archived", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("Only completed RTV can be archived", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         '     If User.authorize("APPROVE LPO") = True Then
-        If txtOrderNo.Text = "" Then
-            MsgBox("Please select LPO to archive", vbOKOnly + vbInformation, "")
+        If txtRtvNo.Text = "" Then
+            MsgBox("Please select RTV to archive", vbOKOnly + vbInformation, "")
             Exit Sub
         End If
 
         Dim archived As Boolean = False
         Try
-            archived = Web.put(vbNull, "lpos/archive/id=" + txtId.Text)
+            archived = Web.put(vbNull, "rtvs/archive_by_id?id=" + txtId.Text)
         Catch ex As Exception
             archived = False
         End Try
         If archived = True Then
-            MsgBox("LPO Successively archived", vbOKOnly + vbInformation, "")
+            MsgBox("RTV Successively archived", vbOKOnly + vbInformation, "")
         Else
             MsgBox("Poeration failed")
         End If
         search(txtId.Text, "")
-        refreshLPOList()
+        refreshRtvList()
 
 
         '   Else
@@ -1122,25 +1110,25 @@ Public Class frmReturnToVendor
     Private Sub btnCancel_Click_1(sender As Object, e As EventArgs) Handles btnCancel.Click
         Dim status As String
         Try
-            status = Web.get_("lpos/get_status/id=" + txtId.Text)
+            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
         If Not (status = "PENDING") Then
-            MsgBox("Only a PENDING LPO can be canceled", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("Only a pending can be canceled", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         '     If User.authorize("APPROVE LPO") = True Then
-        If txtOrderNo.Text = "" Then
-            MsgBox("Please select an LPO to cancel", vbOKOnly + vbExclamation, "")
+        If txtRtvNo.Text = "" Then
+            MsgBox("Please select an RTV to cancel", vbOKOnly + vbExclamation, "")
             Exit Sub
         End If
 
         'approve order
-        Dim res As Integer = MsgBox("Are you sure you want to cancel LPO : " + txtOrderNo.Text + " ? After canceling, the order will be rendered invalid", vbYesNo + vbQuestion, "Cancel LPO?")
+        Dim res As Integer = MsgBox("Are you sure you want to cancel the RTV : " + txtRtvNo.Text + " ? After canceling, the RTV document will be rendered invalid", vbYesNo + vbQuestion, "Cancel LPO?")
         Try
-            status = Web.get_("lpos/get_status/id=" + txtId.Text)
+            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
@@ -1148,17 +1136,17 @@ Public Class frmReturnToVendor
 
             Dim canceled As Boolean = False
             Try
-                canceled = Web.put(vbNull, "lpos/cancel/id=" + txtId.Text)
+                canceled = Web.put(vbNull, "rtvs/cancel_by_id?id=" + txtId.Text)
             Catch ex As Exception
                 canceled = False
             End Try
             If canceled = True Then
-                MsgBox("LPO Successively canceled", vbOKOnly + vbInformation, "")
+                MsgBox("RTV Successively canceled", vbOKOnly + vbInformation, "")
             Else
                 MsgBox("Operation failed")
             End If
             search(txtId.Text, "")
-            refreshLPOList()
+            refreshRtvList()
         End If
 
         '   Else
@@ -1167,53 +1155,23 @@ Public Class frmReturnToVendor
     End Sub
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
-        If txtOrderNo.Text = "" Then
-            MsgBox("Select an LPO to print.", vbOKOnly + vbCritical, "Error:No selection")
+        If txtRtvNo.Text = "" Then
+            MsgBox("Select an RTV to print.", vbOKOnly + vbCritical, "Error:No selection")
             Exit Sub
         End If
         Dim status As String
         Try
-            status = Web.get_("lpos/get_status/id=" + txtId.Text)
+            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
-        If status = "PRINTED" Or status = "REPRINTED" Then
-            Dim res As Integer = MsgBox("This LPO has already been printed. Would you like to re-print it?", vbYesNo + vbQuestion, "Reprint LPO?")
-            If res = DialogResult.Yes Then
-                'continue
-            Else
-                Exit Sub
-            End If
-        End If
-        If status = "PENDING" Or status = "NEW" Or status = "CANCELLED" Or status = "CANCELED" Or status = "BLANK" Then
-            MsgBox("Could not print LPO. LPO not approved", vbOKOnly + vbExclamation, "Invalid operation")
-            Exit Sub
-        End If
-        If status = "" Then
-            MsgBox("Could not print LPO. LPO status unknown", vbOKOnly + vbExclamation, "Invalid operation")
-            Exit Sub
-        End If
-        If status = "COMPLETED" Then
-            MsgBox("Could not print LPO. LPO already completed", vbOKOnly + vbExclamation, "Invalid operation")
+        If Not (status = "APPROVED" Or status = "COMPLETED" Or status = "ARCHIVED") Then
+            MsgBox("Could not print RTV. Only approved, completed or archived RTV can be printed", vbOKOnly + vbExclamation, "Invalid operation")
             Exit Sub
         End If
 
-        Dim printed As Boolean = False
-        Try
-            printed = Web.put(vbNull, "lpos/print/id=" + txtId.Text)
-        Catch ex As Exception
-            printed = False
-        End Try
-        If printed = True Then
-            MsgBox("LPO Successively printed", vbOKOnly + vbInformation, "Success: LPO Printed")
-        Else
-            MsgBox("Operation failed")
-        End If
         search(txtId.Text, "")
-        refreshLPOList()
-        If printed = False Then
-            Exit Sub
-        End If
+        refreshRtvList()
 
         Dim document As Document = New Document
         document.Info.Title = "Local Purchase Order"
@@ -1227,7 +1185,7 @@ Public Class frmReturnToVendor
         myRenderer.Document = document
         myRenderer.RenderDocument()
 
-        Dim filename As String = LSystem.getRoot & "\" & txtOrderNo.Text & ".pdf"
+        Dim filename As String = LSystem.getRoot & "\" & txtRtvNo.Text & ".pdf"
 
         myRenderer.PdfDocument.Save(filename)
         Process.Start(filename)

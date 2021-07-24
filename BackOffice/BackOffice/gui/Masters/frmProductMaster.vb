@@ -412,7 +412,11 @@ Public Class frmProductMaster
         End If
         Dim product As Product = New Product
         product.id = txtId.Text
-        product.primaryBarcode = txtPrimaryBarcode.Text
+        If txtPrimaryBarcode.Text = "" Then
+            product.primaryBarcode = Nothing
+        Else
+            product.primaryBarcode = txtPrimaryBarcode.Text
+        End If
         product.code = txtCode.Text
         product.description = cmbDescription.Text
         product.shortDescription = txtShortDescription.Text

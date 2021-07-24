@@ -84,7 +84,7 @@ Public Class frmAccessControl
         Dim json As JObject = New JObject
 
         Try
-            response = Web.get_("/priveledges/role_name=" + cmbRole.Text)
+            response = Web.get_("/priveledges/get_by_role_name?role_name=" + cmbRole.Text)
             list = JsonConvert.DeserializeObject(Of List(Of Priveledge))(response.ToString)
 
         Catch ex As Exception
@@ -159,7 +159,7 @@ Public Class frmAccessControl
         Dim response As Object = New Object
         Dim json As JObject = New JObject
         Try
-            response = Web.get_("roles/" + id)
+            response = Web.get_("roles/get_by_id?id=" + id)
             json = JObject.Parse(response)
         Catch ex As Exception
             Return vbNull
@@ -204,7 +204,7 @@ Public Class frmAccessControl
                 btnSave.Enabled = False
                 MsgBox("Role created successifully", vbOKOnly + vbInformation, "Success: New role created")
             Else
-                If Web.put(role, "roles/edit/" + txtId.Text) = True Then
+                If Web.put(role, "roles/edit_by_id?id=" + txtId.Text) = True Then
                     lock()
                     btnEdit.Enabled = True
                     btnSave.Enabled = False
@@ -226,7 +226,7 @@ Public Class frmAccessControl
     Private Function deleteRole(role As String) As Boolean
         Try
             Dim response As String
-            response = Web.delete("roles/delete/id=" + txtId.Text)
+            response = Web.delete("roles/delete_by_id?id=" + txtId.Text)
             MsgBox(response.ToString)
             dtgrdRoles.ClearSelection()
             Return True
@@ -261,7 +261,6 @@ Public Class frmAccessControl
         End If
     End Sub
 
-
     Private Function validateEntries() As Boolean
         Dim valid As Boolean = True
         Dim errorMessage As String = ""
@@ -287,14 +286,6 @@ Public Class frmAccessControl
         txtRole.Text = dtgrdRoles.Item(1, row).Value.ToString
         id = dtgrdRoles.Item(0, row).Value.ToString
         search(id)
-    End Sub
-
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
-
-    End Sub
-
-    Private Sub cmbRole_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbRole.Click
-
     End Sub
 
     Private Sub cmbRole_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmbRole.SelectedIndexChanged
@@ -323,7 +314,7 @@ Public Class frmAccessControl
             Dim response As Object = New Object
             Dim json As JObject = New JObject
             Try
-                response = Web.get_("/role_priveledges/role_name=" + cmbRole.Text + "&name=" + dtgrdPriveledges.Item(0, row).Value.ToString)
+                response = Web.get_("/role_priveledges/get_by_role_name_and_name?role_name=" + cmbRole.Text + "&name=" + dtgrdPriveledges.Item(0, row).Value.ToString)
                 priveledge_ = JsonConvert.DeserializeObject(Of Priveledge)(response.ToString)
             Catch ex As Newtonsoft.Json.JsonReaderException
                 addPrev()
@@ -347,23 +338,27 @@ Public Class frmAccessControl
         End Try
         Dim response As Object = New Object
         Dim json As JObject = New JObject
-        response = Web.delete("/role_priveledges/delete/role_name=" + cmbRole.SelectedItem.ToString + "&name=" + dtgrdPriveledges.Item(0, row).Value.ToString)
+        response = Web.delete("/role_priveledges/delete_by_role_name_and_name?role_name=" + cmbRole.SelectedItem.ToString + "&name=" + dtgrdPriveledges.Item(0, row).Value.ToString)
     End Sub
     Private Sub addPrev()
-        Dim col As Integer = -1
-        Dim row As Integer = -1
         Try
-            row = dtgrdPriveledges.CurrentRow.Index
-            col = dtgrdPriveledges.CurrentCell.ColumnIndex
+            Dim col As Integer = -1
+            Dim row As Integer = -1
+            Try
+                row = dtgrdPriveledges.CurrentRow.Index
+                col = dtgrdPriveledges.CurrentCell.ColumnIndex
+            Catch ex As Exception
+                row = -1
+            End Try
+            Dim response As Object = New Object
+            Dim json As JObject = New JObject
+            Dim priveledge As New Priveledge
+            priveledge.role.name = cmbRole.SelectedItem.ToString
+            priveledge.name = dtgrdPriveledges.Item(0, row).Value.ToString
+            response = Web.post(priveledge, "/role_priveledges/new")
         Catch ex As Exception
-            row = -1
+
         End Try
 
-        Dim response As Object = New Object
-        Dim json As JObject = New JObject
-        Dim priveledge As New Priveledge
-        priveledge.role.name = cmbRole.SelectedItem.ToString
-        priveledge.name = dtgrdPriveledges.Item(0, row).Value.ToString
-        response = Web.post(priveledge, "/role_priveledges/new")
     End Sub
 End Class
