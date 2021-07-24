@@ -559,7 +559,7 @@ Public Class frmReturnToVendor
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = detail.sellingPriceVatExc
+            dtgrdCell.Value = detail.sellingPriceVatExcl
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
@@ -572,14 +572,6 @@ Public Class frmReturnToVendor
 
             dtgrdCell = New DataGridViewTextBoxCell()
             dtgrdCell.Value = detail.reason
-            dtgrdRow.Cells.Add(dtgrdCell)
-
-            dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = detail.packSize
-            dtgrdRow.Cells.Add(dtgrdCell)
-
-            dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = detail.id
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdProductList.Rows.Add(dtgrdRow)
@@ -639,6 +631,85 @@ Public Class frmReturnToVendor
         Dim packSize As String = dtgrdProductList.Item(10, row).Value.ToString
         Dim reason As String = dtgrdProductList.Item(11, row).Value.ToString
 
+        txtDetailId.Text = sn
+        txtBarCode.Text = barcode
+        txtCode.Text = code
+        cmbDescription.Text = description
+        txtQty.Text = qty
+        txtCostPriceVatIncl.Text = costPriceIncl
+        txtCostPriceVatExcl.Text = costPriceExcl
+        txtSellingPriceVatIncl.Text = sellingPriceIncl
+        txtSellingPriceVatExcl.Text = sellingPriceExcl
+        txtPackSize.Text = packSize
+        txtReason.Text = reason
+        If txtDetailId.Text <> "" Then
+            btnAdd.Enabled = True
+        Else
+            btnAdd.Enabled = False
+        End If
+
+        Try
+            response = Web.delete("rtv_details/delete_by_id?id=" + sn)
+            '    lockFields()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+        '    lockFields()
+        '    search(txtId.Text, "")
+    End Sub
+
+    Private Sub dtgrdItemList_RowHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dtgrdProductList.RowHeaderMouseClick
+        Dim status As String
+        Try
+            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
+        Catch ex As Exception
+            status = ""
+        End Try
+        If status = "APPROVED" Then
+            MsgBox("You can not edit this RTV. RTV already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            clearFields()
+            Exit Sub
+        End If
+        If status = "COMPLETED" Then
+            MsgBox("You can not edit this RTV. RTV already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            clearFields()
+            Exit Sub
+        End If
+        If status = "CANCELED" Then
+            MsgBox("You can not edit this RTV. RTV canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            clearFields()
+            Exit Sub
+        End If
+        If status = "" Then
+            MsgBox("You can not edit this RTV. RTV status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            clearFields()
+            Exit Sub
+        End If
+
+        Dim rtv As Rtv
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+        response = Web.get_("rtvs/get_by_id?id=" + txtId.Text)
+        json = JObject.Parse(response)
+        rtv = JsonConvert.DeserializeObject(Of Rtv)(json.ToString)
+
+        Dim row As Integer = -1
+        row = dtgrdProductList.CurrentRow.Index
+
+        Dim sn As String = dtgrdProductList.Item(0, row).Value.ToString
+        Dim barcode As String = dtgrdProductList.Item(1, row).Value.ToString
+        Dim code As String = dtgrdProductList.Item(2, row).Value.ToString
+        Dim description As String = dtgrdProductList.Item(3, row).Value.ToString
+        Dim qty As String = dtgrdProductList.Item(4, row).Value.ToString
+        Dim costPriceIncl As String = dtgrdProductList.Item(5, row).Value.ToString
+        Dim costPriceExcl As String = dtgrdProductList.Item(6, row).Value.ToString
+        Dim sellingPriceIncl As String = dtgrdProductList.Item(7, row).Value.ToString
+        Dim sellingPriceExcl As String = dtgrdProductList.Item(8, row).Value.ToString
+        Dim amount As String = dtgrdProductList.Item(9, row).Value.ToString
+        Dim packSize As String = dtgrdProductList.Item(10, row).Value.ToString
+        Dim reason As String = dtgrdProductList.Item(11, row).Value.ToString
+
+        txtDetailId.Text = sn
         txtBarCode.Text = barcode
         txtCode.Text = code
         cmbDescription.Text = description
@@ -650,23 +721,20 @@ Public Class frmReturnToVendor
         txtPackSize.Text = packSize
         txtReason.Text = reason
 
-
+        If txtDetailId.Text <> "" Then
+            btnAdd.Enabled = True
+        Else
+            btnAdd.Enabled = False
+        End If
 
         Try
-            response = Web.delete("rtv_details/delete_by_id?id=" + sn)
-            lockFields()
+            '     response = Web.delete("rtv_details/delete_by_id?id=" + sn)
+            '     lockFields()
         Catch ex As Exception
-
+            MsgBox(ex.ToString)
         End Try
-        lockFields()
-        Try
-            Dim rtvDetails As List(Of RtvDetail)
-            response = Web.get_("rtv_details/get_by_id?id=" + txtId.Text)
-            rtvDetails = JsonConvert.DeserializeObject(Of List(Of RtvDetail))(response)
-            refreshList(rtvDetails)
-        Catch ex As Exception
-
-        End Try
+        '    lockFields()
+        '    search(txtId.Text, "")
     End Sub
 
     Dim longSupplier As New List(Of String)
@@ -826,6 +894,7 @@ Public Class frmReturnToVendor
         End Try
     End Sub
     Private Sub clearFields()
+        txtDetailId.Text = ""
         txtBarCode.Text = ""
         txtCode.Text = ""
         cmbDescription.SelectedItem = Nothing
@@ -882,7 +951,11 @@ Public Class frmReturnToVendor
         Dim code As String = txtCode.Text
         Dim description As String = cmbDescription.Text
         Dim qty As String = txtQty.Text
-        Dim costPrice As String = txtCostPriceVatIncl.Text
+        Dim costPriceVatInvl As String = txtCostPriceVatIncl.Text
+        Dim costPriceVatExcl As String = txtCostPriceVatExcl.Text
+        Dim sellingPriceVatIncl As String = txtSellingPriceVatIncl.Text
+        Dim sellingPriceVatExcl As String = txtSellingPriceVatExcl.Text
+        Dim reason As String = txtReason.Text
         Dim packSize As String = txtPackSize.Text
         If code = "" Then
             MsgBox("Invalid entry")
@@ -899,10 +972,11 @@ Public Class frmReturnToVendor
         Try
 
             Dim response As Object = New Object
+            Dim rtv As Rtv
+            Dim json As JObject = New JObject
             If txtId.Text = "" Then
-                Dim rtv As Rtv
-                Dim json As JObject = New JObject
-                rtv = New Rtv
+
+                Rtv = New Rtv
                 rtv.no = "NA"
                 rtv.createdUser.id = User.CURRENT_USER_ID
                 rtv.supplier.code = txtSupplierCode.Text
@@ -923,7 +997,7 @@ Public Class frmReturnToVendor
             '   txtVaildUntil.Text = ((New Day).getCurrentDay.AddDays(validityPeriod)).ToString("yyyy-MM-dd")  sample code
 
             Dim rtvDetail As RtvDetail = New RtvDetail
-
+            rtvDetail.id = txtDetailId.Text
             rtvDetail.rtv.id = txtId.Text
             rtvDetail.barcode = barCode
             rtvDetail.code = code
@@ -932,17 +1006,16 @@ Public Class frmReturnToVendor
             rtvDetail.costPriceVatIncl = txtCostPriceVatIncl.Text
             rtvDetail.costPriceVatExcl = txtCostPriceVatExcl.Text
             rtvDetail.sellingPriceVatIncl = txtSellingPriceVatIncl.Text
-            rtvDetail.sellingPriceVatExc = txtSellingPriceVatExcl.Text
+            rtvDetail.sellingPriceVatExcl = txtSellingPriceVatExcl.Text
+            rtvDetail.reason = txtReason.Text
             rtvDetail.packSize = packSize
-
-            response = Web.post(rtvDetail, "rtv_details/new_or_edit")
-            Dim rtvDetails As List(Of RtvDetail) = New List(Of RtvDetail)
-            rtvDetails = JsonConvert.DeserializeObject(Of List(Of RtvDetail))(response.ToString)
-            refreshList(rtvDetails)
-            If dtgrdProductList.RowCount <= 1 Then
-                refreshRTVList()
-                search(txtId.Text, "")
+            If txtDetailId.Text = "" Then
+                response = Web.post(rtvDetail, "rtv_details/new")
+            Else
+                response = Web.post(rtvDetail, "rtv_details/edit_by_id?id=" + txtDetailId.Text)
             End If
+            refreshRtvList()
+            search(txtId.Text, "")
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try

@@ -7,7 +7,7 @@
     Public Property costPriceVatIncl As Double = 0
     Public Property costPriceVatExcl As Double = 0
     Public Property sellingPriceVatIncl As Double = 0
-    Public Property sellingPriceVatExc As Double = 0
+    Public Property sellingPriceVatExcl As Double = 0
     Public Property packSize As Double = 1
     Public Property reason As String = ""
     Public Property rtv As Rtv = New Rtv

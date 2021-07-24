@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BackOffice.exe" size="3963888">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BackOffice.exe" size="3964912">
       <assemblyIdentity name="BackOffice" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>jsXyHQxZfZ+I/al6TemhHPTC8rPFQbiZsH2YunHvxlg=</dsig:DigestValue>
+        <dsig:DigestValue>dgegxlFsfu2T9WcvHLxn8Va8aFMO1ad9hLoMSVezx4I=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

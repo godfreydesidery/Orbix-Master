@@ -105,6 +105,7 @@ Partial Class frmReturnToVendor
         Me.txtRtvNo = New System.Windows.Forms.TextBox()
         Me.txtId = New System.Windows.Forms.TextBox()
         Me.txtTotal = New System.Windows.Forms.TextBox()
+        Me.txtDetailId = New System.Windows.Forms.TextBox()
         Me.Panel2.SuspendLayout()
         CType(Me.dtgrdProductList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtgrdRtvList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -115,6 +116,7 @@ Partial Class frmReturnToVendor
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel2.Controls.Add(Me.txtDetailId)
         Me.Panel2.Controls.Add(Me.txtSellingPriceVatExcl)
         Me.Panel2.Controls.Add(Me.Label8)
         Me.Panel2.Controls.Add(Me.txtSellingPriceVatIncl)
@@ -840,6 +842,15 @@ Partial Class frmReturnToVendor
         Me.txtTotal.TabIndex = 105
         Me.txtTotal.Visible = False
         '
+        'txtDetailId
+        '
+        Me.txtDetailId.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtDetailId.Location = New System.Drawing.Point(27, 147)
+        Me.txtDetailId.Name = "txtDetailId"
+        Me.txtDetailId.ReadOnly = True
+        Me.txtDetailId.Size = New System.Drawing.Size(41, 24)
+        Me.txtDetailId.TabIndex = 113
+        '
         'frmReturnToVendor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -952,4 +963,5 @@ Partial Class frmReturnToVendor
     Friend WithEvents Column19 As DataGridViewTextBoxColumn
     Friend WithEvents txtId As TextBox
     Friend WithEvents txtTotal As TextBox
+    Friend WithEvents txtDetailId As TextBox
 End Class
