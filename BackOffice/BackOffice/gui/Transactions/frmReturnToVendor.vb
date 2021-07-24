@@ -627,48 +627,44 @@ Public Class frmReturnToVendor
         Dim row As Integer = -1
         row = dtgrdProductList.CurrentRow.Index
 
+        Dim sn As String = dtgrdProductList.Item(0, row).Value.ToString
         Dim barcode As String = dtgrdProductList.Item(1, row).Value.ToString
         Dim code As String = dtgrdProductList.Item(2, row).Value.ToString
         Dim description As String = dtgrdProductList.Item(3, row).Value.ToString
-        Dim qty As String = dtgrdProductList.Item(4, i).Value.ToString
-        Dim costPriceIncl As String = dtgrdProductList.Item(5, i).Value.ToString
-        Dim costPriceExcl As String = dtgrdProductList.Item(6, i).Value.ToString
-        Dim sellingPriceIncl As String = dtgrdProductList.Item(7, i).Value.ToString
-        Dim sellingPriceExcl As String = dtgrdProductList.Item(8, i).Value.ToString
-        Dim amount As String = dtgrdProductList.Item(9, i).Value.ToString
-        Dim packSize As String = dtgrdProductList.Item(10, i).Value.ToString
-        Dim reason As String = dtgrdProductList.Item(11, i).Value.ToString
+        Dim qty As String = dtgrdProductList.Item(4, row).Value.ToString
+        Dim costPriceIncl As String = dtgrdProductList.Item(5, row).Value.ToString
+        Dim costPriceExcl As String = dtgrdProductList.Item(6, row).Value.ToString
+        Dim sellingPriceIncl As String = dtgrdProductList.Item(7, row).Value.ToString
+        Dim sellingPriceExcl As String = dtgrdProductList.Item(8, row).Value.ToString
+        Dim amount As String = dtgrdProductList.Item(9, row).Value.ToString
+        Dim packSize As String = dtgrdProductList.Item(10, row).Value.ToString
+        Dim reason As String = dtgrdProductList.Item(11, row).Value.ToString
 
-
-
-        Dim barCode As String = dtgrdItemList.Item(0, row).Value
-        Dim itemCode As String = dtgrdItemList.Item(1, row).Value
-        Dim description As String = dtgrdItemList.Item(2, row).Value
-        Dim packSize As String = dtgrdItemList.Item(3, row).Value
-        Dim quantity As String = dtgrdItemList.Item(4, row).Value
-        Dim costPrice As String = dtgrdItemList.Item(5, row).Value
-        Dim totalCost As String = dtgrdItemList.Item(6, row).Value
-        Dim sn As String = dtgrdItemList.Item(8, row).Value
-
-        txtItemCodeS.Text = itemCode
+        txtBarCode.Text = barcode
+        txtCode.Text = code
         cmbDescription.Text = description
-        txtQuantity.Text = quantity
+        txtQty.Text = qty
+        txtCostPriceVatIncl.Text = costPriceIncl
+        txtCostPriceVatExcl.Text = costPriceExcl
+        txtSellingPriceVatIncl.Text = sellingPriceIncl
+        txtSellingPriceVatExcl.Text = sellingPriceExcl
         txtPackSize.Text = packSize
-        txtCostPrice.Text = costPrice
-        txtPackSize.Text = packSize
+        txtReason.Text = reason
+
+
 
         Try
-            response = Web.delete("lpo_details/delete/id=" + sn)
+            response = Web.delete("rtv_details/delete_by_id?id=" + sn)
             lockFields()
         Catch ex As Exception
 
         End Try
         lockFields()
         Try
-            Dim lpoDetails As List(Of LpoDetail)
-            response = Web.get_("lpo_details/lpo_id=" + txtId.Text)
-            lpoDetails = JsonConvert.DeserializeObject(Of List(Of LpoDetail))(response)
-            refreshList(lpoDetails)
+            Dim rtvDetails As List(Of RtvDetail)
+            response = Web.get_("rtv_details/get_by_id?id=" + txtId.Text)
+            rtvDetails = JsonConvert.DeserializeObject(Of List(Of RtvDetail))(response)
+            refreshList(rtvDetails)
         Catch ex As Exception
 
         End Try
@@ -676,17 +672,16 @@ Public Class frmReturnToVendor
 
     Dim longSupplier As New List(Of String)
     Dim shortSupplier As New List(Of String)
-    Private Sub frmPurchaseOrder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmReturnToVendor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         clear()
         clearFields()
 
-        txtOrderNo.Text = ""
+        txtRtvNo.Text = ""
         txtSupplierCode.Text = ""
         cmbSupplierName.SelectedItem = Nothing
         cmbSupplierName.Text = ""
         '    dateIssueDate.Value = Nothing
-        cmbValidityPeriod.Text = ""
-        txtOrderStatus.Text = ""
+        txtStatus.Text = ""
         '      dateValidUntil.Value = Nothing
         txtSupplierCode.ReadOnly = True
         cmbSupplierName.Enabled = False
@@ -696,12 +691,12 @@ Public Class frmReturnToVendor
         refreshLPOList()
     End Sub
     Private Sub refreshLPOList()
-        dtgrdLPOList.Rows.Clear()
+        dtgrdRtvList.Rows.Clear()
         Try
             Dim response As Object = New Object
             Dim json As JObject = New JObject
             Dim lpos As List(Of Lpo)
-            response = Web.get_("lpos/visible")
+            response = Web.get_("rtvs/visible")
             lpos = JsonConvert.DeserializeObject(Of List(Of Lpo))(response)
 
             For Each lpo In lpos
