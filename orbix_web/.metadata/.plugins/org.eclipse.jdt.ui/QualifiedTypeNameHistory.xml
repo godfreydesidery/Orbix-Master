@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.example.orbix_web.repositories.SalesInvoiceDetailRepository"/>
-<fullyQualifiedTypeName name="com.example.orbix_web.repositories.SalesInvoiceRepository"/>
-<fullyQualifiedTypeName name="com.example.orbix_web.models.SalesInvoice"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.exceptions.OperationFailedException"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.SalesReturn"/>
@@ -60,4 +57,7 @@
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.SupplierRepository"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="com.example.orbix_web.models.CorporateCustomer"/>
+<fullyQualifiedTypeName name="com.example.orbix_web.repositories.CorporateCustomerRepository"/>
 </qualifiedTypeNameHistroy>
