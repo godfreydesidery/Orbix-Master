@@ -391,11 +391,12 @@ Public Class frmMain
     End Sub
 
     Private Sub SalesInvoiceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalesInvoiceToolStripMenuItem.Click
-        If User.authorize("SALE INVOICE") Then
-            frmSaleInvoice.ShowDialog()
-        Else
-            MsgBox("Access denied!", vbOKOnly + vbExclamation)
-        End If
+        frmSalesInvoice.ShowDialog()
+        ' If User.authorize("SALE INVOICE") Then
+        '  frmSaleInvoice.ShowDialog()
+        '     Else
+        'MsgBox("Access denied!", vbOKOnly + vbExclamation)
+        '   End If
     End Sub
 
     Private Sub ToolStripMenuItem11_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem11.Click

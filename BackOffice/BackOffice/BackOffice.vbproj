@@ -763,6 +763,12 @@
     <Compile Include="gui\Transactions\frmReturnToVendor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="gui\Transactions\frmSalesInvoice.Designer.vb">
+      <DependentUpon>frmSalesInvoice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="gui\Transactions\frmSalesInvoice.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="gui\Transactions\frmSalesJournal.Designer.vb">
       <DependentUpon>frmSalesJournal.vb</DependentUpon>
     </Compile>
@@ -1081,6 +1087,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\Transactions\frmReturnToVendor.resx">
       <DependentUpon>frmReturnToVendor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\Transactions\frmSalesInvoice.resx">
+      <DependentUpon>frmSalesInvoice.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\Transactions\frmSalesJournal.resx">
       <DependentUpon>frmSalesJournal.vb</DependentUpon>
