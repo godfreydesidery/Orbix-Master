@@ -1446,8 +1446,8 @@ Err_Handler:
             MsgBox(ex.Message)
         End Try
         ' AutoFit columns A:D.
-        raXL = shXL.Range("A1", "AE1")
-        raXL.EntireColumn.AutoFit()
+        '  raXL = shXL.Range("A1", "AE1")
+        '  raXL.EntireColumn.AutoFit()
 
         Dim strFileName As String = LSystem.saveToDesktop & "\Product Master.xls"
         Dim blnFileOpen As Boolean = False
