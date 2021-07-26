@@ -149,12 +149,13 @@ Public Class frmSalesInvoice
         tittleTable.SetEdge(0, 0, 2, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
         'end of header
 
-
+        Dim customer As New CorporateCustomer
+        customer = searchCustomer(txtCustomerNo.Text, cmbCustomerName.Text)
         paragraph = section.AddParagraph()
         paragraph = section.AddParagraph()
-        paragraph.AddFormattedText("To:          " + cmbSupplierName.Text, TextFormat.Bold)
+        paragraph.AddFormattedText("To:          " + cmbCustomerName.Text, TextFormat.Bold)
         paragraph.Format.Font.Size = 9
-        Supplier.search((New Supplier).getSupplierCode("", cmbSupplierName.Text))
+        Supplier.search((New Supplier).getSupplierCode("", cmbCustomerName.Text))
         paragraph = section.AddParagraph()
         paragraph.AddFormattedText(supplier.GL_POST_ADDRESS)
         paragraph.Format.Font.Size = 8
@@ -365,7 +366,7 @@ Public Class frmSalesInvoice
             txtComment.Text = invoice.comment
             lock()
             If Not IsNothing(invoice.salesInvoiceDetails) Then
-                refreshList(invoice.salesInvoiceDetails)
+                refreshproductList(invoice.salesInvoiceDetails)
             End If
             Dim status As String = invoice.status
             If status = "APPROVED" Or status = "COMPLETED" Or status = "CANCELED" Or status = "ARCHIVED" Then
@@ -380,7 +381,31 @@ Public Class frmSalesInvoice
         End Try
         Return vbNull
     End Function
-
+    Private Function searchCustomer(no As String, name As String) As Boolean
+        Dim customer As CorporateCustomer
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+        Try
+            If txtCustomerNo.Text <> "" Then
+                response = Web.get_("corporate_customers/get_by_no?no=" + no)
+                json = JObject.Parse(response)
+                customer = JsonConvert.DeserializeObject(Of CorporateCustomer)(json.ToString)
+                cmbCustomerName.Text = customer.name
+                Return True
+                lock()
+            ElseIf cmbCustomerName.Text <> "" Then
+                response = Web.get_("corporate_customers/get_by_name?name=" + name)
+                json = JObject.Parse(response)
+                customer = JsonConvert.DeserializeObject(Of CorporateCustomer)(json.ToString)
+                txtCustomerNo.Text = customer.no
+                Return True
+                lock()
+            End If
+        Catch ex As Exception
+            Return False
+        End Try
+        Return False
+    End Function
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         If txtInvoiceNo.ReadOnly = False Then
             search("", txtInvoiceNo.Text)
@@ -473,14 +498,14 @@ Public Class frmSalesInvoice
                     MsgBox("Could not update Invoice", vbOKOnly + vbExclamation, "Error: operation failed")
                 End If
             End If
-            refreshRtvList()
+            refreshInvoiceList()
         Catch ex As Exception
             MsgBox("Operation failed")
             Exit Sub
         End Try
     End Sub
 
-    Private Function refreshList(details As List(Of SalesInvoiceDetail))
+    Private Function refreshproductList(details As List(Of SalesInvoiceDetail))
         dtgrdProductList.Rows.Clear()
         Dim total As Double = 0
         For Each detail In details
@@ -711,9 +736,9 @@ Public Class frmSalesInvoice
 
         Dim customer As New CorporateCustomer
         longCustomer = customer.getNames()
-        refreshSalesInvoiceList()
+        refreshInvoiceList()
     End Sub
-    Private Sub refreshSalesInvoiceList()
+    Private Sub refreshInvoiceList()
         dtgrdInvoiceLists.Rows.Clear()
         Try
             Dim response As Object = New Object
@@ -927,44 +952,42 @@ Public Class frmSalesInvoice
             If txtId.Text = "" Then
 
                 invoice = New SalesInvoice
-                Rtv.no = "NA"
-                rtv.createdUser.id = User.CURRENT_USER_ID
-                rtv.supplier.code = txtSupplierCode.Text
-                rtv.supplier.name = cmbSupplierName.Text
-                rtv.issueDate = Day.DAY
-
-                rtv.comment = txtComment.Text
-
-                response = Web.post(rtv, "rtvs/new")
+                invoice.no = "NA"
+                invoice.createdUser.id = User.CURRENT_USER_ID
+                invoice.corporateCustomer.no = txtCustomerNo.Text
+                invoice.corporateCustomer.name = cmbCustomerName.Text
+                invoice.issueDate = Day.DAY
+                invoice.comment = txtComment.Text
+                response = Web.post(invoice, "sales_invoices/new")
                 json = JObject.Parse(response)
-                rtv = JsonConvert.DeserializeObject(Of Rtv)(json.ToString)
-                txtId.Text = rtv.id
-                txtRtvNo.Text = rtv.no
+                invoice = JsonConvert.DeserializeObject(Of SalesInvoice)(json.ToString)
+                txtId.Text = invoice.id
+                txtInvoiceNo.Text = invoice.no
             End If
 
 
 
             '   txtVaildUntil.Text = ((New Day).getCurrentDay.AddDays(validityPeriod)).ToString("yyyy-MM-dd")  sample code
 
-            Dim rtvDetail As RtvDetail = New RtvDetail
-            rtvDetail.id = txtDetailId.Text
-            rtvDetail.rtv.id = txtId.Text
-            rtvDetail.barcode = barCode
-            rtvDetail.code = code
-            rtvDetail.description = description
-            rtvDetail.qty = qty
-            rtvDetail.costPriceVatIncl = LCurrency.getValue(txtCostPriceVatIncl.Text)
-            rtvDetail.costPriceVatExcl = LCurrency.getValue(txtCostPriceVatExcl.Text)
-            rtvDetail.sellingPriceVatIncl = LCurrency.getValue(txtSellingPriceVatIncl.Text)
-            rtvDetail.sellingPriceVatExcl = LCurrency.getValue(txtSellingPriceVatExcl.Text)
-            rtvDetail.reason = txtReason.Text
-            rtvDetail.packSize = packSize
+            Dim detail As SalesInvoiceDetail = New SalesInvoiceDetail
+            detail.id = txtDetailId.Text
+            detail.salesInvoice.id = txtId.Text
+            detail.barcode = barCode
+            detail.code = code
+            detail.description = description
+            detail.qty = qty
+            detail.costPriceVatIncl = LCurrency.getValue(txtCostPriceVatIncl.Text)
+            detail.costPriceVatExcl = LCurrency.getValue(txtCostpriceVatExcl.Text)
+            detail.sellingPriceVatIncl = LCurrency.getValue(txtSellingPriceVatIncl.Text)
+            detail.sellingPriceVatExcl = LCurrency.getValue(txtSellingPriceVatExcl.Text)
             If txtDetailId.Text = "" Then
-                response = Web.post(rtvDetail, "rtv_details/new")
+                response = Web.post(detail, "sales_invoice_details/new")
             Else
-                response = Web.put(rtvDetail, "rtv_details/edit_by_id?id=" + txtDetailId.Text)
+                response = Web.put(detail, "sales_invoice_details/edit_by_id?id=" + txtDetailId.Text)
             End If
-            refreshRtvList()
+            If dtgrdProductList.RowCount < 1 Then
+                refreshInvoiceList()
+            End If
             search(txtId.Text, "")
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -982,65 +1005,65 @@ Public Class frmSalesInvoice
     Private Sub btnApprove_Click(sender As Object, e As EventArgs) Handles btnApprove.Click
         Dim status As String
         Try
-            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
+            status = Web.get_("sales_invoices/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
         If status = "APPROVED" Then
-            MsgBox("You can not approve this RTV. RTV already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not approve this Invoice. Invoice already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "COMPLETED" Then
-            MsgBox("You can not approve this RTV. RTV already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not approve this Invoice. Invoice already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "CANCELED" Then
-            MsgBox("You can not approve this RTV. RTV canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not approve this Invoice. Invoice canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "" Then
-            MsgBox("You can not approve this RTV. Order status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not approve this Invoice. Invoice status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         '    If User.authorize("APPROVE LPO") = True Then
-        If txtRtvNo.Text = "" Then
-            MsgBox("Please select an RTV to approve", vbOKOnly + vbInformation, "")
+        If txtInvoiceNo.Text = "" Then
+            MsgBox("Please select an Invoice to approve", vbOKOnly + vbInformation, "")
             Exit Sub
         End If
-        Dim res As Integer = MsgBox("Are you sure you want to approve RTV : " + txtRtvNo.Text + " ? Once approved, the RTV can not be edited", vbYesNo + vbQuestion, "Approve RTV?")
+        Dim res As Integer = MsgBox("Are you sure you want to approve Invoice : " + txtInvoiceNo.Text + " ? Once approved, the Invoice can not be edited", vbYesNo + vbQuestion, "Approve Invoice?")
         If res = DialogResult.Yes Then
             'approve order
 
             If dtgrdProductList.RowCount = 0 Then
-                MsgBox("You can not approve an empty RTV", vbOKOnly + vbInformation, "")
+                MsgBox("You can not approve an empty Invoice", vbOKOnly + vbInformation, "")
                 Exit Sub
             End If
 
             Dim approved As Boolean = False
             Try
-                approved = Web.put(vbNull, "rtvs/approve_by_id?id=" + txtId.Text)
+                approved = Web.put(vbNull, "sales_invoices/approve_by_id?id=" + txtId.Text)
             Catch ex As Exception
                 approved = False
             End Try
             If approved = True Then
-                MsgBox("RTV Successively approved", vbOKOnly + vbInformation, "")
+                MsgBox("Invoice Successively approved", vbOKOnly + vbInformation, "")
             Else
                 MsgBox("Operation failed")
             End If
             search(txtId.Text, "")
-            refreshRtvList()
+            refreshInvoiceList()
         End If
         '   Else
         '   MsgBox("Access denied!", vbOKOnly + vbExclamation)
         '   End If
     End Sub
 
-    Private Sub txtRtvNo_TextChanged(sender As Object, e As EventArgs) Handles txtRtvNo.TextChanged
-        If txtRtvNo.Text = "" Then
+    Private Sub txtInvoiceNo_TextChanged(sender As Object, e As EventArgs) Handles txtInvoiceNo.TextChanged
+        If txtInvoiceNo.Text = "" Then
             btnApprove.Enabled = False
         Else
             btnApprove.Enabled = True
@@ -1066,63 +1089,63 @@ Public Class frmSalesInvoice
         Cursor.Current = Cursors.Default
     End Sub
 
-    Private Sub cmbSupplier_KeyUp(sender As Object, e As EventArgs) Handles cmbSupplierName.KeyUp
-        Dim currentText As String = cmbSupplierName.Text
-        shortSupplier.Clear()
-        cmbSupplierName.Items.Clear()
-        cmbSupplierName.Items.Add(currentText)
-        cmbSupplierName.DroppedDown = True
-        For Each text As String In longSupplier
+    Private Sub cmbCustomer_KeyUp(sender As Object, e As EventArgs) Handles cmbCustomerName.KeyUp
+        Dim currentText As String = cmbCustomerName.Text
+        shortCustomer.Clear()
+        cmbCustomerName.Items.Clear()
+        cmbCustomerName.Items.Add(currentText)
+        cmbCustomerName.DroppedDown = True
+        For Each text As String In longCustomer
             Dim formattedText As String = text.ToUpper()
-            If formattedText.Contains(cmbSupplierName.Text.ToUpper()) Then
-                shortSupplier.Add(text)
+            If formattedText.Contains(cmbCustomerName.Text.ToUpper()) Then
+                shortCustomer.Add(text)
             End If
         Next
-        cmbSupplierName.Items.AddRange(shortSupplier.ToArray())
-        cmbSupplierName.SelectionStart = cmbSupplierName.Text.Length
+        cmbCustomerName.Items.AddRange(shortCustomer.ToArray())
+        cmbCustomerName.SelectionStart = cmbCustomerName.Text.Length
         Cursor.Current = Cursors.Default
     End Sub
 
-    Private Sub dtgrdLPOList_CellContentClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dtgrdRtvList.RowHeaderMouseClick
-        Dim r As Integer = dtgrdRtvList.CurrentRow.Index
-        Dim rtvId As String = dtgrdRtvList.Item(0, r).Value.ToString
-        Dim rtvNo As String = dtgrdRtvList.Item(1, r).Value.ToString
+    Private Sub dtgrdInvoiceList_CellContentClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dtgrdInvoiceLists.RowHeaderMouseClick
+        Dim r As Integer = dtgrdInvoiceLists.CurrentRow.Index
+        Dim rtvId As String = dtgrdInvoiceLists.Item(0, r).Value.ToString
+        Dim rtvNo As String = dtgrdInvoiceLists.Item(1, r).Value.ToString
         txtId.Text = rtvId
-        txtRtvNo.Text = rtvNo
+        txtInvoiceNo.Text = rtvNo
         search(rtvId, "")
     End Sub
 
     Private Sub btnArchive_Click(sender As Object, e As EventArgs) Handles btnArchive.Click
         Dim status As String
         Try
-            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
+            status = Web.get_("sales_invoices/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
         If Not status = "COMPLETED" Then
-            MsgBox("Only completed RTV can be archived", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("Only completed Invoice can be archived", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         '     If User.authorize("APPROVE LPO") = True Then
-        If txtRtvNo.Text = "" Then
-            MsgBox("Please select RTV to archive", vbOKOnly + vbInformation, "")
+        If txtInvoiceNo.Text = "" Then
+            MsgBox("Please select Invoice to archive", vbOKOnly + vbInformation, "")
             Exit Sub
         End If
 
         Dim archived As Boolean = False
         Try
-            archived = Web.put(vbNull, "rtvs/archive_by_id?id=" + txtId.Text)
+            archived = Web.put(vbNull, "sales_invoices/archive_by_id?id=" + txtId.Text)
         Catch ex As Exception
             archived = False
         End Try
         If archived = True Then
-            MsgBox("RTV Successively archived", vbOKOnly + vbInformation, "")
+            MsgBox("Invoice Successively archived", vbOKOnly + vbInformation, "")
         Else
             MsgBox("Poeration failed")
         End If
         search(txtId.Text, "")
-        refreshRtvList()
+        refreshInvoiceList()
 
 
         '   Else
@@ -1133,43 +1156,42 @@ Public Class frmSalesInvoice
     Private Sub btnCancel_Click_1(sender As Object, e As EventArgs) Handles btnCancel.Click
         Dim status As String
         Try
-            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
+            status = Web.get_("sales_invoices/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
-        If Not (status = "PENDING") Then
-            MsgBox("Only a pending can be canceled", vbOKOnly + vbExclamation, "Error: Invalid operation")
+        If Not (status = "PENDING" Or status = "APPROVED") Then
+            MsgBox("Only a pending or approved invoice can be canceled", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         '     If User.authorize("APPROVE LPO") = True Then
-        If txtRtvNo.Text = "" Then
-            MsgBox("Please select an RTV to cancel", vbOKOnly + vbExclamation, "")
+        If txtInvoiceNo.Text = "" Then
+            MsgBox("Please select an invoice to cancel", vbOKOnly + vbExclamation, "")
             Exit Sub
         End If
 
         'approve order
-        Dim res As Integer = MsgBox("Are you sure you want to cancel the RTV : " + txtRtvNo.Text + " ? After canceling, the RTV document will be rendered invalid", vbYesNo + vbQuestion, "Cancel LPO?")
+        Dim res As Integer = MsgBox("Are you sure you want to cancel the Invoice : " + txtInvoiceNo.Text + " ? After canceling, the Invoice will be rendered invalid", vbYesNo + vbQuestion, "Cancel Invoice?")
         Try
-            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
+            status = Web.get_("sales_invoices/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
-        If res = DialogResult.Yes And (status = "PENDING") Then
-
+        If res = DialogResult.Yes And (status = "PENDING" Or status = "APPROVED") Then
             Dim canceled As Boolean = False
             Try
-                canceled = Web.put(vbNull, "rtvs/cancel_by_id?id=" + txtId.Text)
+                canceled = Web.put(vbNull, "sales_invoices/cancel_by_id?id=" + txtId.Text)
             Catch ex As Exception
                 canceled = False
             End Try
             If canceled = True Then
-                MsgBox("RTV Successively canceled", vbOKOnly + vbInformation, "")
+                MsgBox("Invoice Successively canceled", vbOKOnly + vbInformation, "")
             Else
                 MsgBox("Operation failed")
             End If
             search(txtId.Text, "")
-            refreshRtvList()
+            refreshInvoiceList()
         End If
 
         '   Else
@@ -1178,27 +1200,27 @@ Public Class frmSalesInvoice
     End Sub
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
-        If txtRtvNo.Text = "" Then
+        If txtInvoiceNo.Text = "" Then
             MsgBox("Select an RTV to print.", vbOKOnly + vbCritical, "Error:No selection")
             Exit Sub
         End If
         Dim status As String
         Try
-            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
+            status = Web.get_("sales_invoices/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
-        If Not (status = "APPROVED" Or status = "COMPLETED" Or status = "ARCHIVED") Then
-            MsgBox("Could not print RTV. Only approved, completed or archived RTV can be printed", vbOKOnly + vbExclamation, "Invalid operation")
+        If Not (status = "COMPLETED") Then
+            MsgBox("Could not print Invoice. Only completed can be printed", vbOKOnly + vbExclamation, "Invalid operation")
             ' Exit Sub
         End If
 
         search(txtId.Text, "")
-        refreshRtvList()
+        refreshInvoiceList()
 
         Dim document As Document = New Document
-        document.Info.Title = "Local Purchase Order"
-        document.Info.Subject = "Local Purchase Order"
+        document.Info.Title = "Sales Invoice"
+        document.Info.Subject = "Sales Invoice"
         document.Info.Author = "Orbit"
 
         defineStyles(document)
@@ -1208,7 +1230,7 @@ Public Class frmSalesInvoice
         myRenderer.Document = document
         myRenderer.RenderDocument()
 
-        Dim filename As String = LSystem.getRoot & "\" & txtRtvNo.Text & ".pdf"
+        Dim filename As String = LSystem.getRoot & "\" & txtInvoiceNo.Text & ".pdf"
 
         myRenderer.PdfDocument.Save(filename)
         Process.Start(filename)
