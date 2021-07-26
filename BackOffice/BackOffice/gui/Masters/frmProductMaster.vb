@@ -244,6 +244,7 @@ Public Class frmProductMaster
             btnEditInventory.Enabled = True
         End If
         Dim supplier As New Supplier
+        cmbSupplier.Items.Add("")
         cmbSupplier.Items.AddRange(supplier.getNames().ToArray)
         cmbDepartment.Items.Clear()
         Dim list As New List(Of Department)
@@ -256,7 +257,7 @@ Public Class frmProductMaster
             MsgBox(ex.ToString)
             Exit Sub
         End Try
-
+        cmbDepartment.Items.Add("")
         For Each department_ As Department In list
             cmbDepartment.Items.Add(department_.name)
         Next
