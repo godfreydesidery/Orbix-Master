@@ -24,6 +24,8 @@ Partial Class frmSalesInvoice
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSalesInvoice))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.txtComment = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.txtCreditDays = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -70,14 +72,15 @@ Partial Class frmSalesInvoice
         Me.Column15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.txtDetailId = New System.Windows.Forms.TextBox()
+        Me.txtCostpriceVatExcl = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.txtCostPriceVatIncl = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txtSellingPriceVatExcl = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
-        Me.txtCPrice = New System.Windows.Forms.TextBox()
+        Me.txtDiscount = New System.Windows.Forms.TextBox()
         Me.btnChange = New System.Windows.Forms.Button()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.txtQty = New System.Windows.Forms.TextBox()
@@ -94,10 +97,9 @@ Partial Class frmSalesInvoice
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.txtCode = New System.Windows.Forms.TextBox()
-        Me.txtPrice = New System.Windows.Forms.TextBox()
+        Me.txtSellingPriceVatIncl = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.dtgrdProductList = New System.Windows.Forms.DataGridView()
-        Me.btnBack = New System.Windows.Forms.Button()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -109,9 +111,10 @@ Partial Class frmSalesInvoice
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.btnBack = New System.Windows.Forms.Button()
         Me.txtTotal = New System.Windows.Forms.TextBox()
-        Me.txtComment = New System.Windows.Forms.TextBox()
-        Me.Label19 = New System.Windows.Forms.Label()
+        Me.txtAmount = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.dtgrdInvoiceLists, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -148,6 +151,23 @@ Partial Class frmSalesInvoice
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(473, 339)
         Me.Panel1.TabIndex = 0
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(44, 271)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(74, 17)
+        Me.Label19.TabIndex = 132
+        Me.Label19.Text = "Comments"
+        '
+        'txtComment
+        '
+        Me.txtComment.Location = New System.Drawing.Point(125, 271)
+        Me.txtComment.Multiline = True
+        Me.txtComment.Name = "txtComment"
+        Me.txtComment.Size = New System.Drawing.Size(228, 61)
+        Me.txtComment.TabIndex = 131
         '
         'Label9
         '
@@ -511,14 +531,17 @@ Partial Class frmSalesInvoice
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel2.Controls.Add(Me.TextBox2)
+        Me.Panel2.Controls.Add(Me.txtAmount)
+        Me.Panel2.Controls.Add(Me.Label20)
+        Me.Panel2.Controls.Add(Me.txtDetailId)
+        Me.Panel2.Controls.Add(Me.txtCostpriceVatExcl)
         Me.Panel2.Controls.Add(Me.Label11)
-        Me.Panel2.Controls.Add(Me.TextBox3)
+        Me.Panel2.Controls.Add(Me.txtCostPriceVatIncl)
         Me.Panel2.Controls.Add(Me.Label14)
-        Me.Panel2.Controls.Add(Me.TextBox1)
+        Me.Panel2.Controls.Add(Me.txtSellingPriceVatExcl)
         Me.Panel2.Controls.Add(Me.Label10)
         Me.Panel2.Controls.Add(Me.Label28)
-        Me.Panel2.Controls.Add(Me.txtCPrice)
+        Me.Panel2.Controls.Add(Me.txtDiscount)
         Me.Panel2.Controls.Add(Me.btnChange)
         Me.Panel2.Controls.Add(Me.Label23)
         Me.Panel2.Controls.Add(Me.txtQty)
@@ -535,22 +558,30 @@ Partial Class frmSalesInvoice
         Me.Panel2.Controls.Add(Me.Label13)
         Me.Panel2.Controls.Add(Me.Label16)
         Me.Panel2.Controls.Add(Me.txtCode)
-        Me.Panel2.Controls.Add(Me.txtPrice)
+        Me.Panel2.Controls.Add(Me.txtSellingPriceVatIncl)
         Me.Panel2.Controls.Add(Me.Label18)
         Me.Panel2.Location = New System.Drawing.Point(12, 397)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(469, 340)
+        Me.Panel2.Size = New System.Drawing.Size(469, 372)
         Me.Panel2.TabIndex = 104
         '
-        'TextBox2
+        'txtDetailId
         '
-        Me.TextBox2.Location = New System.Drawing.Point(165, 219)
-        Me.TextBox2.MaxLength = 50
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.ReadOnly = True
-        Me.TextBox2.Size = New System.Drawing.Size(134, 22)
-        Me.TextBox2.TabIndex = 112
-        Me.TextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtDetailId.Location = New System.Drawing.Point(4, 14)
+        Me.txtDetailId.Name = "txtDetailId"
+        Me.txtDetailId.ReadOnly = True
+        Me.txtDetailId.Size = New System.Drawing.Size(27, 22)
+        Me.txtDetailId.TabIndex = 125
+        '
+        'txtCostpriceVatExcl
+        '
+        Me.txtCostpriceVatExcl.Location = New System.Drawing.Point(165, 219)
+        Me.txtCostpriceVatExcl.MaxLength = 50
+        Me.txtCostpriceVatExcl.Name = "txtCostpriceVatExcl"
+        Me.txtCostpriceVatExcl.ReadOnly = True
+        Me.txtCostpriceVatExcl.Size = New System.Drawing.Size(134, 22)
+        Me.txtCostpriceVatExcl.TabIndex = 112
+        Me.txtCostpriceVatExcl.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label11
         '
@@ -561,15 +592,15 @@ Partial Class frmSalesInvoice
         Me.Label11.TabIndex = 111
         Me.Label11.Text = "Cost Price (Vat Excl)"
         '
-        'TextBox3
+        'txtCostPriceVatIncl
         '
-        Me.TextBox3.Location = New System.Drawing.Point(165, 189)
-        Me.TextBox3.MaxLength = 50
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.ReadOnly = True
-        Me.TextBox3.Size = New System.Drawing.Size(134, 22)
-        Me.TextBox3.TabIndex = 110
-        Me.TextBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtCostPriceVatIncl.Location = New System.Drawing.Point(165, 189)
+        Me.txtCostPriceVatIncl.MaxLength = 50
+        Me.txtCostPriceVatIncl.Name = "txtCostPriceVatIncl"
+        Me.txtCostPriceVatIncl.ReadOnly = True
+        Me.txtCostPriceVatIncl.Size = New System.Drawing.Size(134, 22)
+        Me.txtCostPriceVatIncl.TabIndex = 110
+        Me.txtCostPriceVatIncl.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label14
         '
@@ -580,15 +611,15 @@ Partial Class frmSalesInvoice
         Me.Label14.TabIndex = 109
         Me.Label14.Text = "Cost Price (Vat Incl)"
         '
-        'TextBox1
+        'txtSellingPriceVatExcl
         '
-        Me.TextBox1.Location = New System.Drawing.Point(165, 163)
-        Me.TextBox1.MaxLength = 50
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(134, 22)
-        Me.TextBox1.TabIndex = 108
-        Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtSellingPriceVatExcl.Location = New System.Drawing.Point(165, 163)
+        Me.txtSellingPriceVatExcl.MaxLength = 50
+        Me.txtSellingPriceVatExcl.Name = "txtSellingPriceVatExcl"
+        Me.txtSellingPriceVatExcl.ReadOnly = True
+        Me.txtSellingPriceVatExcl.Size = New System.Drawing.Size(134, 22)
+        Me.txtSellingPriceVatExcl.TabIndex = 108
+        Me.txtSellingPriceVatExcl.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label10
         '
@@ -608,15 +639,14 @@ Partial Class frmSalesInvoice
         Me.Label28.TabIndex = 105
         Me.Label28.Text = "Discount (%)"
         '
-        'txtCPrice
+        'txtDiscount
         '
-        Me.txtCPrice.Location = New System.Drawing.Point(165, 247)
-        Me.txtCPrice.MaxLength = 50
-        Me.txtCPrice.Name = "txtCPrice"
-        Me.txtCPrice.ReadOnly = True
-        Me.txtCPrice.Size = New System.Drawing.Size(134, 22)
-        Me.txtCPrice.TabIndex = 106
-        Me.txtCPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtDiscount.Location = New System.Drawing.Point(165, 247)
+        Me.txtDiscount.MaxLength = 50
+        Me.txtDiscount.Name = "txtDiscount"
+        Me.txtDiscount.ReadOnly = True
+        Me.txtDiscount.Size = New System.Drawing.Size(134, 22)
+        Me.txtDiscount.TabIndex = 106
         '
         'btnChange
         '
@@ -666,7 +696,7 @@ Partial Class frmSalesInvoice
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(88, 280)
+        Me.Label15.Location = New System.Drawing.Point(88, 311)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(70, 17)
         Me.Label15.TabIndex = 42
@@ -684,7 +714,7 @@ Partial Class frmSalesInvoice
         '
         'txtPackSize
         '
-        Me.txtPackSize.Location = New System.Drawing.Point(165, 275)
+        Me.txtPackSize.Location = New System.Drawing.Point(165, 306)
         Me.txtPackSize.MaxLength = 50
         Me.txtPackSize.Name = "txtPackSize"
         Me.txtPackSize.ReadOnly = True
@@ -695,7 +725,7 @@ Partial Class frmSalesInvoice
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(88, 303)
+        Me.Label17.Location = New System.Drawing.Point(88, 334)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(74, 17)
         Me.Label17.TabIndex = 46
@@ -713,7 +743,7 @@ Partial Class frmSalesInvoice
         '
         'txtStockSize
         '
-        Me.txtStockSize.Location = New System.Drawing.Point(165, 303)
+        Me.txtStockSize.Location = New System.Drawing.Point(165, 334)
         Me.txtStockSize.MaxLength = 50
         Me.txtStockSize.Name = "txtStockSize"
         Me.txtStockSize.ReadOnly = True
@@ -766,15 +796,15 @@ Partial Class frmSalesInvoice
         Me.txtCode.Size = New System.Drawing.Size(134, 27)
         Me.txtCode.TabIndex = 39
         '
-        'txtPrice
+        'txtSellingPriceVatIncl
         '
-        Me.txtPrice.Location = New System.Drawing.Point(165, 133)
-        Me.txtPrice.MaxLength = 50
-        Me.txtPrice.Name = "txtPrice"
-        Me.txtPrice.ReadOnly = True
-        Me.txtPrice.Size = New System.Drawing.Size(134, 22)
-        Me.txtPrice.TabIndex = 47
-        Me.txtPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtSellingPriceVatIncl.Location = New System.Drawing.Point(165, 133)
+        Me.txtSellingPriceVatIncl.MaxLength = 50
+        Me.txtSellingPriceVatIncl.Name = "txtSellingPriceVatIncl"
+        Me.txtSellingPriceVatIncl.ReadOnly = True
+        Me.txtSellingPriceVatIncl.Size = New System.Drawing.Size(134, 22)
+        Me.txtSellingPriceVatIncl.TabIndex = 47
+        Me.txtSellingPriceVatIncl.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label18
         '
@@ -803,17 +833,6 @@ Partial Class frmSalesInvoice
         Me.dtgrdProductList.RowTemplate.Height = 24
         Me.dtgrdProductList.Size = New System.Drawing.Size(1021, 391)
         Me.dtgrdProductList.TabIndex = 105
-        '
-        'btnBack
-        '
-        Me.btnBack.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
-        Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnBack.Location = New System.Drawing.Point(1408, 739)
-        Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(100, 40)
-        Me.btnBack.TabIndex = 106
-        Me.btnBack.UseVisualStyleBackColor = True
         '
         'DataGridViewTextBoxColumn1
         '
@@ -881,6 +900,17 @@ Partial Class frmSalesInvoice
         Me.Column4.Name = "Column4"
         Me.Column4.ReadOnly = True
         '
+        'btnBack
+        '
+        Me.btnBack.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
+        Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnBack.Location = New System.Drawing.Point(1408, 739)
+        Me.btnBack.Name = "btnBack"
+        Me.btnBack.Size = New System.Drawing.Size(100, 40)
+        Me.btnBack.TabIndex = 106
+        Me.btnBack.UseVisualStyleBackColor = True
+        '
         'txtTotal
         '
         Me.txtTotal.Location = New System.Drawing.Point(545, 215)
@@ -888,22 +918,24 @@ Partial Class frmSalesInvoice
         Me.txtTotal.Size = New System.Drawing.Size(136, 22)
         Me.txtTotal.TabIndex = 124
         '
-        'txtComment
+        'txtAmount
         '
-        Me.txtComment.Location = New System.Drawing.Point(125, 271)
-        Me.txtComment.Multiline = True
-        Me.txtComment.Name = "txtComment"
-        Me.txtComment.Size = New System.Drawing.Size(228, 61)
-        Me.txtComment.TabIndex = 131
+        Me.txtAmount.Location = New System.Drawing.Point(165, 278)
+        Me.txtAmount.MaxLength = 50
+        Me.txtAmount.Name = "txtAmount"
+        Me.txtAmount.ReadOnly = True
+        Me.txtAmount.Size = New System.Drawing.Size(134, 22)
+        Me.txtAmount.TabIndex = 127
+        Me.txtAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'Label19
+        'Label20
         '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(44, 271)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(74, 17)
-        Me.Label19.TabIndex = 132
-        Me.Label19.Text = "Comments"
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(103, 281)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(56, 17)
+        Me.Label20.TabIndex = 126
+        Me.Label20.Text = "Amount"
         '
         'frmSalesInvoice
         '
@@ -977,7 +1009,7 @@ Partial Class frmSalesInvoice
     Friend WithEvents dtgrdInvoiceLists As DataGridView
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Label28 As Label
-    Friend WithEvents txtCPrice As TextBox
+    Friend WithEvents txtDiscount As TextBox
     Friend WithEvents btnChange As Button
     Friend WithEvents Label23 As Label
     Friend WithEvents txtQty As TextBox
@@ -994,7 +1026,7 @@ Partial Class frmSalesInvoice
     Friend WithEvents Label13 As Label
     Friend WithEvents Label16 As Label
     Friend WithEvents txtCode As TextBox
-    Friend WithEvents txtPrice As TextBox
+    Friend WithEvents txtSellingPriceVatIncl As TextBox
     Friend WithEvents Label18 As Label
     Friend WithEvents dtgrdProductList As DataGridView
     Friend WithEvents btnBack As Button
@@ -1004,10 +1036,10 @@ Partial Class frmSalesInvoice
     Friend WithEvents Column15 As DataGridViewTextBoxColumn
     Friend WithEvents Column16 As DataGridViewTextBoxColumn
     Friend WithEvents Label10 As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents txtSellingPriceVatExcl As TextBox
+    Friend WithEvents txtCostpriceVatExcl As TextBox
     Friend WithEvents Label11 As Label
-    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents txtCostPriceVatIncl As TextBox
     Friend WithEvents Label14 As Label
     Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
@@ -1023,4 +1055,7 @@ Partial Class frmSalesInvoice
     Friend WithEvents txtTotal As TextBox
     Friend WithEvents txtComment As TextBox
     Friend WithEvents Label19 As Label
+    Friend WithEvents txtDetailId As TextBox
+    Friend WithEvents txtAmount As TextBox
+    Friend WithEvents Label20 As Label
 End Class

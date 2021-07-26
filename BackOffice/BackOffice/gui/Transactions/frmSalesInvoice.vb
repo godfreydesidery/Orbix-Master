@@ -587,9 +587,8 @@ Public Class frmSalesInvoice
         Dim costPriceExcl As String = dtgrdProductList.Item(6, row).Value.ToString
         Dim sellingPriceIncl As String = dtgrdProductList.Item(7, row).Value.ToString
         Dim sellingPriceExcl As String = dtgrdProductList.Item(8, row).Value.ToString
-        Dim amount As String = dtgrdProductList.Item(9, row).Value.ToString
-        Dim packSize As String = dtgrdProductList.Item(10, row).Value.ToString
-        Dim reason As String = dtgrdProductList.Item(11, row).Value.ToString
+        Dim discount As String = dtgrdProductList.Item(9, row).Value.ToString
+        Dim amount As String = dtgrdProductList.Item(10, row).Value.ToString
 
         txtDetailId.Text = sn
         txtBarCode.Text = barcode
@@ -600,8 +599,7 @@ Public Class frmSalesInvoice
         txtCostPriceVatExcl.Text = LCurrency.displayValue(costPriceExcl)
         txtSellingPriceVatIncl.Text = LCurrency.displayValue(sellingPriceIncl)
         txtSellingPriceVatExcl.Text = LCurrency.displayValue(sellingPriceExcl)
-        txtPackSize.Text = packSize
-        txtReason.Text = reason
+        txtAmount.Text = LCurrency.displayValue(qty * (100 * sellingPriceIncl - discount) / 100)
         If txtDetailId.Text <> "" Then
             btnAdd.Enabled = True
         Else
@@ -609,7 +607,7 @@ Public Class frmSalesInvoice
         End If
 
         Try
-            response = Web.delete("rtv_details/delete_by_id?id=" + sn)
+            response = Web.delete("sales_incoice_details/delete_by_id?id=" + sn)
             '    lockFields()
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -646,12 +644,12 @@ Public Class frmSalesInvoice
             Exit Sub
         End If
 
-        Dim rtv As Rtv
+        Dim invoice As SalesInvoice
         Dim response As Object = New Object
         Dim json As JObject = New JObject
-        response = Web.get_("rtvs/get_by_id?id=" + txtId.Text)
+        response = Web.get_("sales_invoices/get_by_id?id=" + txtId.Text)
         json = JObject.Parse(response)
-        rtv = JsonConvert.DeserializeObject(Of Rtv)(json.ToString)
+        invoice = JsonConvert.DeserializeObject(Of SalesInvoice)(json.ToString)
 
         Dim row As Integer = -1
         row = dtgrdProductList.CurrentRow.Index
@@ -665,9 +663,8 @@ Public Class frmSalesInvoice
         Dim costPriceExcl As String = dtgrdProductList.Item(6, row).Value.ToString
         Dim sellingPriceIncl As String = dtgrdProductList.Item(7, row).Value.ToString
         Dim sellingPriceExcl As String = dtgrdProductList.Item(8, row).Value.ToString
-        Dim amount As String = dtgrdProductList.Item(9, row).Value.ToString
-        Dim packSize As String = dtgrdProductList.Item(10, row).Value.ToString
-        Dim reason As String = dtgrdProductList.Item(11, row).Value.ToString
+        Dim discount As String = dtgrdProductList.Item(9, row).Value.ToString
+        Dim amount As String = dtgrdProductList.Item(10, row).Value.ToString
 
         txtDetailId.Text = sn
         txtBarCode.Text = barcode
@@ -678,8 +675,7 @@ Public Class frmSalesInvoice
         txtCostPriceVatExcl.Text = LCurrency.displayValue(costPriceExcl)
         txtSellingPriceVatIncl.Text = LCurrency.displayValue(sellingPriceIncl)
         txtSellingPriceVatExcl.Text = LCurrency.displayValue(sellingPriceExcl)
-        txtPackSize.Text = packSize
-        txtReason.Text = reason
+        txtAmount.Text = LCurrency.displayValue(qty * (100 * sellingPriceIncl - discount) / 100)
 
         If txtDetailId.Text <> "" Then
             btnAdd.Enabled = True
@@ -697,61 +693,61 @@ Public Class frmSalesInvoice
         '    search(txtId.Text, "")
     End Sub
 
-    Dim longSupplier As New List(Of String)
-    Dim shortSupplier As New List(Of String)
+    Dim longCustomer As New List(Of String)
+    Dim shortCustomer As New List(Of String)
     Private Sub frmReturnToVendor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         clear()
         clearFields()
 
-        txtRtvNo.Text = ""
-        txtSupplierCode.Text = ""
-        cmbSupplierName.SelectedItem = Nothing
-        cmbSupplierName.Text = ""
+        txtInvoiceNo.Text = ""
+        txtCustomerNo.Text = ""
+        cmbCustomerName.SelectedItem = Nothing
+        cmbCustomerName.Text = ""
         '    dateIssueDate.Value = Nothing
         txtStatus.Text = ""
         '      dateValidUntil.Value = Nothing
-        txtSupplierCode.ReadOnly = True
-        cmbSupplierName.Enabled = False
+        txtCustomerNo.ReadOnly = True
+        cmbCustomerName.Enabled = False
 
-        Dim supplier As New Supplier
-        longSupplier = supplier.getNames()
-        refreshRtvList()
+        Dim customer As New CorporateCustomer
+        longCustomer = customer.getNames()
+        refreshSalesInvoiceList()
     End Sub
-    Private Sub refreshRtvList()
-        dtgrdRtvList.Rows.Clear()
+    Private Sub refreshSalesInvoiceList()
+        dtgrdInvoiceLists.Rows.Clear()
         Try
             Dim response As Object = New Object
             Dim json As JObject = New JObject
-            Dim rtvs As List(Of Rtv)
-            response = Web.get_("rtvs/visible")
-            rtvs = JsonConvert.DeserializeObject(Of List(Of Rtv))(response)
+            Dim invoices As List(Of SalesInvoice)
+            response = Web.get_("sales_invoices/visible")
+            invoices = JsonConvert.DeserializeObject(Of List(Of SalesInvoice))(response)
 
-            For Each rtv In rtvs
+            For Each invoice In invoices
                 Dim dtgrdRow As New DataGridViewRow
                 Dim dtgrdCell As DataGridViewCell
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = rtv.id
+                dtgrdCell.Value = invoice.id
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = rtv.no
+                dtgrdCell.Value = invoice.no
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = rtv.issueDate.ToString("yyyy-MM-dd")
+                dtgrdCell.Value = Rtv.issueDate.ToString("yyyy-MM-dd")
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                If Not IsNothing(rtv.supplier) Then
-                    dtgrdCell.Value = rtv.supplier.name
+                If Not IsNothing(Rtv.supplier) Then
+                    dtgrdCell.Value = Rtv.supplier.name
                 Else
                     dtgrdCell.Value = ""
                 End If
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = rtv.status
+                dtgrdCell.Value = Rtv.status
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdRtvList.Rows.Add(dtgrdRow)
