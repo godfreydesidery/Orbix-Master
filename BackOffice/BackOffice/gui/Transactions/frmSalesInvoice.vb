@@ -333,7 +333,7 @@ Public Class frmSalesInvoice
 
     Private Function search(id As String, no As String)
         clear()
-        Dim invoice As sale = New Rtv
+        Dim invoice As SalesInvoice = New SalesInvoice
 
         Dim response As Object = New Object
         Dim json As JObject = New JObject
@@ -348,51 +348,51 @@ Public Class frmSalesInvoice
                 Exit Function
             End If
             json = JObject.Parse(response)
-            rtv = JsonConvert.DeserializeObject(Of Rtv)(json.ToString)
+            invoice = JsonConvert.DeserializeObject(Of SalesInvoice)(json.ToString)
             txtInvoiceNo.ReadOnly = True
-            If IsNothing(rtv.supplier) Then
-                txtSupplierCode.Text = ""
-                cmbSupplierName.Text = ""
+            If IsNothing(invoice.corporateCustomer) Then
+                txtCustomerNo.Text = ""
+                cmbCustomerName.Text = ""
             Else
-                txtSupplierCode.Text = rtv.supplier.code
-                cmbSupplierName.Text = rtv.supplier.name
+                txtCustomerNo.Text = invoice.corporateCustomer.no
+                cmbCustomerName.Text = invoice.corporateCustomer.name
             End If
-            txtId.Text = rtv.id
-            txtRtvNo.Text = rtv.no
-            txtIssueDate.Text = rtv.issueDate
+            txtId.Text = invoice.id
+            txtInvoiceNo.Text = invoice.no
+            txtIssueDate.Text = invoice.issueDate
 
-            txtStatus.Text = rtv.status
-            txtComment.Text = rtv.comment
+            txtStatus.Text = invoice.status
+            txtComment.Text = invoice.comment
             lock()
-            If Not IsNothing(rtv.rtvDetails) Then
-                refreshList(rtv.rtvDetails)
+            If Not IsNothing(invoice.salesInvoiceDetails) Then
+                refreshList(invoice.salesInvoiceDetails)
             End If
-            Dim status As String = rtv.status
-            If status = "APPROVED" Or status = "COMPLETED" Or status = "CANCELED" Then
+            Dim status As String = invoice.status
+            If status = "APPROVED" Or status = "COMPLETED" Or status = "CANCELED" Or status = "ARCHIVED" Then
                 btnApprove.Enabled = False
             Else
                 btnApprove.Enabled = True
             End If
         Catch ex As Exception
-            MsgBox("No matching order", vbOKOnly + vbCritical, "Error: Not found")
+            MsgBox("No matching invoice", vbOKOnly + vbCritical, "Error: Not found")
             Return vbNull
             Exit Function
         End Try
         Return vbNull
     End Function
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-        If txtRtvNo.ReadOnly = False Then
-            search("", txtRtvNo.Text)
+    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        If txtInvoiceNo.ReadOnly = False Then
+            search("", txtInvoiceNo.Text)
             Exit Sub
         End If
         If txtId.Text <> "" Then
             Exit Sub
         End If
-        If searchSupplier(txtSupplierCode.Text, cmbSupplierName.Text) = True Then
+        If searchCustomer(txtCustomerNo.Text, cmbCustomerName.Text) = True Then
             btnSave.Enabled = True
         Else
-            If txtSupplierCode.Text = "" Then
+            If txtCustomerNo.Text = "" Then
                 MsgBox("Please enter supplier code", vbOKOnly + vbCritical, "Error: Missing information")
             Else
                 MsgBox("No matching supplier", vbOKOnly + vbCritical, "Error: Not found")
@@ -403,14 +403,14 @@ Public Class frmSalesInvoice
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
         clear()
         clearFields()
-        txtRtvNo.ReadOnly = True
-        txtSupplierCode.ReadOnly = False
-        cmbSupplierName.Enabled = True
+        txtInvoiceNo.ReadOnly = True
+        txtCustomerNo.ReadOnly = False
+        cmbCustomerName.Enabled = True
         txtStatus.Text = ""
         txtIssueDate.Text = Day.DAY  ' Day.DAY
         unlock()
         btnSave.Enabled = False
-        txtRtvNo.Text = "NA"
+        txtInvoiceNo.Text = "NA"
         dtgrdProductList.Rows.Clear()
     End Sub
 
@@ -423,54 +423,54 @@ Public Class frmSalesInvoice
         ' End If
         If txtId.Text = "" Then
             clear()
-            txtRtvNo.ReadOnly = False
+            txtInvoiceNo.ReadOnly = False
             btnSave.Enabled = False
         Else
             lock()
-            txtRtvNo.ReadOnly = True
+            txtInvoiceNo.ReadOnly = True
             btnSave.Enabled = True
         End If
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        Dim rtv As Rtv
+        Dim invoice As SalesInvoice
         Dim response As Object = New Object
         Dim json As JObject = New JObject
         If txtId.Text = "" Then
-            rtv = New Rtv
+            invoice = New SalesInvoice
         Else
-            response = Web.get_("rtvs/get_by_id?id=" + txtId.Text)
+            response = Web.get_("sales_invoices/get_by_id?id=" + txtId.Text)
             json = JObject.Parse(response)
-            rtv = JsonConvert.DeserializeObject(Of Rtv)(json.ToString)
+            invoice = JsonConvert.DeserializeObject(Of SalesInvoice)(json.ToString)
         End If
         If txtId.Text <> "" Then
-            rtv.id = txtId.Text
+            invoice.id = txtId.Text
         Else
-            rtv.no = "NA"
-            rtv.createdUser.id = User.CURRENT_USER_ID
+            invoice.no = "NA"
+            invoice.createdUser.id = User.CURRENT_USER_ID
         End If
-        rtv.issueDate = Day.DAY
+        invoice.issueDate = Day.DAY
 
-        rtv.comment = txtComment.Text
+        invoice.comment = txtComment.Text
 
         If dtgrdProductList.RowCount = 0 Then
-            Dim res As Integer = MsgBox("No items listed. Would you like to save an empty RTV?", vbYesNo + vbQuestion, "Save empty RTV?")
+            Dim res As Integer = MsgBox("No items listed. Would you like to save an empty Invoice?", vbYesNo + vbQuestion, "Save empty Invoice?")
             If Not res = DialogResult.Yes Then
                 Exit Sub
             End If
         End If
         Try
             If txtId.Text = "" Then
-                response = Web.post(rtv, "rtvs/new")
+                response = Web.post(invoice, "sales_invoices/new")
                 json = JObject.Parse(response)
                 txtId.Text = json.SelectToken("id")
-                MsgBox("RTV created successifully", vbOKOnly + vbInformation, "Success: RTV saved.")
+                MsgBox("Invoice created successifully", vbOKOnly + vbInformation, "Success: Invoice saved.")
             Else
-                response = Web.put(rtv, "rtvs/edit_by_id?id=" + txtId.Text)
+                response = Web.put(invoice, "sales_invoices/edit_by_id?id=" + txtId.Text)
                 If response = True Then
-                    MsgBox("RTV updated successifully", vbOKOnly + vbInformation, "Success: RTV updated.")
+                    MsgBox("Invoice updated successifully", vbOKOnly + vbInformation, "Success: Invoice updated.")
                 Else
-                    MsgBox("Could not update RTV", vbOKOnly + vbExclamation, "Error: operation failed")
+                    MsgBox("Could not update Invoice", vbOKOnly + vbExclamation, "Error: operation failed")
                 End If
             End If
             refreshRtvList()
@@ -480,10 +480,10 @@ Public Class frmSalesInvoice
         End Try
     End Sub
 
-    Private Function refreshList(rtvDetails As List(Of RtvDetail))
+    Private Function refreshList(details As List(Of SalesInvoiceDetail))
         dtgrdProductList.Rows.Clear()
         Dim total As Double = 0
-        For Each detail In rtvDetails
+        For Each detail In details
             total = total + detail.qty * detail.costPriceVatIncl
 
             Dim dtgrdRow As New DataGridViewRow
@@ -526,15 +526,11 @@ Public Class frmSalesInvoice
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = LCurrency.displayValue(detail.qty * detail.costPriceVatIncl)
+            dtgrdCell.Value = detail.discount
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = detail.packSize
-            dtgrdRow.Cells.Add(dtgrdCell)
-
-            dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = detail.reason
+            dtgrdCell.Value = LCurrency.displayValue((detail.qty * (100 * detail.sellingPriceVatIncl - detail.discount)) / 100)
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdProductList.Rows.Add(dtgrdRow)
@@ -547,27 +543,27 @@ Public Class frmSalesInvoice
     Private Sub dtgrdItemList_RowHeaderMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dtgrdProductList.RowHeaderMouseDoubleClick
         Dim status As String
         Try
-            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
+            status = Web.get_("sales_invoices/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
         If status = "APPROVED" Then
-            MsgBox("You can not edit this RTV. RTV already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this Invoice. Invoice already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "COMPLETED" Then
-            MsgBox("You can not edit this RTV. RTV already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this Invoice. Invoice already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "CANCELED" Then
-            MsgBox("You can not edit this RTV. RTV canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this Invoice. Invoice canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "" Then
-            MsgBox("You can not edit this RTV. RTV status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this Invoice. Invoice status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
@@ -575,7 +571,7 @@ Public Class frmSalesInvoice
         Dim rtv As Rtv
         Dim response As Object = New Object
         Dim json As JObject = New JObject
-        response = Web.get_("rtvs/get_by_id?id=" + txtId.Text)
+        response = Web.get_("sales_invoices/get_by_id?id=" + txtId.Text)
         json = JObject.Parse(response)
         rtv = JsonConvert.DeserializeObject(Of Rtv)(json.ToString)
 
