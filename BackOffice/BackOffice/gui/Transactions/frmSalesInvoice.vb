@@ -735,66 +735,66 @@ Public Class frmSalesInvoice
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = Rtv.issueDate.ToString("yyyy-MM-dd")
+                dtgrdCell.Value = invoice.issueDate.ToString("yyyy-MM-dd")
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                If Not IsNothing(Rtv.supplier) Then
-                    dtgrdCell.Value = Rtv.supplier.name
+                If Not IsNothing(invoice.corporateCustomer) Then
+                    dtgrdCell.Value = invoice.corporateCustomer.name
                 Else
                     dtgrdCell.Value = ""
                 End If
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = Rtv.status
+                dtgrdCell.Value = invoice.status
                 dtgrdRow.Cells.Add(dtgrdCell)
 
-                dtgrdRtvList.Rows.Add(dtgrdRow)
+                dtgrdInvoiceLists.Rows.Add(dtgrdRow)
             Next
-            dtgrdRtvList.ClearSelection()
+            dtgrdInvoiceLists.ClearSelection()
         Catch ex As Exception
 
         End Try
-        dtgrdRtvList.ClearSelection()
+        dtgrdInvoiceLists.ClearSelection()
     End Sub
 
-    Private Sub frmReturnToVendorr_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        txtRtvNo.Text = ""
+    Private Sub frmSalesInvoice_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        txtInvoiceNo.Text = ""
         dtgrdProductList.Rows.Clear()
         Dim product As New Product
         longList = product.getDescriptions
     End Sub
 
-    Private Sub txtSupplierCode_preview(sender As Object, e As PreviewKeyDownEventArgs) Handles txtSupplierCode.PreviewKeyDown
+    Private Sub txtCustomerCode_preview(sender As Object, e As PreviewKeyDownEventArgs) Handles txtCustomerNo.PreviewKeyDown
         If e.KeyCode = Keys.Tab Then
             If txtId.Text <> "" Then
                 Exit Sub
             End If
-            If searchSupplier(txtSupplierCode.Text, cmbSupplierName.Text) = True Then
+            If searchCustomer(txtCustomerNo.Text, cmbCustomerName.Text) = True Then
                 If txtId.Text = "" Then
-                    txtRtvNo.Text = "NEW"
+                    txtCustomerNo.Text = "NA"
                 End If
                 btnSave.Enabled = True
             Else
-                If txtSupplierCode.Text = "" Then
-                    MsgBox("Please enter supplier code", vbOKOnly + vbCritical, "Error: Missing information")
+                If txtCustomerNo.Text = "" Then
+                    MsgBox("Please enter customer no", vbOKOnly + vbCritical, "Error: Missing information")
                 Else
-                    MsgBox("No matching supplier", vbOKOnly + vbCritical, "Error: Not found")
+                    MsgBox("No matching customer", vbOKOnly + vbCritical, "Error: Not found")
                 End If
             End If
         End If
     End Sub
 
-    Private Sub txtOrderNo_preview(sender As Object, e As PreviewKeyDownEventArgs) Handles txtRtvNo.PreviewKeyDown
+    Private Sub txtInvoiceNo_preview(sender As Object, e As PreviewKeyDownEventArgs) Handles txtInvoiceNo.PreviewKeyDown
         If e.KeyCode = Keys.Tab Then
-            search("", txtRtvNo.Text)
+            search("", txtInvoiceNo.Text)
         End If
     End Sub
 
     Private Sub btnSearchItem_Click(sender As Object, e As EventArgs) Handles btnSearchItem.Click
-        If txtSupplierCode.Text = "" Then
-            MsgBox("Please select Supplier", vbOKOnly + vbCritical, "Error: No supplier")
+        If txtCustomerNo.Text = "" Then
+            MsgBox("Please select Customer", vbOKOnly + vbCritical, "Error: No customer selected")
             Exit Sub
         End If
         Dim found As Boolean = False
@@ -823,7 +823,6 @@ Public Class frmSalesInvoice
                 MsgBox("Please enter a search key", vbOKOnly + vbExclamation, "Error: No selection")
                 Exit Sub
             End If
-
             txtCode.Text = product.code
             cmbDescription.Text = product.description
             txtPackSize.Text = product.packSize
@@ -834,18 +833,14 @@ Public Class frmSalesInvoice
             txtStockSize.Text = product.stock
             txtPackSize.Text = product.packSize
             found = True
-            If isSupply(txtCode.Text, txtSupplierCode.Text) = False And found = True Then
-                MsgBox("Can not add product to this RTV. Product not available for this Supplier")
-                clearFields()
-            Else
-                valid = True
-                lockFields()
-                txtQty.ReadOnly = False
-            End If
             If found = False Then
                 MsgBox("Product not found", vbOKOnly + vbCritical, "Item not found")
                 clearFields()
             End If
+            Exit Sub
+            valid = True
+            lockFields()
+            txtQty.ReadOnly = False
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
@@ -863,7 +858,6 @@ Public Class frmSalesInvoice
         txtSellingPriceVatIncl.Text = ""
         txtSellingPriceVatExcl.Text = ""
         txtStockSize.Text = ""
-        txtReason.Text = ""
     End Sub
     Private Sub lockFields()
         txtBarCode.ReadOnly = True
@@ -875,33 +869,32 @@ Public Class frmSalesInvoice
         txtBarCode.ReadOnly = False
         txtCode.ReadOnly = False
         cmbDescription.Enabled = True
-
         btnAdd.Enabled = False
     End Sub
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim status As String
         Try
-            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
+            status = Web.get_("sales_invoices/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
         If status = "APPROVED" Then
-            MsgBox("You can not edit this RTV. RTV already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this Invoice. Invoice already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "COMPLETED" Then
-            MsgBox("You can not edit this RTV. RTV already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this Invoice. Invoice already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "CANCELED" Then
-            MsgBox("You can not edit this RTV. RTV canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this Invoice. Invoice canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "" Then
-            MsgBox("You can not edit this RTV. RTV status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this Invoice. Invoice status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
@@ -913,7 +906,6 @@ Public Class frmSalesInvoice
         Dim costPriceVatExcl As String = LCurrency.getValue(txtCostPriceVatExcl.Text)
         Dim sellingPriceVatIncl As String = LCurrency.getValue(txtSellingPriceVatIncl.Text)
         Dim sellingPriceVatExcl As String = LCurrency.getValue(txtSellingPriceVatExcl.Text)
-        Dim reason As String = txtReason.Text
         Dim packSize As String = txtPackSize.Text
         If code = "" Then
             MsgBox("Invalid entry")
@@ -930,12 +922,12 @@ Public Class frmSalesInvoice
         Try
 
             Dim response As Object = New Object
-            Dim rtv As Rtv
+            Dim invoice As SalesInvoice
             Dim json As JObject = New JObject
             If txtId.Text = "" Then
 
-                rtv = New Rtv
-                rtv.no = "NA"
+                invoice = New SalesInvoice
+                Rtv.no = "NA"
                 rtv.createdUser.id = User.CURRENT_USER_ID
                 rtv.supplier.code = txtSupplierCode.Text
                 rtv.supplier.name = cmbSupplierName.Text
