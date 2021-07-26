@@ -35,7 +35,7 @@ Partial Class frmSalesInvoice
         Me.Label5 = New System.Windows.Forms.Label()
         Me.txtIssueDate = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.txtNo = New System.Windows.Forms.TextBox()
+        Me.txtInvoiceNo = New System.Windows.Forms.TextBox()
         Me.cmbCustomerName = New System.Windows.Forms.ComboBox()
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -109,6 +109,9 @@ Partial Class frmSalesInvoice
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.txtTotal = New System.Windows.Forms.TextBox()
+        Me.txtComment = New System.Windows.Forms.TextBox()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.dtgrdInvoiceLists, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -119,6 +122,8 @@ Partial Class frmSalesInvoice
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.Label19)
+        Me.Panel1.Controls.Add(Me.txtComment)
         Me.Panel1.Controls.Add(Me.Label9)
         Me.Panel1.Controls.Add(Me.txtCreditDays)
         Me.Panel1.Controls.Add(Me.Label8)
@@ -130,7 +135,7 @@ Partial Class frmSalesInvoice
         Me.Panel1.Controls.Add(Me.Label5)
         Me.Panel1.Controls.Add(Me.txtIssueDate)
         Me.Panel1.Controls.Add(Me.Label4)
-        Me.Panel1.Controls.Add(Me.txtNo)
+        Me.Panel1.Controls.Add(Me.txtInvoiceNo)
         Me.Panel1.Controls.Add(Me.cmbCustomerName)
         Me.Panel1.Controls.Add(Me.btnSearch)
         Me.Panel1.Controls.Add(Me.Label3)
@@ -141,13 +146,13 @@ Partial Class frmSalesInvoice
         Me.Panel1.Controls.Add(Me.txtId)
         Me.Panel1.Location = New System.Drawing.Point(12, 52)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(469, 278)
+        Me.Panel1.Size = New System.Drawing.Size(473, 339)
         Me.Panel1.TabIndex = 0
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(34, 248)
+        Me.Label9.Location = New System.Drawing.Point(37, 245)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(81, 17)
         Me.Label9.TabIndex = 130
@@ -233,12 +238,12 @@ Partial Class frmSalesInvoice
         Me.Label4.TabIndex = 120
         Me.Label4.Text = "Invoice No"
         '
-        'txtNo
+        'txtInvoiceNo
         '
-        Me.txtNo.Location = New System.Drawing.Point(125, 8)
-        Me.txtNo.Name = "txtNo"
-        Me.txtNo.Size = New System.Drawing.Size(228, 22)
-        Me.txtNo.TabIndex = 119
+        Me.txtInvoiceNo.Location = New System.Drawing.Point(125, 8)
+        Me.txtInvoiceNo.Name = "txtInvoiceNo"
+        Me.txtInvoiceNo.Size = New System.Drawing.Size(228, 22)
+        Me.txtInvoiceNo.TabIndex = 119
         '
         'cmbCustomerName
         '
@@ -532,7 +537,7 @@ Partial Class frmSalesInvoice
         Me.Panel2.Controls.Add(Me.txtCode)
         Me.Panel2.Controls.Add(Me.txtPrice)
         Me.Panel2.Controls.Add(Me.Label18)
-        Me.Panel2.Location = New System.Drawing.Point(12, 336)
+        Me.Panel2.Location = New System.Drawing.Point(12, 397)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(469, 340)
         Me.Panel2.TabIndex = 104
@@ -876,11 +881,36 @@ Partial Class frmSalesInvoice
         Me.Column4.Name = "Column4"
         Me.Column4.ReadOnly = True
         '
+        'txtTotal
+        '
+        Me.txtTotal.Location = New System.Drawing.Point(545, 215)
+        Me.txtTotal.Name = "txtTotal"
+        Me.txtTotal.Size = New System.Drawing.Size(136, 22)
+        Me.txtTotal.TabIndex = 124
+        '
+        'txtComment
+        '
+        Me.txtComment.Location = New System.Drawing.Point(125, 271)
+        Me.txtComment.Multiline = True
+        Me.txtComment.Name = "txtComment"
+        Me.txtComment.Size = New System.Drawing.Size(228, 61)
+        Me.txtComment.TabIndex = 131
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(44, 271)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(74, 17)
+        Me.Label19.TabIndex = 132
+        Me.Label19.Text = "Comments"
+        '
         'frmSalesInvoice
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1520, 791)
+        Me.Controls.Add(Me.txtTotal)
         Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.dtgrdProductList)
         Me.Controls.Add(Me.Panel2)
@@ -924,7 +954,7 @@ Partial Class frmSalesInvoice
     Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
     Friend WithEvents btnPrintReport As ToolStripButton
     Friend WithEvents Label4 As Label
-    Friend WithEvents txtNo As TextBox
+    Friend WithEvents txtInvoiceNo As TextBox
     Friend WithEvents cmbCustomerName As ComboBox
     Friend WithEvents btnSearch As Button
     Friend WithEvents Label3 As Label
@@ -990,4 +1020,7 @@ Partial Class frmSalesInvoice
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents Column18 As DataGridViewTextBoxColumn
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
+    Friend WithEvents txtTotal As TextBox
+    Friend WithEvents txtComment As TextBox
+    Friend WithEvents Label19 As Label
 End Class

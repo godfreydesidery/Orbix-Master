@@ -258,9 +258,8 @@ Public Class frmSalesInvoice
             Dim description As String = dtgrdProductList.Item(3, i).Value.ToString
             Dim qty As String = dtgrdProductList.Item(4, i).Value.ToString
             Dim costPriceIncl As String = dtgrdProductList.Item(5, i).Value.ToString
-            Dim amount As String = dtgrdProductList.Item(9, i).Value.ToString
-            Dim packSize As String = dtgrdProductList.Item(10, i).Value.ToString
-            Dim reason As String = dtgrdProductList.Item(11, i).Value.ToString
+            Dim discount As String = dtgrdProductList.Item(9, i).Value.ToString
+            Dim amount As String = dtgrdProductList.Item(10, i).Value.ToString
 
             totalQty = totalQty + Val(qty)
             totalAmount = totalAmount + LCurrency.getValue(amount)
@@ -279,14 +278,12 @@ Public Class frmSalesInvoice
             row.Cells(2).Format.Alignment = ParagraphAlignment.Left
             row.Cells(3).AddParagraph(costPriceIncl)
             row.Cells(3).Format.Alignment = ParagraphAlignment.Right
-            row.Cells(4).AddParagraph(amount)
+            row.Cells(4).AddParagraph(discount)
             row.Cells(4).Format.Alignment = ParagraphAlignment.Right
-            row.Cells(5).AddParagraph(packSize)
+            row.Cells(5).AddParagraph(amount)
             row.Cells(5).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(6).AddParagraph(reason)
-            row.Cells(6).Format.Alignment = ParagraphAlignment.Left
 
-            table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+            table.SetEdge(0, 0, 6, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
         Next
         row = table.AddRow()
         row.Format.Font.Bold = True
@@ -301,32 +298,31 @@ Public Class frmSalesInvoice
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
         row.Cells(3).AddParagraph("")
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(4).AddParagraph(LCurrency.displayValue(totalAmount.ToString))
+        row.Cells(4).AddParagraph("")
         row.Cells(4).Format.Alignment = ParagraphAlignment.Right
-        row.Cells(5).AddParagraph("")
+        row.Cells(5).AddParagraph(LCurrency.displayValue(totalAmount.ToString))
         row.Cells(5).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(6).AddParagraph("")
-        row.Cells(6).Format.Alignment = ParagraphAlignment.Left
 
-        table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+
+        table.SetEdge(0, 0, 6, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
     End Sub
 
     Private Function lock()
-        txtSupplierCode.ReadOnly = True
-        cmbSupplierName.Enabled = False
+        txtCustomerNo.ReadOnly = True
+        cmbCustomerName.Enabled = False
         Return vbNull
     End Function
     Private Function unlock()
-        txtSupplierCode.ReadOnly = False
-        cmbSupplierName.Enabled = True
+        txtCustomerNo.ReadOnly = False
+        cmbCustomerName.Enabled = True
         Return vbNull
     End Function
     Private Function clear()
         txtId.Text = ""
-        txtRtvNo.Text = ""
-        txtSupplierCode.Text = ""
-        cmbSupplierName.SelectedItem = Nothing
-        cmbSupplierName.Text = ""
+        txtInvoiceNo.Text = ""
+        txtCustomerNo.Text = ""
+        cmbCustomerName.SelectedItem = Nothing
+        cmbCustomerName.Text = ""
         txtIssueDate.Text = ""
         txtStatus.Text = ""
         txtTotal.Text = ""
@@ -334,54 +330,18 @@ Public Class frmSalesInvoice
         dtgrdProductList.Rows.Clear()
         Return vbNull
     End Function
-    Private Function isSupply(code As String, supplierCode As String) As Boolean
-        Dim supply As Boolean = False
-        Dim product As New Product
-        Dim response As Object = New Object
-        Dim json As JObject = New JObject
-        Try
-            Return Web.get_("products/is_supplied?product_code=" + code + "&supplier_code=" + supplierCode)
-        Catch ex As Exception
-            Return False
-        End Try
-    End Function
-    Private Function searchSupplier(code As String, name As String) As Boolean
-        Dim supplier_ As Supplier
-        Dim response As Object = New Object
-        Dim json As JObject = New JObject
-        Try
-            If txtSupplierCode.Text <> "" Then
-                response = Web.get_("suppliers/get_by_code?code=" + code)
-                json = JObject.Parse(response)
-                supplier_ = JsonConvert.DeserializeObject(Of Supplier)(json.ToString)
-                cmbSupplierName.Text = supplier_.name
-                Return True
-                lock()
-            ElseIf cmbSupplierName.Text <> "" Then
-                response = Web.get_("suppliers/get_by_name?name=" + name)
-                json = JObject.Parse(response)
-                supplier_ = JsonConvert.DeserializeObject(Of Supplier)(json.ToString)
-                txtSupplierCode.Text = supplier_.code
-                Return True
-                lock()
-            End If
-        Catch ex As Exception
-            Return False
-        End Try
-        Return False
-    End Function
 
     Private Function search(id As String, no As String)
         clear()
-        Dim rtv As Rtv = New Rtv
+        Dim invoice As sale = New Rtv
 
         Dim response As Object = New Object
         Dim json As JObject = New JObject
         Try
             If no <> "" Then
-                response = Web.get_("rtvs/get_by_no?no=" + no)
+                response = Web.get_("sales_invoice/get_by_no?no=" + no)
             ElseIf id <> "" Then
-                response = Web.get_("rtvs/get_by_id?id=" + id)
+                response = Web.get_("sales_invoice/get_by_id?id=" + id)
             Else
                 MsgBox("Please enter a search key", vbOKOnly + vbExclamation, "Error: No selection")
                 Return vbNull
@@ -389,7 +349,7 @@ Public Class frmSalesInvoice
             End If
             json = JObject.Parse(response)
             rtv = JsonConvert.DeserializeObject(Of Rtv)(json.ToString)
-            txtRtvNo.ReadOnly = True
+            txtInvoiceNo.ReadOnly = True
             If IsNothing(rtv.supplier) Then
                 txtSupplierCode.Text = ""
                 cmbSupplierName.Text = ""
