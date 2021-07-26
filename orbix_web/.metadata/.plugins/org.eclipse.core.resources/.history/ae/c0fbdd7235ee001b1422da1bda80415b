@@ -1,0 +1,453 @@
+/**
+ * 
+ */
+package com.example.orbix_web.controllers;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.orbix_web.accessories.Formater;
+import com.example.orbix_web.exceptions.DuplicateEntryException;
+import com.example.orbix_web.exceptions.InvalidEntryException;
+import com.example.orbix_web.exceptions.InvalidOperationException;
+import com.example.orbix_web.exceptions.MissingInformationException;
+import com.example.orbix_web.exceptions.NotFoundException;
+import com.example.orbix_web.exceptions.ResourceNotFoundException;
+import com.example.orbix_web.models.CorporateCustomer;
+import com.example.orbix_web.models.Customer;
+import com.example.orbix_web.models.Grn;
+import com.example.orbix_web.models.Item;
+import com.example.orbix_web.models.Lpo;
+import com.example.orbix_web.models.LpoDetail;
+import com.example.orbix_web.models.Sale;
+import com.example.orbix_web.models.SaleDetail;
+import com.example.orbix_web.models.SalesInvoice;
+import com.example.orbix_web.models.SalesInvoiceDetail;
+import com.example.orbix_web.models.Supplier;
+import com.example.orbix_web.models.User;
+import com.example.orbix_web.repositories.CorporateCustomerRepository;
+import com.example.orbix_web.repositories.CustomerRepository;
+import com.example.orbix_web.repositories.ItemRepository;
+import com.example.orbix_web.repositories.SaleDetailRepository;
+import com.example.orbix_web.repositories.SaleRepository;
+import com.example.orbix_web.repositories.SalesInvoiceDetailRepository;
+import com.example.orbix_web.repositories.SalesInvoiceRepository;
+import com.example.orbix_web.repositories.StockCardRepository;
+import com.example.orbix_web.repositories.UserRepository;
+
+/**
+ * @author GODFREY
+ *
+ */
+@RestController
+@Service
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class SalesInvoiceServiceController {	
+	@Autowired
+	SalesInvoiceRepository salesInvoiceRepository;
+	@Autowired
+	CorporateCustomerRepository corporateCustomerRepository;
+	@Autowired
+	SalesInvoiceDetailRepository salesInvoiceDetailRepository;	
+	@Autowired
+	StockCardRepository stockCardRepository;
+	@Autowired
+	UserRepository userRepository;
+	
+	/**
+	 * Get all the Sales invoices
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/sales_invoices", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<SalesInvoice> getAllSalesInvoices() {
+        return salesInvoiceRepository.findAll();
+    }
+	
+	/**
+	 * Get all visible invoices
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/sales_invoices/visible", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<SalesInvoice> getAllVisibleSalesInvoice() {
+    	List<String> statuses = Stream.of("PENDING", "APPROVED", "COMPLETED").collect(Collectors.toList());   	
+        return salesInvoiceRepository.findAllByStatus(statuses);
+    }
+	
+	/**
+	 * Get a sale invoice by id
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/sales_invoices/get_by_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    public SalesInvoice getGetSalesInvoiceById(@RequestParam(name = "id") Long id) {
+        return salesInvoiceRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Invoice not found"));
+    }
+	
+	/**
+	 * Create a new sales invoice
+	 * @param invoice
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = "/sales_invoices/new", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public SalesInvoice createSalesInvoice(@Valid @RequestBody SalesInvoice invoice) {
+    	LocalDate issueDate = invoice.getIssueDate();
+    	String customerName = (invoice.getCorporateCustomer().getName());
+    	Optional<CorporateCustomer> customer = corporateCustomerRepository.findByName(customerName);
+    	if(customer.isPresent() == true) {
+    		corporateCustomerRepository.save(customer.get());
+    		invoice.setCorporateCustomer(customer.get());
+    	}else {
+    		throw new NotFoundException("Customer not found");
+    	}    
+    	Optional<User> createdUser;
+    	Long createdUserId = (invoice.getCreatedUser().getId());
+    	createdUser = userRepository.findById(createdUserId);
+    	if(createdUser.isPresent() == true) {
+    		userRepository.save(createdUser.get());
+    		invoice.setCreatedUser(createdUser.get());
+    	}else {
+    		invoice.setCreatedUser(null);
+    	}
+    	invoice.setApprovedUser(null);
+    	invoice.setCompletedUser(null);
+    	    	
+    	LocalDate systemDate =LocalDate.now(); //day.getSystemDate();
+    	
+    	invoice.setIssueDate(systemDate);
+    	String random = String.valueOf(Math.random()).replace(".", "") + String.valueOf(Math.random()).replace(".", "");
+    	invoice.setNo(random); 
+    	salesInvoiceRepository.saveAndFlush(invoice);
+    	
+    	invoice.setStatus("PENDING");
+    	
+    	String serial = invoice.getId().toString();
+    	String invNo = "SI-"+Formater.formatNine(serial);
+    	invoice.setNo(invNo); 
+    	return salesInvoiceRepository.saveAndFlush(invoice);    	
+    }
+	
+	/**
+	 * Update an invoice by id
+	 * @param invoice
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.PUT, value = "/sales_invoices/edit_by_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public boolean updateSalesInvoice(@Valid @RequestBody SalesInvoice invoice, @RequestParam(name = "id") Long id) {
+		if(invoice.getCorporateCustomer().getNo().isEmpty()) {
+			throw new NotFoundException("Customer not found");
+		}
+		Optional<CorporateCustomer> customer = corporateCustomerRepository.findByNo(invoice.getCorporateCustomer().getNo());
+		invoice.setCorporateCustomer(customer.get());	
+		corporateCustomerRepository.save(customer.get());
+		return true;
+    }
+	
+	/**
+	 * Update an existing sales invoice by id
+	 */
+	
+	/**
+	 * Delete a sale invoice by id
+	 * @param id
+	 * @return
+	 */
+	@DeleteMapping("/sales_invoices/delete_by_id")
+    public ResponseEntity<?> deleteCorporateCustomer(@RequestParam(name = "id") Long id) {
+    	SalesInvoice invoice = salesInvoiceRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Invoice not found"));
+    //	this.checkUsageBeforeDelete(supplier);
+    	salesInvoiceRepository.delete(invoice);
+        return ResponseEntity.ok().build();
+    }
+	
+	/**
+	 * Create a sale invoice detail
+	 */
+	
+	/**
+	 * Update a sales invoice detail by id
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = "/sales_invoices_details/new_or_edit", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional(noRollbackFor = Exception.class)
+    public List<SalesInvoice> createOrEditSalesInvoiceDetail(@Valid @RequestBody SalesInvoiceDetail detail) {    	
+    	Long id = detail.getSalesInvoice().getId();
+    	if(id == null) {
+    		throw new MissingInformationException("LPO not selected");
+    	}
+    	if(detail.getCode().equals("")) {
+    		throw new MissingInformationException("Product code required");
+    	}
+    	if(lpoDetail.getQty() <= 0) {
+    		throw new InvalidEntryException("Invalid entry in qty, qty should be more than zero");
+    	}
+    	Lpo lpo = lpoRepository.findById(lpoId).get();
+    	String code = lpoDetail.getCode();
+    	Optional<LpoDetail> lpoDetail_ = lpoDetailRepository.findByLpoAndCode(lpo, code);  	
+    	if(lpoDetail_.isPresent() == true) {    		
+    		lpoDetail_.get().setDescription(lpoDetail.getDescription());
+    		lpoDetail_.get().setQty(lpoDetail.getQty());
+    		lpoDetail_.get().setCostPrice(lpoDetail.getCostPrice());
+    		lpoDetail_.get().setPackSize(lpoDetail.getPackSize());
+    		lpoDetailRepository.save(lpoDetail_.get());
+    	}else {
+    		lpoDetailRepository.save(lpoDetail);
+    	}
+    	return lpoDetailRepository.findByLpo(lpo);   	
+    }
+	
+	/**
+	 * Delete a sales invoice detail
+	 */
+	
+	/**
+	 * Cancel a sales invoice
+	 */
+	
+	/**
+	 * Approve a sales invoice
+	 */
+	
+	/**
+	 * Complete a sale invoice
+	 */
+	
+	/**
+	 * Archive a sale invoice
+	 */
+	
+	
+	
+	
+	// Create a new Invoice
+//    @RequestMapping(method = RequestMethod.POST, value = "/sales_invoices")
+//    @ResponseBody
+//    @Transactional
+//	public SalesInvoice createCustomerInvoice(@Valid @RequestBody SalesInvoice inv ) {
+//    	/*
+//    	 * Define field variables
+//    	 */
+//    	SalesInvoice invoice;
+//    	SalesInvoice _invoice;
+//    	List<SalesInvoiceDetail> details;
+//    	Customer customer;
+//    	/*
+//    	 * Capture invoice data
+//    	 */
+//    	 _invoice = inv;
+//    	customer = customerRepository.findById(_invoice.getCustId()).get();
+//    	details = _invoice.getInvoiceDetails();
+//    	
+//    	
+//    	/*
+//    	 * Validate invoice data
+//    	 */
+//    	if(customer == null) {
+//			throw new MissingInformationException("Could not process invoice, missing customer information");
+//		}
+//		invoice = salesInvoiceRepository.findByInvoiceNo(_invoice.getInvoiceNo());
+//		if(invoice != null) {
+//			throw new DuplicateEntryException("Could not save invoice, invoice exists");
+//		}
+//		if(_invoice.getInvoiceDate() == null) {
+//			throw new MissingInformationException("Could not process invoice, invoice date required");
+//		}
+//		for(SalesInvoiceDetail _detail :details) {
+//			if(_detail.getItemCode().equals("")) {
+//				
+//			}
+//		}
+//		if(details.isEmpty() == true) {
+//			throw new InvalidOperationException("Could not save an empty invoice");
+//		}
+//		
+//		/*
+//		 * Save invoice data
+//		 */
+//		invoice = new SalesInvoice();		
+//		invoice.setInvoiceNo(String.valueOf(Math.random()));
+//		invoice.setInvoiceDate(_invoice.getInvoiceDate());
+//		invoice.setTerms(_invoice.getTerms());
+//		invoice.setOrderNo(_invoice.getOrderNo());
+//		invoice.setDateShipped(_invoice.getDateShipped());
+//		invoice.setShippedVia(_invoice.getShippedVia());
+//		invoice.setCustomer(customer);	
+//		invoice.setInvoiceStatus("SENT");
+//		invoice = salesInvoiceRepository.save(invoice);
+//		String serial = invoice.getId().toString();
+//    	String invoiceNo = "CINV-"+Formater.formatNine(serial);
+//    	invoice.setInvoiceNo(invoiceNo);
+//    	salesInvoiceRepository.save(invoice);
+//		
+//		
+//		
+//		double amount = 0;
+//		for(SalesInvoiceDetail _detail :details) {
+//			Item _item =itemRepository.findByItemCode(_detail.getItemCode()).get();
+//			LocalDate returnStartDate = _invoice.getInvoiceDate();
+//			int returnPeriod = 365;//_detail.getReturnPeriod();  //change this later
+//						
+//			LocalDate returnLastDate = returnStartDate.plusDays(returnPeriod);
+//			
+//			SalesInvoiceDetail detail = new SalesInvoiceDetail();
+//			detail.setSalesInvoice(invoice);
+//			detail.setItemCode(_detail.getItemCode());
+//			detail.setDescription(_detail.getDescription());
+//			detail.setPrice(_detail.getPrice());
+//			detail.setReturnPeriod(_detail.getReturnPeriod());
+//			detail.setReturnLastDate(returnLastDate);
+//			if(_item.getUnitRetailPrice() > _detail.getPrice()) {
+//				detail.setDiscount(_item.getUnitRetailPrice() - _detail.getPrice());
+//			}else {
+//				detail.setDiscount(0);
+//			}
+//			detail.setQty(_detail.getQty());
+//			amount = amount + (_detail.getPrice()*_detail.getQty());
+//			salesInvoiceDetailRepository.save(detail);
+//		}
+//		invoice.setInvoiceAmount(amount);
+//		invoice.setInvoiceAmountDue(amount);
+//		invoice = salesInvoiceRepository.save(invoice);
+//		customer.setOutstandingBalance(customer.getOutstandingBalance()+amount);
+//		customerRepository.save(customer);
+//		/*
+//		 * Update stock
+//		 */
+//		for(SalesInvoiceDetail _detail :details) {
+//			Item _item =itemRepository.findByItemCode(_detail.getItemCode()).get();
+//			itemRepository.saveAndFlush(
+//					new ItemServiceController()
+//					.deductFromStock(_item, _detail.getQty()));
+//		}
+//		/*
+//		 * Update stock cards
+//		 */
+//		for(SalesInvoiceDetail _detail :details) {
+//			Item _item =itemRepository.findByItemCode(_detail.getItemCode()).get();
+//			double _stockBalance =_item.getQuantity();
+//			stockCardRepository.save(
+//				new StockCardServiceController()
+//				.qtyOut(
+//						LocalDate.now(), 
+//						_item, 
+//						_detail.getQty(), 
+//						_stockBalance, 
+//						"Credit Sales"));
+//			
+//		}
+//		/*
+//    	 * Now post invoice to sales
+//    	 */
+//    	Sale sale = new Sale();
+//    	//sale.setCustomerInvoice(invoice);
+//    	sale.setSaleDate(invoice.getInvoiceDate());
+//    	saleRepository.save(sale);
+//    	
+//    	//List<CustomerInvoiceDetail> invoiceDetails;
+//    	//invoiceDetails = invoice.getInvoiceDetails();
+//    	for(SalesInvoiceDetail _detail :details) {
+//    		SaleDetail saleDetail = new SaleDetail();
+//    		saleDetail.setItemCode(_detail.getItemCode());
+//    		saleDetail.setDescription(_detail.getDescription());
+//    		saleDetail.setPrice(_detail.getPrice());
+//    		saleDetail.setQty(_detail.getQty());
+//    		saleDetail.setDiscount(_detail.getDiscount());
+//    		saleDetail.setSale(sale);
+//    		
+//    		saleDetailRepository.save(saleDetail);
+//    		
+//    	}
+//		/*
+//		 * Return invoice with details
+//		 */
+//		invoice.setInvoiceDetails(details);
+//		return invoice;
+//	}
+    
+ // Get a Single Customer Invoice by invoice no
+//    @RequestMapping(method = RequestMethod.GET, value = "/sales_invoices/invoice_no={invoice_no}")
+//    public SalesInvoice getInvoiceByInvoiceNo(@PathVariable(value = "invoice_no") String invoiceNo) {
+//    	SalesInvoice invoice = salesInvoiceRepository.findByInvoiceNo(invoiceNo);
+//    	if(invoice == null) {
+//    		throw new NotFoundException("Invoice not found");
+//    	}
+//        return invoice;
+//    }
+// // Get partial or sent invoices by customer
+//    @RequestMapping(method = RequestMethod.GET, value = "/sales_invoices/customer_id={customer_id}")
+//    public List<SalesInvoice> getInvoicesByCustomerId(@PathVariable(value = "customer_id") Long customerId) {
+//    	Customer customer = customerRepository.findById(customerId).get();
+//    	if(customer == null) {
+//    		throw new NotFoundException("Customer not found");
+//    	}
+//    	List<String> status = new ArrayList<String>();
+//    	status.add("SENT");
+//    	status.add("PARTIAL");
+//    	List<SalesInvoice> invoices = salesInvoiceRepository.findByCustomerAndInvoiceStatusIn(customer, status);
+//    	
+//        return invoices;
+//    }
+//    
+// // Get a Single Customer Invoice by invoice no and customer no
+//    @RequestMapping(method = RequestMethod.GET, value = "/sales_invoices/invoice_no={invoice_no}/customer_no={customer_no}")
+//    public SalesInvoice getInvoiceByInvoiceNoAndCustomerNo(@PathVariable(value = "invoice_no") String invoiceNo,@PathVariable(value = "customer_no") String customerNo) {
+//    	SalesInvoice invoice = salesInvoiceRepository.findByInvoiceNo(invoiceNo);
+//    	if(invoice == null) {
+//    		throw new NotFoundException("Invoice not found");
+//    	}
+//    	Customer customer;
+//    	try {
+//    		customer = customerRepository.findByCustomerNo(customerNo).get();
+//    	}catch(Exception e) {
+//    		throw new NotFoundException("Customer not found");
+//    	}
+//    	if(customer != invoice.getCustomer()) {
+//    		throw new InvalidOperationException("The specified invoice does not match customer");
+//    	}
+//        return invoice;
+//    }
+    
+ // Get a Single Customer Invoice by invoice no
+//    @RequestMapping(method = RequestMethod.GET, value = "/due_sales_invoices/customer_id={cust_id}")
+//    public List<SalesInvoice> getDueInvoiceByCustomer(@PathVariable(value = "cust_id") Long custId) {
+//    	System.out.println("check");
+//    	Customer customer = customerRepository.findById(custId).get();
+//    	List<String> status = new ArrayList<String>();
+//    	status.add("SENT");
+//    	status.add("PARTIAL");
+//    	List<SalesInvoice> invoices = salesInvoiceRepository.findByCustomerAndInvoiceStatusIn(customer, status);
+//    	
+//        return invoices;
+//    }
+
+
+}
