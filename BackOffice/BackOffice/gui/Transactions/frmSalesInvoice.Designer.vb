@@ -24,6 +24,26 @@ Partial Class frmSalesInvoice
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSalesInvoice))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtCreditDays = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtCreditBalance = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtCreditLimit = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtStatus = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.txtIssueDate = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtNo = New System.Windows.Forms.TextBox()
+        Me.cmbCustomerName = New System.Windows.Forms.ComboBox()
+        Me.btnSearch = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtInvoiceLimit = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtCustomerNo = New System.Windows.Forms.TextBox()
+        Me.txtId = New System.Windows.Forms.TextBox()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.btnNew = New System.Windows.Forms.ToolStripButton()
         Me.btnEdit = New System.Windows.Forms.ToolStripButton()
@@ -43,33 +63,24 @@ Partial Class frmSalesInvoice
         Me.btnArchiveAll = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnPrintReport = New System.Windows.Forms.ToolStripButton()
-        Me.cmbName = New System.Windows.Forms.ComboBox()
-        Me.btnSearch = New System.Windows.Forms.Button()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtContactName = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtNo = New System.Windows.Forms.TextBox()
-        Me.txtId = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.TextBox6 = New System.Windows.Forms.TextBox()
-        Me.dtgrdPackingLists = New System.Windows.Forms.DataGridView()
+        Me.dtgrdInvoiceLists = New System.Windows.Forms.DataGridView()
+        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.txtCPrice = New System.Windows.Forms.TextBox()
         Me.btnChange = New System.Windows.Forms.Button()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.txtPacked = New System.Windows.Forms.TextBox()
+        Me.txtQty = New System.Windows.Forms.TextBox()
         Me.cmbDescription = New System.Windows.Forms.ComboBox()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -82,57 +93,219 @@ Partial Class frmSalesInvoice
         Me.txtBarCode = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.txtItemCode = New System.Windows.Forms.TextBox()
+        Me.txtCode = New System.Windows.Forms.TextBox()
         Me.txtPrice = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
-        Me.dtgrdItemList = New System.Windows.Forms.DataGridView()
+        Me.dtgrdProductList = New System.Windows.Forms.DataGridView()
         Me.btnBack = New System.Windows.Forms.Button()
-        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
-        CType(Me.dtgrdPackingLists, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtgrdInvoiceLists, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
-        CType(Me.dtgrdItemList, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtgrdProductList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel1.Controls.Add(Me.Label9)
-        Me.Panel1.Controls.Add(Me.TextBox6)
+        Me.Panel1.Controls.Add(Me.txtCreditDays)
         Me.Panel1.Controls.Add(Me.Label8)
-        Me.Panel1.Controls.Add(Me.TextBox5)
+        Me.Panel1.Controls.Add(Me.txtCreditBalance)
         Me.Panel1.Controls.Add(Me.Label7)
-        Me.Panel1.Controls.Add(Me.TextBox4)
+        Me.Panel1.Controls.Add(Me.txtCreditLimit)
         Me.Panel1.Controls.Add(Me.Label6)
-        Me.Panel1.Controls.Add(Me.TextBox3)
+        Me.Panel1.Controls.Add(Me.txtStatus)
         Me.Panel1.Controls.Add(Me.Label5)
-        Me.Panel1.Controls.Add(Me.TextBox2)
+        Me.Panel1.Controls.Add(Me.txtIssueDate)
         Me.Panel1.Controls.Add(Me.Label4)
-        Me.Panel1.Controls.Add(Me.TextBox1)
-        Me.Panel1.Controls.Add(Me.cmbName)
+        Me.Panel1.Controls.Add(Me.txtNo)
+        Me.Panel1.Controls.Add(Me.cmbCustomerName)
         Me.Panel1.Controls.Add(Me.btnSearch)
         Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Controls.Add(Me.txtContactName)
+        Me.Panel1.Controls.Add(Me.txtInvoiceLimit)
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Controls.Add(Me.txtNo)
+        Me.Panel1.Controls.Add(Me.txtCustomerNo)
         Me.Panel1.Controls.Add(Me.txtId)
         Me.Panel1.Location = New System.Drawing.Point(12, 52)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(469, 278)
         Me.Panel1.TabIndex = 0
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(34, 248)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(81, 17)
+        Me.Label9.TabIndex = 130
+        Me.Label9.Text = "Credit Days"
+        '
+        'txtCreditDays
+        '
+        Me.txtCreditDays.Location = New System.Drawing.Point(125, 245)
+        Me.txtCreditDays.Name = "txtCreditDays"
+        Me.txtCreditDays.Size = New System.Drawing.Size(228, 22)
+        Me.txtCreditDays.TabIndex = 129
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(22, 217)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(100, 17)
+        Me.Label8.TabIndex = 128
+        Me.Label8.Text = "Credit Balance"
+        '
+        'txtCreditBalance
+        '
+        Me.txtCreditBalance.Location = New System.Drawing.Point(125, 217)
+        Me.txtCreditBalance.Name = "txtCreditBalance"
+        Me.txtCreditBalance.Size = New System.Drawing.Size(228, 22)
+        Me.txtCreditBalance.TabIndex = 127
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(44, 189)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(78, 17)
+        Me.Label7.TabIndex = 126
+        Me.Label7.Text = "Credit Limit"
+        '
+        'txtCreditLimit
+        '
+        Me.txtCreditLimit.Location = New System.Drawing.Point(125, 189)
+        Me.txtCreditLimit.Name = "txtCreditLimit"
+        Me.txtCreditLimit.Size = New System.Drawing.Size(228, 22)
+        Me.txtCreditLimit.TabIndex = 125
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(71, 64)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(48, 17)
+        Me.Label6.TabIndex = 124
+        Me.Label6.Text = "Status"
+        '
+        'txtStatus
+        '
+        Me.txtStatus.Location = New System.Drawing.Point(125, 64)
+        Me.txtStatus.Name = "txtStatus"
+        Me.txtStatus.Size = New System.Drawing.Size(228, 22)
+        Me.txtStatus.TabIndex = 123
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(81, 36)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(38, 17)
+        Me.Label5.TabIndex = 122
+        Me.Label5.Text = "Date"
+        '
+        'txtIssueDate
+        '
+        Me.txtIssueDate.Location = New System.Drawing.Point(125, 36)
+        Me.txtIssueDate.Name = "txtIssueDate"
+        Me.txtIssueDate.Size = New System.Drawing.Size(228, 22)
+        Me.txtIssueDate.TabIndex = 121
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(45, 6)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(74, 17)
+        Me.Label4.TabIndex = 120
+        Me.Label4.Text = "Invoice No"
+        '
+        'txtNo
+        '
+        Me.txtNo.Location = New System.Drawing.Point(125, 8)
+        Me.txtNo.Name = "txtNo"
+        Me.txtNo.Size = New System.Drawing.Size(228, 22)
+        Me.txtNo.TabIndex = 119
+        '
+        'cmbCustomerName
+        '
+        Me.cmbCustomerName.FormattingEnabled = True
+        Me.cmbCustomerName.Location = New System.Drawing.Point(125, 131)
+        Me.cmbCustomerName.Name = "cmbCustomerName"
+        Me.cmbCustomerName.Size = New System.Drawing.Size(334, 24)
+        Me.cmbCustomerName.TabIndex = 118
+        '
+        'btnSearch
+        '
+        Me.btnSearch.Location = New System.Drawing.Point(359, 8)
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(100, 40)
+        Me.btnSearch.TabIndex = 116
+        Me.btnSearch.Text = "Search"
+        Me.btnSearch.UseVisualStyleBackColor = True
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(34, 161)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(85, 17)
+        Me.Label3.TabIndex = 115
+        Me.Label3.Text = "Invoice Limit"
+        '
+        'txtInvoiceLimit
+        '
+        Me.txtInvoiceLimit.Location = New System.Drawing.Point(125, 161)
+        Me.txtInvoiceLimit.Name = "txtInvoiceLimit"
+        Me.txtInvoiceLimit.Size = New System.Drawing.Size(228, 22)
+        Me.txtInvoiceLimit.TabIndex = 114
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(10, 131)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(109, 17)
+        Me.Label2.TabIndex = 113
+        Me.Label2.Text = "Customer Name"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(29, 103)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(90, 17)
+        Me.Label1.TabIndex = 112
+        Me.Label1.Text = "Customer No"
+        '
+        'txtCustomerNo
+        '
+        Me.txtCustomerNo.Location = New System.Drawing.Point(125, 103)
+        Me.txtCustomerNo.Name = "txtCustomerNo"
+        Me.txtCustomerNo.Size = New System.Drawing.Size(228, 22)
+        Me.txtCustomerNo.TabIndex = 111
+        '
+        'txtId
+        '
+        Me.txtId.Location = New System.Drawing.Point(3, 3)
+        Me.txtId.Name = "txtId"
+        Me.txtId.ReadOnly = True
+        Me.txtId.Size = New System.Drawing.Size(23, 22)
+        Me.txtId.TabIndex = 117
+        Me.txtId.Visible = False
         '
         'ToolStrip1
         '
@@ -283,193 +456,67 @@ Partial Class frmSalesInvoice
         Me.btnPrintReport.Text = "Print Report"
         Me.btnPrintReport.ToolTipText = "Print packing list as report to pdf"
         '
-        'cmbName
+        'dtgrdInvoiceLists
         '
-        Me.cmbName.FormattingEnabled = True
-        Me.cmbName.Location = New System.Drawing.Point(125, 131)
-        Me.cmbName.Name = "cmbName"
-        Me.cmbName.Size = New System.Drawing.Size(334, 24)
-        Me.cmbName.TabIndex = 118
+        Me.dtgrdInvoiceLists.AllowUserToAddRows = False
+        Me.dtgrdInvoiceLists.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dtgrdInvoiceLists.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dtgrdInvoiceLists.BackgroundColor = System.Drawing.SystemColors.ButtonFace
+        Me.dtgrdInvoiceLists.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dtgrdInvoiceLists.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dtgrdInvoiceLists.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column5, Me.Column6, Me.Column7, Me.Column15, Me.Column16})
+        Me.dtgrdInvoiceLists.Location = New System.Drawing.Point(745, 52)
+        Me.dtgrdInvoiceLists.Name = "dtgrdInvoiceLists"
+        Me.dtgrdInvoiceLists.ReadOnly = True
+        Me.dtgrdInvoiceLists.RowTemplate.Height = 24
+        Me.dtgrdInvoiceLists.Size = New System.Drawing.Size(763, 278)
+        Me.dtgrdInvoiceLists.TabIndex = 103
         '
-        'btnSearch
+        'Column5
         '
-        Me.btnSearch.Location = New System.Drawing.Point(359, 8)
-        Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(100, 40)
-        Me.btnSearch.TabIndex = 116
-        Me.btnSearch.Text = "Search"
-        Me.btnSearch.UseVisualStyleBackColor = True
+        Me.Column5.HeaderText = "ID"
+        Me.Column5.Name = "Column5"
+        Me.Column5.ReadOnly = True
+        Me.Column5.Visible = False
         '
-        'Label3
+        'Column6
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(34, 161)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(85, 17)
-        Me.Label3.TabIndex = 115
-        Me.Label3.Text = "Invoice Limit"
+        Me.Column6.HeaderText = "Invoice No"
+        Me.Column6.Name = "Column6"
+        Me.Column6.ReadOnly = True
         '
-        'txtContactName
+        'Column7
         '
-        Me.txtContactName.Location = New System.Drawing.Point(125, 161)
-        Me.txtContactName.Name = "txtContactName"
-        Me.txtContactName.Size = New System.Drawing.Size(228, 22)
-        Me.txtContactName.TabIndex = 114
+        Me.Column7.HeaderText = "Issue Date"
+        Me.Column7.Name = "Column7"
+        Me.Column7.ReadOnly = True
         '
-        'Label2
+        'Column15
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(10, 131)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(109, 17)
-        Me.Label2.TabIndex = 113
-        Me.Label2.Text = "Customer Name"
+        Me.Column15.HeaderText = "Customer"
+        Me.Column15.Name = "Column15"
+        Me.Column15.ReadOnly = True
         '
-        'Label1
+        'Column16
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(29, 103)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(90, 17)
-        Me.Label1.TabIndex = 112
-        Me.Label1.Text = "Customer No"
-        '
-        'txtNo
-        '
-        Me.txtNo.Location = New System.Drawing.Point(125, 103)
-        Me.txtNo.Name = "txtNo"
-        Me.txtNo.Size = New System.Drawing.Size(228, 22)
-        Me.txtNo.TabIndex = 111
-        '
-        'txtId
-        '
-        Me.txtId.Location = New System.Drawing.Point(3, 3)
-        Me.txtId.Name = "txtId"
-        Me.txtId.ReadOnly = True
-        Me.txtId.Size = New System.Drawing.Size(23, 22)
-        Me.txtId.TabIndex = 117
-        Me.txtId.Visible = False
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(45, 6)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(74, 17)
-        Me.Label4.TabIndex = 120
-        Me.Label4.Text = "Invoice No"
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(125, 8)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(228, 22)
-        Me.TextBox1.TabIndex = 119
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(81, 36)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(38, 17)
-        Me.Label5.TabIndex = 122
-        Me.Label5.Text = "Date"
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Location = New System.Drawing.Point(125, 36)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(228, 22)
-        Me.TextBox2.TabIndex = 121
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(71, 64)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(48, 17)
-        Me.Label6.TabIndex = 124
-        Me.Label6.Text = "Status"
-        '
-        'TextBox3
-        '
-        Me.TextBox3.Location = New System.Drawing.Point(125, 64)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(228, 22)
-        Me.TextBox3.TabIndex = 123
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(44, 189)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(78, 17)
-        Me.Label7.TabIndex = 126
-        Me.Label7.Text = "Credit Limit"
-        '
-        'TextBox4
-        '
-        Me.TextBox4.Location = New System.Drawing.Point(125, 189)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(228, 22)
-        Me.TextBox4.TabIndex = 125
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(22, 217)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(100, 17)
-        Me.Label8.TabIndex = 128
-        Me.Label8.Text = "Credit Balance"
-        '
-        'TextBox5
-        '
-        Me.TextBox5.Location = New System.Drawing.Point(125, 217)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(228, 22)
-        Me.TextBox5.TabIndex = 127
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(34, 248)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(81, 17)
-        Me.Label9.TabIndex = 130
-        Me.Label9.Text = "Credit Days"
-        '
-        'TextBox6
-        '
-        Me.TextBox6.Location = New System.Drawing.Point(125, 245)
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(228, 22)
-        Me.TextBox6.TabIndex = 129
-        '
-        'dtgrdPackingLists
-        '
-        Me.dtgrdPackingLists.AllowUserToAddRows = False
-        Me.dtgrdPackingLists.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dtgrdPackingLists.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dtgrdPackingLists.BackgroundColor = System.Drawing.SystemColors.ButtonFace
-        Me.dtgrdPackingLists.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dtgrdPackingLists.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dtgrdPackingLists.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column5, Me.Column6, Me.Column7, Me.Column15, Me.Column16})
-        Me.dtgrdPackingLists.Location = New System.Drawing.Point(745, 52)
-        Me.dtgrdPackingLists.Name = "dtgrdPackingLists"
-        Me.dtgrdPackingLists.ReadOnly = True
-        Me.dtgrdPackingLists.RowTemplate.Height = 24
-        Me.dtgrdPackingLists.Size = New System.Drawing.Size(763, 278)
-        Me.dtgrdPackingLists.TabIndex = 103
+        Me.Column16.HeaderText = "Status"
+        Me.Column16.Name = "Column16"
+        Me.Column16.ReadOnly = True
         '
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel2.Controls.Add(Me.TextBox2)
+        Me.Panel2.Controls.Add(Me.Label11)
+        Me.Panel2.Controls.Add(Me.TextBox3)
+        Me.Panel2.Controls.Add(Me.Label14)
+        Me.Panel2.Controls.Add(Me.TextBox1)
+        Me.Panel2.Controls.Add(Me.Label10)
         Me.Panel2.Controls.Add(Me.Label28)
         Me.Panel2.Controls.Add(Me.txtCPrice)
         Me.Panel2.Controls.Add(Me.btnChange)
         Me.Panel2.Controls.Add(Me.Label23)
-        Me.Panel2.Controls.Add(Me.txtPacked)
+        Me.Panel2.Controls.Add(Me.txtQty)
         Me.Panel2.Controls.Add(Me.cmbDescription)
         Me.Panel2.Controls.Add(Me.btnAdd)
         Me.Panel2.Controls.Add(Me.Label15)
@@ -482,26 +529,83 @@ Partial Class frmSalesInvoice
         Me.Panel2.Controls.Add(Me.txtBarCode)
         Me.Panel2.Controls.Add(Me.Label13)
         Me.Panel2.Controls.Add(Me.Label16)
-        Me.Panel2.Controls.Add(Me.txtItemCode)
+        Me.Panel2.Controls.Add(Me.txtCode)
         Me.Panel2.Controls.Add(Me.txtPrice)
         Me.Panel2.Controls.Add(Me.Label18)
         Me.Panel2.Location = New System.Drawing.Point(12, 336)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(469, 269)
+        Me.Panel2.Size = New System.Drawing.Size(469, 340)
         Me.Panel2.TabIndex = 104
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(165, 219)
+        Me.TextBox2.MaxLength = 50
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.ReadOnly = True
+        Me.TextBox2.Size = New System.Drawing.Size(134, 22)
+        Me.TextBox2.TabIndex = 112
+        Me.TextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(25, 222)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(136, 17)
+        Me.Label11.TabIndex = 111
+        Me.Label11.Text = "Cost Price (Vat Excl)"
+        '
+        'TextBox3
+        '
+        Me.TextBox3.Location = New System.Drawing.Point(165, 189)
+        Me.TextBox3.MaxLength = 50
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.ReadOnly = True
+        Me.TextBox3.Size = New System.Drawing.Size(134, 22)
+        Me.TextBox3.TabIndex = 110
+        Me.TextBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(29, 189)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(132, 17)
+        Me.Label14.TabIndex = 109
+        Me.Label14.Text = "Cost Price (Vat Incl)"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(165, 163)
+        Me.TextBox1.MaxLength = 50
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ReadOnly = True
+        Me.TextBox1.Size = New System.Drawing.Size(134, 22)
+        Me.TextBox1.TabIndex = 108
+        Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(13, 163)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(150, 17)
+        Me.Label10.TabIndex = 107
+        Me.Label10.Text = "Selling Price (Vat Excl)"
         '
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(26, 168)
+        Me.Label28.Location = New System.Drawing.Point(70, 250)
         Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(72, 17)
+        Me.Label28.Size = New System.Drawing.Size(89, 17)
         Me.Label28.TabIndex = 105
-        Me.Label28.Text = "Cost Price"
+        Me.Label28.Text = "Discount (%)"
         '
         'txtCPrice
         '
-        Me.txtCPrice.Location = New System.Drawing.Point(106, 168)
+        Me.txtCPrice.Location = New System.Drawing.Point(165, 247)
         Me.txtCPrice.MaxLength = 50
         Me.txtCPrice.Name = "txtCPrice"
         Me.txtCPrice.ReadOnly = True
@@ -511,7 +615,7 @@ Partial Class frmSalesInvoice
         '
         'btnChange
         '
-        Me.btnChange.Location = New System.Drawing.Point(246, 135)
+        Me.btnChange.Location = New System.Drawing.Point(305, 133)
         Me.btnChange.Name = "btnChange"
         Me.btnChange.Size = New System.Drawing.Size(50, 25)
         Me.btnChange.TabIndex = 104
@@ -521,19 +625,19 @@ Partial Class frmSalesInvoice
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(68, 108)
+        Me.Label23.Location = New System.Drawing.Point(129, 108)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(30, 17)
         Me.Label23.TabIndex = 100
         Me.Label23.Text = "Qty"
         '
-        'txtPacked
+        'txtQty
         '
-        Me.txtPacked.Location = New System.Drawing.Point(106, 108)
-        Me.txtPacked.MaxLength = 50
-        Me.txtPacked.Name = "txtPacked"
-        Me.txtPacked.Size = New System.Drawing.Size(134, 22)
-        Me.txtPacked.TabIndex = 101
+        Me.txtQty.Location = New System.Drawing.Point(165, 105)
+        Me.txtQty.MaxLength = 50
+        Me.txtQty.Name = "txtQty"
+        Me.txtQty.Size = New System.Drawing.Size(134, 22)
+        Me.txtQty.TabIndex = 101
         '
         'cmbDescription
         '
@@ -547,7 +651,7 @@ Partial Class frmSalesInvoice
         'btnAdd
         '
         Me.btnAdd.Enabled = False
-        Me.btnAdd.Location = New System.Drawing.Point(342, 110)
+        Me.btnAdd.Location = New System.Drawing.Point(305, 164)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(120, 40)
         Me.btnAdd.TabIndex = 53
@@ -557,7 +661,7 @@ Partial Class frmSalesInvoice
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(29, 196)
+        Me.Label15.Location = New System.Drawing.Point(88, 280)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(70, 17)
         Me.Label15.TabIndex = 42
@@ -566,7 +670,7 @@ Partial Class frmSalesInvoice
         '
         'btnReset
         '
-        Me.btnReset.Location = New System.Drawing.Point(342, 156)
+        Me.btnReset.Location = New System.Drawing.Point(305, 210)
         Me.btnReset.Name = "btnReset"
         Me.btnReset.Size = New System.Drawing.Size(120, 40)
         Me.btnReset.TabIndex = 54
@@ -575,7 +679,7 @@ Partial Class frmSalesInvoice
         '
         'txtPackSize
         '
-        Me.txtPackSize.Location = New System.Drawing.Point(106, 196)
+        Me.txtPackSize.Location = New System.Drawing.Point(165, 275)
         Me.txtPackSize.MaxLength = 50
         Me.txtPackSize.Name = "txtPackSize"
         Me.txtPackSize.ReadOnly = True
@@ -586,7 +690,7 @@ Partial Class frmSalesInvoice
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(25, 228)
+        Me.Label17.Location = New System.Drawing.Point(88, 303)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(74, 17)
         Me.Label17.TabIndex = 46
@@ -604,7 +708,7 @@ Partial Class frmSalesInvoice
         '
         'txtStockSize
         '
-        Me.txtStockSize.Location = New System.Drawing.Point(105, 228)
+        Me.txtStockSize.Location = New System.Drawing.Point(165, 303)
         Me.txtStockSize.MaxLength = 50
         Me.txtStockSize.Name = "txtStockSize"
         Me.txtStockSize.ReadOnly = True
@@ -648,18 +752,18 @@ Partial Class frmSalesInvoice
         Me.Label16.TabIndex = 49
         Me.Label16.Text = "Barcode"
         '
-        'txtItemCode
+        'txtCode
         '
-        Me.txtItemCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtItemCode.Location = New System.Drawing.Point(106, 38)
-        Me.txtItemCode.MaxLength = 50
-        Me.txtItemCode.Name = "txtItemCode"
-        Me.txtItemCode.Size = New System.Drawing.Size(134, 27)
-        Me.txtItemCode.TabIndex = 39
+        Me.txtCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCode.Location = New System.Drawing.Point(106, 38)
+        Me.txtCode.MaxLength = 50
+        Me.txtCode.Name = "txtCode"
+        Me.txtCode.Size = New System.Drawing.Size(134, 27)
+        Me.txtCode.TabIndex = 39
         '
         'txtPrice
         '
-        Me.txtPrice.Location = New System.Drawing.Point(106, 136)
+        Me.txtPrice.Location = New System.Drawing.Point(165, 133)
         Me.txtPrice.MaxLength = 50
         Me.txtPrice.Name = "txtPrice"
         Me.txtPrice.ReadOnly = True
@@ -670,30 +774,30 @@ Partial Class frmSalesInvoice
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(13, 139)
+        Me.Label18.Location = New System.Drawing.Point(15, 133)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(86, 17)
+        Me.Label18.Size = New System.Drawing.Size(146, 17)
         Me.Label18.TabIndex = 45
-        Me.Label18.Text = "Selling Price"
+        Me.Label18.Text = "Selling Price (Vat Incl)"
         '
-        'dtgrdItemList
+        'dtgrdProductList
         '
-        Me.dtgrdItemList.AllowUserToAddRows = False
-        Me.dtgrdItemList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.dtgrdProductList.AllowUserToAddRows = False
+        Me.dtgrdProductList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dtgrdItemList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dtgrdItemList.BackgroundColor = System.Drawing.SystemColors.ButtonFace
-        Me.dtgrdItemList.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dtgrdItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dtgrdItemList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.Column17, Me.Column18})
-        Me.dtgrdItemList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dtgrdItemList.Location = New System.Drawing.Point(487, 336)
-        Me.dtgrdItemList.Name = "dtgrdItemList"
-        Me.dtgrdItemList.ReadOnly = True
-        Me.dtgrdItemList.RowTemplate.Height = 24
-        Me.dtgrdItemList.Size = New System.Drawing.Size(1021, 391)
-        Me.dtgrdItemList.TabIndex = 105
+        Me.dtgrdProductList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dtgrdProductList.BackgroundColor = System.Drawing.SystemColors.ButtonFace
+        Me.dtgrdProductList.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dtgrdProductList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dtgrdProductList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.Column17, Me.Column1, Me.Column2, Me.Column3, Me.Column18, Me.Column4})
+        Me.dtgrdProductList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.dtgrdProductList.Location = New System.Drawing.Point(487, 336)
+        Me.dtgrdProductList.Name = "dtgrdProductList"
+        Me.dtgrdProductList.ReadOnly = True
+        Me.dtgrdProductList.RowTemplate.Height = 24
+        Me.dtgrdProductList.Size = New System.Drawing.Size(1021, 391)
+        Me.dtgrdProductList.TabIndex = 105
         '
         'btnBack
         '
@@ -706,43 +810,11 @@ Partial Class frmSalesInvoice
         Me.btnBack.TabIndex = 106
         Me.btnBack.UseVisualStyleBackColor = True
         '
-        'Column5
-        '
-        Me.Column5.HeaderText = "ID"
-        Me.Column5.Name = "Column5"
-        Me.Column5.ReadOnly = True
-        Me.Column5.Visible = False
-        '
-        'Column6
-        '
-        Me.Column6.HeaderText = "Invoice No"
-        Me.Column6.Name = "Column6"
-        Me.Column6.ReadOnly = True
-        '
-        'Column7
-        '
-        Me.Column7.HeaderText = "Issue Date"
-        Me.Column7.Name = "Column7"
-        Me.Column7.ReadOnly = True
-        '
-        'Column15
-        '
-        Me.Column15.HeaderText = "Customer"
-        Me.Column15.Name = "Column15"
-        Me.Column15.ReadOnly = True
-        '
-        'Column16
-        '
-        Me.Column16.HeaderText = "Status"
-        Me.Column16.Name = "Column16"
-        Me.Column16.ReadOnly = True
-        '
         'DataGridViewTextBoxColumn1
         '
         Me.DataGridViewTextBoxColumn1.HeaderText = "ID"
         Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
         Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Visible = False
         '
         'DataGridViewTextBoxColumn2
         '
@@ -770,15 +842,39 @@ Partial Class frmSalesInvoice
         '
         'Column17
         '
-        Me.Column17.HeaderText = "Cost Price"
+        Me.Column17.HeaderText = "Cost Price (Vat Incl)"
         Me.Column17.Name = "Column17"
         Me.Column17.ReadOnly = True
         '
+        'Column1
+        '
+        Me.Column1.HeaderText = "Cost Price (Vat Excl)"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "Selling Price (Vat Incl)"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "Selling Price (Vat Excl)"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        '
         'Column18
         '
-        Me.Column18.HeaderText = "Selling Price"
+        Me.Column18.HeaderText = "Discount"
         Me.Column18.Name = "Column18"
         Me.Column18.ReadOnly = True
+        '
+        'Column4
+        '
+        Me.Column4.HeaderText = "Amount"
+        Me.Column4.Name = "Column4"
+        Me.Column4.ReadOnly = True
         '
         'frmSalesInvoice
         '
@@ -786,9 +882,9 @@ Partial Class frmSalesInvoice
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1520, 791)
         Me.Controls.Add(Me.btnBack)
-        Me.Controls.Add(Me.dtgrdItemList)
+        Me.Controls.Add(Me.dtgrdProductList)
         Me.Controls.Add(Me.Panel2)
-        Me.Controls.Add(Me.dtgrdPackingLists)
+        Me.Controls.Add(Me.dtgrdInvoiceLists)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "frmSalesInvoice"
@@ -800,10 +896,10 @@ Partial Class frmSalesInvoice
         Me.Panel1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
-        CType(Me.dtgrdPackingLists, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtgrdInvoiceLists, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
-        CType(Me.dtgrdItemList, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtgrdProductList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -828,33 +924,33 @@ Partial Class frmSalesInvoice
     Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
     Friend WithEvents btnPrintReport As ToolStripButton
     Friend WithEvents Label4 As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents cmbName As ComboBox
+    Friend WithEvents txtNo As TextBox
+    Friend WithEvents cmbCustomerName As ComboBox
     Friend WithEvents btnSearch As Button
     Friend WithEvents Label3 As Label
-    Friend WithEvents txtContactName As TextBox
+    Friend WithEvents txtInvoiceLimit As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents txtNo As TextBox
+    Friend WithEvents txtCustomerNo As TextBox
     Friend WithEvents txtId As TextBox
     Friend WithEvents Label6 As Label
-    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents txtStatus As TextBox
     Friend WithEvents Label5 As Label
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents txtIssueDate As TextBox
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label9 As Label
-    Friend WithEvents TextBox6 As TextBox
+    Friend WithEvents txtCreditDays As TextBox
     Friend WithEvents Label8 As Label
-    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents txtCreditBalance As TextBox
     Friend WithEvents Label7 As Label
-    Friend WithEvents TextBox4 As TextBox
-    Friend WithEvents dtgrdPackingLists As DataGridView
+    Friend WithEvents txtCreditLimit As TextBox
+    Friend WithEvents dtgrdInvoiceLists As DataGridView
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Label28 As Label
     Friend WithEvents txtCPrice As TextBox
     Friend WithEvents btnChange As Button
     Friend WithEvents Label23 As Label
-    Friend WithEvents txtPacked As TextBox
+    Friend WithEvents txtQty As TextBox
     Friend WithEvents cmbDescription As ComboBox
     Friend WithEvents btnAdd As Button
     Friend WithEvents Label15 As Label
@@ -867,21 +963,31 @@ Partial Class frmSalesInvoice
     Friend WithEvents txtBarCode As TextBox
     Friend WithEvents Label13 As Label
     Friend WithEvents Label16 As Label
-    Friend WithEvents txtItemCode As TextBox
+    Friend WithEvents txtCode As TextBox
     Friend WithEvents txtPrice As TextBox
     Friend WithEvents Label18 As Label
-    Friend WithEvents dtgrdItemList As DataGridView
+    Friend WithEvents dtgrdProductList As DataGridView
     Friend WithEvents btnBack As Button
     Friend WithEvents Column5 As DataGridViewTextBoxColumn
     Friend WithEvents Column6 As DataGridViewTextBoxColumn
     Friend WithEvents Column7 As DataGridViewTextBoxColumn
     Friend WithEvents Column15 As DataGridViewTextBoxColumn
     Friend WithEvents Column16 As DataGridViewTextBoxColumn
+    Friend WithEvents Label10 As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents Label14 As Label
     Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn5 As DataGridViewTextBoxColumn
     Friend WithEvents Column17 As DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents Column18 As DataGridViewTextBoxColumn
+    Friend WithEvents Column4 As DataGridViewTextBoxColumn
 End Class
