@@ -119,50 +119,6 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub btnStock_Click(sender As Object, e As EventArgs)
-        frmOrders.ShowDialog()
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs)
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs)
-        frmMasters.ShowDialog()
-    End Sub
-
-    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs)
-        frmOrders.ShowDialog()
-    End Sub
-
-    Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs)
-        frmMasters.ShowDialog()
-    End Sub
-
-    Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs)
-    End Sub
-
-    Private Sub ToolStripButton1_Click_1(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        frmMasters.ShowDialog()
-    End Sub
-
-    Private Sub ToolStripButton2_Click_1(sender As Object, e As EventArgs)
-        frmOrders.ShowDialog()
-    End Sub
-
-
-
-    Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs)
-
-        frmTransactions.ShowDialog()
-    End Sub
-
-    Private Sub ToolStripButton7_Click(sender As Object, e As EventArgs)
-        If User.authorize("ADMIN") Then
-            frmAdminFunctions.ShowDialog()
-        Else
-            MsgBox("Access denied!", vbOKOnly + vbExclamation)
-        End If
-    End Sub
 
     Private Sub ToolStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ToolStrip1.ItemClicked
 
@@ -191,30 +147,6 @@ Public Class frmMain
 
     Private Sub PrintPriceLabelsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintPriceLabelsToolStripMenuItem.Click
         frmPriceLabels.ShowDialog()
-    End Sub
-
-    Private Sub lblCompany_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub ToolStripDropDownButton1_Click(sender As Object, e As EventArgs) Handles ToolStripDropDownButton1.Click
-
-    End Sub
-
-    Private Sub ToolStripButton3_Click_1(sender As Object, e As EventArgs)
-        frmProductionAndSales.ShowDialog()
-    End Sub
-
-    Private Sub ToolStripSplitButton1_ButtonClick(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub ToolStripButton6_Click_1(sender As Object, e As EventArgs)
-
     End Sub
 
     Private Sub ToolStripMenuItem1_Click_1(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click

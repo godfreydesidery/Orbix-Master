@@ -174,14 +174,8 @@ D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmSlowMovingItems.re
 D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmStockCardReports.resources
 D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmSupplierStockStatus.resources
 D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmSupplySalesReport.resources
-D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmProductionAndSales.resources
-D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmAdminFunctions.resources
 D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmAllow.resources
-D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmBackOfficeReports.resources
 D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmEndDay.resources
-D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmError.resources
-D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmFrontOfficeReports.resources
-D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmMasters.resources
 D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmLogin.resources
 D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmMain.resources
 D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmPriceLabels.resources
@@ -213,8 +207,6 @@ D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmPurchaseOrder.reso
 D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmDailySalesReport.resources
 D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmZHistory.resources
 D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmSplash.resources
-D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmOrders.resources
-D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmTransactions.resources
 D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmCashierVariance.resources
 D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmFiscalPrinter.resources
 D:\Orbix Master\BackOffice\BackOffice\obj\Debug\BackOffice.frmPOSPrinter.resources

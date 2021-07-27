@@ -214,12 +214,6 @@
     <Compile Include="Views\BackOfficeReports\frmPriceChange.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\frmProductionAndSales.Designer.vb">
-      <DependentUpon>frmProductionAndSales.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Views\frmProductionAndSales.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Views\frmAllow.Designer.vb">
       <DependentUpon>frmAllow.vb</DependentUpon>
     </Compile>
@@ -268,7 +262,7 @@
     <Compile Include="Views\Masters\frmViewSuppliers.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="general\Nett.vb" />
+    <Compile Include="Utilities\Nett.vb" />
     <Compile Include="Views\ProductionAndSales\frmClearDebt.Designer.vb">
       <DependentUpon>frmClearDebt.vb</DependentUpon>
     </Compile>
@@ -479,40 +473,10 @@
     <Compile Include="Views\BackOfficeReports\frmSupplySalesReport.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\frmAdminFunctions.Designer.vb">
-      <DependentUpon>frmAdminFunctions.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Views\frmAdminFunctions.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\frmBackOfficeReports.Designer.vb">
-      <DependentUpon>frmBackOfficeReports.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Views\frmBackOfficeReports.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Views\frmEndDay.Designer.vb">
       <DependentUpon>frmEndDay.vb</DependentUpon>
     </Compile>
     <Compile Include="Views\frmEndDay.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\frmError.Designer.vb">
-      <DependentUpon>frmError.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Views\frmError.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\frmFrontOfficeReports.Designer.vb">
-      <DependentUpon>frmFrontOfficeReports.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Views\frmFrontOfficeReports.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\frmMasters.Designer.vb">
-      <DependentUpon>frmMasters.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Views\frmMasters.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\frmLogin.Designer.vb">
@@ -657,18 +621,6 @@
       <DependentUpon>frmSplash.vb</DependentUpon>
     </Compile>
     <Compile Include="Views\frmSplash.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\frmOrders.Designer.vb">
-      <DependentUpon>frmOrders.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Views\frmOrders.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\frmTransactions.Designer.vb">
-      <DependentUpon>frmTransactions.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Views\frmTransactions.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\FrontOfficeReports\frmCashierVariance.Designer.vb">
@@ -861,29 +813,11 @@
     <EmbeddedResource Include="Views\BackOfficeReports\frmSupplySalesReport.resx">
       <DependentUpon>frmSupplySalesReport.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmProductionAndSales.resx">
-      <DependentUpon>frmProductionAndSales.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmAdminFunctions.resx">
-      <DependentUpon>frmAdminFunctions.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\frmAllow.resx">
       <DependentUpon>frmAllow.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmBackOfficeReports.resx">
-      <DependentUpon>frmBackOfficeReports.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\frmEndDay.resx">
       <DependentUpon>frmEndDay.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmError.resx">
-      <DependentUpon>frmError.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmFrontOfficeReports.resx">
-      <DependentUpon>frmFrontOfficeReports.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmMasters.resx">
-      <DependentUpon>frmMasters.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmLogin.resx">
       <DependentUpon>frmLogin.vb</DependentUpon>
@@ -977,12 +911,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmSplash.resx">
       <DependentUpon>frmSplash.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmOrders.resx">
-      <DependentUpon>frmOrders.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmTransactions.resx">
-      <DependentUpon>frmTransactions.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrontOfficeReports\frmCashierVariance.resx">
       <DependentUpon>frmCashierVariance.vb</DependentUpon>
@@ -1179,7 +1107,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="gui\" />
     <Folder Include="lib\migradoc\" />
     <Folder Include="lib\pdfSharp\" />
   </ItemGroup>
