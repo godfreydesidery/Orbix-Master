@@ -60,6 +60,8 @@ Partial Class frmTillAdministration
         Me.btnSave = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButton5 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButton6 = New System.Windows.Forms.ToolStripButton()
+        Me.txtId = New System.Windows.Forms.TextBox()
+        Me.chkActive = New System.Windows.Forms.CheckBox()
         Me.Panel3.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -117,9 +119,9 @@ Partial Class frmTillAdministration
         'btnSearch
         '
         Me.btnSearch.Enabled = False
-        Me.btnSearch.Location = New System.Drawing.Point(402, 9)
+        Me.btnSearch.Location = New System.Drawing.Point(399, 9)
         Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(97, 40)
+        Me.btnSearch.Size = New System.Drawing.Size(100, 40)
         Me.btnSearch.TabIndex = 10
         Me.btnSearch.Text = "Search"
         Me.btnSearch.UseVisualStyleBackColor = True
@@ -127,6 +129,8 @@ Partial Class frmTillAdministration
         'Panel3
         '
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel3.Controls.Add(Me.chkActive)
+        Me.Panel3.Controls.Add(Me.txtId)
         Me.Panel3.Controls.Add(Me.cmbStatus)
         Me.Panel3.Controls.Add(Me.Label2)
         Me.Panel3.Controls.Add(Me.TabControl1)
@@ -147,7 +151,7 @@ Partial Class frmTillAdministration
         Me.cmbStatus.Items.AddRange(New Object() {"", "ENABLED", "DISABLED"})
         Me.cmbStatus.Location = New System.Drawing.Point(131, 88)
         Me.cmbStatus.Name = "cmbStatus"
-        Me.cmbStatus.Size = New System.Drawing.Size(205, 24)
+        Me.cmbStatus.Size = New System.Drawing.Size(110, 24)
         Me.cmbStatus.TabIndex = 13
         '
         'Label2
@@ -436,6 +440,24 @@ Partial Class frmTillAdministration
         Me.ToolStripButton6.Size = New System.Drawing.Size(24, 24)
         Me.ToolStripButton6.Text = "Unblock"
         '
+        'txtId
+        '
+        Me.txtId.Location = New System.Drawing.Point(16, 9)
+        Me.txtId.Name = "txtId"
+        Me.txtId.ReadOnly = True
+        Me.txtId.Size = New System.Drawing.Size(26, 22)
+        Me.txtId.TabIndex = 14
+        '
+        'chkActive
+        '
+        Me.chkActive.AutoSize = True
+        Me.chkActive.Location = New System.Drawing.Point(254, 87)
+        Me.chkActive.Name = "chkActive"
+        Me.chkActive.Size = New System.Drawing.Size(68, 21)
+        Me.chkActive.TabIndex = 15
+        Me.chkActive.Text = "Active"
+        Me.chkActive.UseVisualStyleBackColor = True
+        '
         'frmTillAdministration
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -505,4 +527,6 @@ Partial Class frmTillAdministration
     Friend WithEvents btnSave As ToolStripButton
     Friend WithEvents ToolStripButton5 As ToolStripButton
     Friend WithEvents ToolStripButton6 As ToolStripButton
+    Friend WithEvents txtId As TextBox
+    Friend WithEvents chkActive As CheckBox
 End Class

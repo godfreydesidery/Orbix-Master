@@ -1,4 +1,6 @@
 ﻿Imports Devart.Data.MySql
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class frmTillAdministration
 
@@ -64,39 +66,36 @@ Public Class frmTillAdministration
         Return vbNull
     End Function
     Private Function searchTill(tillnumber As String) As Boolean
-        Dim found As Boolean = False
+        txtId.Text = ""
+        If cmbTillNo.Text = "" Then
+            MsgBox("Please specify a record to searchn.", vbOKOnly + vbExclamation, "Error: Search key not specified")
+            Return vbNull
+            Exit Function
+        End If
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim codeQuery As String = "SELECT `till_no`, `computer_name`, `status` FROM `till` WHERE `till_no`='" + tillnumber + "'"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            Dim tillNo As String = ""
-            Dim computerName As String = ""
-            Dim status As String = ""
-
-            While reader.Read
-                tillNo = reader.GetString("till_no")
-                computerName = reader.GetString("computer_name")
-                status = reader.GetString("status")
-                found = True
-                Exit While
-            End While
-            cmbTillNo.Text = tillnumber
-            txtComputerName.Text = computerName
-            cmbStatus.Text = status
-
-            conn.Close()
+            response = Web.get_("tills/get_by_no?no=" + cmbTillNo.Text)
+            json = JObject.Parse(response)
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            Return False
+            Exit Function
         End Try
-        lock()
-        cmbTillNo.Enabled = False
-        Return found
+        Dim till As Till = JsonConvert.DeserializeObject(Of Till)(json.ToString)
+        If till.id.ToString = "" Then
+            MsgBox("No matching product", vbOKOnly + vbCritical, "Error: Not found")
+            Return False
+        Else
+
+            cmbTillNo.Text = till.no
+            txtComputerName.Text = till.computerName
+            If till.active = 1 Then
+                chkActive.Checked = True
+            Else
+                chkActive.Checked = False
+            End If
+            Return True
+        End If
     End Function
     Private Function searchPosPrinter(tillnumber As String) As Boolean
         Dim found As Boolean = False
@@ -325,6 +324,32 @@ Public Class frmTillAdministration
     End Sub
     Dim EDIT_MODE As String = ""
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         If EDIT_MODE = "NEW" Then
 
             If searchTill(cmbTillNo.Text) = True Then
