@@ -20,7 +20,7 @@ Public Class frmGoodsReceivedNote
 
         Dim status As String = ""
         Try
-            status = Web.get_("lpos/get_status/no=" + txtOrderNo.Text)
+            status = Web.get_("lpos/get_status_by_no?no=" + txtOrderNo.Text)
         Catch ex As Exception
 
         End Try
@@ -43,7 +43,7 @@ Public Class frmGoodsReceivedNote
         Dim json As JObject = New JObject
         Dim lpo As Lpo = New Lpo
         Try
-            response = Web.get_("lpos/no=" + txtOrderNo.Text)
+            response = Web.get_("lpos/get_by_no?no=" + txtOrderNo.Text)
             json = JObject.Parse(response)
             lpo = JsonConvert.DeserializeObject(Of Lpo)(json.ToString)
         Catch ex As Exception
@@ -408,7 +408,6 @@ Public Class frmGoodsReceivedNote
         row.Cells(0).AddParagraph("Code")
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
         row.Cells(1).AddParagraph("Description")
-
         row.Cells(1).Format.Alignment = ParagraphAlignment.Left
         row.Cells(2).AddParagraph("Qty")
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
@@ -562,23 +561,20 @@ Public Class frmGoodsReceivedNote
 
                 Dim status As String = ""
                 Try
-                    status = Web.get_("lpos/get_status/no=" + txtOrderNo.Text)
+                    status = Web.get_("lpos/get_status_by_no?no=" + txtOrderNo.Text)
                 Catch ex As Exception
 
                 End Try
-
-                If status = "PRINTED" Or status = "REPRINTED" Then
-                    'continue
-                Else
-                    MsgBox("Can not complete order. Order already completed/canceled or has not been printed", vbOKOnly, "Invalid operation")
+                If Not (status = "PRINTED" Or status = "REPRINTED") Then
+                    MsgBox("Can not complete GRN. Order already completed/canceled or has not been printed", vbOKOnly, "Invalid operation")
                     Exit Sub
                 End If
 
                 If dtgrdItemList.RowCount = 0 Then
-                    MsgBox("Can not complete an empty order", vbOKOnly + vbExclamation, "Error: Missing information")
+                    MsgBox("Can not complete an empty GRN", vbOKOnly + vbExclamation, "Error: Missing information")
                     Exit Sub
                 End If
-                Dim res As Integer = MsgBox("Are you sure you want to complete this order?", vbYesNo + vbQuestion, "Complete Order?")
+                Dim res As Integer = MsgBox("Are you sure you want to complete this GRN?", vbYesNo + vbQuestion, "Complete GRN?")
                 If res = DialogResult.Yes Then
                     'complete the order
                 Else
@@ -586,7 +582,7 @@ Public Class frmGoodsReceivedNote
                 End If
                 If validateList() = False Then
                     'discard operation
-                    'MsgBox("There is an error in the List. Please cross check the list.", vbOKOnly + vbExclamation, "Error: List invalid")
+                    MsgBox("There is an error in the List. Please cross check the list.", vbOKOnly + vbExclamation, "Error: List invalid")
                     Exit Sub
                 End If
                 Try

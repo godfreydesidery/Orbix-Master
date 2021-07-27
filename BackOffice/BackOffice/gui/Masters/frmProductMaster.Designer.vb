@@ -62,11 +62,11 @@ Partial Class frmProductMaster
         Me.txtSpan = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.chkSellable = New System.Windows.Forms.CheckBox()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.txtSellingPriceVatExcl = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.txtCostPriceVatExcl = New System.Windows.Forms.TextBox()
+        Me.chkSellable = New System.Windows.Forms.CheckBox()
         Me.cmbDescription = New System.Windows.Forms.ComboBox()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.btnNew = New System.Windows.Forms.ToolStripButton()
@@ -463,16 +463,6 @@ Partial Class frmProductMaster
         Me.Panel1.Size = New System.Drawing.Size(346, 226)
         Me.Panel1.TabIndex = 54
         '
-        'chkSellable
-        '
-        Me.chkSellable.AutoSize = True
-        Me.chkSellable.Location = New System.Drawing.Point(250, 194)
-        Me.chkSellable.Name = "chkSellable"
-        Me.chkSellable.Size = New System.Drawing.Size(80, 21)
-        Me.chkSellable.TabIndex = 46
-        Me.chkSellable.Text = "Sellable"
-        Me.chkSellable.UseVisualStyleBackColor = True
-        '
         'Label20
         '
         Me.Label20.AutoSize = True
@@ -508,6 +498,16 @@ Partial Class frmProductMaster
         Me.txtCostPriceVatExcl.Size = New System.Drawing.Size(168, 22)
         Me.txtCostPriceVatExcl.TabIndex = 35
         Me.txtCostPriceVatExcl.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'chkSellable
+        '
+        Me.chkSellable.AutoSize = True
+        Me.chkSellable.Location = New System.Drawing.Point(250, 194)
+        Me.chkSellable.Name = "chkSellable"
+        Me.chkSellable.Size = New System.Drawing.Size(80, 21)
+        Me.chkSellable.TabIndex = 46
+        Me.chkSellable.Text = "Sellable"
+        Me.chkSellable.UseVisualStyleBackColor = True
         '
         'cmbDescription
         '

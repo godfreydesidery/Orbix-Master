@@ -281,7 +281,7 @@ Public Class frmProductMaster
         Dim response As Object = New Object
         Dim json As JObject = New JObject
         Try
-            response = Web.get_("classes/department_name=" + cmbDepartment.Text)
+            response = Web.get_("classes/get_by_department_name?department_name=" + cmbDepartment.Text)
             list = JsonConvert.DeserializeObject(Of List(Of Class_))(response.ToString)
         Catch ex As Exception
             ' MsgBox(ex.ToString)
@@ -308,7 +308,7 @@ Public Class frmProductMaster
         Dim response As Object = New Object
         Dim json As JObject = New JObject
         Try
-            response = Web.get_("sub_classes/class_name=" + cmbClass.Text)
+            response = Web.get_("sub_classes/get_by_class_name?class_name=" + cmbClass.Text)
             list = JsonConvert.DeserializeObject(Of List(Of SubClass))(response.ToString)
         Catch ex As Exception
             ' MsgBox(ex.ToString)
@@ -319,59 +319,6 @@ Public Class frmProductMaster
         Next
     End Sub
 
-    Private Sub cmbSupplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSupplier.SelectedIndexChanged
-        Dim conn As New MySqlConnection(Database.conString)
-        If cmbSupplier.Text = "" Then
-            supplierID = ""
-        End If
-        Try
-            Dim suppcommand As New MySqlCommand()
-            Dim supplierQuery As String = "SELECT  `supplier_id`, `supplier_name` FROM `supplier` WHERE `supplier_name`='" + cmbSupplier.Text + "'"
-            conn.Open()
-            suppcommand.CommandText = supplierQuery
-            suppcommand.Connection = conn
-            suppcommand.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = suppcommand.ExecuteReader
-            If reader.HasRows Then
-                While reader.Read
-                    supplierID = reader.GetString("supplier_id")
-                    Exit While
-                End While
-            End If
-
-            conn.Close()
-        Catch ex As Devart.Data.MySql.MySqlException
-            ErrorMessage.dbConnectionError()
-            Exit Sub
-        End Try
-    End Sub
-
-    Private Sub cmbSubClass_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSubClass.SelectedIndexChanged
-        If cmbSubClass.Text = "" Then
-            subClassID = ""
-        End If
-        Dim conn As New MySqlConnection(Database.conString)
-
-        Try
-            Dim command As New MySqlCommand()
-            Dim Query As String = "SELECT `sub_class_id`, `sub_class_name` FROM `sub_class` WHERE `sub_class_name`='" + cmbSubClass.Text + "'"
-            conn.Open()
-            command.CommandText = Query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader
-            If reader.HasRows Then
-                While reader.Read
-                    subClassID = reader.GetString("sub_class_id")
-                    Exit While
-                End While
-            End If
-            conn.Close()
-        Catch ex As Devart.Data.MySql.MySqlException
-            ErrorMessage.dbConnectionError()
-            Exit Sub
-        End Try
-    End Sub
     Private Function validateValues() As Boolean
         Dim valid As Boolean = True
         Dim msg As String = ""
@@ -789,5 +736,9 @@ Public Class frmProductMaster
         If txtStandardUom.Text.Contains("'") Then
             txtStandardUom.Text = ""
         End If
+    End Sub
+
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        clearAll()
     End Sub
 End Class
