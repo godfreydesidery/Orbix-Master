@@ -52,12 +52,12 @@
 <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.Query"/>
 <fullyQualifiedTypeName name="java.util.stream.Stream"/>
 <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
-<fullyQualifiedTypeName name="java.util.Optional"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.SupplierRepository"/>
-<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
 <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.CorporateCustomer"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.CorporateCustomerRepository"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.UserRepository"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+<fullyQualifiedTypeName name="java.util.Optional"/>
 </qualifiedTypeNameHistroy>
