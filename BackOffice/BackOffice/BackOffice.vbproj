@@ -187,6 +187,8 @@
     <Compile Include="general\Production\Production.vb" />
     <Compile Include="general\Rtv.vb" />
     <Compile Include="general\RtvDetail.vb" />
+    <Compile Include="general\SalesInvoice.vb" />
+    <Compile Include="general\SalesInvoiceDetail.vb" />
     <Compile Include="general\SalesPerson\SalesPerson.vb" />
     <Compile Include="general\StockCard.vb" />
     <Compile Include="general\Transactions\Refund.vb" />

@@ -72,6 +72,8 @@ Partial Class frmSalesInvoice
         Me.Column15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.txtAmount = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
         Me.txtDetailId = New System.Windows.Forms.TextBox()
         Me.txtCostpriceVatExcl = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -113,8 +115,6 @@ Partial Class frmSalesInvoice
         Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btnBack = New System.Windows.Forms.Button()
         Me.txtTotal = New System.Windows.Forms.TextBox()
-        Me.txtAmount = New System.Windows.Forms.TextBox()
-        Me.Label20 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.dtgrdInvoiceLists, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -330,7 +330,6 @@ Partial Class frmSalesInvoice
         Me.txtId.ReadOnly = True
         Me.txtId.Size = New System.Drawing.Size(23, 22)
         Me.txtId.TabIndex = 117
-        Me.txtId.Visible = False
         '
         'ToolStrip1
         '
@@ -564,6 +563,25 @@ Partial Class frmSalesInvoice
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(469, 372)
         Me.Panel2.TabIndex = 104
+        '
+        'txtAmount
+        '
+        Me.txtAmount.Location = New System.Drawing.Point(165, 278)
+        Me.txtAmount.MaxLength = 50
+        Me.txtAmount.Name = "txtAmount"
+        Me.txtAmount.ReadOnly = True
+        Me.txtAmount.Size = New System.Drawing.Size(134, 22)
+        Me.txtAmount.TabIndex = 127
+        Me.txtAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(103, 281)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(56, 17)
+        Me.Label20.TabIndex = 126
+        Me.Label20.Text = "Amount"
         '
         'txtDetailId
         '
@@ -917,25 +935,6 @@ Partial Class frmSalesInvoice
         Me.txtTotal.Name = "txtTotal"
         Me.txtTotal.Size = New System.Drawing.Size(136, 22)
         Me.txtTotal.TabIndex = 124
-        '
-        'txtAmount
-        '
-        Me.txtAmount.Location = New System.Drawing.Point(165, 278)
-        Me.txtAmount.MaxLength = 50
-        Me.txtAmount.Name = "txtAmount"
-        Me.txtAmount.ReadOnly = True
-        Me.txtAmount.Size = New System.Drawing.Size(134, 22)
-        Me.txtAmount.TabIndex = 127
-        Me.txtAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(103, 281)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(56, 17)
-        Me.Label20.TabIndex = 126
-        Me.Label20.Text = "Amount"
         '
         'frmSalesInvoice
         '

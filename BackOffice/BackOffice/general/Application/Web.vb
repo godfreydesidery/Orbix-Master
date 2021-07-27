@@ -31,7 +31,7 @@ Public Class Web
             'Dim ser As JObject = JObject.Parse(json)
             Return responseFromServer
         Catch ex As System.Net.WebException
-            MsgBox(ex.Message)
+            MsgBox(ex.ToString)
             Return vbNull
         Catch ex As Exception
             MsgBox(ex.ToString)

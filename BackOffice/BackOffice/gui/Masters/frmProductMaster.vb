@@ -239,6 +239,8 @@ Public Class frmProductMaster
     End Sub
 
     Private Sub frmProductMaster_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cmbSupplier.Items.Clear()
+        cmbDepartment.Items.Clear()
         lock()
         If User.authorize("EDIT INVENTORY") Then
             btnEditInventory.Enabled = True

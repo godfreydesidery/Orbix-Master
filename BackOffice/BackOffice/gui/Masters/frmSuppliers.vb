@@ -124,7 +124,7 @@ Public Class frmSuppliers
         btnSave.Enabled = True
         unlock()
         txtCode.ReadOnly = True
-        generateCode()
+        txtCode.Text = "NA"
     End Sub
     Private Function search(supplierCode As String, supplierName As String) As Boolean
 
@@ -245,6 +245,7 @@ Public Class frmSuppliers
                 response = Web.post(supplier_, "suppliers/new")
                 json = JObject.Parse(response)
                 txtId.Text = json.SelectToken("id")
+                txtCode.Text = json.SelectToken("code")
                 success = True
                 ' btnSave.Enabled = False
 

@@ -131,7 +131,7 @@ Public Class frmSalesInvoice
         titleColumn.Format.Alignment = ParagraphAlignment.Left
         Dim titleRow As Tables.Row
         Dim documentTitle As New Paragraph
-        documentTitle.AddText("Goods Return to Vendor")
+        documentTitle.AddText("Sales Invoice")
         documentTitle.Format.Alignment = ParagraphAlignment.Left
         documentTitle.Format.Font.Size = 10
         documentTitle.Format.Font.Color = Colors.Black
@@ -149,45 +149,40 @@ Public Class frmSalesInvoice
         tittleTable.SetEdge(0, 0, 2, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
         'end of header
 
-        Dim customer As New CorporateCustomer
-        customer = searchCustomer(txtCustomerNo.Text, cmbCustomerName.Text)
+        Dim addressTable As Table = section.AddTable
+        addressTable.Style = "Table"
+        addressTable.Borders.Width = 0.25
+        addressTable.Borders.Left.Width = 0.5
+        addressTable.Borders.Right.Width = 0.5
+        addressTable.Rows.LeftIndent = 0
+        Dim addressColumn As Column
+        addressColumn = addressTable.AddColumn("6cm")
+        addressColumn.Format.Alignment = ParagraphAlignment.Left
+        addressColumn = addressTable.AddColumn("5cm")
+        addressColumn.Format.Alignment = ParagraphAlignment.Left
+        addressColumn = addressTable.AddColumn("5cm")
+        addressColumn.Format.Alignment = ParagraphAlignment.Left
+        Dim addressRow As Row
+        addressRow = addressTable.AddRow
+        addressRow.Format.Font.Size = 8
+        addressRow.Format.Alignment = ParagraphAlignment.Center
+        addressRow.Borders.Color = Colors.White
+        addressRow.Cells(0).AddParagraph(txtIssueDate.Text + Environment.NewLine)
+        addressRow.Cells(0).AddParagraph(txtInvoiceNo.Text + Environment.NewLine)
+        addressRow.Cells(0).AddParagraph(cmbCustomerName.Text + Environment.NewLine)
+        addressRow.Cells(0).Format.Alignment = ParagraphAlignment.Left
+        addressRow.Cells(1).AddParagraph("Bill to" + Environment.NewLine)
+        addressRow.Cells(1).AddParagraph(cmbCustomerName.Text + Environment.NewLine)
+        addressRow.Cells(1).AddParagraph(cmbCustomerName.Text + Environment.NewLine)
+        addressRow.Cells(1).Format.Alignment = ParagraphAlignment.Left
+        addressRow.Cells(2).AddParagraph("Ship to" + Environment.NewLine)
+        addressRow.Cells(2).AddParagraph(cmbCustomerName.Text + Environment.NewLine)
+        addressRow.Cells(2).AddParagraph(cmbCustomerName.Text + Environment.NewLine)
+        addressRow.Cells(2).Format.Alignment = ParagraphAlignment.Left
+
         paragraph = section.AddParagraph()
-        paragraph = section.AddParagraph()
-        paragraph.AddFormattedText("To:          " + cmbCustomerName.Text, TextFormat.Bold)
-        paragraph.Format.Font.Size = 9
-        Supplier.search((New Supplier).getSupplierCode("", cmbCustomerName.Text))
-        paragraph = section.AddParagraph()
-        paragraph.AddFormattedText(supplier.GL_POST_ADDRESS)
-        paragraph.Format.Font.Size = 8
-        paragraph = section.AddParagraph()
-        paragraph.AddFormattedText("Phone: " + supplier.GL_TELEPHONE)
-        paragraph.Format.Font.Size = 8
-        If supplier.GL_FAX <> "" Then
-            paragraph = section.AddParagraph()
-            paragraph.AddFormattedText("Fax: " + supplier.GL_FAX)
-            paragraph.Format.Font.Size = 8
-        End If
-        paragraph = section.AddParagraph()
-        paragraph.AddFormattedText("Email: " + supplier.GL_EMAIL)
-        paragraph.Format.Font.Size = 8
-        paragraph.Format.Font.Italic = True
-        paragraph = section.AddParagraph()
-        paragraph = section.AddParagraph()
-        paragraph.AddFormattedText("RTV#:      " + txtCustomerNo.Text)
-        paragraph.Format.Font.Size = 8
-        paragraph = section.AddParagraph()
-        paragraph.AddFormattedText("Issue Date:  " + txt.Text)
-        paragraph.Format.Font.Size = 8
 
 
-
-        'Add the print date field
-        paragraph = section.AddParagraph()
-        paragraph.Format.SpaceBefore = "1cm"
-        paragraph.Style = "Reference"
-        paragraph.AddTab()
-        paragraph.AddText("Created: ")
-        paragraph.AddDateField("dd.MM.yyyy")
 
         'Create the item table
         Dim table As Table = section.AddTable()
@@ -197,6 +192,9 @@ Public Class frmSalesInvoice
         table.Borders.Left.Width = 0.5
         table.Borders.Right.Width = 0.5
         table.Rows.LeftIndent = 0
+
+
+
 
         'Before you can add a row, you must define the columns
         Dim column As Column
@@ -340,9 +338,9 @@ Public Class frmSalesInvoice
         Dim json As JObject = New JObject
         Try
             If no <> "" Then
-                response = Web.get_("sales_invoice/get_by_no?no=" + no)
+                response = Web.get_("sales_invoices/get_by_no?no=" + no)
             ElseIf id <> "" Then
-                response = Web.get_("sales_invoice/get_by_id?id=" + id)
+                response = Web.get_("sales_invoices/get_by_id?id=" + id)
             Else
                 MsgBox("Please enter a search key", vbOKOnly + vbExclamation, "Error: No selection")
                 Return vbNull
@@ -391,6 +389,7 @@ Public Class frmSalesInvoice
                 json = JObject.Parse(response)
                 customer = JsonConvert.DeserializeObject(Of CorporateCustomer)(json.ToString)
                 cmbCustomerName.Text = customer.name
+                '     txt
                 Return True
                 lock()
             ElseIf cmbCustomerName.Text <> "" Then
@@ -402,6 +401,7 @@ Public Class frmSalesInvoice
                 lock()
             End If
         Catch ex As Exception
+            MsgBox(ex.ToString)
             Return False
         End Try
         Return False
@@ -644,27 +644,27 @@ Public Class frmSalesInvoice
     Private Sub dtgrdItemList_RowHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dtgrdProductList.RowHeaderMouseClick
         Dim status As String
         Try
-            status = Web.get_("rtvs/get_status_by_id?id=" + txtId.Text)
+            status = Web.get_("sales_invoices/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
         If status = "APPROVED" Then
-            MsgBox("You can not edit this RTV. RTV already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this Invoice. Invoice already approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "COMPLETED" Then
-            MsgBox("You can not edit this RTV. RTV already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this Invoice. Invoice already completed.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "CANCELED" Then
-            MsgBox("You can not edit this RTV. RTV canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this Invoice. Invoice canceled.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
         If status = "" Then
-            MsgBox("You can not edit this RTV. RTV status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("You can not edit this Invoice. Invoice status unknown.", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If
@@ -857,15 +857,17 @@ Public Class frmSalesInvoice
             txtSellingPriceVatExcl.Text = LCurrency.displayValue(product.sellingPriceVatExcl)
             txtStockSize.Text = product.stock
             txtPackSize.Text = product.packSize
+
             found = True
             If found = False Then
                 MsgBox("Product not found", vbOKOnly + vbCritical, "Item not found")
                 clearFields()
+                Exit Sub
             End If
-            Exit Sub
             valid = True
             lockFields()
             txtQty.ReadOnly = False
+            btnAdd.Enabled = True
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
@@ -965,10 +967,6 @@ Public Class frmSalesInvoice
                 txtInvoiceNo.Text = invoice.no
             End If
 
-
-
-            '   txtVaildUntil.Text = ((New Day).getCurrentDay.AddDays(validityPeriod)).ToString("yyyy-MM-dd")  sample code
-
             Dim detail As SalesInvoiceDetail = New SalesInvoiceDetail
             detail.id = txtDetailId.Text
             detail.salesInvoice.id = txtId.Text
@@ -980,11 +978,7 @@ Public Class frmSalesInvoice
             detail.costPriceVatExcl = LCurrency.getValue(txtCostpriceVatExcl.Text)
             detail.sellingPriceVatIncl = LCurrency.getValue(txtSellingPriceVatIncl.Text)
             detail.sellingPriceVatExcl = LCurrency.getValue(txtSellingPriceVatExcl.Text)
-            If txtDetailId.Text = "" Then
-                response = Web.post(detail, "sales_invoice_details/new")
-            Else
-                response = Web.put(detail, "sales_invoice_details/edit_by_id?id=" + txtDetailId.Text)
-            End If
+            response = Web.post(detail, "sales_invoice_details/new_or_edit")
             If dtgrdProductList.RowCount < 1 Then
                 refreshInvoiceList()
             End If

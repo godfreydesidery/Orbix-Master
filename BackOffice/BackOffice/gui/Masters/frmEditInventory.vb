@@ -54,7 +54,7 @@ Public Class frmEditInventory
         product_.defaultReorderLevel = txtDefaultReorderLevel.Text
         product_.defaultReorderQty = txtDefaultReorderQuantity.Text
 
-        If Web.put(product_, "products/update_inventory/" + txtProductId.Text) = True Then
+        If Web.put(product_, "products/update_inventory_by_product_id?product_id=" + txtProductId.Text) = True Then
             MsgBox("Inventory updated successifully", vbOKOnly + vbInformation, "Success: Inventory update")
             loadInventory()
         Else
@@ -73,7 +73,7 @@ Public Class frmEditInventory
         Dim response As Object = New Object
         Dim json As JObject = New JObject
         txtProductId.Text = Product.GLOBAL_PRODUCT.id
-        response = Web.get_("products/id=" + txtProductId.Text)
+        response = Web.get_("products/get_by_id?id=" + txtProductId.Text)
         json = JObject.Parse(response)
         Dim product_ As Product = JsonConvert.DeserializeObject(Of Product)(json.ToString)
         txtCode.Text = product_.code.ToString
