@@ -164,18 +164,18 @@ Public Class frmSalesInvoice
         addressColumn.Format.Alignment = ParagraphAlignment.Left
         Dim addressRow As Row
         addressRow = addressTable.AddRow
-        addressRow.Format.Font.Size = 8
+        addressRow.Format.Font.Size = 7
         addressRow.Format.Alignment = ParagraphAlignment.Center
         addressRow.Borders.Color = Colors.White
-        addressRow.Cells(0).AddParagraph(txtIssueDate.Text + Environment.NewLine)
-        addressRow.Cells(0).AddParagraph(txtInvoiceNo.Text + Environment.NewLine)
-        addressRow.Cells(0).AddParagraph(cmbCustomerName.Text + Environment.NewLine)
+        addressRow.Cells(0).AddParagraph("Date :" + txtIssueDate.Text + Environment.NewLine).Format.Font.Bold = True
+        addressRow.Cells(0).AddParagraph("Inv# :" + txtInvoiceNo.Text + Environment.NewLine)
+        addressRow.Cells(0).AddParagraph("Cust :" + cmbCustomerName.Text + Environment.NewLine)
         addressRow.Cells(0).Format.Alignment = ParagraphAlignment.Left
-        addressRow.Cells(1).AddParagraph("Bill to" + Environment.NewLine)
+        addressRow.Cells(1).AddParagraph("Bill to" + Environment.NewLine).Format.Font.Bold = True
         addressRow.Cells(1).AddParagraph(cmbCustomerName.Text + Environment.NewLine)
         addressRow.Cells(1).AddParagraph(cmbCustomerName.Text + Environment.NewLine)
         addressRow.Cells(1).Format.Alignment = ParagraphAlignment.Left
-        addressRow.Cells(2).AddParagraph("Ship to" + Environment.NewLine)
+        addressRow.Cells(2).AddParagraph("Ship to" + Environment.NewLine).Format.Font.Bold = True
         addressRow.Cells(2).AddParagraph(cmbCustomerName.Text + Environment.NewLine)
         addressRow.Cells(2).AddParagraph(cmbCustomerName.Text + Environment.NewLine)
         addressRow.Cells(2).Format.Alignment = ParagraphAlignment.Left
@@ -202,22 +202,19 @@ Public Class frmSalesInvoice
         column = table.AddColumn("1.5cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("6.0cm")
+        column = table.AddColumn("7.0cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("1.0cm")
+        column = table.AddColumn("1.5cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
         column = table.AddColumn("2.0cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("3.0cm")
+        column = table.AddColumn("2.0cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("1.0cm")
-        column.Format.Alignment = ParagraphAlignment.Left
-
-        column = table.AddColumn("3.0cm")
+        column = table.AddColumn("2.5cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
         'Create the header of the table
@@ -228,7 +225,7 @@ Public Class frmSalesInvoice
         row.Format.Font.Size = 8
         row.Format.Alignment = ParagraphAlignment.Center
         row.Format.Font.Bold = True
-        row.Borders.Color = Colors.White
+        row.Borders.Color = Colors.Gray
         'row.Shading.Color = TableBlue
         row.Cells(0).AddParagraph("Code")
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
@@ -236,16 +233,15 @@ Public Class frmSalesInvoice
         row.Cells(1).Format.Alignment = ParagraphAlignment.Left
         row.Cells(2).AddParagraph("Qty")
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(3).AddParagraph("Cost Price")
+        row.Cells(3).AddParagraph("Price")
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(4).AddParagraph("Amount")
+        row.Cells(4).AddParagraph("Discount %")
         row.Cells(4).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(5).AddParagraph("Pack Size")
+        row.Cells(5).AddParagraph("Amount")
         row.Cells(5).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(6).AddParagraph("Reason")
-        row.Cells(6).Format.Alignment = ParagraphAlignment.Left
 
-        table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+
+        table.SetEdge(0, 0, 6, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         Dim totalQty As Double = 0
         Dim totalAmount As Double = 0
@@ -268,7 +264,7 @@ Public Class frmSalesInvoice
             row.Format.Font.Size = 8
             row.HeadingFormat = False
             row.Format.Alignment = ParagraphAlignment.Center
-            row.Borders.Color = Colors.White
+            row.Borders.Color = Colors.Gray
             row.Cells(0).AddParagraph(code)
             row.Cells(0).Format.Alignment = ParagraphAlignment.Left
             row.Cells(1).AddParagraph(description)
@@ -280,7 +276,7 @@ Public Class frmSalesInvoice
             row.Cells(4).AddParagraph(discount)
             row.Cells(4).Format.Alignment = ParagraphAlignment.Right
             row.Cells(5).AddParagraph(amount)
-            row.Cells(5).Format.Alignment = ParagraphAlignment.Left
+            row.Cells(5).Format.Alignment = ParagraphAlignment.Right
 
             table.SetEdge(0, 0, 6, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
         Next
@@ -297,12 +293,10 @@ Public Class frmSalesInvoice
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
         row.Cells(3).AddParagraph("")
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(4).AddParagraph("")
-        row.Cells(4).Format.Alignment = ParagraphAlignment.Right
+        row.Cells(4).AddParagraph("Sub Total")
+        row.Cells(4).Format.Alignment = ParagraphAlignment.Left
         row.Cells(5).AddParagraph(LCurrency.displayValue(totalAmount.ToString))
-        row.Cells(5).Format.Alignment = ParagraphAlignment.Left
-
-
+        row.Cells(5).Format.Alignment = ParagraphAlignment.Right
         table.SetEdge(0, 0, 6, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
     End Sub
 
@@ -1036,11 +1030,11 @@ Public Class frmSalesInvoice
                 MsgBox("You can not approve an empty Invoice", vbOKOnly + vbInformation, "")
                 Exit Sub
             End If
-
             Dim approved As Boolean = False
             Try
                 approved = Web.put(vbNull, "sales_invoices/approve_by_id?id=" + txtId.Text)
             Catch ex As Exception
+                MsgBox(ex.ToString)
                 approved = False
             End Try
             If approved = True Then

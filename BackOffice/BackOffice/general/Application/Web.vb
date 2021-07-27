@@ -18,6 +18,7 @@ Public Class Web
             postReq.KeepAlive = True
             postReq.ContentType = "application/json"
             postReq.Referer = baseUrl
+            postReq.Headers("user_id") = User.CURRENT_USER_ID.ToString
             '  postReq .UserAgent =""
             postReq.ContentLength = byteData.Length
             Dim postReqstream As Stream = postReq.GetRequestStream
@@ -49,6 +50,7 @@ Public Class Web
             postReq.KeepAlive = True
             postReq.ContentType = "application/json"
             postReq.Referer = baseUrl
+            postReq.Headers("user_id") = User.CURRENT_USER_ID.ToString
             '  postReq .UserAgent =""
             postReq.ContentLength = byteData.Length
             Dim postReqstream As Stream = postReq.GetRequestStream
@@ -63,7 +65,7 @@ Public Class Web
 
             Return True
         Catch ex As System.Net.WebException
-            MsgBox(ex.Message)
+            MsgBox(ex.ToString)
             Return False
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -81,6 +83,7 @@ Public Class Web
             postReq.KeepAlive = True
             postReq.ContentType = "application/json"
             postReq.Referer = baseUrl
+            postReq.Headers("user_id") = User.CURRENT_USER_ID.ToString
             '  postReq .UserAgent =""
             postReq.ContentLength = byteData.Length
             Dim postReqstream As Stream = postReq.GetRequestStream
@@ -110,6 +113,7 @@ Public Class Web
             request.Proxy = Nothing
             '  request.UserAgent = "Test"
             request.Method = "DELETE"
+            request.Headers("user_id") = User.CURRENT_USER_ID.ToString
 
             'Create the response and reader
             Dim response As HttpWebResponse = request.GetResponse
@@ -138,6 +142,7 @@ Public Class Web
             '    MsgBox(baseUrl + "/" + System.Web.HttpUtility.UrlEncode(url))
             request.Proxy = Nothing
             request.UserAgent = "Test"
+            request.Headers("user_id") = User.CURRENT_USER_ID.ToString
 
             'Create the response and reader
             Dim response As HttpWebResponse = request.GetResponse

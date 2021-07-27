@@ -1255,8 +1255,8 @@ Public Class frmReturnToVendor
         refreshRtvList()
 
         Dim document As Document = New Document
-        document.Info.Title = "Local Purchase Order"
-        document.Info.Subject = "Local Purchase Order"
+        document.Info.Title = "Goods Return to Vendor"
+        document.Info.Subject = "Goods Return to Vendor"
         document.Info.Author = "Orbit"
 
         defineStyles(document)

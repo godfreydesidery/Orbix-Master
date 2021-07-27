@@ -324,14 +324,14 @@ Public Class frmPurchaseOrder
         Dim json As JObject = New JObject
         Try
             If txtSupplierCode.Text <> "" Then
-                response = Web.get_("suppliers/code=" + code)
+                response = Web.get_("suppliers/get_by_code?code=" + code)
                 json = JObject.Parse(response)
                 supplier_ = JsonConvert.DeserializeObject(Of Supplier)(json.ToString)
                 cmbSupplier.Text = supplier_.name
                 Return True
                 lock()
             ElseIf cmbSupplier.Text <> "" Then
-                response = Web.get_("suppliers/name=" + name)
+                response = Web.get_("suppliers/get_by_name?name=" + name)
                 json = JObject.Parse(response)
                 supplier_ = JsonConvert.DeserializeObject(Of Supplier)(json.ToString)
                 txtSupplierCode.Text = supplier_.code
@@ -350,9 +350,9 @@ Public Class frmPurchaseOrder
         Dim json As JObject = New JObject
         Try
             If no <> "" Then
-                response = Web.get_("lpos/no=" + no)
+                response = Web.get_("lpos/get_by_no?no=" + no)
             ElseIf id <> "" Then
-                response = Web.get_("lpos/id=" + id)
+                response = Web.get_("lpos/get_by_id?id=" + id)
             Else
                 MsgBox("Please enter a search key", vbOKOnly + vbExclamation, "Error: No selection")
                 Return vbNull
@@ -452,7 +452,7 @@ Public Class frmPurchaseOrder
         If txtId.Text = "" Then
             lpo_ = New Lpo
         Else
-            response = Web.get_("lpos/id=" + txtId.Text)
+            response = Web.get_("lpos/get_by_id?id=" + txtId.Text)
             json = JObject.Parse(response)
             lpo_ = JsonConvert.DeserializeObject(Of Lpo)(json.ToString)
         End If
@@ -480,7 +480,7 @@ Public Class frmPurchaseOrder
                 txtId.Text = json.SelectToken("id")
                 MsgBox("LPO created successifully", vbOKOnly + vbInformation, "Success: LPO saved.")
             Else
-                response = Web.put(lpo_, "lpos/edit/id=" + txtId.Text)
+                response = Web.put(lpo_, "lpos/edit_by_id?id=" + txtId.Text)
                 If response = True Then
                     MsgBox("LPO updated successifully", vbOKOnly + vbInformation, "Success: LPO updated.")
                 Else
@@ -548,7 +548,7 @@ Public Class frmPurchaseOrder
     Private Sub dtgrdItemList_RowHeaderMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dtgrdItemList.RowHeaderMouseDoubleClick
         Dim status As String
         Try
-            status = Web.get_("lpos/id=" + txtId.Text)
+            status = Web.get_("lpos/get_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
@@ -586,7 +586,7 @@ Public Class frmPurchaseOrder
         Dim lpo_ As Lpo
         Dim response As Object = New Object
         Dim json As JObject = New JObject
-        response = Web.get_("lpos/id=" + txtId.Text)
+        response = Web.get_("lpos/get_by_id?id=" + txtId.Text)
         json = JObject.Parse(response)
         lpo_ = JsonConvert.DeserializeObject(Of Lpo)(json.ToString)
 
@@ -609,7 +609,7 @@ Public Class frmPurchaseOrder
         txtPackSize.Text = packSize
 
         Try
-            response = Web.delete("lpo_details/delete/id=" + sn)
+            response = Web.delete("lpo_details/delete_by_id?id=" + sn)
             lockFields()
         Catch ex As Exception
 
@@ -617,7 +617,7 @@ Public Class frmPurchaseOrder
         lockFields()
         Try
             Dim lpoDetails As List(Of LpoDetail)
-            response = Web.get_("lpo_details/lpo_id=" + txtId.Text)
+            response = Web.get_("lpo_details/get_by_id?id=" + txtId.Text)
             lpoDetails = JsonConvert.DeserializeObject(Of List(Of LpoDetail))(response)
             refreshList(lpoDetails)
         Catch ex As Exception
@@ -762,15 +762,15 @@ Public Class frmPurchaseOrder
             Dim json As JObject = New JObject
 
             If barcode <> "" Then
-                response = Web.get_("products/barcode=" + barcode)
+                response = Web.get_("products/get_by_barcode?barcode=" + barcode)
                 json = JObject.Parse(response)
                 product = JsonConvert.DeserializeObject(Of Product)(json.ToString)
             ElseIf code <> "" Then
-                response = Web.get_("products/code=" + code)
+                response = Web.get_("products/get_by_code?code=" + code)
                 json = JObject.Parse(response)
                 product = JsonConvert.DeserializeObject(Of Product)(json.ToString)
             ElseIf description <> "" Then
-                response = Web.get_("products/description=" + description)
+                response = Web.get_("products/get_by_description?description=" + description)
                 json = JObject.Parse(response)
                 product = JsonConvert.DeserializeObject(Of Product)(json.ToString)
             Else
@@ -827,7 +827,7 @@ Public Class frmPurchaseOrder
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim status As String
         Try
-            status = Web.get_("lpos/get_status/id=" + txtId.Text)
+            status = Web.get_("lpos/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
@@ -939,7 +939,7 @@ Public Class frmPurchaseOrder
     Private Sub btnApprove_Click(sender As Object, e As EventArgs) Handles btnApprove.Click
         Dim status As String
         Try
-            status = Web.get_("lpos/get_status/id=" + txtId.Text)
+            status = Web.get_("lpos/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
@@ -994,7 +994,7 @@ Public Class frmPurchaseOrder
 
                 Dim approved As Boolean = False
                 Try
-                    approved = Web.put(vbNull, "lpos/approve/id=" + txtId.Text)
+                    approved = Web.put(vbNull, "lpos/approve_by_id?id=" + txtId.Text)
                 Catch ex As Exception
                     approved = False
                 End Try
@@ -1067,7 +1067,7 @@ Public Class frmPurchaseOrder
     Private Sub btnArchive_Click(sender As Object, e As EventArgs) Handles btnArchive.Click
         Dim status As String
         Try
-            status = Web.get_("lpos/get_status/id=" + txtId.Text)
+            status = Web.get_("lpos/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
@@ -1084,7 +1084,7 @@ Public Class frmPurchaseOrder
 
         Dim archived As Boolean = False
         Try
-            archived = Web.put(vbNull, "lpos/archive/id=" + txtId.Text)
+            archived = Web.put(vbNull, "lpos/archive_by_id?id=" + txtId.Text)
         Catch ex As Exception
             archived = False
         End Try
@@ -1105,7 +1105,7 @@ Public Class frmPurchaseOrder
     Private Sub btnCancel_Click_1(sender As Object, e As EventArgs) Handles btnCancel.Click
         Dim status As String
         Try
-            status = Web.get_("lpos/get_status/id=" + txtId.Text)
+            status = Web.get_("lpos/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
@@ -1123,7 +1123,7 @@ Public Class frmPurchaseOrder
         'approve order
         Dim res As Integer = MsgBox("Are you sure you want to cancel LPO : " + txtOrderNo.Text + " ? After canceling, the order will be rendered invalid", vbYesNo + vbQuestion, "Cancel LPO?")
         Try
-            status = Web.get_("lpos/get_status/id=" + txtId.Text)
+            status = Web.get_("lpos/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
@@ -1131,7 +1131,7 @@ Public Class frmPurchaseOrder
 
             Dim canceled As Boolean = False
             Try
-                canceled = Web.put(vbNull, "lpos/cancel/id=" + txtId.Text)
+                canceled = Web.put(vbNull, "lpos/cancel_by_id?id=" + txtId.Text)
             Catch ex As Exception
                 canceled = False
             End Try
@@ -1156,7 +1156,7 @@ Public Class frmPurchaseOrder
         End If
         Dim status As String
         Try
-            status = Web.get_("lpos/get_status/id=" + txtId.Text)
+            status = Web.get_("lpos/get_status_by_id?id=" + txtId.Text)
         Catch ex As Exception
             status = ""
         End Try
@@ -1183,7 +1183,7 @@ Public Class frmPurchaseOrder
 
         Dim printed As Boolean = False
         Try
-            printed = Web.put(vbNull, "lpos/print/id=" + txtId.Text)
+            printed = Web.put(vbNull, "lpos/print_by_id?id=" + txtId.Text)
         Catch ex As Exception
             printed = False
         End Try
