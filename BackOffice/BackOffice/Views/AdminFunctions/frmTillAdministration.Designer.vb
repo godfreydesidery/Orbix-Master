@@ -29,8 +29,6 @@ Partial Class frmTillAdministration
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.cmbStatus = New System.Windows.Forms.ComboBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -51,8 +49,6 @@ Partial Class frmTillAdministration
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.dtgrdTillList = New System.Windows.Forms.DataGridView()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.btnNew = New System.Windows.Forms.ToolStripButton()
         Me.btnEdit = New System.Windows.Forms.ToolStripButton()
@@ -62,6 +58,11 @@ Partial Class frmTillAdministration
         Me.ToolStripButton6 = New System.Windows.Forms.ToolStripButton()
         Me.txtId = New System.Windows.Forms.TextBox()
         Me.chkActive = New System.Windows.Forms.CheckBox()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.txtName = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel3.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -129,10 +130,10 @@ Partial Class frmTillAdministration
         'Panel3
         '
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel3.Controls.Add(Me.Label2)
+        Me.Panel3.Controls.Add(Me.txtName)
         Me.Panel3.Controls.Add(Me.chkActive)
         Me.Panel3.Controls.Add(Me.txtId)
-        Me.Panel3.Controls.Add(Me.cmbStatus)
-        Me.Panel3.Controls.Add(Me.Label2)
         Me.Panel3.Controls.Add(Me.TabControl1)
         Me.Panel3.Controls.Add(Me.cmbTillNo)
         Me.Panel3.Controls.Add(Me.btnSearch)
@@ -141,33 +142,14 @@ Partial Class frmTillAdministration
         Me.Panel3.Controls.Add(Me.Label3)
         Me.Panel3.Location = New System.Drawing.Point(10, 50)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(533, 453)
+        Me.Panel3.Size = New System.Drawing.Size(533, 552)
         Me.Panel3.TabIndex = 11
-        '
-        'cmbStatus
-        '
-        Me.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbStatus.FormattingEnabled = True
-        Me.cmbStatus.Items.AddRange(New Object() {"", "ENABLED", "DISABLED"})
-        Me.cmbStatus.Location = New System.Drawing.Point(131, 88)
-        Me.cmbStatus.Name = "cmbStatus"
-        Me.cmbStatus.Size = New System.Drawing.Size(110, 24)
-        Me.cmbStatus.TabIndex = 13
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(75, 88)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(48, 17)
-        Me.Label2.TabIndex = 12
-        Me.Label2.Text = "Status"
         '
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
-        Me.TabControl1.Location = New System.Drawing.Point(16, 118)
+        Me.TabControl1.Location = New System.Drawing.Point(16, 206)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(500, 320)
@@ -351,7 +333,7 @@ Partial Class frmTillAdministration
         Me.dtgrdTillList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dtgrdTillList.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         Me.dtgrdTillList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dtgrdTillList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2})
+        Me.dtgrdTillList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column3, Me.Column1, Me.Column2})
         Me.dtgrdTillList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dtgrdTillList.Location = New System.Drawing.Point(551, 50)
         Me.dtgrdTillList.Name = "dtgrdTillList"
@@ -359,18 +341,6 @@ Partial Class frmTillAdministration
         Me.dtgrdTillList.RowTemplate.Height = 24
         Me.dtgrdTillList.Size = New System.Drawing.Size(336, 453)
         Me.dtgrdTillList.TabIndex = 12
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = "Till No"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "Computer Name"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
         '
         'ToolStrip1
         '
@@ -451,18 +421,52 @@ Partial Class frmTillAdministration
         'chkActive
         '
         Me.chkActive.AutoSize = True
-        Me.chkActive.Location = New System.Drawing.Point(254, 87)
+        Me.chkActive.Location = New System.Drawing.Point(129, 112)
         Me.chkActive.Name = "chkActive"
         Me.chkActive.Size = New System.Drawing.Size(68, 21)
         Me.chkActive.TabIndex = 15
         Me.chkActive.Text = "Active"
         Me.chkActive.UseVisualStyleBackColor = True
         '
+        'Column3
+        '
+        Me.Column3.HeaderText = "ID"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "Till No"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "Computer Name"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        '
+        'txtName
+        '
+        Me.txtName.Location = New System.Drawing.Point(129, 84)
+        Me.txtName.Name = "txtName"
+        Me.txtName.Size = New System.Drawing.Size(370, 22)
+        Me.txtName.TabIndex = 16
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(56, 85)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(67, 17)
+        Me.Label2.TabIndex = 17
+        Me.Label2.Text = "Till Name"
+        '
         'frmTillAdministration
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(896, 565)
+        Me.ClientSize = New System.Drawing.Size(896, 651)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.dtgrdTillList)
         Me.Controls.Add(Me.Panel3)
@@ -496,8 +500,6 @@ Partial Class frmTillAdministration
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents btnSearch As System.Windows.Forms.Button
     Friend WithEvents Panel3 As Panel
-    Friend WithEvents cmbStatus As ComboBox
-    Friend WithEvents Label2 As Label
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents Panel2 As Panel
@@ -516,8 +518,6 @@ Partial Class frmTillAdministration
     Friend WithEvents Label4 As Label
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents dtgrdTillList As DataGridView
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents txtFiscalPrinterPort As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents ToolStrip1 As ToolStrip
@@ -529,4 +529,9 @@ Partial Class frmTillAdministration
     Friend WithEvents ToolStripButton6 As ToolStripButton
     Friend WithEvents txtId As TextBox
     Friend WithEvents chkActive As CheckBox
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Label2 As Label
+    Friend WithEvents txtName As TextBox
 End Class

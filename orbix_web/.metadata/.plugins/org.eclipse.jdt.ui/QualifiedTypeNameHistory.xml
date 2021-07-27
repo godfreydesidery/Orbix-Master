@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.example.orbix_web.exceptions.OperationFailedException"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.SalesReturn"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.SalesReturnDetail"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.exceptions.MissingInformationException"/>
@@ -35,7 +33,6 @@
 <fullyQualifiedTypeName name="com.example.orbix_web.exceptions.NotFoundException"/>
 <fullyQualifiedTypeName name="java.util.NoSuchElementException"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.Role"/>
-<fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.RolePriveledge"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.exceptions.InvalidOperationException"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.User_"/>
@@ -60,4 +57,7 @@
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.UserRepository"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
 <fullyQualifiedTypeName name="java.util.Optional"/>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
+<fullyQualifiedTypeName name="com.example.orbix_web.models.TillPosition"/>
+<fullyQualifiedTypeName name="com.example.orbix_web.repositories.TillPositionRepository"/>
 </qualifiedTypeNameHistroy>

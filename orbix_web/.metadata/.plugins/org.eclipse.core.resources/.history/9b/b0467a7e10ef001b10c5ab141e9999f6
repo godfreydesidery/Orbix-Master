@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package com.example.orbix_web.repositories;
+
+/**
+ * @author GODFREY
+ *
+ */
+public interface TillPositionRepository {
+
+}

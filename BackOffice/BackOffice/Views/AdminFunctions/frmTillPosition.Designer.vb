@@ -37,6 +37,7 @@ Partial Class frmTillPosition
         Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dtgrdTillPosition, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -59,7 +60,7 @@ Partial Class frmTillPosition
         Me.dtgrdTillPosition.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dtgrdTillPosition.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         Me.dtgrdTillPosition.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dtgrdTillPosition.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column12, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column8, Me.Column9, Me.Column10, Me.Column11})
+        Me.dtgrdTillPosition.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column12, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column8, Me.Column9, Me.Column10, Me.Column11, Me.Column13})
         Me.dtgrdTillPosition.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dtgrdTillPosition.Location = New System.Drawing.Point(12, 12)
         Me.dtgrdTillPosition.Name = "dtgrdTillPosition"
@@ -129,6 +130,11 @@ Partial Class frmTillPosition
         Me.Column11.HeaderText = "Mobile"
         Me.Column11.Name = "Column11"
         '
+        'Column13
+        '
+        Me.Column13.HeaderText = "Other"
+        Me.Column13.Name = "Column13"
+        '
         'frmTillPosition
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -161,4 +167,5 @@ Partial Class frmTillPosition
     Friend WithEvents Column9 As DataGridViewTextBoxColumn
     Friend WithEvents Column10 As DataGridViewTextBoxColumn
     Friend WithEvents Column11 As DataGridViewTextBoxColumn
+    Friend WithEvents Column13 As DataGridViewTextBoxColumn
 End Class

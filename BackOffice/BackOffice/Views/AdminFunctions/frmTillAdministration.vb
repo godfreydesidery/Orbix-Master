@@ -17,47 +17,40 @@ Public Class frmTillAdministration
     End Sub
     Private Function refreshList()
         dtgrdTillList.Rows.Clear()
+        Dim list As New List(Of Till)
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim codeQuery As String = "SELECT `till_no`, `computer_name` FROM `till` "
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            Dim tillNo As String = ""
-            Dim computerName As String = ""
-
-            While reader.Read
-
-                tillNo = reader.GetString("till_no")
-                computerName = reader.GetString("computer_name")
-
-                Dim dtgrdRow As New DataGridViewRow
-                Dim dtgrdCell As DataGridViewCell
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = tillNo
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = computerName
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdTillList.Rows.Add(dtgrdRow)
-            End While
-            conn.Close()
+            response = Web.get_("tills")
+            list = JsonConvert.DeserializeObject(Of List(Of Till))(response.ToString)
         Catch ex As Exception
             MsgBox(ex.ToString)
+            Return vbNull
+            Exit Function
         End Try
+        For Each till As Till In list
+            Dim dtgrdRow As New DataGridViewRow
+            Dim dtgrdCell As DataGridViewCell
 
+            dtgrdCell = New DataGridViewTextBoxCell()
+            dtgrdCell.Value = till.id
+            dtgrdRow.Cells.Add(dtgrdCell)
+
+            dtgrdCell = New DataGridViewTextBoxCell()
+            dtgrdCell.Value = till.no
+            dtgrdRow.Cells.Add(dtgrdCell)
+
+            dtgrdCell = New DataGridViewTextBoxCell()
+            dtgrdCell.Value = till.name
+            dtgrdRow.Cells.Add(dtgrdCell)
+
+            dtgrdTillList.Rows.Add(dtgrdRow)
+        Next
         Return vbNull
     End Function
-    Private Function search(tillNo As String) As Boolean
+    Private Function search(id As String, tillNo As String) As Boolean
         cmbTillNo.Enabled = False
-        If searchTill(tillNo) = True Then
+        If searchTill("", tillNo) = True Then
             searchPosPrinter(tillNo)
             searchFiscalPrinter(tillNo)
         Else
@@ -65,17 +58,21 @@ Public Class frmTillAdministration
         End If
         Return vbNull
     End Function
-    Private Function searchTill(tillnumber As String) As Boolean
-        txtId.Text = ""
-        If cmbTillNo.Text = "" Then
-            MsgBox("Please specify a record to searchn.", vbOKOnly + vbExclamation, "Error: Search key not specified")
+    Private Function searchTill(tillId As String, tillnumber As String) As Boolean
+        If cmbTillNo.Text = "" And txtId.Text = "" Then
+            MsgBox("Please specify a record to search.", vbOKOnly + vbExclamation, "Error: Search key not specified")
             Return vbNull
             Exit Function
         End If
         Dim response As Object = New Object
         Dim json As JObject = New JObject
         Try
-            response = Web.get_("tills/get_by_no?no=" + cmbTillNo.Text)
+            If txtId.Text <> "" Then
+                response = Web.get_("tills/get_by_id?id=" + txtId.Text)
+            Else
+                response = Web.get_("tills/get_by_no?no=" + cmbTillNo.Text)
+            End If
+
             json = JObject.Parse(response)
         Catch ex As Exception
             Return False
@@ -89,6 +86,7 @@ Public Class frmTillAdministration
 
             cmbTillNo.Text = till.no
             txtComputerName.Text = till.computerName
+            txtName.Text = till.name
             If till.active = 1 Then
                 chkActive.Checked = True
             Else
@@ -188,13 +186,13 @@ Public Class frmTillAdministration
     End Sub
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-        search(cmbTillNo.Text)
+        search("", cmbTillNo.Text)
     End Sub
 
     Private Sub dtgrdTillList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dtgrdTillList.CellClick
-        Dim tillNo As String = ""
-        tillNo = dtgrdTillList.Item(0, dtgrdTillList.CurrentRow.Index).Value.ToString
-        search(tillNo)
+
+        txtId.Text = dtgrdTillList.Item(0, dtgrdTillList.CurrentRow.Index).Value.ToString
+        search(txtId.Text, "")
     End Sub
 
     Private Sub btnApplyPosPrinter_Click(sender As Object, e As EventArgs) Handles btnApplyPosPrinter.Click
@@ -296,9 +294,10 @@ Public Class frmTillAdministration
         MsgBox("Applied")
     End Sub
     Private Function clear()
+        txtId.Text = ""
         cmbTillNo.Text = ""
         txtComputerName.Text = ""
-        cmbStatus.SelectedIndex = 0
+        txtName.Text = ""
         txtPosPrinterLogicName.Text = ""
         chkEnablePosPrinter.Checked = False
         txtFiscalPrinterOperatorCode.Text = ""
@@ -309,95 +308,62 @@ Public Class frmTillAdministration
     End Function
     Private Function lock()
         txtComputerName.ReadOnly = True
-        cmbStatus.Enabled = False
         Return vbNull
     End Function
     Private Function unlock()
         txtComputerName.ReadOnly = False
-        cmbStatus.Enabled = True
         Return vbNull
     End Function
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
-        EDIT_MODE = "NEW"
         clear()
         cmbTillNo.Enabled = True
     End Sub
     Dim EDIT_MODE As String = ""
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        If EDIT_MODE = "NEW" Then
-
-            If searchTill(cmbTillNo.Text) = True Then
-                MsgBox("A till with the specified Till Number already exist. Please specify a different till number.", vbExclamation + vbOKOnly, "Error: Duplicate till no")
-                clear()
-                Exit Sub
-            End If
-
-            If cmbTillNo.Text = "" Then
-                MsgBox("Till number required", vbExclamation + vbOKOnly, "Error: Missing information")
-                Exit Sub
-            End If
-            'save new till
-            Try
-                Dim conn As New MySqlConnection(Database.conString)
-                Dim command As New MySqlCommand()
-                'create bar code
-                Dim codeQuery As String = "INSERT INTO `till`(`till_no`, `computer_name`, `status`) VALUES (@till_no,@computer_name,@status)"
-                conn.Open()
-                command.CommandText = codeQuery
-                command.Connection = conn
-                command.CommandType = CommandType.Text
-                command.Parameters.AddWithValue("@till_no", cmbTillNo.Text)
-                command.Parameters.AddWithValue("@computer_name", txtComputerName.Text)
-                command.Parameters.AddWithValue("@status", cmbStatus.Text)
-                command.ExecuteNonQuery()
-                conn.Close()
-            Catch ex As Exception
-                MsgBox(ex.ToString)
-            End Try
+        If searchTill("", cmbTillNo.Text) = True And txtId.Text = "" Then
+            MsgBox("A till with the specified Till Number already exist. Please specify a different till number.", vbExclamation + vbOKOnly, "Error: Duplicate till no")
+            clear()
+            Exit Sub
         End If
-        If EDIT_MODE = "" Then
-            Try
-                Dim conn As New MySqlConnection(Database.conString)
-                Dim command As New MySqlCommand()
-                'create bar code
-                Dim codeQuery As String = "UPDATE `till` SET `computer_name`='" + txtComputerName.Text + "',`status`='" + cmbStatus.Text + "' WHERE `till_no`='" + cmbTillNo.Text + "'"
-                conn.Open()
-                command.CommandText = codeQuery
-                command.Connection = conn
-                command.CommandType = CommandType.Text
-                command.ExecuteNonQuery()
-                conn.Close()
-            Catch ex As Exception
-                MsgBox(ex.ToString)
-            End Try
+        If cmbTillNo.Text = "" Then
+            MsgBox("Till number required", vbExclamation + vbOKOnly, "Error: Missing information")
+            Exit Sub
         End If
-        refreshList()
+
+        Dim till As Till = New Till
+        till.id = txtId.Text
+        till.no = cmbTillNo.Text
+        till.computerName = txtComputerName.Text
+        till.name = txtName.Text
+        If chkActive.Checked = True Then
+            till.active = 1
+        Else
+            till.active = 0
+        End If
+
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+        Try
+            Dim success As Boolean = False
+            If txtId.Text = "" Then
+                response = Web.post(till, "tills/new")
+                json = JObject.Parse(response)
+                txtId.Text = json.SelectToken("id")
+                refreshList()
+                MsgBox("Till created successifully", vbOKOnly + vbInformation, "Success")
+            Else
+                If Web.put(till, "tills/edit_by_id?id=" + txtId.Text) = True Then
+                    refreshList()
+                    MsgBox("Till updated successifully", vbOKOnly + vbInformation, "Success")
+                Else
+                    MsgBox("Update failed")
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+            MsgBox("Operation failed")
+            Exit Sub
+        End Try
     End Sub
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
