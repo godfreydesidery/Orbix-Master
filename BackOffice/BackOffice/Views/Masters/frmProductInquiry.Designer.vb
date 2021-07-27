@@ -183,9 +183,9 @@ Partial Class frmProductInquiry
         '
         'btnSearch
         '
-        Me.btnSearch.Location = New System.Drawing.Point(410, 40)
+        Me.btnSearch.Location = New System.Drawing.Point(423, 40)
         Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(115, 50)
+        Me.btnSearch.Size = New System.Drawing.Size(100, 40)
         Me.btnSearch.TabIndex = 15
         Me.btnSearch.Text = "Search"
         Me.btnSearch.UseVisualStyleBackColor = True

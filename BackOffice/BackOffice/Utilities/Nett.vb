@@ -4,7 +4,7 @@ Imports System.Text
 Imports Newtonsoft.Json
 'Namespace Examples.System.Net
 Public Class Nett
-    Public Shared Function connect()
+    Public Shared Function connect1()
         Dim postData As Product = New Product
         postData.id = 1
         postData.code = "sdfghjk"

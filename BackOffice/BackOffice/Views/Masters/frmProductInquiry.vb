@@ -11,7 +11,7 @@ Public Class frmProductInquiry
     Private Function search()
         txtId.Text = ""
         If txtPrimaryBarcode.Text = "" And txtCode.Text = "" And cmbDescription.Text = "" Then
-            MsgBox("Please specify a record to search. Enter barcode, itemcode or long description.", vbOKOnly + vbExclamation, "Error: Search key not specified")
+            MsgBox("Please specify a record to search. Enter barcode, itemcode or description.", vbOKOnly + vbExclamation, "Error: Search key not specified")
             Return vbNull
             Exit Function
         End If

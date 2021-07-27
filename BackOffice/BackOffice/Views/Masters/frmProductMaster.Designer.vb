@@ -131,7 +131,7 @@ Partial Class frmProductMaster
         '
         Me.btnSearch.Location = New System.Drawing.Point(312, 48)
         Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(100, 51)
+        Me.btnSearch.Size = New System.Drawing.Size(100, 40)
         Me.btnSearch.TabIndex = 15
         Me.btnSearch.Text = "Search"
         Me.btnSearch.UseVisualStyleBackColor = True
