@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmSalesInvoice
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmSalesInvoice
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSalesInvoice))
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -59,12 +59,10 @@ Partial Class frmSalesInvoice
         Me.btnApprove = New System.Windows.Forms.ToolStripButton()
         Me.btnPrint = New System.Windows.Forms.ToolStripButton()
         Me.btnComplete = New System.Windows.Forms.ToolStripButton()
-        Me.btnClearDebt = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnArchive = New System.Windows.Forms.ToolStripButton()
         Me.btnArchiveAll = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btnPrintReport = New System.Windows.Forms.ToolStripButton()
         Me.dtgrdInvoiceLists = New System.Windows.Forms.DataGridView()
         Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -334,7 +332,7 @@ Partial Class frmSalesInvoice
         'ToolStrip1
         '
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnNew, Me.btnEdit, Me.btnClear, Me.btnSave, Me.ToolStripSeparator1, Me.ToolStripSeparator2, Me.ToolStripSeparator3, Me.ToolStripSeparator4, Me.btnCancel, Me.btnApprove, Me.btnPrint, Me.btnComplete, Me.btnClearDebt, Me.ToolStripSeparator6, Me.btnArchive, Me.btnArchiveAll, Me.ToolStripSeparator5, Me.btnPrintReport})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnNew, Me.btnEdit, Me.btnClear, Me.btnSave, Me.ToolStripSeparator1, Me.ToolStripSeparator2, Me.ToolStripSeparator3, Me.ToolStripSeparator4, Me.btnCancel, Me.btnApprove, Me.btnPrint, Me.btnComplete, Me.ToolStripSeparator6, Me.btnArchive, Me.btnArchiveAll, Me.ToolStripSeparator5})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(1520, 27)
@@ -429,19 +427,9 @@ Partial Class frmSalesInvoice
         Me.btnComplete.Image = Global.BackOffice.My.Resources.Resources.foward_arrow
         Me.btnComplete.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnComplete.Name = "btnComplete"
-        Me.btnComplete.Size = New System.Drawing.Size(160, 24)
-        Me.btnComplete.Text = "Complete and post"
+        Me.btnComplete.Size = New System.Drawing.Size(214, 24)
+        Me.btnComplete.Text = "Complete and post to sales"
         Me.btnComplete.ToolTipText = "Complete sales made from the packing list"
-        '
-        'btnClearDebt
-        '
-        Me.btnClearDebt.Enabled = False
-        Me.btnClearDebt.Image = Global.BackOffice.My.Resources.Resources.money
-        Me.btnClearDebt.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnClearDebt.Name = "btnClearDebt"
-        Me.btnClearDebt.Size = New System.Drawing.Size(92, 24)
-        Me.btnClearDebt.Text = "Pay Debt"
-        Me.btnClearDebt.ToolTipText = "Receive debts from sales persons"
         '
         'ToolStripSeparator6
         '
@@ -470,15 +458,6 @@ Partial Class frmSalesInvoice
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
         Me.ToolStripSeparator5.Size = New System.Drawing.Size(6, 27)
-        '
-        'btnPrintReport
-        '
-        Me.btnPrintReport.Image = Global.BackOffice.My.Resources.Resources.printer
-        Me.btnPrintReport.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnPrintReport.Name = "btnPrintReport"
-        Me.btnPrintReport.Size = New System.Drawing.Size(112, 24)
-        Me.btnPrintReport.Text = "Print Report"
-        Me.btnPrintReport.ToolTipText = "Print packing list as report to pdf"
         '
         'dtgrdInvoiceLists
         '
@@ -561,7 +540,7 @@ Partial Class frmSalesInvoice
         Me.Panel2.Controls.Add(Me.Label18)
         Me.Panel2.Location = New System.Drawing.Point(12, 397)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(469, 372)
+        Me.Panel2.Size = New System.Drawing.Size(473, 372)
         Me.Panel2.TabIndex = 104
         '
         'txtAmount
@@ -931,7 +910,7 @@ Partial Class frmSalesInvoice
         '
         'txtTotal
         '
-        Me.txtTotal.Location = New System.Drawing.Point(545, 215)
+        Me.txtTotal.Location = New System.Drawing.Point(529, 243)
         Me.txtTotal.Name = "txtTotal"
         Me.txtTotal.Size = New System.Drawing.Size(136, 22)
         Me.txtTotal.TabIndex = 124
@@ -978,12 +957,10 @@ Partial Class frmSalesInvoice
     Friend WithEvents btnApprove As ToolStripButton
     Friend WithEvents btnPrint As ToolStripButton
     Friend WithEvents btnComplete As ToolStripButton
-    Friend WithEvents btnClearDebt As ToolStripButton
     Friend WithEvents ToolStripSeparator6 As ToolStripSeparator
     Friend WithEvents btnArchive As ToolStripButton
     Friend WithEvents btnArchiveAll As ToolStripButton
     Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
-    Friend WithEvents btnPrintReport As ToolStripButton
     Friend WithEvents Label4 As Label
     Friend WithEvents txtInvoiceNo As TextBox
     Friend WithEvents cmbCustomerName As ComboBox

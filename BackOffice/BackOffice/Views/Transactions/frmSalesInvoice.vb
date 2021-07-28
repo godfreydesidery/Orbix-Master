@@ -1251,7 +1251,7 @@ Public Class frmSalesInvoice
             status = ""
         End Try
         If Not status = "APPROVED" Then
-            MsgBox("Invoice could not be completed, invoice not approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("Only approved invoices can be completed and sent to customer", vbOKOnly + vbExclamation, "Error: Invalid operation")
             clearFields()
             Exit Sub
         End If

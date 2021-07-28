@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.example.orbix_web.exceptions.MissingInformationException"/>
-<fullyQualifiedTypeName name="com.example.orbix_web.models.SalesInvoiceDetail"/>
-<fullyQualifiedTypeName name="com.example.orbix_web.exceptions.InvalidEntryException"/>
-<fullyQualifiedTypeName name="com.example.orbix_web.repositories.SalesReturnRepository"/>
-<fullyQualifiedTypeName name="com.example.orbix_web.repositories.SalesReturnDetailRepository"/>
-<fullyQualifiedTypeName name="com.example.orbix_web.models.Item"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.CustomerCreditNote"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.CustomerCreditNoteRepository"/>
 <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
@@ -60,4 +54,10 @@
 <fullyQualifiedTypeName name="java.util.Optional"/>
 <fullyQualifiedTypeName name="java.time.LocalDate"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.UserRepository"/>
+<fullyQualifiedTypeName name="com.example.orbix_web.models.ReceiptDetail"/>
+<fullyQualifiedTypeName name="com.example.orbix_web.repositories.ReceiptDetailRepository"/>
+<fullyQualifiedTypeName name="com.example.orbix_web.models.Sale"/>
+<fullyQualifiedTypeName name="com.example.orbix_web.repositories.SaleRepository"/>
+<fullyQualifiedTypeName name="com.example.orbix_web.repositories.SaleDetailRepository"/>
+<fullyQualifiedTypeName name="com.example.orbix_web.models.SaleDetail"/>
 </qualifiedTypeNameHistroy>
