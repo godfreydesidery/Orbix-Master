@@ -1242,4 +1242,46 @@ Public Class frmSalesInvoice
             cmbDescription.Enabled = False
         End If
     End Sub
+
+    Private Sub btnComplete_Click(sender As Object, e As EventArgs) Handles btnComplete.Click
+        Dim status As String
+        Try
+            status = Web.get_("sales_invoices/get_status_by_id?id=" + txtId.Text)
+        Catch ex As Exception
+            status = ""
+        End Try
+        If Not status = "APPROVED" Then
+            MsgBox("Invoice could not be completed, invoice not approved.", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            clearFields()
+            Exit Sub
+        End If
+        '    If User.authorize("APPROVE LPO") = True Then
+        If txtInvoiceNo.Text = "" Then
+            MsgBox("Please select an Invoice to complete", vbOKOnly + vbInformation, "")
+            Exit Sub
+        End If
+        Dim res As Integer = MsgBox("Are you sure you want to complete Invoice : " + txtInvoiceNo.Text + " ? Products will be deducted from inventory and product sales will be registered", vbYesNo + vbQuestion, "Complete Invoice?")
+        If res = DialogResult.Yes Then
+            'approve order
+
+            If dtgrdProductList.RowCount = 0 Then
+                MsgBox("You can not complete an empty Invoice", vbOKOnly + vbInformation, "")
+                Exit Sub
+            End If
+            Dim approved As Boolean = False
+            Try
+                approved = Web.put(vbNull, "sales_invoices/complete_by_id?id=" + txtId.Text)
+            Catch ex As Exception
+                MsgBox(ex.ToString)
+                approved = False
+            End Try
+            If approved = True Then
+                MsgBox("Invoice Successively completed", vbOKOnly + vbInformation, "")
+            Else
+                MsgBox("Operation failed")
+            End If
+            search(txtId.Text, "")
+            refreshInvoiceList()
+        End If
+    End Sub
 End Class

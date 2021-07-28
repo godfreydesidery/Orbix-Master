@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.example.orbix_web.models.SalesReturn"/>
-<fullyQualifiedTypeName name="com.example.orbix_web.models.SalesReturnDetail"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.exceptions.MissingInformationException"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.SalesInvoiceDetail"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.exceptions.InvalidEntryException"/>
@@ -17,7 +15,6 @@
 <fullyQualifiedTypeName name="com.example.orbix_web.models.QuotationDetail"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.QuotationRepository"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.QuotationDetailRepository"/>
-<fullyQualifiedTypeName name="java.time.LocalDate"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.VendorInvoiceHistory"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.VendorInvoice"/>
 <fullyQualifiedTypeName name="org.springframework.http.MediaType"/>
@@ -54,10 +51,13 @@
 <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.CorporateCustomer"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.CorporateCustomerRepository"/>
-<fullyQualifiedTypeName name="com.example.orbix_web.repositories.UserRepository"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
-<fullyQualifiedTypeName name="java.util.Optional"/>
 <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.models.TillPosition"/>
 <fullyQualifiedTypeName name="com.example.orbix_web.repositories.TillPositionRepository"/>
+<fullyQualifiedTypeName name="com.example.orbix_web.models.Till"/>
+<fullyQualifiedTypeName name="com.example.orbix_web.repositories.TillRepository"/>
+<fullyQualifiedTypeName name="java.util.Optional"/>
+<fullyQualifiedTypeName name="java.time.LocalDate"/>
+<fullyQualifiedTypeName name="com.example.orbix_web.repositories.UserRepository"/>
 </qualifiedTypeNameHistroy>
