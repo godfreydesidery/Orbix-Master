@@ -13654,3 +13654,258 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.eclipse.ui 2 2 2021-07-28 22:27:52.540
 !MESSAGE Invalid property category path: org.springframework.ide.eclipse.beans.ui.properties.ProjectPropertyPage (bundle: org.springframework.ide.eclipse.xml.namespaces, propertyPage: org.springframework.ide.eclipse.beans.ui.namespaces.projectPropertyPage)
+!SESSION 2021-07-28 22:38:52.863 -----------------------------------------------
+eclipse.buildId=4.5.1.202001211336-RELEASE
+java.version=1.8.0_241
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.springframework.boot.ide.branding.sts4
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.springframework.boot.ide.branding.sts4
+
+!ENTRY org.eclipse.jface 2 0 2021-07-28 22:39:03.737
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-07-28 22:39:03.737
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@56e78538,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@731fae,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:09.866
+!MESSAGE Entering DelegatingStreamConnectionProvider()
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:09.873
+!MESSAGE DelegatingStreamConnectionProvider classloader = org.eclipse.osgi.internal.loader.EquinoxClassLoader@5cb654e3[org.springframework.tooling.boot.ls:1.15.0.202001210741(id=631)]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:09.880
+!MESSAGE SpringBootLanguageServer exists!
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:09.919
+!MESSAGE Instantiating ReusableClasspathListenerHandler
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-07-28 22:39:12.816
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\GODFREY'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.426
+!MESSAGE Boot LS startup time from start to initialized: 8528ms
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.510
+!MESSAGE ClasspathListenerHandler addClasspathListener sts4.classpath.ABOqwiTtisBatched = true
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.717
+!MESSAGE subscribing to classpath changes: sts4.classpath.ABOqwiTt isBatched = true
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.728
+!MESSAGE Setting up ClasspathListenerManager
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.738
+!MESSAGE subsribers = {sts4.classpath.ABOqwiTt=Send Classpath Notifications(84)}
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.747
+!MESSAGE Sending initial event for all projects ...
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.755
+!MESSAGE project orbix_web ...
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.762
+!MESSAGE Sending initial event for all projects DONE
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.770
+!MESSAGE Preparing classpath changed notification orbix_web
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.776
+!MESSAGE ClasspathListenerHandler addClasspathListener sts4.classpath.ABOqwiTt => OK
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.785
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.812
+!MESSAGE classpath=138 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.824
+!MESSAGE buffering callback sts4.classpath.ABOqwiTt orbix_web false 138
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.830
+!MESSAGE executing callback sts4.classpath.ABOqwiTt 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-07-28 22:39:18.854
+!MESSAGE executing callback sts4.classpath.ABOqwiTt SUCCESS [done]
+
+!ENTRY org.eclipse.ui 2 2 2021-07-28 22:39:31.581
+!MESSAGE Invalid property category path: org.springframework.ide.eclipse.beans.ui.properties.ProjectPropertyPage (bundle: org.springframework.ide.eclipse.xml.namespaces, propertyPage: org.springframework.ide.eclipse.beans.ui.namespaces.projectPropertyPage)
+
+!ENTRY org.eclipse.wst.common.modulecore 4 0 2021-07-28 22:39:32.125
+!MESSAGE 
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphImpl.restoreGraph(DependencyGraphImpl.java:755)
+	at org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphImpl.initGraph(DependencyGraphImpl.java:240)
+	at org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphImpl.getInstance(DependencyGraphImpl.java:92)
+	at org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph.<clinit>(IDependencyGraph.java:70)
+	at org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.start(J2EEPlugin.java:543)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$3.run(BundleContextImpl.java:842)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$3.run(BundleContextImpl.java:1)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.startActivator(BundleContextImpl.java:834)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.start(BundleContextImpl.java:791)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.startWorker0(EquinoxBundle.java:1015)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.startWorker(EquinoxBundle.java:365)
+	at org.eclipse.osgi.container.Module.doStart(Module.java:603)
+	at org.eclipse.osgi.container.Module.start(Module.java:467)
+	at org.eclipse.osgi.framework.util.SecureAction.start(SecureAction.java:493)
+	at org.eclipse.osgi.internal.hooks.EclipseLazyStarter.postFindLocalClass(EclipseLazyStarter.java:117)
+	at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.findLocalClass(ClasspathManager.java:571)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.findLocalClass(ModuleClassLoader.java:346)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findLocalClass(BundleLoader.java:398)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:476)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:425)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:417)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:171)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.loadClass(EquinoxBundle.java:620)
+	at org.eclipse.wst.common.project.facet.core.util.internal.PluginUtil.loadClass(PluginUtil.java:197)
+	at org.eclipse.wst.common.project.facet.core.util.internal.PluginUtil.instantiate(PluginUtil.java:250)
+	at org.eclipse.wst.common.project.facet.core.internal.FacetedProjectValidationBuilder$ValidatorDefinition.getValidator(FacetedProjectValidationBuilder.java:258)
+	at org.eclipse.wst.common.project.facet.core.internal.FacetedProjectValidationBuilder.build(FacetedProjectValidationBuilder.java:128)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:833)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:220)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:263)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:316)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:319)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:371)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:392)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:154)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:244)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.core.resources 4 2 2021-07-28 22:39:32.410
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+org.eclipse.emf.ecore.resource.impl.ResourceSetImpl$1DiagnosticWrappedException: org.eclipse.emf.ecore.xmi.PackageNotFoundException: Package with uri 'null' not found. (platform:/resource/orbix_web/.settings/org.eclipse.wst.common.component, 1, 98)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.handleDemandLoadException(ResourceSetImpl.java:319)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoadHelper(ResourceSetImpl.java:278)
+	at org.eclipse.jem.internal.util.emf.workbench.ProjectResourceSetImpl.getResource(ProjectResourceSetImpl.java:1064)
+	at org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper.getOrCreateResource(WorkbenchResourceHelper.java:380)
+	at org.eclipse.wst.common.internal.emfworkbench.integration.EditModel.getResource(EditModel.java:685)
+	at org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel.getPrimaryResource(ModuleStructuralModel.java:332)
+	at org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel.prepareProjectModulesIfNecessary(ModuleStructuralModel.java:240)
+	at org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel.getPrimaryRootObject(ModuleStructuralModel.java:119)
+	at org.eclipse.wst.common.componentcore.internal.StructureEdit.getComponentModelRoot(StructureEdit.java:471)
+	at org.eclipse.wst.common.componentcore.internal.StructureEdit.getWorkbenchModules(StructureEdit.java:506)
+	at org.eclipse.wst.common.componentcore.internal.StructureEdit.getComponent(StructureEdit.java:949)
+	at org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent.createResource(VirtualComponent.java:124)
+	at org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent.initializeResource(VirtualComponent.java:113)
+	at org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent.<init>(VirtualComponent.java:148)
+	at org.eclipse.wst.common.componentcore.internal.util.ComponentImplManager.createComponentSynchronously(ComponentImplManager.java:252)
+	at org.eclipse.wst.common.componentcore.internal.util.ComponentImplManager.createComponent(ComponentImplManager.java:215)
+	at org.eclipse.wst.common.componentcore.internal.util.ComponentImplManager.createComponent(ComponentImplManager.java:205)
+	at org.eclipse.wst.common.componentcore.ComponentCore.createComponent(ComponentCore.java:64)
+	at org.eclipse.jst.j2ee.project.facet.EarFacetValidator.validate(EarFacetValidator.java:47)
+	at org.eclipse.wst.common.project.facet.core.internal.FacetedProjectValidationBuilder.build(FacetedProjectValidationBuilder.java:132)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:833)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:220)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:263)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:316)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:319)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:371)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:392)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:154)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:244)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: org.eclipse.emf.ecore.xmi.PackageNotFoundException: Package with uri 'null' not found. (platform:/resource/orbix_web/.settings/org.eclipse.wst.common.component, 1, 98)
+	at org.eclipse.emf.ecore.xmi.impl.XMLHandler.createObjectByType(XMLHandler.java:1361)
+	at org.eclipse.emf.ecore.xmi.impl.XMLHandler.createTopObject(XMLHandler.java:1522)
+	at org.eclipse.emf.ecore.xmi.impl.XMLHandler.processElement(XMLHandler.java:1044)
+	at org.eclipse.emf.ecore.xmi.impl.XMIHandler.processElement(XMIHandler.java:78)
+	at org.eclipse.emf.ecore.xmi.impl.XMLHandler.startElement(XMLHandler.java:1026)
+	at org.eclipse.emf.ecore.xmi.impl.SAXWrapper.startElement(SAXWrapper.java:92)
+	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl$NSContentDriver.scanRootElementHook(Unknown Source)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(Unknown Source)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(Unknown Source)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(Unknown Source)
+	at com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl.next(Unknown Source)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl.parse(Unknown Source)
+	at org.eclipse.emf.ecore.xmi.impl.XMLLoadImpl.load(XMLLoadImpl.java:175)
+	at org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl.doLoad(XMLResourceImpl.java:261)
+	at org.eclipse.wst.common.internal.emf.resource.CompatibilityXMIResourceImpl.basicDoLoad(CompatibilityXMIResourceImpl.java:189)
+	at org.eclipse.wst.common.internal.emf.resource.ReferencedXMIResourceImpl.basicDoLoad(ReferencedXMIResourceImpl.java:323)
+	at org.eclipse.wst.common.internal.emf.resource.CompatibilityXMIResourceImpl.doLoad(CompatibilityXMIResourceImpl.java:182)
+	at org.eclipse.emf.ecore.resource.impl.ResourceImpl.load(ResourceImpl.java:1563)
+	at org.eclipse.emf.ecore.resource.impl.ResourceImpl.load(ResourceImpl.java:1342)
+	at org.eclipse.wst.common.internal.emf.resource.CompatibilityXMIResourceImpl.load(CompatibilityXMIResourceImpl.java:272)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoad(ResourceSetImpl.java:259)
+	at org.eclipse.jem.internal.util.emf.workbench.ProjectResourceSetImpl.demandLoad(ProjectResourceSetImpl.java:811)
+	at org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoadHelper(ResourceSetImpl.java:274)
+	... 30 more
+
+!ENTRY org.eclipse.wst.common.modulecore 4 2 2021-07-28 22:39:32.432
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.wst.common.modulecore".
+!STACK 0
+java.lang.ClassCastException: org.eclipse.wst.common.componentcore.internal.impl.ReferencedComponentXMIResourceImpl cannot be cast to org.eclipse.wst.common.componentcore.internal.impl.WTPModulesResource
+	at org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel.getPrimaryResource(ModuleStructuralModel.java:332)
+	at org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel.prepareProjectModulesIfNecessary(ModuleStructuralModel.java:240)
+	at org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel.getPrimaryRootObject(ModuleStructuralModel.java:119)
+	at org.eclipse.wst.common.componentcore.internal.StructureEdit.getComponentModelRoot(StructureEdit.java:471)
+	at org.eclipse.wst.common.componentcore.internal.StructureEdit.getWorkbenchModules(StructureEdit.java:506)
+	at org.eclipse.wst.common.componentcore.internal.StructureEdit.getComponent(StructureEdit.java:949)
+	at org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent.createResource(VirtualComponent.java:124)
+	at org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent.initializeResource(VirtualComponent.java:113)
+	at org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent.<init>(VirtualComponent.java:148)
+	at org.eclipse.wst.common.componentcore.internal.util.ComponentImplManager.createComponentSynchronously(ComponentImplManager.java:252)
+	at org.eclipse.wst.common.componentcore.internal.util.ComponentImplManager.createComponent(ComponentImplManager.java:215)
+	at org.eclipse.wst.common.componentcore.internal.util.ComponentImplManager.createComponent(ComponentImplManager.java:205)
+	at org.eclipse.wst.common.componentcore.ComponentCore.createComponent(ComponentCore.java:64)
+	at org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphImpl$GraphUpdateJob$1.run(DependencyGraphImpl.java:494)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphImpl$GraphUpdateJob.run(DependencyGraphImpl.java:462)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.wst.common.modulecore 4 0 2021-07-28 22:39:32.432
+!MESSAGE org.eclipse.wst.common.componentcore.internal.impl.ReferencedComponentXMIResourceImpl cannot be cast to org.eclipse.wst.common.componentcore.internal.impl.WTPModulesResource
+!STACK 0
+java.lang.ClassCastException: org.eclipse.wst.common.componentcore.internal.impl.ReferencedComponentXMIResourceImpl cannot be cast to org.eclipse.wst.common.componentcore.internal.impl.WTPModulesResource
+	at org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel.getPrimaryResource(ModuleStructuralModel.java:332)
+	at org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel.prepareProjectModulesIfNecessary(ModuleStructuralModel.java:240)
+	at org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel.getPrimaryRootObject(ModuleStructuralModel.java:119)
+	at org.eclipse.wst.common.componentcore.internal.StructureEdit.getComponentModelRoot(StructureEdit.java:471)
+	at org.eclipse.wst.common.componentcore.internal.StructureEdit.getWorkbenchModules(StructureEdit.java:506)
+	at org.eclipse.wst.common.componentcore.internal.StructureEdit.getComponent(StructureEdit.java:949)
+	at org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent.createResource(VirtualComponent.java:124)
+	at org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent.initializeResource(VirtualComponent.java:113)
+	at org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent.<init>(VirtualComponent.java:148)
+	at org.eclipse.wst.common.componentcore.internal.util.ComponentImplManager.createComponentSynchronously(ComponentImplManager.java:252)
+	at org.eclipse.wst.common.componentcore.internal.util.ComponentImplManager.createComponent(ComponentImplManager.java:215)
+	at org.eclipse.wst.common.componentcore.internal.util.ComponentImplManager.createComponent(ComponentImplManager.java:205)
+	at org.eclipse.wst.common.componentcore.ComponentCore.createComponent(ComponentCore.java:64)
+	at org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphImpl$GraphUpdateJob$1.run(DependencyGraphImpl.java:494)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphImpl$GraphUpdateJob.run(DependencyGraphImpl.java:462)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
