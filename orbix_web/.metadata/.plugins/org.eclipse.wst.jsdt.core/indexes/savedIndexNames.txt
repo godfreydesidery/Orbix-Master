@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+D:\Orbix Master\orbix_web\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-2718964092.index
-1447119135.index
-2985353111.index
-942471551.index
-2929426639.index
-2804303922.index

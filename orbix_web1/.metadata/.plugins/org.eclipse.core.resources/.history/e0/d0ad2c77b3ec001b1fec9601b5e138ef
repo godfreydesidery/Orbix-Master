@@ -1,0 +1,56 @@
+/**
+ * 
+ */
+package com.example.orbix_web.models;
+
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.stereotype.Component;
+
+/**
+ * @author GODFREY
+ *
+ */
+@Component
+@Entity
+@Table(name = "corporate_customers")
+@EntityListeners(AuditingEntityListener.class)
+@Embeddable
+public class CorporateCustomer {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+	@NotBlank
+	@Column(unique = true)
+    private String no;
+	@NotBlank
+	@Column(unique = true)
+    private String name;
+    private String contactName;
+    private String address;
+    private String telephone;
+    private String vatNo;
+    private double creditLimit;
+    private double invoiceLimit;
+    private int creditDays;
+    private double outstandingBalance;
+    private double amountUnallocated;
+    private double discountRate;
+	private LocalDate discountStartDate;
+	private LocalDate discountEndDate;
+    private double priceMargin;
+	private LocalDate priceMarginStartDate;
+	private LocalDate priceMarginEndDate;
+}

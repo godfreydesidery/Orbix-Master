@@ -1,0 +1,207 @@
+/**
+ * 
+ */
+package com.example.orbix_web.controllers;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.orbix_web.accessories.Formater;
+import com.example.orbix_web.exceptions.NotFoundException;
+import com.example.orbix_web.exceptions.ResourceNotFoundException;
+import com.example.orbix_web.models.CorporateCustomer;
+import com.example.orbix_web.models.Receipt;
+import com.example.orbix_web.models.SalesInvoice;
+import com.example.orbix_web.models.Till;
+import com.example.orbix_web.models.User;
+import com.example.orbix_web.repositories.ReceiptRepository;
+import com.example.orbix_web.repositories.TillRepository;
+import com.example.orbix_web.repositories.UserRepository;
+
+/**
+ * @author GODFREY
+ *
+ */
+@RestController
+@Service
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class ReceiptServiceController {
+
+    @Autowired
+    ReceiptRepository receiptRepository;
+    @Autowired
+    TillRepository tillRepository;
+    @Autowired
+    UserRepository userRepository;
+   
+   
+    /**
+     * Get all receipts by params
+     * @param tillNo
+     * @param date
+     * @param userId
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/receipts", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<Receipt> getReceiptsByParams(
+    		@RequestParam(name = "till_no") String tillNo,
+    		@RequestParam(name = "date") LocalDate date,   		
+    		@RequestHeader("user_id") Long userId) {
+    	if(!(tillNo.isEmpty() & date == null)) {
+    		Optional<Till> till = tillRepository.findByNo(tillNo);
+    		if(!till.isPresent()) {
+    			throw new NotFoundException("Till not found");
+    		}
+    		return receiptRepository.findByTillAndIssueDate(till.get(), date);
+    	}else if(!tillNo.isEmpty()){
+    		Optional<Till> till = tillRepository.findByNo(tillNo);
+    		if(!till.isPresent()) {
+    			throw new NotFoundException("Till not found");
+    		}
+    		return receiptRepository.findByTill(till.get());
+    	}else if(date != null) {
+    		return receiptRepository.findByIssueDate(date);
+    	}else {
+    		return receiptRepository.findAll();
+    	}     
+    }
+    
+    /**
+     * Get a single receipt by no or id
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/receipts/get_by_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    public Receipt getGetReceiptById(@RequestParam(name = "id") Long id, @RequestHeader("user_id") Long userId) {
+        return receiptRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Receipt not found"));
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/receipts/get_by_no", produces=MediaType.APPLICATION_JSON_VALUE)
+    public Receipt getGetReceiptByNo(@RequestParam(name = "no") String no, @RequestHeader("user_id") Long userId) {
+        return receiptRepository.findByNo(no)
+                .orElseThrow(() -> new NotFoundException("Receipt not found"));
+    }
+    
+    /**
+     * Create a new receipt
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/receipts/new", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public Receipt createReceipt(
+    		@Valid @RequestBody Receipt receipt, 
+    		@RequestHeader("user_id") Long userId) {
+    	Optional<Till> till = tillRepository.findByNo(receipt.getTill().getNo());
+    	Optional<User> user = userRepository.
+    	if(!till.isPresent()) {
+    		throw new NotFoundException("Till not found");
+    	}
+    	receipt.setTill(till.get());
+    	
+    	String customerName = (invoice.getCorporateCustomer().getName());
+    	Optional<CorporateCustomer> customer = corporateCustomerRepository.findByName(customerName);
+    	if(customer.isPresent() == true) {
+    		corporateCustomerRepository.save(customer.get());
+    		invoice.setCorporateCustomer(customer.get());
+    	}else {
+    		throw new NotFoundException("Customer not found");
+    	}    
+    	Optional<User> createdUser;
+    	Long createdUserId = (invoice.getCreatedUser().getId());
+    	createdUser = userRepository.findById(createdUserId);
+    	if(createdUser.isPresent() == true) {
+    		userRepository.save(createdUser.get());
+    		invoice.setCreatedUser(createdUser.get());
+    	}else {
+    		invoice.setCreatedUser(null);
+    	}
+    	invoice.setApprovedUser(null);
+    	invoice.setCompletedUser(null);
+    	    	
+    	LocalDate systemDate =LocalDate.now(); //day.getSystemDate();
+    	
+    	invoice.setIssueDate(systemDate);
+    	String random = String.valueOf(Math.random()).replace(".", "") + String.valueOf(Math.random()).replace(".", "");
+    	invoice.setNo(random); 
+    	salesInvoiceRepository.saveAndFlush(invoice);
+    	
+    	invoice.setStatus("PENDING");
+    	
+    	String serial = invoice.getId().toString();
+    	String invNo = "SI-"+Formater.formatNine(serial);
+    	invoice.setNo(invNo); 
+    	return salesInvoiceRepository.saveAndFlush(invoice);    	
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    
+    // Get All Receipts
+    @GetMapping("/receipts")
+    public List<Receipt> getAllReceipts() {
+        return receiptRepository.findAll();
+    }
+
+    // Create a new Receipt
+    @PostMapping(value="/receipts")
+    @ResponseBody
+    public Receipt createReceipt(@Valid @RequestBody Receipt receipt) {
+        return receiptRepository.save(receipt);
+    }
+
+    // Get a Single Receipt
+    @GetMapping("/receipts/{id}")
+    public Receipt getReceiptById(@PathVariable(value = "id") Long receiptId) {
+        return receiptRepository.findById(receiptId)
+                .orElseThrow(() -> new ResourceNotFoundException("Receipt", "id", receiptId));
+    }
+
+    // Update a Receipt
+    @PutMapping("/receipts/{id}")
+    public Receipt updateNote(@PathVariable(value = "id") Long receiptId,
+                                            @Valid @RequestBody Receipt receiptDetails) {
+
+        Receipt receipt = receiptRepository.findById(receiptId)
+                .orElseThrow(() -> new ResourceNotFoundException("Receipt", "id", receiptId));
+
+        
+
+        Receipt updatedReceipt = receiptRepository.save(receipt);
+        return updatedReceipt;
+    }
+
+    // Delete a Receipt
+    @DeleteMapping("/receipts/{id}")
+    public ResponseEntity<?> deleteReceipt(@PathVariable(value = "id") Long receiptId) {
+    	Receipt receipt = receiptRepository.findById(receiptId)
+                .orElseThrow(() -> new ResourceNotFoundException("Receipt", "id", receiptId));
+
+    	receiptRepository.delete(receipt);
+
+        return ResponseEntity.ok().build();
+    }
+}
+

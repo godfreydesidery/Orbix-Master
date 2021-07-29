@@ -1,0 +1,131 @@
+/**
+ * 
+ */
+package com.example.orbix_web.models;
+
+import java.util.Date;
+
+import javax.persistence.Embedded;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.beans.factory.annotation.Autowired;
+
+/**
+ * @author GODFREY
+ *
+ */
+public class CorporateCustomerInvoiceDetail {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+	
+	@NotBlank
+    private String itemCode;
+	@NotBlank
+    private String description;
+	private double sellingPrice;
+	private double qty;
+	
+	@ManyToOne(targetEntity = CorporateCustomerInvoice.class, fetch = FetchType.EAGER,  optional = true)
+    @JoinColumn(name = "corporate_customer_invoice_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@Autowired
+	@Embedded
+    private CorporateCustomerInvoice corporateCustomerInvoice;
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the itemCode
+	 */
+	public String getItemCode() {
+		return itemCode;
+	}
+
+	/**
+	 * @param itemCode the itemCode to set
+	 */
+	public void setItemCode(String itemCode) {
+		this.itemCode = itemCode;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @return the sellingPrice
+	 */
+	public double getSellingPrice() {
+		return sellingPrice;
+	}
+
+	/**
+	 * @param sellingPrice the sellingPrice to set
+	 */
+	public void setSellingPrice(double sellingPrice) {
+		this.sellingPrice = sellingPrice;
+	}
+
+	/**
+	 * @return the qty
+	 */
+	public double getQty() {
+		return qty;
+	}
+
+	/**
+	 * @param qty the qty to set
+	 */
+	public void setQty(double qty) {
+		this.qty = qty;
+	}
+
+	/**
+	 * @return the corporateCustomerInvoice
+	 */
+	public CorporateCustomerInvoice getCorporateCustomerInvoice() {
+		return corporateCustomerInvoice;
+	}
+
+	/**
+	 * @param corporateCustomerInvoice the corporateCustomerInvoice to set
+	 */
+	public void setCorporateCustomerInvoice(CorporateCustomerInvoice corporateCustomerInvoice) {
+		this.corporateCustomerInvoice = corporateCustomerInvoice;
+	}
+	
+	
+}

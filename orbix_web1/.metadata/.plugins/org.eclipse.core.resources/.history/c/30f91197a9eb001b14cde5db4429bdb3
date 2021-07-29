@@ -1,0 +1,143 @@
+/**
+ * 
+ */
+package com.example.orbix_web.controllers;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.orbix_web.accessories.Formater;
+import com.example.orbix_web.exceptions.MissingInformationException;
+import com.example.orbix_web.exceptions.NotFoundException;
+import com.example.orbix_web.exceptions.ResourceNotFoundException;
+import com.example.orbix_web.models.Clas;
+import com.example.orbix_web.models.Department;
+import com.example.orbix_web.models.SubClass;
+import com.example.orbix_web.repositories.ClasRepository;
+import com.example.orbix_web.repositories.DepartmentRepository;
+import com.example.orbix_web.repositories.SubClassRepository;
+
+/**
+ * @author GODFREY
+ *
+ */
+@RestController
+@Service
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class SubClassServiceController {
+	
+	@Autowired
+    SubClassRepository subClassRepository;
+	@Autowired
+    ClasRepository clasRepository;
+    @Autowired
+    DepartmentRepository departmentRepository;
+    
+    // Get All Classes
+    @GetMapping("/sub_classes")
+    public List<SubClass> getAllSubClasses() {
+        return subClassRepository.findAll();
+    }
+	
+ // Get All Classes
+    @RequestMapping(method = RequestMethod.GET, value = "/sub_classes/get_by_id")
+    public SubClass getSubClassById(@RequestParam(name = "id") Long id) {	
+        return subClassRepository.findById(id)
+        		.orElseThrow(() -> new NotFoundException("Sub Class not found"));
+    }
+    
+    // Get All Classes
+    @RequestMapping(method = RequestMethod.GET, value = "/sub_classes/get_by_class_name", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<SubClass> getAllClassesSubClasses(@RequestParam(name = "class_name") String class_name) {
+    	Clas clas = clasRepository.findByName(class_name)
+                .orElseThrow(() -> new NotFoundException("Class "+class_name+" does not exist"));    	
+        return subClassRepository.findByClas(clas);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/sub_classes/get_by_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public SubClass getById(@RequestParam(value = "id") Long id) {
+        return subClassRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Sub-Class not found"));
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/sub_classes/get_by_name", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public SubClass getByName(@RequestParam(value = "name") String name) {
+        return subClassRepository.findByName(name)
+                .orElseThrow(() -> new NotFoundException("Resource not found"));
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value="/sub_classes/new", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public SubClass createSubClass(@Valid @RequestBody SubClass subClass ) throws Exception {
+    	System.out.println(subClass.getDepartment().getName());
+    	Department department = departmentRepository.findByName(subClass.getDepartment().getName())
+                .orElseThrow(() -> new MissingInformationException("Department required"));
+    	departmentRepository.save(department);
+    	System.out.println(subClass.getClas().getName());
+		Clas clas = clasRepository.findByName(subClass.getClas().getName())
+                .orElseThrow(() -> new MissingInformationException("Class required"));
+		clasRepository.save(clas);
+		
+		subClass.setDepartment(department);
+		subClass.setClas(clas);
+		
+		String random = String.valueOf(Math.random()).replace(".", "");
+		subClass.setCode(random); 
+		subClassRepository.saveAndFlush(subClass);    	
+    	String serial = subClass.getId().toString();    	
+    	String code = Formater.formatFive(serial);
+    	subClass.setCode(code);     	
+    	return subClassRepository.saveAndFlush(subClass);  	
+    }
+    
+    @RequestMapping(method = RequestMethod.PUT, value="/sub_classes/edit_by_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public SubClass updateSubClass(@RequestParam(name = "id") Long id,
+            								@Valid @RequestBody SubClass subClassDetails ) throws Exception {
+    	SubClass subClass =subClassRepository.findById(id)
+    			.orElseThrow(() -> new NotFoundException("Sub-class not found"));
+    	subClass = subClassDetails;
+    	
+    	Department department = departmentRepository.findByName(subClassDetails.getDepartment().getName())
+                .orElseThrow(() -> new NotFoundException("Department not found"));
+    	departmentRepository.save(department);
+		Clas clas = clasRepository.findByName(subClassDetails.getClas().getName())
+                .orElseThrow(() -> new NotFoundException("Class not found"));
+		clasRepository.save(clas);
+		
+		subClass.setDepartment(department);
+		subClass.setClas(clas);
+    	return subClassRepository.saveAndFlush(subClass);
+    }
+    
+ // Delete a Department
+    @DeleteMapping("/sub_classes/{id}")
+    public ResponseEntity<?> deleteClass(@PathVariable(value = "id") Long subClassId) {
+    	SubClass subClass = subClassRepository.findById(subClassId)
+                .orElseThrow(() -> new ResourceNotFoundException("Sub Class", "id", subClassId));
+    	subClassRepository.delete(subClass);
+        return ResponseEntity.ok().build();
+    }
+
+}
