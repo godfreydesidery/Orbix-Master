@@ -31,7 +31,7 @@ Partial Class frmUserEnrolment
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.txtPassword = New System.Windows.Forms.TextBox()
         Me.txtUsername = New System.Windows.Forms.TextBox()
-        Me.txtPayrollNo = New System.Windows.Forms.TextBox()
+        Me.txtRollNo = New System.Windows.Forms.TextBox()
         Me.txtLastName = New System.Windows.Forms.TextBox()
         Me.txtSecondName = New System.Windows.Forms.TextBox()
         Me.txtFirstName = New System.Windows.Forms.TextBox()
@@ -48,6 +48,7 @@ Partial Class frmUserEnrolment
         Me.role = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.chkActive = New System.Windows.Forms.CheckBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.cmbRole = New System.Windows.Forms.ComboBox()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
@@ -57,7 +58,6 @@ Partial Class frmUserEnrolment
         Me.btnSave = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButton2 = New System.Windows.Forms.ToolStripButton()
-        Me.chkActive = New System.Windows.Forms.CheckBox()
         CType(Me.dtgrdUsers, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
@@ -144,12 +144,12 @@ Partial Class frmUserEnrolment
         Me.txtUsername.Size = New System.Drawing.Size(226, 22)
         Me.txtUsername.TabIndex = 11
         '
-        'txtPayrollNo
+        'txtRollNo
         '
-        Me.txtPayrollNo.Location = New System.Drawing.Point(115, 42)
-        Me.txtPayrollNo.Name = "txtPayrollNo"
-        Me.txtPayrollNo.Size = New System.Drawing.Size(226, 22)
-        Me.txtPayrollNo.TabIndex = 10
+        Me.txtRollNo.Location = New System.Drawing.Point(115, 42)
+        Me.txtRollNo.Name = "txtRollNo"
+        Me.txtRollNo.Size = New System.Drawing.Size(226, 22)
+        Me.txtRollNo.TabIndex = 10
         '
         'txtLastName
         '
@@ -283,7 +283,7 @@ Partial Class frmUserEnrolment
         Me.Panel1.Controls.Add(Me.txtID)
         Me.Panel1.Controls.Add(Me.Label9)
         Me.Panel1.Controls.Add(Me.txtLastName)
-        Me.Panel1.Controls.Add(Me.txtPayrollNo)
+        Me.Panel1.Controls.Add(Me.txtRollNo)
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Controls.Add(Me.Label4)
         Me.Panel1.Controls.Add(Me.Label2)
@@ -297,6 +297,16 @@ Partial Class frmUserEnrolment
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(896, 173)
         Me.Panel1.TabIndex = 24
+        '
+        'chkActive
+        '
+        Me.chkActive.AutoSize = True
+        Me.chkActive.Location = New System.Drawing.Point(622, 134)
+        Me.chkActive.Name = "chkActive"
+        Me.chkActive.Size = New System.Drawing.Size(68, 21)
+        Me.chkActive.TabIndex = 47
+        Me.chkActive.Text = "Active"
+        Me.chkActive.UseVisualStyleBackColor = True
         '
         'Label11
         '
@@ -386,16 +396,6 @@ Partial Class frmUserEnrolment
         Me.ToolStripButton2.Text = "Unblock"
         Me.ToolStripButton2.ToolTipText = "Unblock a blocked user"
         '
-        'chkActive
-        '
-        Me.chkActive.AutoSize = True
-        Me.chkActive.Location = New System.Drawing.Point(622, 134)
-        Me.chkActive.Name = "chkActive"
-        Me.chkActive.Size = New System.Drawing.Size(68, 21)
-        Me.chkActive.TabIndex = 47
-        Me.chkActive.Text = "Active"
-        Me.chkActive.UseVisualStyleBackColor = True
-        '
         'frmUserEnrolment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -427,7 +427,7 @@ Partial Class frmUserEnrolment
     Friend WithEvents btnSearch As Button
     Friend WithEvents txtPassword As TextBox
     Friend WithEvents txtUsername As TextBox
-    Friend WithEvents txtPayrollNo As TextBox
+    Friend WithEvents txtRollNo As TextBox
     Friend WithEvents txtLastName As TextBox
     Friend WithEvents txtSecondName As TextBox
     Friend WithEvents txtFirstName As TextBox

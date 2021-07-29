@@ -35,7 +35,7 @@ Public Class Product
     Public Property shortDescription As String
     Public Property commonDescription As String
     Public Property standardUom As String
-    Public Property packSize
+    Public Property packSize As Double
     Public Property ingredients As String
     Public Property costPriceVatIncl As Double
     Public Property costPriceVatExcl As Double

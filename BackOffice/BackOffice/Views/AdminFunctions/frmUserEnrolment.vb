@@ -1,5 +1,4 @@
-﻿Imports Devart.Data.MySql
-Imports Newtonsoft.Json
+﻿Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 
 Public Class frmUserEnrolment
@@ -12,7 +11,7 @@ Public Class frmUserEnrolment
         txtFirstName.Text = ""
         txtSecondName.Text = ""
         txtLastName.Text = ""
-        txtPayrollNo.Text = ""
+        txtRollNo.Text = ""
         cmbRole.Text = ""
         cmbStatus.Text = ""
         txtUsername.Text = ""
@@ -25,7 +24,7 @@ Public Class frmUserEnrolment
         txtFirstName.ReadOnly = True
         txtSecondName.ReadOnly = True
         txtLastName.ReadOnly = True
-        txtPayrollNo.ReadOnly = True
+        txtRollNo.ReadOnly = True
         cmbRole.Enabled = False
         cmbStatus.Enabled = False
         txtUsername.ReadOnly = True
@@ -38,7 +37,7 @@ Public Class frmUserEnrolment
         txtFirstName.ReadOnly = False
         txtSecondName.ReadOnly = False
         txtLastName.ReadOnly = False
-        txtPayrollNo.ReadOnly = False
+        txtRollNo.ReadOnly = False
         cmbRole.Enabled = True
         cmbStatus.Enabled = True
         txtUsername.ReadOnly = False
@@ -131,6 +130,8 @@ Public Class frmUserEnrolment
         btnSearch.Enabled = False
         clear()
         unlock()
+        txtRollNo.ReadOnly = True
+        txtRollNo.Text = "NA"
     End Sub
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
@@ -158,10 +159,10 @@ Public Class frmUserEnrolment
         Dim json As JObject = New JObject
         Try
             If id <> "" Then
-                response = Web.get_("users/" + id)
+                response = Web.get_("users/get_by_id?id=" + id)
                 json = JObject.Parse(response)
             ElseIf username <> "" Then
-                response = Web.get_("users/username=" + username)
+                response = Web.get_("users/get_by_username?username=" + username)
                 json = JObject.Parse(response)
             End If
         Catch ex As Exception
@@ -178,7 +179,7 @@ Public Class frmUserEnrolment
             txtFirstName.Text = user_.firstName
             txtSecondName.Text = user_.secondName
             txtLastName.Text = user_.lastName
-            txtPayrollNo.Text = user_.rollNo
+            txtRollNo.Text = user_.rollNo
             If IsNothing(user_.role) Then
                 cmbRole.Text = ""
             Else
@@ -191,11 +192,11 @@ Public Class frmUserEnrolment
                 chkActive.Checked = True
             End If
             lock()
-                btnEdit.Enabled = True
-                btnSave.Enabled = False
-                btnDelete.Enabled = True
-            End If
-            txtPassword.Text = ""
+            btnEdit.Enabled = True
+            btnSave.Enabled = False
+            btnDelete.Enabled = True
+        End If
+        txtPassword.Text = ""
         txtConfPassword.Text = ""
         Return vbNull
 
@@ -215,11 +216,12 @@ Public Class frmUserEnrolment
         End If
         Dim user As New User
 
+        user.rollNo = "NA"
         user.username = txtUsername.Text
         user.firstName = txtFirstName.Text
         user.secondName = txtSecondName.Text
         user.lastName = txtLastName.Text
-        user.rollNo = txtPayrollNo.Text
+        user.rollNo = txtRollNo.Text
         user.role.name = cmbRole.Text
         '   user.status = cmbStatus.Text
         If txtPassword.Text <> "" Then
@@ -234,6 +236,7 @@ Public Class frmUserEnrolment
         Dim json As JObject = New JObject
         Try
             If txtID.Text = "" Then
+
                 response = Web.post(user, "users/new")
                 json = JObject.Parse(response)
                 'Dim data As Product = New Product
@@ -243,7 +246,7 @@ Public Class frmUserEnrolment
                 btnSave.Enabled = False
                 MsgBox("User created successifully", vbOKOnly + vbInformation, "Success: New user created")
             Else
-                If Web.put(user, "users/edit/" + txtID.Text) = True Then
+                If Web.put(user, "users/edit_by_id?id=" + txtID.Text) = True Then
                     lock()
                     btnEdit.Enabled = True
                     btnSave.Enabled = False
@@ -268,7 +271,7 @@ Public Class frmUserEnrolment
         If res = DialogResult.Yes Then
             Try
                 Dim response As String
-                response = Web.delete("users/delete/" + txtID.Text)
+                response = Web.delete("users/delete_by_id?id=" + txtID.Text)
                 MsgBox(response.ToString, vbOKOnly + vbInformation, "Success: Delete success")
             Catch ex As Exception
                 MsgBox(ex.Message)

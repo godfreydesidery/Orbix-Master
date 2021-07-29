@@ -207,7 +207,7 @@ Public Class User
         Dim response As Object = New Object
         Dim json As JObject = New JObject
         Try
-            response = Web.post(user_, "users/login")
+            response = Web.post(user_, "login")
             json = JObject.Parse(response)
 
         Catch ex As Exception
@@ -249,7 +249,7 @@ Public Class User
     Public Shared Function authorize(priveledge As String) As Boolean
         Dim response As Boolean = False
         Try
-            response = Web.get_("users/authorize?user_id=" + User.CURRENT_USER_ID + "&priveledge=" + priveledge)
+            response = Web.get_("authorize?user_id=" + User.CURRENT_USER_ID + "&priveledge=" + priveledge)
             '  response = Web.get_("users/authorize/user_id=" + User.CURRENT_USER_ID + "&priveledge=" + priveledge)
             If response = True Then
                 Return True

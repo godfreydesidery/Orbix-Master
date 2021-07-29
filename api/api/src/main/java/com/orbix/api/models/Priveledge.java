@@ -19,6 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author GODFREY
+ *
+ */
 @Entity
 @Component
 @Table(name = "priveledges")

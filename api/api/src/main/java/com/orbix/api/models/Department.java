@@ -12,6 +12,10 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author GODFREY
+ *
+ */
 @Entity
 @Component
 @Table(name = "departments")
