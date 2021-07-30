@@ -227,7 +227,11 @@ Public Class frmAccessControl
         Try
             Dim response As String
             response = Web.delete("roles/delete_by_id?id=" + txtId.Text)
-            MsgBox(response.ToString)
+            If response = "true" Then
+                MsgBox("Role deleted successifully")
+            Else
+                MsgBox("Could not delete role")
+            End If
             dtgrdRoles.ClearSelection()
             Return True
         Catch ex As Exception
@@ -251,9 +255,8 @@ Public Class frmAccessControl
         btnSave.Enabled = False
         unlock()
         clear()
+        loadRoles()
     End Sub
-
-
 
     Private Sub txtUsername_KeyDown(sender As Object, e As KeyEventArgs) Handles txtRole.KeyDown
         If Keys.Tab = Keys.Right Then
@@ -316,6 +319,9 @@ Public Class frmAccessControl
             Try
                 response = Web.get_("/role_priveledges/get_by_role_name_and_name?role_name=" + cmbRole.Text + "&name=" + dtgrdPriveledges.Item(0, row).Value.ToString)
                 priveledge_ = JsonConvert.DeserializeObject(Of Priveledge)(response.ToString)
+                If priveledge_.id.ToString <> "" Then
+                    deletePrev()
+                End If
             Catch ex As Newtonsoft.Json.JsonReaderException
                 addPrev()
                 Exit Sub
@@ -323,7 +329,6 @@ Public Class frmAccessControl
                 MsgBox(ex.ToString)
                 Exit Sub
             End Try
-            deletePrev()
             refreshPriveledgeList(cmbRole.SelectedItem.ToString)
         End If
     End Sub
@@ -353,7 +358,7 @@ Public Class frmAccessControl
             Dim response As Object = New Object
             Dim json As JObject = New JObject
             Dim priveledge As New Priveledge
-            priveledge.role.name = cmbRole.SelectedItem.ToString
+            priveledge.role.name = cmbRole.Text
             priveledge.name = dtgrdPriveledges.Item(0, row).Value.ToString
             response = Web.post(priveledge, "/role_priveledges/new")
         Catch ex As Exception

@@ -32,7 +32,6 @@ public class Priveledge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	@NotBlank
-	@Column(unique = true)
 	private String name;
 	
 	@ManyToOne(targetEntity = Role.class, fetch = FetchType.EAGER,  optional = true)

@@ -252,7 +252,7 @@ Public Class frmSalesInvoice
             Dim code As String = dtgrdProductList.Item(2, i).Value.ToString
             Dim description As String = dtgrdProductList.Item(3, i).Value.ToString
             Dim qty As String = dtgrdProductList.Item(4, i).Value.ToString
-            Dim costPriceIncl As String = dtgrdProductList.Item(5, i).Value.ToString
+            Dim sellingPriceIncl As String = dtgrdProductList.Item(7, i).Value.ToString
             Dim discount As String = dtgrdProductList.Item(9, i).Value.ToString
             Dim amount As String = dtgrdProductList.Item(10, i).Value.ToString
 
@@ -271,7 +271,7 @@ Public Class frmSalesInvoice
             row.Cells(1).Format.Alignment = ParagraphAlignment.Left
             row.Cells(2).AddParagraph(qty)
             row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(3).AddParagraph(costPriceIncl)
+            row.Cells(3).AddParagraph(sellingPriceIncl)
             row.Cells(3).Format.Alignment = ParagraphAlignment.Right
             row.Cells(4).AddParagraph(discount)
             row.Cells(4).Format.Alignment = ParagraphAlignment.Right

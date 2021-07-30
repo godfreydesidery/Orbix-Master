@@ -135,8 +135,9 @@ public class TillServiceController {
             								@Valid @RequestBody Till tillDetails, @RequestHeader("user_id") Long userId) throws Exception {
 		Till till = tillRepository.findById(tillId)
                 .orElseThrow(() -> new NotFoundException("Till not found"));
-		till = tillDetails;     
-//edit later 		
+		till.setName(tillDetails.getName());
+		till.setComputerName(tillDetails.getComputerName());
+		till.setActive(tillDetails.getActive());
     	return tillRepository.saveAndFlush(till);
     }
     

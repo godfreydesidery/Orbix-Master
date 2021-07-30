@@ -333,9 +333,9 @@ public class SalesInvoiceServiceController {
 		SalesInvoice salesInvoice = salesInvoiceRepository.findById(id).get();
     	Sale sale = new Sale();
     	sale.setSalesInvoice(salesInvoice);
-    	saleRepository.saveAndFlush(sale);
-    	SaleDetail saleDetail = new SaleDetail();
+    	saleRepository.saveAndFlush(sale);    	
     	for(SalesInvoiceDetail detail : salesInvoice.getSalesInvoiceDetails()) {
+    		SaleDetail saleDetail = new SaleDetail();
     		saleDetail.setSale(sale);
     		saleDetail.setCode(detail.getCode());
     		saleDetail.setDescription(detail.getDescription());
@@ -345,9 +345,7 @@ public class SalesInvoiceServiceController {
     		saleDetail.setSellingPriceVatIncl(detail.getSellingPriceVatIncl());
     		saleDetail.setSellingPriceVatExcl(detail.getSellingPriceVatExcl());
     		saleDetail.setDiscount(detail.getDiscount());
-    		saleDetailRepository.saveAndFlush(saleDetail);
-    		
-    		
+    		saleDetailRepository.save(saleDetail);    		
     	} 
 		return true;		
 	}

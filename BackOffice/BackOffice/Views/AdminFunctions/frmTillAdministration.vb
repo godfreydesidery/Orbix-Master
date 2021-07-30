@@ -41,6 +41,10 @@ Public Class frmTillAdministration
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
+            dtgrdCell.Value = till.computerName
+            dtgrdRow.Cells.Add(dtgrdCell)
+
+            dtgrdCell = New DataGridViewTextBoxCell()
             dtgrdCell.Value = till.name
             dtgrdRow.Cells.Add(dtgrdCell)
 
@@ -320,16 +324,10 @@ Public Class frmTillAdministration
     End Sub
     Dim EDIT_MODE As String = ""
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        If searchTill("", cmbTillNo.Text) = True And txtId.Text = "" Then
-            MsgBox("A till with the specified Till Number already exist. Please specify a different till number.", vbExclamation + vbOKOnly, "Error: Duplicate till no")
-            clear()
-            Exit Sub
-        End If
         If cmbTillNo.Text = "" Then
             MsgBox("Till number required", vbExclamation + vbOKOnly, "Error: Missing information")
             Exit Sub
         End If
-
         Dim till As Till = New Till
         till.id = txtId.Text
         till.no = cmbTillNo.Text
@@ -340,7 +338,7 @@ Public Class frmTillAdministration
         Else
             till.active = 0
         End If
-
+        MsgBox(till.active)
         Dim response As Object = New Object
         Dim json As JObject = New JObject
         Try

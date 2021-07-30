@@ -51,8 +51,7 @@ public class PriveledgeServiceController {
     	Optional<Role> role = roleRepository.findByName(roleName);
     	if(!role.isPresent()) {
     		throw new NotFoundException("Role not found");
-    	}
-    	
+    	}   	
         return rolePriveledgeRepository.findByRole(role.get());
     }
     
@@ -71,36 +70,31 @@ public class PriveledgeServiceController {
     @RequestMapping(method = RequestMethod.POST, value = "/role_priveledges/new", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Priveledge createPriveledge(@Valid @RequestBody Priveledge priveledge) {
+    	System.out.println("Checking");
+    	System.out.println("Checking");
+    	System.out.println("Checking");
+    	System.out.println("Checking");
+    	System.out.println("Checking");
+    	System.out.println("Checking");
+    	System.out.println("Checking");
+    	System.out.println("Checking");
     	Role role = roleRepository.findByName(priveledge.getRole().getName())
                 .orElseThrow(() -> new NotFoundException("Role not found"));
-    	Priveledge rp;
-    	boolean valid = true;
-    	try {
-    		rp = rolePriveledgeRepository.findByRoleAndName(role,priveledge.getName()).get();
-    		System.out.println(priveledge.getRole().getName());
-    		valid = false;
-    		if(rp == null) {
-    			valid = true;
-    		}
-    	}	
-		catch(NoSuchElementException e) {
-			valid = true;
-		}
-    	catch(Exception e) {
-    		System.out.println(e.toString());
-    		valid =false;
-    	}
-    	if (valid == true) {
+    	Optional<Priveledge> rp = rolePriveledgeRepository.findByRoleAndName(role,priveledge.getName());
+    	if(!rp.isPresent()) {
     		roleRepository.save(role);
     		priveledge.setRole(role);
     		rolePriveledgeRepository.save(priveledge);
-    	}    	
-        return priveledge;
+    	}
+    	
+    	return priveledge;   
     }
  
  // Delete a Role
-    @RequestMapping(method = RequestMethod.DELETE, value = "/role_priveledges/delete/role_name={role_name}&name={name}")
-    public ResponseEntity<Object> deleteRolePriveledge(@PathVariable(value = "role_name") String roleName, @PathVariable(value = "name") String name) {
+    @RequestMapping(method = RequestMethod.DELETE, value = "/role_priveledges/delete_by_role_name_and_name")
+    public ResponseEntity<Object> deleteRolePriveledge(
+    		@RequestParam(name = "role_name") String roleName, 
+    		@RequestParam(name = "name") String name) {
     	System.out.println("Deleting");
     	Role role = roleRepository.findByName(roleName)
                 .orElseThrow(() -> new NotFoundException("Role not found"));
