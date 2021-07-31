@@ -1,18 +1,35 @@
 ﻿Imports Devart.Data.MySql
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class User
     Public Shared USER_ID As String = ""
-    Public Shared USERNAME As String = ""
+    Public Shared USERNAME_ As String = ""
     Public Shared FIRST_NAME As String = ""
     Public Shared SECOND_NAME As String = ""
     Public Shared LAST_NAME As String = ""
-    Public Shared PASSWORD As String = ""
+    Public Shared PASSWORD_ As String = ""
     Public Shared _ALIAS As String = ""
     Public Shared LOGIN_TIME As String = ""
-    Public Shared ROLE As String = ""
+    Public Shared ROLE_ As String = ""
 
-    Public Shared Function authorize(username As String, password As String, special As Boolean) As Boolean
+    Public Property id As String
+    Public Property username As String
+    Public Property password As String
+    Public Property rollNo As String
+    Public Property firstName As String
+    Public Property secondName As String
+    Public Property lastName As String
+    Public Property accessToken As String
+    Public Property status As String
+    '   Public Property status As String
+    Public Property active As Integer
+    Public Property role As Role = New Role
+
+    Public Shared Function authorize1(username As String, password As String, special As Boolean) As Boolean
         Dim auth As Boolean = False
+
+
         Dim query As String = "SELECT `id`, `first_name`, `second_name`, `last_name`, `pay_roll_no`, `username`, `password`, `role`, `alias`, `status` FROM `users` WHERE `username`=@username"
         Dim command As New MySqlCommand()
         Dim conn As New MySqlConnection(Database.conString)
@@ -40,128 +57,91 @@ Public Class User
         End Try
         Return auth
     End Function
-    Public Shared Function authenticate(username As String, password As String)
-        Dim found As Boolean = False
-        Dim status As String = ""
-        Dim hashedPassword = ""
-        Dim query As String = "SELECT `id`, `first_name`, `second_name`, `last_name`, `pay_roll_no`, `username`, `password`, `role`, `alias`, `status` FROM `users` WHERE `username`=@username"
-        Dim command As New MySqlCommand()
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            command.Parameters.AddWithValue("@username", username.ToString)
-            Dim reader As MySqlDataReader = command.ExecuteReader()
 
-            Dim no As Integer = 0
-            While reader.Read
-                no = no + 1
-                status = reader.GetString("status")
-                User._alias = reader.GetString("alias")
-                hashedPassword = reader.GetString("password")
-                User.USER_ID = reader.GetString("id")
-                User.ROLE = reader.GetString("role")
-                User.FIRST_NAME = reader.GetString("first_name")
-                User.SECOND_NAME = reader.GetString("second_name")
-                User.LAST_NAME = reader.GetString("last_name")
-            End While
-            If no = 0 Then
-                'no exist
-                status = "not found"
-            ElseIf no = 1 Then
-                'user distinct
-                If status = "ACTIVE" Then
-                    'user active
-                    status = "ACTIVE"
-                    If Hash.check(password, hashedPassword) Then
-                        User.username = username
-                        User.password = hashedPassword
-                        User.LOGIN_TIME = DateAndTime.Now.ToString("yyyy-MM-dd:HH:MM:SS")
-                    Else
-                        status = "invalid"
-                    End If
-                Else
-                    'user inactive
-                    status = "INACTIVE"
-                End If
-            Else
-                'duplicate users
-                status = "invalid"
-            End If
-        Catch ex As Devart.Data.MySql.MySqlException
-            MsgBox(ex.Message)
-            'LError.databaseConnection()
+    Public Shared Function authenticate(username As String, password As String) As Integer
+
+        Dim user_ As User = New User
+        user_.username = username
+        user_.password = password
+        user_.rollNo = "NA"
+        user_.firstName = "NA"
+        user_.secondName = "NA"
+        user_.lastName = "NA"
+        user_.firstName = "NA"
+
+        '0- login succeeded
+        '1- login failed due to invalid credentials
+        '2- login failed due to other problems
+        Dim auth As Integer = 0
+
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+        Try
+            response = Web.post(user_, "login")
+            json = JObject.Parse(response)
+
+        Catch ex As Exception
             Return vbNull
             Exit Function
         End Try
-        Return status
-        Return vbNull
+        Dim user As User = JsonConvert.DeserializeObject(Of User)(json.ToString)
+        If IsNothing(user.id) Then
+            auth = 1
+        ElseIf user.id.ToString = "" Then
+            auth = 1
+        Else
+            User.USER_ID = user.id
+            User.USERNAME_ = user.username
+            User.PASSWORD_ = ""
+            If user.active = 1 Then
+                user.status = "ACTIVE"
+            Else
+                user.status = "DEACTIVATED"
+            End If
+
+            If IsNothing(user.role) Then
+                User.ROLE_ = ""
+            Else
+                User.ROLE_ = user.role.name
+            End If
+            User.FIRST_NAME = user.firstName
+            User.SECOND_NAME = user.secondName
+            User.LAST_NAME = user.lastName
+            User._ALIAS = User.FIRST_NAME + " " + User.LAST_NAME
+            If user.status <> "DEACTIVATED" Then
+                auth = 0 'user valid and login
+            Else
+                auth = 2 'user blocked
+            End If
+        End If
+        Return auth
     End Function
+
     Public Function getAlias(id As String)
         Dim _alias As String = ""
-        Dim query As String = "SELECT `id`, `first_name`, `second_name`, `last_name`, `pay_roll_no`, `username`, `password`, `role`, `alias`, `status` FROM `users` WHERE `id`=@id"
-        Dim command As New MySqlCommand()
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            command.Parameters.AddWithValue("@id", id.ToString)
-            Dim reader As MySqlDataReader = command.ExecuteReader()
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+        response = Web.get_("users/get_by_id?id=" + id)
+        json = JObject.Parse(response)
 
-            Dim no As Integer = 0
-            While reader.Read
-                _alias = reader.GetString("alias")
-                Exit While
-            End While
-        Catch ex As Devart.Data.MySql.MySqlException
-            MsgBox(ex.Message)
-            Return vbNull
-            Exit Function
-        End Try
+        _alias = json.SelectToken("firstName").ToString
+
         Return _alias
     End Function
-    Public Shared Function authorize(priveledge As String)
-        Dim allowed As Boolean = False
-        Dim role_id As String = ""
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim query As String = "SELECT `role_id` FROM `users` WHERE `id`='" + User.USER_ID + "'"
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                role_id = reader.GetString("role_id")
-                Exit While
-            End While
-        Catch ex As Exception
-            MsgBox(ex.Message)
-            allowed = False
-        End Try
 
+    Public Shared Function authorize(priveledge As String) As Boolean
+        Dim response As Boolean = False
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim query As String = "SELECT `role_id` FROM `role_priveledge` WHERE `role_id`='" + role_id + "'AND `priveledge`='" + priveledge + "'"
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                allowed = True
-                Exit While
-            End While
+            response = Web.get_("authorize?user_id=" + User.USER_ID + "&priveledge=" + priveledge)
+            '  response = Web.get_("users/authorize/user_id=" + User.CURRENT_USER_ID + "&priveledge=" + priveledge)
+            If response = True Then
+                Return True
+            Else
+                Return False
+            End If
         Catch ex As Exception
-            MsgBox(ex.Message)
-            allowed = False
+            response = False
         End Try
-        Return allowed
+        Return False
     End Function
 End Class

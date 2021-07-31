@@ -105,6 +105,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Microsoft Point Of Service\SDK\Microsoft.PointOfService.ControlBase.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="POS.Devices.OPOSCashDrawer">
       <HintPath>C:\Users\GODFREY\Downloads\OposForDotNetAssemblies-1_12_000\Bin\POS.Devices.OPOSCashDrawer.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -152,6 +156,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="general\Bill.vb" />
+    <Compile Include="general\Cart.vb" />
+    <Compile Include="general\CartDetail.vb" />
     <Compile Include="general\Collection.vb" />
     <Compile Include="general\CRNote.vb" />
     <Compile Include="general\Crypt.vb" />
@@ -169,13 +175,17 @@
     <Compile Include="general\Payment.vb" />
     <Compile Include="general\Fiscal.vb" />
     <Compile Include="general\PointOfSale.vb" />
+    <Compile Include="general\Product.vb" />
     <Compile Include="general\RandomKeyGenerator.vb" />
     <Compile Include="general\RawPrinterHelper.vb" />
     <Compile Include="general\Receipt.vb" />
+    <Compile Include="general\ReceiptDetail.vb" />
+    <Compile Include="general\Role.vb" />
     <Compile Include="general\SaleSequence.vb" />
     <Compile Include="general\StockCard.vb" />
     <Compile Include="general\Till.vb" />
     <Compile Include="general\User.vb" />
+    <Compile Include="general\Web.vb" />
     <Compile Include="gui\frmAllow.Designer.vb">
       <DependentUpon>frmAllow.vb</DependentUpon>
     </Compile>

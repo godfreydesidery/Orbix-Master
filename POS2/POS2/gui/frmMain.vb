@@ -3,6 +3,8 @@ Imports Devart.Data.MySql
 Imports Microsoft.PointOfService.PosPrinter
 Imports POS.Devices
 Imports Microsoft.PointOfService
+Imports Newtonsoft.Json.Linq
+Imports Newtonsoft.Json
 
 Public Class frmMain
 
@@ -11,10 +13,10 @@ Public Class frmMain
     End Sub
 
     Dim barCode As String = ""
-    Dim itemCode As String = ""
+    Dim code As String = ""
+    Dim ShortDescription As String = ""
     Dim description As String = ""
-    Dim longDescription As String = ""
-    Dim pck As String = ""
+    Dim packSize As Double = 1
     Dim price As String = ""
     Dim vat As String = ""
     Dim discount As String = ""
@@ -23,7 +25,6 @@ Public Class frmMain
     Dim void As Boolean = False
     Dim allowVoid As Boolean = False
     Dim seq As Integer = 0
-
 
     Private Function openCashDrawer()
         Dim isOpen As Boolean = False
@@ -102,7 +103,7 @@ Public Class frmMain
 
         End Try
 
-        If Val(dtgrdViewItemList.Item(7, e.RowIndex).Value) >= 0 And Val(dtgrdViewItemList.Item(7, e.RowIndex).Value) <= 1000 Then
+        If Val(dtgrdViewItemList.Item(7, e.RowIndex).Value) >= 0 And Val(dtgrdViewItemList.Item(7, e.RowIndex).Value) <= 1000 And dtgrdViewItemList.Item(11, e.RowIndex).Value <> "" Then
             If qty > 0 Then
                 updateQty(qty, sn)
             Else
@@ -110,9 +111,12 @@ Public Class frmMain
             End If
             calculateValues()
         Else
-            MsgBox("Invalid quantity value. Quantity value should be between 1 and 1000", vbOKOnly + vbCritical, "Error: Invalid entry")
-            dtgrdViewItemList.Item(7, e.RowIndex).Value = 1
-            calculateValues()
+            If dtgrdViewItemList.Item(1, e.RowIndex).Value <> "" Then
+                MsgBox("Invalid quantity value. Quantity value should be between 1 and 1000", vbOKOnly + vbCritical, "Error: Invalid entry")
+                dtgrdViewItemList.Item(7, e.RowIndex).Value = 1
+                calculateValues()
+            End If
+
         End If
         Try
             If dtgrdViewItemList.CurrentCell.ColumnIndex = 2 Then
@@ -189,7 +193,7 @@ Public Class frmMain
                     search = False
                 End Try
                 If search = True Then
-                    Dim found As Boolean = searchByItemCode(value, 1)
+                    Dim found As Boolean = searchByCode(value, 1)
                     If found = True Then
                         'item found
                         If SaleSequence.multiple = True Then
@@ -256,318 +260,110 @@ Public Class frmMain
         ' refreshList()
         ' dtgrdViewItemList.Select()
     End Sub
+    Private Function searchByBarcode(barcode As String, q As Integer) As Boolean
+        Return search(barcode, "", "", q)
+    End Function
+    Private Function searchByCode(code As String, q As Integer) As Boolean
+        Return search("", code, "", q)
+    End Function
+    Private Function searchByDescription(description As String, q As Integer) As Boolean
+        Return search("", "", description, q)
+    End Function
 
-    Private Function searchByBarcode(barCode As String, q As Integer)
-
+    Private Function search(barcode As String, code As String, description As String, q As Double)
         Dim found As Boolean = False
-        Dim query As String = "SELECT `items`.`item_code`, `bar_codes`.`item_scan_code`, `items`.`item_description`,`items`.`item_long_description`,`items`.`pck`, `items`.`retail_price`,`items`.`discount`,`items`.`vat`,`inventorys`.`item_code` FROM `items`,`inventorys`,`bar_codes` WHERE `items`.`item_code`=`inventorys`.`item_code` AND `bar_codes`.`item_scan_code` =@item_scan_code AND `bar_codes`.`item_code`=`items`.`item_code`"
-        Dim command As New MySqlCommand()
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            command.Parameters.AddWithValue("@item_scan_code", barCode)
-        Catch ex As Devart.Data.MySql.MySqlException
-            LError.databaseConnection()
-            Return vbNull
-            Exit Function
-        End Try
-
-        Dim reader As MySqlDataReader = command.ExecuteReader()
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
         Dim no As Integer = 0
         Dim row As Integer = 0
         Try
-            row = dtgrdViewItemList.CurrentCell.RowIndex
-        Catch ex As Exception
-            dtgrdViewItemList.Rows.Add()
-            row = dtgrdViewItemList.CurrentCell.RowIndex
-        End Try
-        Try
-            If reader.HasRows = True Then
-                While reader.Read
-                    barCode = reader.GetString("item_scan_code")
-                    itemCode = reader.GetString("item_code")
-                    description = reader.GetString("item_description")
-                    longDescription = reader.GetString("item_long_description")
-                    pck = reader.GetString("pck")
-                    price = reader.GetString("retail_price")
-                    discount = reader.GetString("discount")
-                    vat = reader.GetString("vat")
-                    qty = q
-                    price = (Val(price)) * (1 - Val(discount) / 100)
-                    amount = (Val(qty) * price) * (1 - Val(discount) / 100)
-
-                    found = True
-
-                    If barCode = "" Then
-                        found = False
-                        loadCart(Till.TILLNO)
-                    End If
-                    If found = True Then
-                        If addInList(itemCode, barCode) = True Then
-                            loadCart(Till.TILLNO)
-                        Else
-                            dtgrdViewItemList.Item(0, row).Value = barCode
-                            dtgrdViewItemList.Item(1, row).Value = itemCode
-                            dtgrdViewItemList.Item(2, row).Value = longDescription
-                            dtgrdViewItemList.Item(4, row).Value = LCurrency.displayValue(price.ToString)
-                            dtgrdViewItemList.Item(5, row).Value = LCurrency.displayValue(vat.ToString)
-                            dtgrdViewItemList.Item(6, row).Value = LCurrency.displayValue(discount.ToString)
-                            dtgrdViewItemList.Item(7, row).Value = qty
-                            dtgrdViewItemList.Item(8, row).Value = LCurrency.displayValue(amount.ToString)
-                            dtgrdViewItemList.Item(10, row).Value = description
-
-                            dtgrdViewItemList.Item(0, row).ReadOnly = True
-                            dtgrdViewItemList.Item(1, row).ReadOnly = True
-                            dtgrdViewItemList.Item(2, row).ReadOnly = True
-
-                            seq = seq + 1
-                            AddToCart(Format(Now, "mm/dd/yy hh:mm:ss") + (New Random).Next(0, 1000).ToString + Till.TILLNO + seq.ToString, Till.TILLNO, dtgrdViewItemList.Item(0, row).Value, dtgrdViewItemList.Item(1, row).Value, dtgrdViewItemList.Item(2, row).Value, dtgrdViewItemList.Item(4, row).Value, dtgrdViewItemList.Item(5, row).Value, dtgrdViewItemList.Item(6, row).Value, dtgrdViewItemList.Item(7, row).Value, dtgrdViewItemList.Item(8, row).Value, dtgrdViewItemList.Item(10, row).Value)
-                        End If
-
-                        If dtgrdViewItemList.RowCount > 1 Then
-                            If dtgrdViewItemList.Item(7, row - 1).Value > 1 Then
-                                SaleSequence.multiple = True
-                            Else
-                                SaleSequence.multiple = False
-                            End If
-                        End If
-                    Else
-                        loadCart(Till.TILLNO)
-                    End If
-                    Exit While
-                End While
+            If barcode <> "" Then
+                response = Web.get_("products/get_by_barcode?barcode=" + barcode)
+            ElseIf code <> "" Then
+                response = Web.get_("products/get_by_code?code=" + code)
             Else
-                dtgrdViewItemList.Item(0, row).Value = ""
-                dtgrdViewItemList.Item(1, row).Value = ""
-                dtgrdViewItemList.Item(2, row).Value = ""
-                dtgrdViewItemList.Item(4, row).Value = ""
-                dtgrdViewItemList.Item(5, row).Value = ""
-                dtgrdViewItemList.Item(6, row).Value = ""
-                dtgrdViewItemList.Item(7, row).Value = ""
-                dtgrdViewItemList.Item(8, row).Value = ""
+                response = Web.get_("products/get_by_description?description=" + description)
+            End If
+            json = JObject.Parse(response)
+            Dim product As Product = JsonConvert.DeserializeObject(Of Product)(json.ToString)
 
-                dtgrdViewItemList.EndEdit()
-                refreshList()
-                calculateValues()
+            barcode = product.primaryBarcode
+            code = product.code
+            description = product.description
+            ShortDescription = product.shortDescription
+            packSize = product.packSize
+            discount = product.discount
+            vat = product.vat
+            qty = q
+            price = (Val(price)) * (1 - Val(discount) / 100)
+            amount = (Val(qty) * price) * (1 - Val(discount) / 100)
+            found = True
+
+            If barcode = "" Then
+                found = False
+                loadCart(txtId.Text, Till.TILLNO)
+            End If
+
+            Try
+                row = dtgrdViewItemList.CurrentCell.RowIndex
+            Catch ex As Exception
+                dtgrdViewItemList.Rows.Add()
+                row = dtgrdViewItemList.CurrentCell.RowIndex
+            End Try
+
+            If found = True Then
+
+                dtgrdViewItemList.Item(0, row).Value = barcode
+                dtgrdViewItemList.Item(1, row).Value = code
+                dtgrdViewItemList.Item(2, row).Value = description
+                dtgrdViewItemList.Item(4, row).Value = LCurrency.displayValue(price.ToString)
+                dtgrdViewItemList.Item(5, row).Value = LCurrency.displayValue(vat.ToString)
+                dtgrdViewItemList.Item(6, row).Value = LCurrency.displayValue(discount.ToString)
+                dtgrdViewItemList.Item(7, row).Value = qty
+                dtgrdViewItemList.Item(8, row).Value = LCurrency.displayValue(amount.ToString)
+                dtgrdViewItemList.Item(10, row).Value = description
+
+                dtgrdViewItemList.Item(0, row).ReadOnly = True
+                dtgrdViewItemList.Item(1, row).ReadOnly = True
+                dtgrdViewItemList.Item(2, row).ReadOnly = True
+
+                seq = seq + 1
+                    AddToCart("", Till.TILLNO, dtgrdViewItemList.Item(0, row).Value, dtgrdViewItemList.Item(1, row).Value, dtgrdViewItemList.Item(2, row).Value, dtgrdViewItemList.Item(4, row).Value, dtgrdViewItemList.Item(5, row).Value, dtgrdViewItemList.Item(6, row).Value, dtgrdViewItemList.Item(7, row).Value, dtgrdViewItemList.Item(8, row).Value, dtgrdViewItemList.Item(10, row).Value)
+
+
+                If dtgrdViewItemList.RowCount > 1 Then
+                    If dtgrdViewItemList.Item(7, row - 1).Value > 1 Then
+                        SaleSequence.multiple = True
+                    Else
+                        SaleSequence.multiple = False
+                    End If
+                End If
+            Else
+                loadCart(txtId.Text, Till.TILLNO)
             End If
         Catch ex As Exception
+            dtgrdViewItemList.Item(0, row).Value = ""
+            dtgrdViewItemList.Item(1, row).Value = ""
+            dtgrdViewItemList.Item(2, row).Value = ""
+            dtgrdViewItemList.Item(4, row).Value = ""
+            dtgrdViewItemList.Item(5, row).Value = ""
+            dtgrdViewItemList.Item(6, row).Value = ""
+            dtgrdViewItemList.Item(7, row).Value = ""
+            dtgrdViewItemList.Item(8, row).Value = ""
 
+            dtgrdViewItemList.EndEdit()
+            refreshList()
+            calculateValues()
         End Try
 
-        'refreshList()
-        'calculateValues()
-        loadCart(Till.TILLNO)
+        dtgrdViewItemList.EndEdit()
+        refreshList()
+        calculateValues()
+
+        loadCart(txtId.Text, Till.TILLNO)
         Return found
     End Function
-    Private Function searchByDescription(longDescr As String, q As Integer)
 
-        Dim found As Boolean = False
-        Dim query As String = "SELECT `sn`, `item_code`, `item_scan_code`, `item_long_description`, `item_description`, `pck`, `department_id`, `class_id`, `sub_class_id`, `supplier_id`, `unit_cost_price`, `retail_price`, `discount`, `vat`, `margin`, `standard_uom`, `active` FROM `items` WHERE `item_long_description`='" + longDescr + "'"
-        Dim command As New MySqlCommand()
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-        Catch ex As Devart.Data.MySql.MySqlException
-            LError.databaseConnection()
-            Return vbNull
-            Exit Function
-        End Try
-
-        Dim reader As MySqlDataReader = command.ExecuteReader()
-        Dim no As Integer = 0
-        Dim row As Integer = 0
-        Try
-            row = dtgrdViewItemList.CurrentCell.RowIndex
-        Catch ex As Exception
-            dtgrdViewItemList.Rows.Add()
-            row = dtgrdViewItemList.CurrentCell.RowIndex
-        End Try
-        Try
-            If reader.HasRows = True Then
-                While reader.Read
-                    'barCode = reader.GetString("item_scan_code")
-                    itemCode = reader.GetString("item_code")
-                    description = reader.GetString("item_description")
-                    longDescription = reader.GetString("item_long_description")
-                    pck = reader.GetString("pck")
-                    price = reader.GetString("retail_price")
-                    discount = reader.GetString("discount")
-                    vat = reader.GetString("vat")
-                    qty = q
-                    price = (Val(price)) * (1 - Val(discount) / 100)
-                    amount = (Val(qty) * price) * (1 - Val(discount) / 100)
-
-                    found = True
-                    If found = True Then
-
-                        If addInList(itemCode, "") = True Then
-                            loadCart(Till.TILLNO)
-                        Else
-
-                            dtgrdViewItemList.Item(0, row).Value = barCode
-                            dtgrdViewItemList.Item(1, row).Value = itemCode
-                            dtgrdViewItemList.Item(2, row).Value = longDescription
-                            dtgrdViewItemList.Item(4, row).Value = LCurrency.displayValue(price.ToString)
-                            dtgrdViewItemList.Item(5, row).Value = LCurrency.displayValue(vat.ToString)
-                            dtgrdViewItemList.Item(6, row).Value = LCurrency.displayValue(discount.ToString)
-                            dtgrdViewItemList.Item(7, row).Value = qty
-                            dtgrdViewItemList.Item(8, row).Value = LCurrency.displayValue(amount.ToString)
-                            dtgrdViewItemList.Item(10, row).Value = description
-                            dtgrdViewItemList.Item(0, row).ReadOnly = True
-                            dtgrdViewItemList.Item(1, row).ReadOnly = True
-                            dtgrdViewItemList.Item(2, row).ReadOnly = True
-
-                            seq = seq + 1
-                            AddToCart(Format(Now, "mm/dd/yy hh:mm:ss") + (New Random).Next(0, 1000).ToString + Till.TILLNO + seq.ToString, Till.TILLNO, dtgrdViewItemList.Item(0, row).Value, dtgrdViewItemList.Item(1, row).Value, dtgrdViewItemList.Item(2, row).Value, dtgrdViewItemList.Item(4, row).Value, dtgrdViewItemList.Item(5, row).Value, dtgrdViewItemList.Item(6, row).Value, dtgrdViewItemList.Item(7, row).Value, dtgrdViewItemList.Item(8, row).Value, dtgrdViewItemList.Item(10, row).Value)
-
-                        End If
-
-                        If dtgrdViewItemList.RowCount > 1 Then
-                            If dtgrdViewItemList.Item(7, row - 1).Value > 1 Then
-                                SaleSequence.multiple = True
-                            Else
-                                SaleSequence.multiple = False
-                            End If
-                        End If
-                    Else
-                        loadCart(Till.TILLNO)
-                    End If
-                    Exit While
-                End While
-            Else
-                dtgrdViewItemList.Item(0, row).Value = ""
-                dtgrdViewItemList.Item(1, row).Value = ""
-                dtgrdViewItemList.Item(2, row).Value = ""
-                dtgrdViewItemList.Item(4, row).Value = ""
-                dtgrdViewItemList.Item(5, row).Value = ""
-                dtgrdViewItemList.Item(6, row).Value = ""
-                dtgrdViewItemList.Item(7, row).Value = ""
-                dtgrdViewItemList.Item(8, row).Value = ""
-
-                dtgrdViewItemList.EndEdit()
-                refreshList()
-                calculateValues()
-            End If
-        Catch ex As Exception
-            ' MsgBox(ex.Message)
-
-        End Try
-
-        'refreshList()
-        'calculateValues()
-        loadCart(Till.TILLNO)
-        Return found
-    End Function
-    Private Function searchByItemCode(itemCode As String, q As Integer)
-
-        Dim found As Boolean = False
-        Dim query As String = "SELECT `items`.`item_code`, `items`.`item_description`,`items`.`item_long_description`,`items`.`pck`, `items`.`retail_price`,`items`.`discount`,`items`.`vat`,`inventorys`.`item_code` FROM `items`,`inventorys` WHERE `items`.`item_code`=`inventorys`.`item_code` AND `items`.`item_code` =@item_code"
-        Dim command As New MySqlCommand()
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            command.Parameters.AddWithValue("@item_code", itemCode)
-        Catch ex As Devart.Data.MySql.MySqlException
-            LError.databaseConnection()
-            Return vbNull
-            Exit Function
-        End Try
-        Dim reader As MySqlDataReader = command.ExecuteReader()
-        Dim no As Integer = 0
-        Dim row As Integer = 0
-        Try
-            row = dtgrdViewItemList.CurrentCell.RowIndex
-        Catch ex As Exception
-            dtgrdViewItemList.Rows.Add()
-            row = dtgrdViewItemList.CurrentCell.RowIndex
-        End Try
-        Try
-            If reader.HasRows = True Then
-                While reader.Read
-                    'barCode = reader.GetString("item_scan_code")
-                    itemCode = reader.GetString("item_code")
-                    description = reader.GetString("item_description")
-                    longDescription = reader.GetString("item_long_description")
-                    pck = reader.GetString("pck")
-                    price = reader.GetString("retail_price")
-                    discount = reader.GetString("discount")
-                    vat = reader.GetString("vat")
-                    qty = q
-                    price = (Val(price)) * (1 - Val(discount) / 100)
-                    amount = (Val(qty) * price) * (1 - Val(discount) / 100)
-
-                    found = True
-
-                    If found = True Then
-
-                        If addInList(itemCode, "") = True Then
-                            loadCart(Till.TILLNO)
-                        Else
-
-                            dtgrdViewItemList.Item(0, row).Value = barCode
-                            dtgrdViewItemList.Item(1, row).Value = itemCode
-                            dtgrdViewItemList.Item(2, row).Value = longDescription
-                            dtgrdViewItemList.Item(4, row).Value = LCurrency.displayValue(price.ToString)
-                            dtgrdViewItemList.Item(5, row).Value = LCurrency.displayValue(vat.ToString)
-                            dtgrdViewItemList.Item(6, row).Value = LCurrency.displayValue(discount.ToString)
-                            dtgrdViewItemList.Item(7, row).Value = qty
-                            dtgrdViewItemList.Item(8, row).Value = LCurrency.displayValue(amount.ToString)
-                            dtgrdViewItemList.Item(10, row).Value = description
-
-                            dtgrdViewItemList.Item(0, row).ReadOnly = True
-                            dtgrdViewItemList.Item(1, row).ReadOnly = True
-                            dtgrdViewItemList.Item(2, row).ReadOnly = True
-
-                            seq = seq + 1
-                            AddToCart(Format(Now, "mm/dd/yy hh:mm:ss") + (New Random).Next(0, 1000).ToString + Till.TILLNO + seq.ToString, Till.TILLNO, dtgrdViewItemList.Item(0, row).Value, dtgrdViewItemList.Item(1, row).Value, dtgrdViewItemList.Item(2, row).Value, dtgrdViewItemList.Item(4, row).Value, dtgrdViewItemList.Item(5, row).Value, dtgrdViewItemList.Item(6, row).Value, dtgrdViewItemList.Item(7, row).Value, dtgrdViewItemList.Item(8, row).Value, dtgrdViewItemList.Item(10, row).Value)
-
-                        End If
-
-                        If dtgrdViewItemList.RowCount > 1 Then
-                            If dtgrdViewItemList.Item(7, row - 1).Value > 1 Then
-                                SaleSequence.multiple = True
-                            Else
-                                SaleSequence.multiple = False
-                            End If
-                        End If
-                    Else
-                        loadCart(Till.TILLNO)
-                    End If
-                    Exit While
-                End While
-            Else
-                dtgrdViewItemList.Item(0, row).Value = ""
-                dtgrdViewItemList.Item(1, row).Value = ""
-                dtgrdViewItemList.Item(2, row).Value = ""
-                dtgrdViewItemList.Item(4, row).Value = ""
-                dtgrdViewItemList.Item(5, row).Value = ""
-                dtgrdViewItemList.Item(6, row).Value = ""
-                dtgrdViewItemList.Item(7, row).Value = ""
-                dtgrdViewItemList.Item(8, row).Value = ""
-
-                dtgrdViewItemList.EndEdit()
-                'refreshList()
-                'calculateValues()
-                loadCart(Till.TILLNO)
-            End If
-        Catch ex As Exception
-            ' MsgBox(ex.StackTrace)
-        End Try
-
-        'refreshList()
-        'calculateValues()
-        loadCart(Till.TILLNO)
-        Return found
-    End Function
     Private Function refreshList()
         If dtgrdViewItemList.RowCount > 0 Then
             Dim max As Integer = dtgrdViewItemList.RowCount - 2
@@ -665,7 +461,7 @@ Public Class frmMain
 
         If dtgrdViewItemList.CurrentCell.ColumnIndex = 9 Then
             Dim sn As String = dtgrdViewItemList.Item(11, dtgrdViewItemList.CurrentCell.RowIndex).Value
-            loadCart(Till.TILLNO)
+            loadCart(txtId.Text, Till.TILLNO)
             Dim void As Boolean = checkVoid(Till.TILLNO, sn)
             If allowVoid = False Then
 
@@ -689,7 +485,7 @@ Public Class frmMain
                     _void(Till.TILLNO, sn)
                 End If
             End If
-            loadCart(Till.TILLNO)
+            loadCart(txtId.Text, Till.TILLNO)
         End If
 
         refreshList()
@@ -718,7 +514,7 @@ Public Class frmMain
 
         If dtgrdViewItemList.CurrentCell.ColumnIndex = 6 Then
             Dim sn As String = dtgrdViewItemList.Item(11, dtgrdViewItemList.CurrentCell.RowIndex).Value
-            loadCart(Till.TILLNO)
+            loadCart(txtId.Text, Till.TILLNO)
 
             'process discount
 
@@ -749,7 +545,7 @@ Public Class frmMain
                 MsgBox("Operation denied!", vbOKOnly + vbExclamation)
             End If
 
-            loadCart(Till.TILLNO)
+            loadCart(txtId.Text, Till.TILLNO)
         End If
 
         refreshList()
@@ -787,69 +583,8 @@ Public Class frmMain
 
         Return vbNull
     End Function
-    Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles tlstrpBarcode.Click
-        Dim cont As Boolean = True
-        Try
-            While cont = True
-                dialog = New frmSearchItem()
-                dialog.lblSearchBy.Text = "Bar Code"
-                dialog.ShowDialog()
-                If dialog.DialogResult = Windows.Forms.DialogResult.OK Then
-                    setDetails()
-                    dialog.Dispose()
-                Else
-                    dialog.Dispose()
-                    cont = False
-                End If
-                calculateValues()
-            End While
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Private Sub ToolStripButton5_Click(sender As Object, e As EventArgs) Handles tlsrpItemcode.Click
-        Dim cont As Boolean = True
-        Try
-            While cont = True
-                dialog = New frmSearchItem()
-                dialog.Text = "Search Item by Item Code"
-                dialog.lblSearchBy.Text = "Item Code"
-                dialog.ShowDialog()
-                If dialog.DialogResult = Windows.Forms.DialogResult.OK Then
-                    setDetails()
-                    dialog.Dispose()
-                Else
-                    dialog.Dispose()
-                    cont = False
-                End If
-                calculateValues()
-            End While
-        Catch ex As Exception
-
-        End Try
-    End Sub
 
     Private Sub ToolStripButton6_Click(sender As Object, e As EventArgs) Handles tlstrDescription.Click
-        'Dim cont As Boolean = True
-        'While cont = True
-        '    Try
-        '        dialog = New frmSearchItem()
-        '        dialog.Text = "Search Item by Description"
-        '        dialog.lblSearchBy.Text = "Description"
-        '        dialog.ShowDialog(Me)
-        '        If dialog.DialogResult = Windows.Forms.DialogResult.OK Then
-        '            setDetails()
-        '            dialog.Dispose()
-        '        Else
-        '            dialog.Dispose()
-        '            cont = False
-        '        End If
-        '    Catch ex As Exception
-
-        '    End Try
-        '    calculateValues()
-        'End While
 
         Dim control As TextBox = DirectCast(dtgrdViewItemList.EditingControl, TextBox)
 
@@ -861,7 +596,6 @@ Public Class frmMain
         control.AutoCompleteCustomSource = mySource
         control.AutoCompleteMode = AutoCompleteMode.Suggest
         control.AutoCompleteSource = AutoCompleteSource.CustomSource
-
 
     End Sub
 
@@ -1123,10 +857,10 @@ Public Class frmMain
                         MsgBox(ex.StackTrace)
                         Exit Sub
                     End Try
-                    loadCart(Till.TILLNO)
+                    loadCart(txtId.Text, Till.TILLNO)
                     Do While dtgrdViewItemList.RowCount > 1
                         emptyCart(Till.TILLNO)
-                        loadCart(Till.TILLNO)
+                        loadCart(txtId.Text, Till.TILLNO)
                     Loop
                     For i As Integer = 1 To 3
                         If emptyCart(Till.TILLNO) = True Then
@@ -1135,9 +869,9 @@ Public Class frmMain
                     Next
 
                     calculateValues()
-                            allowVoid = False
-                        Else
-                            MsgBox("Payment could not be completed", vbCritical + vbOKOnly, "Error: NO connection")
+                    allowVoid = False
+                Else
+                    MsgBox("Payment could not be completed", vbCritical + vbOKOnly, "Error: NO connection")
                 End If
             End If
         End If
@@ -1188,35 +922,25 @@ Public Class frmMain
         End If
         Return updated
     End Function
-    Private Function updateQty(qty As Integer, sn As String)
-        Dim updated As Boolean = False
-
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            Dim command As New MySqlCommand()
-            command.Connection = conn
-            command.CommandText = "UPDATE `cart` SET `qty`='" + qty.ToString + "' WHERE `sn`='" + sn + "'"
-            command.Prepare()
-            command.ExecuteNonQuery()
-            conn.Close()
-            If sn <> "" Then
-                updated = True
-            End If
-        Catch ex As Exception
-            ' MsgBox(ex.Message)
-            Return updated
-            Exit Function
-        End Try
-
-        Return updated
+    Private Function updateQty(qty As Double, sn As String)
+        Dim detail As CartDetail = New CartDetail
+        detail.id = sn
+        detail.qty = qty
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+        response = Web.put(detail, "carts/update_qty?detail_id=" + sn + "&qty=" + qty.ToString)
+        If response = True Then
+            Return True
+        Else
+            Return False
+        End If
     End Function
     Private Sub tpsLock_Click(sender As Object, e As EventArgs) Handles tpsLock.Click
         frmLock.ShowDialog()
     End Sub
     Private Sub frmMain_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         RECEIPT_NO = (New Receipt).makeReceipt(Till.TILLNO, Day.systemDate)
-        loadCart(Till.TILLNO)
+        loadCart(txtId.Text, Till.TILLNO)
     End Sub
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         tspStatus.Text = tspStatus.Text + "Logged in"
@@ -1232,7 +956,7 @@ Public Class frmMain
 
         End If
         Dim item As New Item
-        longList = item.getItemDescriptions()
+        '  longList = item.getItemDescriptions()
     End Sub
     Private Function loadUser(role As String)
 
@@ -1444,18 +1168,6 @@ Public Class frmMain
         frmPrinters.ShowDialog()
     End Sub
 
-    Private Sub StatusStrip_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles StatusStrip.ItemClicked
-
-    End Sub
-
-    Private Sub ToolStrip_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ToolStrip.ItemClicked
-
-    End Sub
-
-    Private Sub MenuStrip_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles MenuStrip.ItemClicked
-
-    End Sub
-
     Protected Overridable Function place(key As String)
         Try
             Dim row As Integer = dtgrdViewItemList.CurrentCell.RowIndex
@@ -1562,7 +1274,6 @@ Public Class frmMain
     Dim _values As String()
     Dim _formerValue As String = String.Empty
 
-
     Private Sub dtgrdViewItemList_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dtgrdViewItemList.CellClick
         Try
             If dtgrdViewItemList.CurrentCell.ColumnIndex = 2 Then
@@ -1571,34 +1282,17 @@ Public Class frmMain
                 control = DirectCast(dtgrdViewItemList.EditingControl, TextBox)
                 Dim list As New List(Of String)
                 Dim mySource As New AutoCompleteStringCollection
-                Dim item As New Item
-                list = item.getItems(control.Text)
+                Dim product_ As New Product
+                list = product_.getDescriptions
+
                 mySource.AddRange(list.ToArray)
                 control.AutoCompleteCustomSource = mySource
                 control.AutoCompleteMode = AutoCompleteMode.Suggest
                 control.AutoCompleteSource = AutoCompleteSource.CustomSource
 
-                'Dim control As New ComboBox
-                'Control = DirectCast(dtgrdViewItemList.EditingControl, ComboBox)
-                'shortList.Clear()
-                'Control.Items.Clear()
-                'Control.DroppedDown = True
-                'For Each text As String In longList
-                'Dim formattedText As String = text.ToUpper()
-                'If formattedText.Contains(control.Text.ToUpper()) Then
-                'shortList.Add(text)
-                'End If
-                ' Next
-                'Control.Items.AddRange(shortList.ToArray())
-                'Control.SelectionStart = control.Text.Length
-                ' Cursor.Current = Cursors.Default
-
-
-
-
             End If
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            MsgBox(ex.StackTrace)
         End Try
     End Sub
     Dim longList As New List(Of String)
@@ -1801,19 +1495,6 @@ Public Class frmMain
         place("0")
     End Sub
 
-
-
-    Private Sub dtgrdViewItemList_KeyPress(sender As Object, e As KeyPressEventArgs) Handles dtgrdViewItemList.KeyPress
-
-    End Sub
-
-    Private Sub dtgrdViewItemList_Leave(sender As Object, e As EventArgs) Handles dtgrdViewItemList.Leave
-
-    End Sub
-
-    Private Sub dtgrdViewItemList_CellLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dtgrdViewItemList.CellLeave
-
-    End Sub
     Declare Function Wow64DisableWow64FsRedirection Lib "kernel32" (ByRef oldvalue As Long) As Boolean
     Declare Function Wow64EnableWow64FsRedirection Lib "kernel32" (ByRef oldvalue As Long) As Boolean
     Private osk As String = "C:\Windows\System32\osk.exe"
@@ -1838,237 +1519,150 @@ Public Class frmMain
         startOSK()
     End Sub
 
-    'Private Sub dtgrdViewItemList_CellDoubleClick(sender As Object, e As DataGridViewCellCancelEventArgs)
-    '    If dtgrdViewItemList.CurrentCell.ColumnIndex = 2 Then
+    Private Sub AddToCart(sn As String, tillNo As String, barcode As String, code As String, description As String, costPriceVatIncl As Double, vat As Double, discount As Double, qty As Double, amount As Double, shortDescr As String)
+        Dim cart As New Cart
+        cart.id = txtId.Text
+        cart.till.no = tillNo
+        Dim cartDetail As CartDetail = New CartDetail
+        cartDetail.id = sn
+        cartDetail.barcode = barcode
+        cartDetail.code = code
+        cartDetail.description = description
+        cartDetail.costPriceVatIncl = costPriceVatIncl
+        cartDetail.vat = vat
+        cartDetail.discount = discount
+        cartDetail.qty = qty
+        cart.cartDetails.Add(cartDetail)
 
-    '        Dim list As New List(Of String)
-    '        Dim mySource As New AutoCompleteStringCollection
-    '        If Me.Text = "Search Item by Description" Then
-    '            'If txtSearch.Text.Length > 1 Then
-    '            Try
-    '                Dim query As String = "SELECT `items`.`item_code`,`items`.`item_long_description`, `inventorys`.`item_code`FROM `items`,`inventorys` WHERE `items`.`item_code`=`inventorys`.`item_code`" ' AND `items`.`item_long_description` LIKE '%" + txtSearch.Text + "%' LIMIT 1,10000"
-    '                Dim command As New MySqlCommand()
-    '                Dim conn As New MySqlConnection(Database.conString)
-    '                Try
-    '                    conn.Open()
-    '                    command.CommandText = query
-    '                    command.Connection = conn
-    '                    command.CommandType = CommandType.Text
-    '                    Dim itemreader As MySqlDataReader = command.ExecuteReader()
-    '                    If itemreader.HasRows = True Then
-    '                        While itemreader.Read
-    '                            list.Add(itemreader("item_long_description").ToString)
-    '                        End While
-    '                    Else
-    '                        Exit Sub
-    '                    End If
-    '                    Dim text As TextBox = TryCast(dtgrdViewItemList.CurrentCell.Value, TextBox)
+        MsgBox(cart.cartDetails(0).description)
 
-    '                    mySource.AddRange(list.ToArray)
-    '                    dtgrdViewItemList.CurrentCell.Value.AutoCompleteCustomSource = mySource
-    '                    dtgrdViewItemList.CurrentCell.Value.AutoCompleteMode = AutoCompleteMode.Append
-    '                    dtgrdViewItemList.CurrentCell.Value.AutoCompleteSource = AutoCompleteSource.CustomSource
-    '                Catch ex As Devart.Data.MySql.MySqlException
-    '                    LError.databaseConnection()
-    '                    Exit Sub
-    '                End Try
-    '            Catch ex As Exception
-    '                MsgBox(ex.Message.ToString)
-    '            End Try
-    '        End If
-
-    '    End If
-    'End Sub
-
-    Private Sub AddToCart(sn As String, tillNo As String, barcode As String, itemCode As String, description As String, price As String, vat As String, discount As String, qty As String, amount As String, shortDescr As String)
-
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            Dim command As New MySqlCommand()
-            command.Connection = conn
-            command.CommandText = "INSERT INTO `cart`(`till_no`, `bar_code`, `item_code`, `description`, `price`, `vat`, `discount`, `qty`, `amount`, `sn`, `short_description`) VALUES (@till_no,@bar_code,@item_code,@description,@price,@vat,@discount,@qty,@amount,@sn,@short_description)"
-            command.Prepare()
-            command.Parameters.AddWithValue("@till_no", tillNo)
-            command.Parameters.AddWithValue("@bar_code", barcode)
-            command.Parameters.AddWithValue("@item_code", itemCode)
-            command.Parameters.AddWithValue("@description", description)
-            command.Parameters.AddWithValue("@price", price)
-            command.Parameters.AddWithValue("@vat", vat)
-            command.Parameters.AddWithValue("@discount", discount)
-            command.Parameters.AddWithValue("@qty", qty)
-            command.Parameters.AddWithValue("@amount", amount)
-            command.Parameters.AddWithValue("@sn", sn)
-            command.Parameters.AddWithValue("@short_description", shortDescr)
-
-            command.ExecuteNonQuery()
-        Catch ex As Devart.Data.MySql.MySqlException
-            LError.databaseConnection()
-            Exit Sub
-        End Try
-
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+        If txtId.Text = "" Then
+            response = Web.post(cart, "carts/new")
+        Else
+            response = Web.put(cart, "carts/update_by_id?id=" + txtId.Text)
+        End If
+        json = JObject.Parse(response)
+        If txtId.Text = "" Then
+            txtId.Text = json.SelectToken("id")
+        End If
     End Sub
     Private Function checkVoid(tillNo As String, sn As String)
-        Dim isVoid As Boolean = False
-
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim codeQuery As String = "SELECT `void` FROM `cart` WHERE `till_no`='" + tillNo + "' AND `sn`='" + sn + "'"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                If reader.GetString("void").ToString.Equals("YES") Then
-                    isVoid = True
-                End If
-                Exit While
-            End While
-            conn.Close()
-        Catch ex As Exception
-            MsgBox(ex.StackTrace)
-        End Try
-
-        Return isVoid
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+        response = Web.get_("carts/check_voided?detail_id=" + sn)
+        If response = True Then
+            Return True
+        Else
+            Return False
+        End If
     End Function
     Private Sub _void(tillNo As String, sn As String)
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            Dim command As New MySqlCommand()
-            command.Connection = conn
-            command.CommandText = "UPDATE `cart` SET `void`='YES' WHERE `sn`='" + sn + "'"
-            command.Prepare()
-            command.ExecuteNonQuery()
-            conn.Close()
-        Catch ex As Exception
-            MsgBox(ex.StackTrace)
-            Exit Sub
-        End Try
+        Dim cartDetail As New CartDetail
+        cartDetail.id = sn
+        cartDetail.cart.id = txtId.Text
+
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+        response = Web.post(cartDetail, "carts/void?detail_id=" + sn)
+        loadCart(txtId.Text, Till.TILLNO)
+
     End Sub
     Private Sub unvoid(tillNo As String, sn As String)
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            Dim command As New MySqlCommand()
-            command.Connection = conn
-            command.CommandText = "UPDATE `cart` SET `void`='NO' WHERE `sn`='" + sn + "'"
-            command.Prepare()
-            command.ExecuteNonQuery()
-            conn.Close()
-        Catch ex As Exception
-            MsgBox(ex.StackTrace)
-            Exit Sub
-        End Try
+        Dim cartDetail As New CartDetail
+        cartDetail.id = sn
+        cartDetail.cart.id = txtId.Text
+
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+        response = Web.post(cartDetail, "carts/unvoid?detail_id=" + sn)
+        loadCart(txtId.Text, Till.TILLNO)
     End Sub
-    Private Sub loadCart(tillNo As String)
+    Private Sub loadCart(id As String, tillNo As String)
         dtgrdViewItemList.Rows.Clear()
-        Dim query As String = "SELECT `bar_code`, `item_code`, `description`, `price`, `vat`, `discount`, `qty`, `amount`, `sn`, `void`, `short_description` FROM `cart` WHERE `till_no`='" + tillNo + "'"
-        Dim command As New MySqlCommand()
-        Dim conn As New MySqlConnection(Database.conString)
+
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
         Try
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-        Catch ex As MySqlException
-            LError.databaseConnection()
+            response = Web.get_("carts/get_by_id_and_till_no?id=" + id + "&till_no=" + tillNo)
+            json = JObject.Parse(response)
+        Catch ex As Exception
             Exit Sub
         End Try
 
-        Dim reader As MySqlDataReader = command.ExecuteReader()
-        Try
-            If reader.HasRows = True Then
-                Dim i As Integer = 0
-                While reader.Read
-                    Dim barcode As String = reader.GetString("bar_code")
-                    Dim itemcode As String = reader.GetString("item_code")
-                    Dim description As String = reader.GetString("description")
-                    Dim price As String = reader.GetString("price")
-                    Dim vat As String = reader.GetString("vat")
-                    Dim discount As String = reader.GetString("discount")
-                    Dim qty As String = reader.GetString("qty")
-                    Dim amount As String = reader.GetString("amount")
-                    Dim sn As String = reader.GetString("sn")
-                    Dim void As String = reader.GetString("void")
-                    Dim shortDescr As String = reader.GetString("short_description")
+        Dim cart As Cart = JsonConvert.DeserializeObject(Of Cart)(json.ToString)
 
-                    Dim dtgrdRow As New DataGridViewRow
-                    Dim dtgrdCell As DataGridViewCell
+        If Not IsNothing(cart.cartDetails) Then
+            Dim i As Integer = 0
+            For Each detail As CartDetail In cart.cartDetails
+                Dim dtgrdRow As New DataGridViewRow
+                Dim dtgrdCell As DataGridViewCell
 
-                    dtgrdCell = New DataGridViewTextBoxCell()
-                    dtgrdCell.Value = barcode
-                    dtgrdRow.Cells.Add(dtgrdCell)
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = detail.barcode
+                dtgrdRow.Cells.Add(dtgrdCell)
 
-                    dtgrdCell = New DataGridViewTextBoxCell()
-                    dtgrdCell.Value = itemcode
-                    dtgrdRow.Cells.Add(dtgrdCell)
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = detail.code
+                dtgrdRow.Cells.Add(dtgrdCell)
 
-                    dtgrdCell = New DataGridViewTextBoxCell()
-                    dtgrdCell.Value = description
-                    dtgrdRow.Cells.Add(dtgrdCell)
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = detail.description
+                dtgrdRow.Cells.Add(dtgrdCell)
 
-                    dtgrdCell = New DataGridViewTextBoxCell()
-                    dtgrdCell.Value = ""
-                    dtgrdRow.Cells.Add(dtgrdCell)
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = ""
+                dtgrdRow.Cells.Add(dtgrdCell)
 
-                    dtgrdCell = New DataGridViewTextBoxCell()
-                    dtgrdCell.Value = price
-                    dtgrdRow.Cells.Add(dtgrdCell)
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = detail.costPriceVatIncl
+                dtgrdRow.Cells.Add(dtgrdCell)
 
-                    dtgrdCell = New DataGridViewTextBoxCell()
-                    dtgrdCell.Value = vat
-                    dtgrdRow.Cells.Add(dtgrdCell)
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = detail.vat
+                dtgrdRow.Cells.Add(dtgrdCell)
 
-                    dtgrdCell = New DataGridViewTextBoxCell()
-                    dtgrdCell.Value = discount
-                    dtgrdRow.Cells.Add(dtgrdCell)
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = detail.discount
+                dtgrdRow.Cells.Add(dtgrdCell)
 
-                    dtgrdCell = New DataGridViewTextBoxCell()
-                    dtgrdCell.Value = qty
-                    dtgrdRow.Cells.Add(dtgrdCell)
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = detail.qty
+                dtgrdRow.Cells.Add(dtgrdCell)
 
-                    dtgrdCell = New DataGridViewTextBoxCell()
-                    dtgrdCell.Value = amount
-                    dtgrdRow.Cells.Add(dtgrdCell)
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = amount
+                dtgrdRow.Cells.Add(dtgrdCell)
 
-                    dtgrdCell = New DataGridViewCheckBoxCell()
-                    If void = "YES" Then
-                        dtgrdCell.Value = True
-                    Else
-                        dtgrdCell.Value = False
-                    End If
-                    dtgrdRow.Cells.Add(dtgrdCell)
+                dtgrdCell = New DataGridViewCheckBoxCell()
+                If detail.voided = 1 Then
+                    dtgrdCell.Value = True
+                Else
+                    dtgrdCell.Value = False
+                End If
+                dtgrdRow.Cells.Add(dtgrdCell)
 
-                    dtgrdCell = New DataGridViewTextBoxCell()
-                    dtgrdCell.Value = shortDescr
-                    dtgrdRow.Cells.Add(dtgrdCell)
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = ""
+                dtgrdRow.Cells.Add(dtgrdCell)
 
-                    dtgrdCell = New DataGridViewTextBoxCell()
-                    dtgrdCell.Value = sn
-                    dtgrdRow.Cells.Add(dtgrdCell)
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = detail.id
+                dtgrdRow.Cells.Add(dtgrdCell)
 
-                    dtgrdViewItemList.Rows.Add(dtgrdRow)
+                dtgrdViewItemList.Rows.Add(dtgrdRow)
 
-                    dtgrdViewItemList.Item(0, i).ReadOnly = True
-                    dtgrdViewItemList.Item(1, i).ReadOnly = True
-                    dtgrdViewItemList.Item(2, i).ReadOnly = True
+                dtgrdViewItemList.Item(0, i).ReadOnly = True
+                dtgrdViewItemList.Item(1, i).ReadOnly = True
+                dtgrdViewItemList.Item(2, i).ReadOnly = True
 
-                    i = i + 1
-
-                End While
-            Else
-
-            End If
+                i = i + 1
+            Next
             refreshList()
             calculateValues()
             dtgrdViewItemList.CurrentCell = dtgrdViewItemList(0, dtgrdViewItemList.RowCount - 1)
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-
+        End If
     End Sub
     Private Function emptyCart(tillNo As String)
         Dim emptied As Boolean = False
@@ -2107,7 +1701,7 @@ Public Class frmMain
                     If (bcodes(i)) <> "" Then
                         searchByBarcode(bcodes(i), qtys(i))
                     Else
-                        searchByItemCode(icodes(i), qtys(i))
+                        searchByCode(icodes(i), qtys(i))
                     End If
                 Next
                 order.Dispose()
@@ -2122,13 +1716,5 @@ Public Class frmMain
             order = New frmOrder()
             order.ShowDialog(Me)
         End If
-    End Sub
-
-    Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
-
-    End Sub
-
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
-
     End Sub
 End Class

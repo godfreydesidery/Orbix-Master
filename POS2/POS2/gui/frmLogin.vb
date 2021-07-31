@@ -12,9 +12,8 @@ Public Class frmLogin
     ' such as the username, display name, etc.
 
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
-        Dim username As String = txtUsername.Text
-        Dim password As String = txtPassword.Text
-        If User.authenticate(username, password) = "ACTIVE" Then
+
+        If User.authenticate(txtUsername.Text, txtPassword.Text) = 0 Then
             frmMain.Show()
             Me.Close()
         Else

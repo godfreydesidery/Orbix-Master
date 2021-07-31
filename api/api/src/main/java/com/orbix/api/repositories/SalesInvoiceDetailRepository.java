@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.orbix.api.models.SalesInvoice;
 import com.orbix.api.models.SalesInvoiceDetail;
@@ -15,6 +16,7 @@ import com.orbix.api.models.SalesInvoiceDetail;
  * @author GODFREY
  *
  */
+@Repository
 public interface SalesInvoiceDetailRepository extends JpaRepository<SalesInvoiceDetail, Long> {
 
 	/**

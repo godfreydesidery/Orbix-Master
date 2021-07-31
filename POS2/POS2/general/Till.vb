@@ -3,6 +3,12 @@
 Public Class Till
     Public Shared TILLNO As String = ""
 
+    Public Property id As String
+    Public Property no As String
+    Public Property name As String
+    Public Property computerName As String
+    Public Property active As Integer
+
     Public Shared Function tillTotalRegister(tillNo As String, cash As Double, voucher As Double, cheque As Double, deposit As Double, loyalty As Double, CRCard As Double, CAP As Double, invoice As Double, CRNote As Double, mobile As Double)
         Dim commited As Boolean = False
         Dim conn As New MySqlConnection(Database.conString)

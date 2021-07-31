@@ -26,12 +26,10 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.envers.Audited;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -57,6 +55,22 @@ public class Receipt {
     private Date printed;
 	@Temporal(TemporalType.TIMESTAMP)
     private Date rePrinted;
+	private double cash = 0;
+	private double voucher = 0;
+	private double deposit = 0;
+	private double loyalty = 0;
+	private double crCard = 0;
+	private double cheque = 0;
+	private double cap = 0;
+	private double invoice = 0;
+	private double crNote = 0;
+	private double mobile = 0;
+	private double other = 0;
+	
+	@ManyToOne(targetEntity = Cart.class, fetch = FetchType.LAZY,  optional = true)
+    @JoinColumn(name = "cart_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    private Cart cart;
 	
 	@ManyToOne(targetEntity = Till.class, fetch = FetchType.EAGER,  optional = true)
     @JoinColumn(name = "till_id", nullable = true , updatable = true)
@@ -81,6 +95,14 @@ public class Receipt {
     @Valid
     @JsonIgnoreProperties("receipt")
     private List<ReceiptDetail> receiptDetails;
+
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
 
 	/**
 	 * @return the id
@@ -234,5 +256,94 @@ public class Receipt {
 	 */
 	public void setReceiptDetails(List<ReceiptDetail> receiptDetails) {
 		this.receiptDetails = receiptDetails;
+	}
+
+	public double getCash() {
+		return cash;
+	}
+
+	public void setCash(double cash) {
+		this.cash = cash;
+	}
+
+	public double getVoucher() {
+		return voucher;
+	}
+
+	public void setVoucher(double voucher) {
+		this.voucher = voucher;
+	}
+
+	public double getDeposit() {
+		return deposit;
+	}
+
+	public void setDeposit(double deposit) {
+		this.deposit = deposit;
+	}
+
+	public double getLoyalty() {
+		return loyalty;
+	}
+
+	public void setLoyalty(double loyalty) {
+		this.loyalty = loyalty;
+	}
+
+	public double getCrCard() {
+		return crCard;
+	}
+
+	public void setCrCard(double crCard) {
+		this.crCard = crCard;
+	}
+
+	public double getCheque() {
+		return cheque;
+	}
+
+	public void setCheque(double cheque) {
+		this.cheque = cheque;
+	}
+
+	public double getCap() {
+		return cap;
+	}
+
+	public void setCap(double cap) {
+		this.cap = cap;
+	}
+
+	public double getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(double invoice) {
+		this.invoice = invoice;
+	}
+
+	public double getCrNote() {
+		return crNote;
+	}
+
+	public void setCrNote(double crNote) {
+		this.crNote = crNote;
+	}
+
+	public double getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(double mobile) {
+		this.mobile = mobile;
+	}
+
+	public double getOther() {
+		return other;
+	}
+
+	public void setOther(double other) {
+		this.other = other;
 	}	
+	
 }

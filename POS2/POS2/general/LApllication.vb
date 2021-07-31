@@ -1,6 +1,7 @@
 ﻿Imports System.Xml
 Imports System.Net
 Imports Devart.Data.MySql
+Imports Newtonsoft.Json.Linq
 
 Public Class LApllication
 
@@ -145,6 +146,24 @@ Public Class LApllication
         End Try
 
 
+
+        Try
+            Dim response As Object = New Object
+            Dim json As JObject = New JObject
+            response = Web.get_("tills/get_by_computer_name?computer_name=" + My.Computer.Name.ToString)
+            json = JObject.Parse(response)
+            Till.TILLNO = json.SelectToken("no")
+        Catch ex As Exception
+            MsgBox("Could not find till information. Application will close.", vbOKOnly + vbCritical, "Error: Till")
+            Application.Exit()
+        End Try
+
+
+
+
+
+
+
         'load till information
         Try
             Dim compName As String = My.Computer.Name.ToString
@@ -159,16 +178,15 @@ Public Class LApllication
             Dim reader As MySqlDataReader = command.ExecuteReader()
             If reader.HasRows Then
                 While reader.Read
-                    Till.TILLNO = reader.GetString("till_no")
-                    Exit While
+                    '          Till.TILLNO = reader.GetString("till_no")
+                    '       Exit While
                 End While
             Else
-                MsgBox("Could not find till information. Application will close.", vbOKOnly + vbCritical, "Error: Till")
-                Application.Exit()
+
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            '      MsgBox(ex.Message)
         End Try
         'load printer informations
         Try
@@ -195,7 +213,7 @@ Public Class LApllication
             End If
 
         Catch ex As Exception
-            LError.databaseConnection()
+            '     LError.databaseConnection()
         End Try
         Try
             Dim compName As String = My.Computer.Name.ToString
@@ -219,7 +237,7 @@ Public Class LApllication
             End If
 
         Catch ex As Exception
-            LError.databaseConnection()
+            '    LError.databaseConnection()
         End Try
 
         'load day information

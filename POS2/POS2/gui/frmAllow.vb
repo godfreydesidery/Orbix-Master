@@ -8,12 +8,12 @@ Public Class frmAllow
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        If User.authorize(txtUsername.Text, txtPassword.Text, User.authorize("SPECIAL")) = True Then
-            allowed = True
-            Me.Dispose()
-        Else
-            MsgBox("Operation denied. Action require special priveledges", vbCritical + vbOKOnly, "Error")
-        End If
+        ' If User.authorize(txtUsername.Text, txtPassword.Text, User.authorize("SPECIAL")) = True Then
+        ' allowed = True
+        ' Me.Dispose()
+        '  Else
+        '  MsgBox("Operation denied. Action require special priveledges", vbCritical + vbOKOnly, "Error")
+        '  End If
 
     End Sub
     Private Function checkAllowed(uname As String, pword As String)

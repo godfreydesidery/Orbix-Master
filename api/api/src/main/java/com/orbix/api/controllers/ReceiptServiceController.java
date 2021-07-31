@@ -6,6 +6,7 @@ package com.orbix.api.controllers;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Vector;
 
 import javax.validation.Valid;
 
@@ -30,16 +31,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.orbix.api.accessories.Formater;
 import com.orbix.api.exceptions.NotFoundException;
+import com.orbix.api.models.Cart;
+import com.orbix.api.models.CartDetail;
 import com.orbix.api.models.Receipt;
 import com.orbix.api.models.ReceiptDetail;
 import com.orbix.api.models.Sale;
 import com.orbix.api.models.SaleDetail;
 import com.orbix.api.models.Till;
+import com.orbix.api.models.TillPosition;
 import com.orbix.api.models.User;
+import com.orbix.api.repositories.CartRepository;
 import com.orbix.api.repositories.ReceiptDetailRepository;
 import com.orbix.api.repositories.ReceiptRepository;
 import com.orbix.api.repositories.SaleDetailRepository;
 import com.orbix.api.repositories.SaleRepository;
+import com.orbix.api.repositories.TillPositionRepository;
 import com.orbix.api.repositories.TillRepository;
 import com.orbix.api.repositories.UserRepository;
 
@@ -64,6 +70,10 @@ public class ReceiptServiceController {
     SaleRepository saleRepository;
     @Autowired
     SaleDetailRepository saleDetailRepository;
+    @Autowired
+    TillPositionRepository tillPositionRepository;
+    @Autowired
+    CartRepository cartRepository;
    
    
     /**
@@ -149,12 +159,77 @@ public class ReceiptServiceController {
     	receipt.setNo(recNo); 
     	receiptRepository.saveAndFlush(receipt);
     	
-    	List<ReceiptDetail> receiptDetails;
-    	receiptDetails = receipt.getReceiptDetails();
-    	for(ReceiptDetail detail : receiptDetails) {
-    		detail.setReceipt(receipt);
-    		receiptDetailRepository.saveAndFlush(detail);
-    	} 
+    	List<ReceiptDetail> receiptDetails = new Vector<ReceiptDetail>();
+    	
+    	Cart cart = receipt.getCart();
+    	List<CartDetail> cartDetails;
+    	cartDetails = receipt.getCart().getCartDetails();
+    	CartDetail cartDetail;
+    	ReceiptDetail receiptDetail;
+    	/**
+    	 * Add details to sales details and voided items to void list
+    	 */
+    	for(CartDetail detail : cartDetails) {
+    		if(detail.getVoided() != 1) {
+    			/**
+    			 * Add non voided details to receipt
+    			 */
+    			receiptDetail = new ReceiptDetail();
+	    		receiptDetail.setReceipt(receipt);
+	    		receiptDetail.setCode(detail.getCode());
+	    		receiptDetail.setDescription(detail.getDescription());
+	    		receiptDetail.setQty(detail.getQty());
+	    		receiptDetail.setCostPriceVatIncl(detail.getCostPriceVatIncl());
+	    		receiptDetail.setCostPriceVatExcl(detail.getCostPriceVatExcl());
+	    		receiptDetail.setSellingPriceVatIncl(detail.getSellingPriceVatIncl());
+	    		receiptDetail.setSellingPriceVatExcl(detail.getSellingPriceVatExcl());
+	    		receiptDetail.setDiscount(detail.getDiscount());
+	    		receiptDetails.add(receiptDetail);
+	    		receiptDetailRepository.saveAndFlush(receiptDetail);
+    		}else {
+    			/**
+    			 * Add voided details to void list
+    			 */
+    		}
+    		
+    	}
+    	/**
+    	 * Now empty cart
+    	 */
+    	cartRepository.delete(cart);
+    	/**
+    	 * Update till position
+    	 */
+    	Optional<TillPosition> _tillPosition = tillPositionRepository.findByTill(till.get());
+    	if(!_tillPosition.isPresent()) {
+    		TillPosition position = new TillPosition();
+    		position.setTill(till.get());
+    		position.setCap(0);
+    		position.setCash(0);
+    		position.setCheque(0);
+    		position.setCrCard(0);
+    		position.setCrNote(0);
+    		position.setDeposit(0);
+    		position.setInvoice(0);
+    		position.setLoyalty(0);
+    		position.setMobile(0);
+    		position.setOther(0);
+    		tillPositionRepository.saveAndFlush(position);
+    	}
+    	_tillPosition = tillPositionRepository.findByTill(till.get());
+    	TillPosition position = _tillPosition.get();
+    	position.setCap(position.getCap() + receipt.getCap());
+		position.setCash(position.getCash() + receipt.getCash());
+		position.setCheque(position.getCheque() + receipt.getCheque());
+		position.setCrCard(position.getCrCard() + receipt.getCrCard());
+		position.setCrNote(position.getCrNote() + receipt.getCrNote());
+		position.setDeposit(position.getDeposit() + receipt.getDeposit());
+		position.setInvoice(position.getInvoice() + receipt.getInvoice());
+		position.setLoyalty(position.getLoyalty() + receipt.getLoyalty());
+		position.setMobile(position.getMobile() + receipt.getMobile());
+		position.setOther(position.getOther() + receipt.getOther());
+		tillPositionRepository.saveAndFlush(position);
+    	
     	Sale sale = new Sale();
     	sale.setReceipt(receipt);
     	saleRepository.saveAndFlush(sale);

@@ -4,8 +4,8 @@
         unlock()
     End Sub
     Private Function unlock()
-        Dim username As String = User.username
-        Dim password As String = User.password
+        Dim username As String = User.USERNAME_
+        Dim password As String = User.PASSWORD_
         If txtUsername.Text = username And Hash.check(txtPassword.Text, password) = True Then
             Me.Dispose()
         Else

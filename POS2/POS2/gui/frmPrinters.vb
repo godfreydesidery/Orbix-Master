@@ -31,15 +31,15 @@ Public Class frmPrinters
 
         End Try
 
-        If User.role = "admin" Then
+        If User.ROLE_ = "admin" Then
             fiscalCode.Enabled = True
             fiscalPassword.Enabled = True
             fiscalDrawer.Enabled = True
         End If
-        If User.role = "cashier" Then
+        If User.ROLE_ = "cashier" Then
 
         End If
-        If User.role = "manager" Then
+        If User.ROLE_ = "manager" Then
             'fiscalCode.Enabled = True
             'fiscalPassword.Enabled = True
             'fiscalDrawer.Enabled = True

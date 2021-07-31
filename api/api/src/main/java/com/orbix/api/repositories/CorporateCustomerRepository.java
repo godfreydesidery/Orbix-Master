@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.orbix.api.models.CorporateCustomer;
 
@@ -14,6 +15,7 @@ import com.orbix.api.models.CorporateCustomer;
  * @author GODFREY
  *
  */
+@Repository
 public interface CorporateCustomerRepository extends JpaRepository <CorporateCustomer, Long> {
 
 	/**

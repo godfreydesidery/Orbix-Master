@@ -25,8 +25,8 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MenuStrip = New System.Windows.Forms.MenuStrip()
         Me.FileMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
@@ -60,6 +60,18 @@ Partial Class frmMain
         Me.tpsSystDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.dtgrdViewItemList = New System.Windows.Forms.DataGridView()
+        Me.colBarCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colItemCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDescription = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colPck = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colVAT = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDiscount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colQty = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colVoid = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btnQuantity = New System.Windows.Forms.Button()
         Me.btnDiscount = New System.Windows.Forms.Button()
         Me.btnPrice = New System.Windows.Forms.Button()
@@ -144,18 +156,7 @@ Partial Class frmMain
         Me.btn3 = New System.Windows.Forms.Button()
         Me.btn2 = New System.Windows.Forms.Button()
         Me.btn1 = New System.Windows.Forms.Button()
-        Me.colBarCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colItemCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDescription = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colPck = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colVAT = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDiscount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colQty = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colVoid = New System.Windows.Forms.DataGridViewCheckBoxColumn()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.txtId = New System.Windows.Forms.TextBox()
         Me.MenuStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
@@ -408,22 +409,104 @@ Partial Class frmMain
         Me.dtgrdViewItemList.Enabled = False
         Me.dtgrdViewItemList.Location = New System.Drawing.Point(0, 66)
         Me.dtgrdViewItemList.Name = "dtgrdViewItemList"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ActiveCaption
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dtgrdViewItemList.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dtgrdViewItemList.RowHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dtgrdViewItemList.RowHeadersWidth = 40
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.LightSteelBlue
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtgrdViewItemList.RowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.LightSteelBlue
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtgrdViewItemList.RowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dtgrdViewItemList.RowTemplate.Height = 24
         Me.dtgrdViewItemList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.dtgrdViewItemList.Size = New System.Drawing.Size(1534, 500)
         Me.dtgrdViewItemList.TabIndex = 9
+        '
+        'colBarCode
+        '
+        Me.colBarCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.colBarCode.FillWeight = 22.57355!
+        Me.colBarCode.HeaderText = "Bar Code"
+        Me.colBarCode.MinimumWidth = 6
+        Me.colBarCode.Name = "colBarCode"
+        Me.colBarCode.Width = 150
+        '
+        'colItemCode
+        '
+        Me.colItemCode.FillWeight = 23.66228!
+        Me.colItemCode.HeaderText = "Item Code"
+        Me.colItemCode.Name = "colItemCode"
+        '
+        'colDescription
+        '
+        Me.colDescription.FillWeight = 87.76437!
+        Me.colDescription.HeaderText = "Description"
+        Me.colDescription.Name = "colDescription"
+        Me.colDescription.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'colPck
+        '
+        Me.colPck.FillWeight = 16.71424!
+        Me.colPck.HeaderText = "Pck"
+        Me.colPck.Name = "colPck"
+        Me.colPck.ReadOnly = True
+        Me.colPck.Visible = False
+        '
+        'colPrice
+        '
+        Me.colPrice.FillWeight = 17.71424!
+        Me.colPrice.HeaderText = "Price@"
+        Me.colPrice.Name = "colPrice"
+        Me.colPrice.ReadOnly = True
+        '
+        'colVAT
+        '
+        Me.colVAT.FillWeight = 16.71424!
+        Me.colVAT.HeaderText = "VAT %"
+        Me.colVAT.Name = "colVAT"
+        Me.colVAT.ReadOnly = True
+        '
+        'colDiscount
+        '
+        Me.colDiscount.FillWeight = 16.71424!
+        Me.colDiscount.HeaderText = "Discount %"
+        Me.colDiscount.Name = "colDiscount"
+        Me.colDiscount.ReadOnly = True
+        '
+        'colQty
+        '
+        Me.colQty.FillWeight = 16.71424!
+        Me.colQty.HeaderText = "Qty"
+        Me.colQty.Name = "colQty"
+        '
+        'colAmount
+        '
+        Me.colAmount.FillWeight = 18.71424!
+        Me.colAmount.HeaderText = "Amount"
+        Me.colAmount.Name = "colAmount"
+        Me.colAmount.ReadOnly = True
+        '
+        'colVoid
+        '
+        Me.colVoid.FillWeight = 16.71424!
+        Me.colVoid.HeaderText = "Void"
+        Me.colVoid.Name = "colVoid"
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "ShortDescr"
+        Me.Column1.Name = "Column1"
+        Me.Column1.Visible = False
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "SN"
+        Me.Column2.Name = "Column2"
+        Me.Column2.Visible = False
         '
         'btnQuantity
         '
@@ -1205,6 +1288,7 @@ Partial Class frmMain
         '
         Me.Panel2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Panel2.Controls.Add(Me.txtId)
         Me.Panel2.Controls.Add(Me.Label3)
         Me.Panel2.Controls.Add(Me.Label1)
         Me.Panel2.Controls.Add(Me.btnPay)
@@ -1455,87 +1539,13 @@ Partial Class frmMain
         Me.btn1.Text = "1"
         Me.btn1.UseVisualStyleBackColor = True
         '
-        'colBarCode
+        'txtId
         '
-        Me.colBarCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.colBarCode.FillWeight = 22.57355!
-        Me.colBarCode.HeaderText = "Bar Code"
-        Me.colBarCode.MinimumWidth = 6
-        Me.colBarCode.Name = "colBarCode"
-        Me.colBarCode.Width = 150
-        '
-        'colItemCode
-        '
-        Me.colItemCode.FillWeight = 23.66228!
-        Me.colItemCode.HeaderText = "Item Code"
-        Me.colItemCode.Name = "colItemCode"
-        '
-        'colDescription
-        '
-        Me.colDescription.FillWeight = 87.76437!
-        Me.colDescription.HeaderText = "Description"
-        Me.colDescription.Name = "colDescription"
-        Me.colDescription.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        '
-        'colPck
-        '
-        Me.colPck.FillWeight = 16.71424!
-        Me.colPck.HeaderText = "Pck"
-        Me.colPck.Name = "colPck"
-        Me.colPck.ReadOnly = True
-        Me.colPck.Visible = False
-        '
-        'colPrice
-        '
-        Me.colPrice.FillWeight = 17.71424!
-        Me.colPrice.HeaderText = "Price@"
-        Me.colPrice.Name = "colPrice"
-        Me.colPrice.ReadOnly = True
-        '
-        'colVAT
-        '
-        Me.colVAT.FillWeight = 16.71424!
-        Me.colVAT.HeaderText = "VAT %"
-        Me.colVAT.Name = "colVAT"
-        Me.colVAT.ReadOnly = True
-        '
-        'colDiscount
-        '
-        Me.colDiscount.FillWeight = 16.71424!
-        Me.colDiscount.HeaderText = "Discount %"
-        Me.colDiscount.Name = "colDiscount"
-        Me.colDiscount.ReadOnly = True
-        '
-        'colQty
-        '
-        Me.colQty.FillWeight = 16.71424!
-        Me.colQty.HeaderText = "Qty"
-        Me.colQty.Name = "colQty"
-        '
-        'colAmount
-        '
-        Me.colAmount.FillWeight = 18.71424!
-        Me.colAmount.HeaderText = "Amount"
-        Me.colAmount.Name = "colAmount"
-        Me.colAmount.ReadOnly = True
-        '
-        'colVoid
-        '
-        Me.colVoid.FillWeight = 16.71424!
-        Me.colVoid.HeaderText = "Void"
-        Me.colVoid.Name = "colVoid"
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = "ShortDescr"
-        Me.Column1.Name = "Column1"
-        Me.Column1.Visible = False
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "SN"
-        Me.Column2.Name = "Column2"
-        Me.Column2.Visible = False
+        Me.txtId.Location = New System.Drawing.Point(1100, 16)
+        Me.txtId.Name = "txtId"
+        Me.txtId.ReadOnly = True
+        Me.txtId.Size = New System.Drawing.Size(34, 22)
+        Me.txtId.TabIndex = 25
         '
         'frmMain
         '
@@ -1703,4 +1713,5 @@ Partial Class frmMain
     Friend WithEvents colVoid As DataGridViewCheckBoxColumn
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents txtId As TextBox
 End Class
