@@ -17,11 +17,11 @@ Public Class frmMain
     Dim ShortDescription As String = ""
     Dim description As String = ""
     Dim packSize As Double = 1
-    Dim price As String = ""
-    Dim vat As String = ""
+    Dim price As Double = 0
+    Dim vat As Double = 0
     Dim discount As String = ""
-    Dim qty As String = ""
-    Dim amount As String = ""
+    Dim qty As Double = 0
+    Dim amount As Double = 0
     Dim void As Boolean = False
     Dim allowVoid As Boolean = False
     Dim seq As Integer = 0
@@ -94,7 +94,7 @@ Public Class frmMain
     End Function
 
     Private Sub dtgrdViewItemList_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dtgrdViewItemList.CellEndEdit
-        Dim qty As Integer = 0
+        Dim qty As Double = 0
         Dim sn As String = ""
         Try
             qty = Val(dtgrdViewItemList.Item(7, e.RowIndex).Value)
@@ -107,11 +107,11 @@ Public Class frmMain
             If qty > 0 Then
                 updateQty(qty, sn)
             Else
-                updateQty("0", sn)
+                updateQty(0, sn)
             End If
             calculateValues()
         Else
-            If dtgrdViewItemList.Item(1, e.RowIndex).Value <> "" Then
+            If Val(dtgrdViewItemList.Item(7, e.RowIndex).Value) <= 0 And dtgrdViewItemList.Item(1, e.RowIndex).Value <> "" Then
                 MsgBox("Invalid quantity value. Quantity value should be between 1 and 1000", vbOKOnly + vbCritical, "Error: Invalid entry")
                 dtgrdViewItemList.Item(7, e.RowIndex).Value = 1
                 calculateValues()
@@ -205,7 +205,7 @@ Public Class frmMain
                             'SendKeys.Send("{left}")
                         End If
                     ElseIf found = False Then
-                        MsgBox("Item not found", vbOKOnly + vbExclamation, "Error: Not found")
+                        MsgBox("Product not found", vbOKOnly + vbExclamation, "Error: Not found")
                     End If
 
                 End If
@@ -244,7 +244,7 @@ Public Class frmMain
                             'SendKeys.Send("{left}")
                         End If
                     ElseIf found = False Then
-                        MsgBox("Item not found", vbOKOnly + vbExclamation, "Error: Not found")
+                        MsgBox("Product not found", vbOKOnly + vbExclamation, "Error: Not found")
                     End If
 
                 End If
@@ -295,7 +295,7 @@ Public Class frmMain
             discount = product.discount
             vat = product.vat
             qty = q
-            price = (Val(price)) * (1 - Val(discount) / 100)
+            price = product.sellingPriceVatIncl
             amount = (Val(qty) * price) * (1 - Val(discount) / 100)
             found = True
 
@@ -328,8 +328,7 @@ Public Class frmMain
                 dtgrdViewItemList.Item(2, row).ReadOnly = True
 
                 seq = seq + 1
-                    AddToCart("", Till.TILLNO, dtgrdViewItemList.Item(0, row).Value, dtgrdViewItemList.Item(1, row).Value, dtgrdViewItemList.Item(2, row).Value, dtgrdViewItemList.Item(4, row).Value, dtgrdViewItemList.Item(5, row).Value, dtgrdViewItemList.Item(6, row).Value, dtgrdViewItemList.Item(7, row).Value, dtgrdViewItemList.Item(8, row).Value, dtgrdViewItemList.Item(10, row).Value)
-
+                AddToCart("", Till.TILLNO, dtgrdViewItemList.Item(0, row).Value, dtgrdViewItemList.Item(1, row).Value, dtgrdViewItemList.Item(2, row).Value, dtgrdViewItemList.Item(4, row).Value, dtgrdViewItemList.Item(5, row).Value, dtgrdViewItemList.Item(6, row).Value, dtgrdViewItemList.Item(7, row).Value, dtgrdViewItemList.Item(8, row).Value, dtgrdViewItemList.Item(10, row).Value)
 
                 If dtgrdViewItemList.RowCount > 1 Then
                     If dtgrdViewItemList.Item(7, row - 1).Value > 1 Then
@@ -391,14 +390,7 @@ Public Class frmMain
     End Function
     Dim allow As Boolean = False
     Private Function calculateValues()
-        'If dtgrdViewItemList.RowCount > 0 Then
-        '    Dim max As Integer = dtgrdViewItemList.RowCount - 2
-        '    For i As Integer = max To 0 Step -1
-        '        If dtgrdViewItemList.Item(1, i).Value = "" Or Val(dtgrdViewItemList.Item(7, i).Value) <= 0 Then
-        '            dtgrdViewItemList.Rows.RemoveAt(i)
-        '        End If
-        '    Next
-        'End If
+
         Try
             dtgrdViewItemList.EndEdit()
             Dim _total As Double = 0
@@ -825,7 +817,7 @@ Public Class frmMain
                 If printReceipt(tillNo, receiptNo, date_, TIN, VRN, cashReceived, balance) = True Then
                     ''
                 Else
-                    MsgBox("Payment cancelled", vbOKOnly + vbInformation, "Cancelled")
+                    MsgBox("Payment canceled", vbOKOnly + vbInformation, "Canceled")
                     Exit Sub
                 End If
 
@@ -876,52 +868,7 @@ Public Class frmMain
             End If
         End If
     End Sub
-    Private Function addInList(icode As String, barcode As String)
-        Dim updated As Boolean = False
-        Dim sn As String = ""
-        Try
-            For i As Integer = 0 To dtgrdViewItemList.RowCount - 3
-                If dtgrdViewItemList.Item(1, i).Value.ToString = icode And dtgrdViewItemList.Item(9, i).Value = False Then
-                    sn = dtgrdViewItemList.Item(11, i).Value.ToString
-                    Exit For
-                End If
-            Next
-        Catch ex As Exception
 
-        End Try
-
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            Dim command As New MySqlCommand()
-            command.Connection = conn
-            command.CommandText = "UPDATE `cart` SET `qty`=qty+1 WHERE `sn`='" + sn + "'"
-            command.Prepare()
-            command.ExecuteNonQuery()
-            conn.Close()
-            If sn <> "" Then
-                updated = True
-            End If
-        Catch ex As Exception
-
-            Return updated
-            Exit Function
-        End Try
-        If barcode <> "" Then
-            Try
-                conn.Open()
-                Dim command As New MySqlCommand()
-                command.Connection = conn
-                command.CommandText = "UPDATE `cart` SET `bar_code`='" + barcode + "' WHERE `sn`='" + sn + "'"
-                command.Prepare()
-                command.ExecuteNonQuery()
-                conn.Close()
-            Catch ex As Exception
-
-            End Try
-        End If
-        Return updated
-    End Function
     Private Function updateQty(qty As Double, sn As String)
         Dim detail As CartDetail = New CartDetail
         detail.id = sn
@@ -1020,11 +967,11 @@ Public Class frmMain
 
         If frmNumInput.DialogResult = Windows.Forms.DialogResult.OK Then
             qty = frmNumInput.txtValue.Text
-            If IsNumeric(qty.ToString) And Val(qty.ToString) Mod 1 = 0 And Val(qty) > 0 And row >= 0 Then
+            If IsNumeric(qty.ToString) And Val(qty.ToString) Mod 1 >= 0.0999 And Val(qty) > 0 And row >= 0 Then
                 dtgrdViewItemList.Item(7, row).Value = qty.ToString
                 calculateValues()
             Else
-                MsgBox("Invalid Quantity. Quantity should be a whole number ie. 1,2,3,...", vbExclamation + vbOKOnly, "Error: Invalid Entry")
+                MsgBox("Invalid Quantity. Quantity should be a number", vbExclamation + vbOKOnly, "Error: Invalid Entry")
             End If
         End If
     End Sub
@@ -1519,7 +1466,7 @@ Public Class frmMain
         startOSK()
     End Sub
 
-    Private Sub AddToCart(sn As String, tillNo As String, barcode As String, code As String, description As String, costPriceVatIncl As Double, vat As Double, discount As Double, qty As Double, amount As Double, shortDescr As String)
+    Private Sub AddToCart(sn As String, tillNo As String, barcode As String, code As String, description As String, sellingPriceVatIncl As Double, vat As Double, discount As Double, qty As Double, amount As Double, shortDescr As String)
         Dim cart As New Cart
         cart.id = txtId.Text
         cart.till.no = tillNo
@@ -1528,13 +1475,11 @@ Public Class frmMain
         cartDetail.barcode = barcode
         cartDetail.code = code
         cartDetail.description = description
-        cartDetail.costPriceVatIncl = costPriceVatIncl
+        cartDetail.sellingPriceVatIncl = sellingPriceVatIncl
         cartDetail.vat = vat
         cartDetail.discount = discount
         cartDetail.qty = qty
         cart.cartDetails.Add(cartDetail)
-
-        MsgBox(cart.cartDetails(0).description)
 
         Dim response As Object = New Object
         Dim json As JObject = New JObject
@@ -1558,25 +1503,25 @@ Public Class frmMain
             Return False
         End If
     End Function
-    Private Sub _void(tillNo As String, sn As String)
+    Private Sub _void(tillNo As String, id As String)
         Dim cartDetail As New CartDetail
-        cartDetail.id = sn
+        cartDetail.id = id
         cartDetail.cart.id = txtId.Text
 
         Dim response As Object = New Object
         Dim json As JObject = New JObject
-        response = Web.post(cartDetail, "carts/void?detail_id=" + sn)
+        response = Web.put(cartDetail, "carts/void?detail_id=" + id)
         loadCart(txtId.Text, Till.TILLNO)
 
     End Sub
-    Private Sub unvoid(tillNo As String, sn As String)
+    Private Sub unvoid(tillNo As String, id As String)
         Dim cartDetail As New CartDetail
-        cartDetail.id = sn
+        cartDetail.id = id
         cartDetail.cart.id = txtId.Text
 
         Dim response As Object = New Object
         Dim json As JObject = New JObject
-        response = Web.post(cartDetail, "carts/unvoid?detail_id=" + sn)
+        response = Web.put(cartDetail, "carts/unvoid?detail_id=" + id)
         loadCart(txtId.Text, Till.TILLNO)
     End Sub
     Private Sub loadCart(id As String, tillNo As String)
@@ -1616,7 +1561,7 @@ Public Class frmMain
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = detail.costPriceVatIncl
+                dtgrdCell.Value = LCurrency.displayValue(detail.sellingPriceVatIncl)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
