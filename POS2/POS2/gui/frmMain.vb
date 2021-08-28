@@ -29,7 +29,6 @@ Public Class frmMain
     Private Function openCashDrawer()
         Dim isOpen As Boolean = False
         Try
-            'Dim cashDrawer As New OPOSCashDrawer
 
             Dim deviceInfo As DeviceInfo
             Dim posExplorer As New PosExplorer
@@ -46,7 +45,7 @@ Public Class frmMain
         End Try
         Return isOpen
     End Function
-    Private Function add(barCode As String, itemCode As String, descr As String, pck As String, price As String, vat As String, disc As String, qty As String, amount As String, shortDescr As String)
+    Private Function add(barCode As String, code As String, descr As String, pck As String, price As String, vat As String, disc As String, qty As String, amount As String, shortDescr As String)
 
         Dim dtgrdRow As New DataGridViewRow
         Dim dtgrdCell As DataGridViewCell
@@ -58,7 +57,7 @@ Public Class frmMain
         dtgrdRow.Cells.Add(dtgrdCell)
 
         dtgrdCell = New DataGridViewTextBoxCell()
-        dtgrdCell.Value = itemCode.ToString
+        dtgrdCell.Value = code.ToString
         dtgrdRow.Cells.Add(dtgrdCell)
 
         dtgrdCell = New DataGridViewTextBoxCell()
@@ -168,7 +167,7 @@ Public Class frmMain
                             'SendKeys.Send("{down}")
                         End If
                     ElseIf found = False Then
-                        MsgBox("Item not found", vbOKOnly + vbExclamation, "Error: Not found")
+                        MsgBox("Product not found", vbOKOnly + vbExclamation, "Error: Not found")
                     End If
 
                 End If
@@ -544,19 +543,14 @@ Public Class frmMain
         calculateValues()
     End Sub
     Private Sub updateDiscount(tillNo As String, sn As String, disc As String)
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            Dim command As New MySqlCommand()
-            command.Connection = conn
-            command.CommandText = "UPDATE `cart` SET `discount`='" + disc + "' WHERE `sn`='" + sn + "'"
-            command.Prepare()
-            command.ExecuteNonQuery()
-            conn.Close()
-        Catch ex As Exception
-            MsgBox(ex.StackTrace)
-            Exit Sub
-        End Try
+        Dim cart As New Cart
+        Dim cartDetail As New CartDetail
+        cart.id = txtId.Text
+        cart.cartDetail.id = sn
+
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+        response = Web.put(cart, "carts/update_discount")
     End Sub
     Dim dialog As frmSearchItem
     Private Function setDetails()
@@ -591,71 +585,9 @@ Public Class frmMain
 
     End Sub
 
-    Private TILL_NO As String = ""
-    Private RECEIPT_NO As Integer = 0
+    Private RECEIPT_NO0 As Integer = 0
     Private totalTaxReturns As Double = 0
-    Private Function recordSale(receiptNo As String)
-        Dim recorded As Boolean = False
-        Dim tillNO As String = Till.TILLNO
-        Dim dayDate As String = Day.systemDate
-        Dim dateTime As DateTime = Date.Now.ToString("yyyy/MM/dd HH:mm:ss")
-        Dim total As Double = LCurrency.getValue(txtTotal.Text)
-        Dim discount As Double = LCurrency.getValue(txtDiscount.Text)
-        Dim vat As Double = LCurrency.getValue(txtVAT.Text)
-        Dim amount As Double = LCurrency.getValue(txtGrandTotal.Text)
 
-
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            Dim command As New MySqlCommand()
-            command.Connection = conn
-            command.CommandText = "INSERT INTO `sale`( `till_no`,`user_id`,`date`, `date_time`, `amount`, `discount`, `vat`,`tax_return`) VALUES (@till_no,@user_id,@date,@date_time,@amount,@discount,@vat,@tax_return)"
-            command.Prepare()
-            command.Parameters.AddWithValue("@till_no", tillNO)
-            command.Parameters.AddWithValue("@user_id", User.USER_ID)
-            command.Parameters.AddWithValue("@date_time", dateTime)
-            command.Parameters.AddWithValue("@date", dayDate)
-            command.Parameters.AddWithValue("@amount", amount)
-            command.Parameters.AddWithValue("@discount", discount)
-            command.Parameters.AddWithValue("@vat", vat)
-            command.Parameters.AddWithValue("@tax_return", totalTaxReturns)
-            command.ExecuteNonQuery()
-            Dim sn As String = command.InsertId.ToString
-            recorded = True
-            saleId = "BL" + command.InsertId.ToString
-
-            conn.Close()
-            conn.Open()
-            command.CommandText = "UPDATE `sale` SET `id`='" + saleId + "' WHERE `sn`='" + sn + "'"
-            command.Prepare()
-            command.ExecuteNonQuery()
-            recorded = True
-            conn.Close()
-        Catch ex As Devart.Data.MySql.MySqlException
-            LError.databaseConnection()
-            Return vbNull
-            Exit Function
-        End Try
-        Try
-            conn.Open()
-            Dim command As New MySqlCommand()
-            command.Connection = conn
-            command.CommandText = "INSERT INTO `receipt`( `bill_no`, `till_no`, `receipt_no`, `date`) VALUES (@id,@till_no,@receipt_no,@date)"
-            command.Prepare()
-            command.Parameters.AddWithValue("@id", saleId)
-            command.Parameters.AddWithValue("@till_no", tillNO)
-            command.Parameters.AddWithValue("@receipt_no", receiptNo)
-            command.Parameters.AddWithValue("@date", dayDate)
-            command.ExecuteNonQuery()
-            recorded = True
-        Catch ex As Devart.Data.MySql.MySqlException
-            LError.databaseConnection()
-            Return vbNull
-            Exit Function
-        End Try
-        Return recorded
-    End Function
     Private Function isAllVoid()
         Dim allVoid As Boolean = True
         For i As Integer = 0 To dtgrdViewItemList.RowCount - 2
@@ -664,98 +596,6 @@ Public Class frmMain
             End If
         Next
         Return allVoid
-    End Function
-    Private Function recordSaleDetails(salesId As String)
-        Dim recorded As Boolean = False
-        totalTaxReturns = 0
-
-        For i As Integer = 0 To dtgrdViewItemList.RowCount - 2
-            If dtgrdViewItemList.Item(9, i).Value = False Then
-
-                Dim barCode As String = dtgrdViewItemList.Item(0, i).Value
-                Dim itemCode As String = dtgrdViewItemList.Item(1, i).Value
-                Dim description As String = dtgrdViewItemList.Item(2, i).Value
-                Dim price As String = dtgrdViewItemList.Item(4, i).Value
-                Dim vat As String = dtgrdViewItemList.Item(5, i).Value
-                Dim discount As String = dtgrdViewItemList.Item(6, i).Value
-                Dim qty As String = dtgrdViewItemList.Item(7, i).Value
-                Dim amount As String = dtgrdViewItemList.Item(8, i).Value
-                Dim discountedPrice As Double = Val(LCurrency.getValue(price)) * (1 - Val(discount) / 100)
-                Dim actualVat As Double = Val(qty) * discountedPrice * Val(vat) / 100
-                Dim taxReturn As Double = Val(qty) * (discountedPrice - Item.getCostPrice(itemCode)) * Val(vat) / 100
-                totalTaxReturns = totalTaxReturns + taxReturn
-
-                'sql for recording sales
-                Dim conn As New MySqlConnection(Database.conString)
-                Dim command As New MySqlCommand()
-
-                Try
-                    conn.Open()
-                    command.Connection = conn
-                    command.CommandText = "INSERT INTO `sale_details`(`sale_id`, `item_code`, `selling_price`, `discounted_price`, `qty`, `amount`, `vat`,`tax_return`) VALUES (@sale_id,@item_code,@selling_price,@discounted_price,@qty,@amount,@vat,@tax_return)"
-                    command.Prepare()
-                    command.Parameters.AddWithValue("@sale_id", salesId)
-                    command.Parameters.AddWithValue("@item_code", itemCode)
-                    command.Parameters.AddWithValue("@selling_price", LCurrency.getValue(price))
-                    command.Parameters.AddWithValue("@discounted_price", discountedPrice)
-                    command.Parameters.AddWithValue("@qty", Val(qty))
-                    command.Parameters.AddWithValue("@amount", LCurrency.getValue(amount))
-                    command.Parameters.AddWithValue("@vat", actualVat)
-                    command.Parameters.AddWithValue("@tax_return", taxReturn)
-                    command.ExecuteNonQuery()
-                    conn.Close()
-                    recorded = True
-                Catch ex As Devart.Data.MySql.MySqlException
-                    LError.databaseConnection()
-                    recorded = False
-                    Return vbNull
-                    Exit Function
-                End Try
-            End If
-        Next
-
-        Dim conn2 As New MySqlConnection(Database.conString)
-        Try
-            conn2.Open()
-            Dim command2 As New MySqlCommand()
-            command2.Connection = conn2
-            command2.CommandText = "UPDATE `sale` SET `tax_return`='" + totalTaxReturns.ToString + "' WHERE `id`='" + saleId + "'"
-            command2.Prepare()
-            command2.ExecuteNonQuery()
-            conn2.Close()
-        Catch ex As Devart.Data.MySql.MySqlException
-            MsgBox(ex.Message)
-            Return vbNull
-            Exit Function
-        End Try
-        Return recorded
-    End Function
-    Private Function updateInventory(ref As String)
-        For i As Integer = 0 To dtgrdViewItemList.RowCount - 2
-            If dtgrdViewItemList.Item(9, i).Value = False Then
-                Dim itemCode As String = dtgrdViewItemList.Item(1, i).Value
-                Dim qty As String = dtgrdViewItemList.Item(7, i).Value
-                'sql for recording sales
-                Dim conn As New MySqlConnection(Database.conString)
-                Try
-                    conn.Open()
-                    Dim command As New MySqlCommand()
-                    command.Connection = conn
-                    command.CommandText = "UPDATE `inventorys` SET `qty`=`qty`-'" + qty + "' WHERE `item_code`='" + itemCode + "'"
-                    command.Prepare()
-                    command.ExecuteNonQuery()
-                    conn.Close()
-                    Dim inventory As New Inventory
-                    Dim stockCard As New StockCard
-                    stockCard.qtyOut(Day.systemDate, itemCode, qty, inventory.getInventory(itemCode), "Product Sale, " + ref)
-                Catch ex As Devart.Data.MySql.MySqlException
-                    LError.databaseConnection()
-                    Return vbNull
-                    Exit Function
-                End Try
-            End If
-        Next
-        Return vbNull
     End Function
 
     Private Function printReceipt(tillNo As String, receiptNo As String, date_ As String, TIN As String, VRN As String, cash As String, balance As String)
@@ -875,7 +715,7 @@ Public Class frmMain
         frmLock.ShowDialog()
     End Sub
     Private Sub frmMain_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        RECEIPT_NO = (New Receipt).makeReceipt(Till.TILLNO, Day.systemDate)
+        RECEIPT_NO0 = (New Receipt).makeReceipt(Till.TILLNO, Day.systemDate)
         loadCart(txtId.Text, Till.TILLNO)
     End Sub
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -1436,9 +1276,6 @@ Public Class frmMain
     Private osk As String = "C:\Windows\System32\osk.exe"
     Private Sub ToolStripButton8_Click(sender As Object, e As EventArgs) Handles ToolStripButton8.Click
 
-        'Private Sub Form1_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-
-        'End Sub
     End Sub
     Private Sub startOSK()
         Dim old As Long
@@ -1598,27 +1435,7 @@ Public Class frmMain
             dtgrdViewItemList.CurrentCell = dtgrdViewItemList(0, dtgrdViewItemList.RowCount - 1)
         End If
     End Sub
-    Private Function emptyCart1(tillNo As String)
-        Dim emptied As Boolean = False
 
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim codeQuery As String = "DELETE FROM `cart` WHERE `till_no`='DIRTYVALUE' OR `till_no`='" + tillNo + "'"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            command.ExecuteNonQuery()
-            emptied = True
-            conn.Close()
-        Catch ex As Exception
-            emptied = False
-            MsgBox(ex.ToString)
-        End Try
-        Return emptied
-    End Function
     Dim order As frmOrder
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
         Try
