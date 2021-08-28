@@ -8,7 +8,7 @@ Public Class Receipt
     Public Property status As String
     Public Property notes As String
     Public Property printed As Date
-    Public Property reprinted As Date
+    Public Property rePrinted As Date
     Public Property cash As Double
     Public Property voucher As Double
     Public Property deposit As Double

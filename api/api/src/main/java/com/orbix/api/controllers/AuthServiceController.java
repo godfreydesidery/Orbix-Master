@@ -67,8 +67,10 @@ public class AuthServiceController {
     		if(user.get().getPassword().equals(_user.getPassword())) {
     			return user.get();
     		}
+    		System.out.println("Test 1");
     		throw new InvalidOperationException("Invalid username and password");
     	}
+    	System.out.println("Test 2");
     	throw new InvalidOperationException("Invalid username and password");    		
     }
 }

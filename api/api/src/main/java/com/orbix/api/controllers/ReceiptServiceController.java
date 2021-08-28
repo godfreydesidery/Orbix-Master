@@ -40,6 +40,7 @@ import com.orbix.api.models.SaleDetail;
 import com.orbix.api.models.Till;
 import com.orbix.api.models.TillPosition;
 import com.orbix.api.models.User;
+import com.orbix.api.models.Voided;
 import com.orbix.api.repositories.CartRepository;
 import com.orbix.api.repositories.ReceiptDetailRepository;
 import com.orbix.api.repositories.ReceiptRepository;
@@ -48,6 +49,7 @@ import com.orbix.api.repositories.SaleRepository;
 import com.orbix.api.repositories.TillPositionRepository;
 import com.orbix.api.repositories.TillRepository;
 import com.orbix.api.repositories.UserRepository;
+import com.orbix.api.repositories.VoidedRepository;
 
 /**
  * @author GODFREY
@@ -74,6 +76,8 @@ public class ReceiptServiceController {
     TillPositionRepository tillPositionRepository;
     @Autowired
     CartRepository cartRepository;
+    @Autowired
+    VoidedRepository voidedRepository;
    
    
     /**
@@ -148,9 +152,11 @@ public class ReceiptServiceController {
     	Optional<User> user = userRepository.findById(userId);
     	if(!user.isPresent()) {
     		throw new NotFoundException("User not found");
-    	}    	
+    	} 
+    	userRepository.saveAndFlush(user.get());
     	receipt.setTill(till.get());
     	receipt.setCreatedUser(user.get());
+    	receipt.setReprintedUser(null);
     	String random = String.valueOf(Math.random()).replace(".", "") + String.valueOf(Math.random()).replace(".", "");
     	receipt.setNo(random);
     	receiptRepository.saveAndFlush(receipt);
@@ -160,17 +166,20 @@ public class ReceiptServiceController {
     	receiptRepository.saveAndFlush(receipt);
     	
     	List<ReceiptDetail> receiptDetails = new Vector<ReceiptDetail>();
-    	
-    	Cart cart = receipt.getCart();
+    	    	
+    	Optional <Cart> cart = cartRepository.findById(receipt.getCart().getId());
     	List<CartDetail> cartDetails;
-    	cartDetails = receipt.getCart().getCartDetails();
-    	CartDetail cartDetail;
+    	if(cart.isPresent() == false) {
+    		throw new NotFoundException("Cart not found");
+    	}
+    	cartDetails = cart.get().getCartDetails();
     	ReceiptDetail receiptDetail;
+    	Voided voided;
     	/**
     	 * Add details to sales details and voided items to void list
     	 */
     	for(CartDetail detail : cartDetails) {
-    		if(detail.getVoided() != 1) {
+    		if(detail.getVoided() == 0) {
     			/**
     			 * Add non voided details to receipt
     			 */
@@ -190,13 +199,27 @@ public class ReceiptServiceController {
     			/**
     			 * Add voided details to void list
     			 */
+    			voided = new Voided();
+    			voided.setTill(till.get());
+    			voided.setVoidedUser(user.get());
+    			voided.setCode(detail.getCode());
+    			voided.setDescription(detail.getDescription());
+    			voided.setQty(detail.getQty());
+    			voided.setCostPriceVatIncl(detail.getCostPriceVatIncl());
+    			voided.setCostPriceVatExcl(detail.getCostPriceVatExcl());
+    			voided.setSellingPriceVatIncl(detail.getSellingPriceVatIncl());
+    			voided.setSellingPriceVatExcl(detail.getSellingPriceVatExcl());
+    			voided.setDiscount(detail.getDiscount());
+	    		voidedRepository.saveAndFlush(voided);
     		}
     		
     	}
     	/**
-    	 * Now empty cart
+    	 * Now remove cart from receipt and empty cart
     	 */
-    	cartRepository.delete(cart);
+    	receipt.setCart(null);
+    	receiptRepository.saveAndFlush(receipt);
+    	cartRepository.delete(cart.get());
     	/**
     	 * Update till position
     	 */
@@ -235,6 +258,7 @@ public class ReceiptServiceController {
     	saleRepository.saveAndFlush(sale);
     	SaleDetail saleDetail = new SaleDetail();
     	for(ReceiptDetail detail : receiptDetails) {
+    		saleDetail.setSale(sale);
     		saleDetail.setCode(detail.getCode());
     		saleDetail.setDescription(detail.getDescription());
     		saleDetail.setQty(detail.getQty());

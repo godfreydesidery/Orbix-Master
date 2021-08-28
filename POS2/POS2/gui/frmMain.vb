@@ -806,7 +806,7 @@ Public Class frmMain
                 calculateValues()
             Else
 
-                Dim receipt As New Receipt
+                Dim receipt As Receipt = New Receipt
                 receipt.cash = frmPayPoint.cashReceived
                 receipt.voucher = frmPayPoint.voucher
                 receipt.deposit = frmPayPoint.deposit
@@ -822,64 +822,37 @@ Public Class frmMain
                 Dim cashReceived As String = frmPayPoint.cashReceived
                 Dim balance As String = frmPayPoint.balance
 
+                receipt.no = "NA"
+
+
                 receipt.till.no = Till.TILLNO
                 receipt.issueDate = Day.systemDate
 
                 receipt.cart.id = txtId.Text
 
-                Dim detail As ReceiptDetail = New ReceiptDetail
-                Dim details As List(Of ReceiptDetail) = New List(Of ReceiptDetail)
-                For i As Integer = 0 To dtgrdViewItemList.RowCount - 2
-                    detail.barcode = dtgrdViewItemList.Item(0, i).Value
-                    detail.code = dtgrdViewItemList.Item(1, i).Value
-                    detail.description = dtgrdViewItemList.Item(2, i).Value
-                    detail.sellingPriceVatIncl = dtgrdViewItemList.Item(4, i).Value
-                    detail.vat = dtgrdViewItemList.Item(5, i).Value
-                    detail.discount = dtgrdViewItemList.Item(6, i).Value
-                    detail.qty = dtgrdViewItemList.Item(7, i).Value
-                    detail.amount = dtgrdViewItemList.Item(8, i).Value
-
-                    details.Add(detail)
-                Next
-                receipt.receiptDetails = details
-
-
                 Dim response As Object = New Object
                 Dim json As JObject = New JObject
                 response = Web.post(receipt, "receipts/new")
 
+                Dim receiptToPrint = JsonConvert.DeserializeObject(Of Receipt)(response.ToString)
 
-
-                Dim tillNo As String = Till.TILLNO
+                Dim tillNo As String = receiptToPrint.till.no
                 Dim date_ As String = Day.systemDate
-                Dim receiptNo As String = RECEIPT_NO.ToString
+                Dim receiptNo As String = receiptToPrint.no
                 Dim TIN As String = Company.TIN
                 Dim VRN As String = Company.VRN
 
-                'If PointOfSale.posPrinterEnabled = True Then
                 If printReceipt(tillNo, receiptNo, date_, TIN, VRN, cashReceived, balance) = True Then
                     ''
                 Else
                     MsgBox("Payment canceled", vbOKOnly + vbInformation, "Canceled")
                     Exit Sub
                 End If
-
-                If recordSale(RECEIPT_NO.ToString) Then
-                    Payment.commitPayment(saleId)
-                    Dim bill As New Bill
-                    bill.createBill(saleId, LCurrency.getValue(txtGrandTotal.Text), "DR", "COMPLETED", Day.systemDate, "Customer purchase")
-                    RECEIPT_NO = RECEIPT_NO + 1
-
-                    'record sales details with the specified sale id
-
-                    loadCart(txtId.Text, Till.TILLNO)
-
-
-
-                    calculateValues()
-                    allowVoid = False
-                Else
-                    MsgBox("Payment could not be completed", vbCritical + vbOKOnly, "Error: NO connection")
+                loadCart(txtId.Text, Till.TILLNO)
+                calculateValues()
+                allowVoid = False
+                If dtgrdViewItemList.RowCount = 1 Then
+                    txtId.Text = ""
                 End If
             End If
         End If
