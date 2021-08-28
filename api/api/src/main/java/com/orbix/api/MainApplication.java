@@ -38,7 +38,8 @@ protected ConfigurableApplicationContext springContext;
 		Role role = new Role();
 			User user = new User();
 			Priveledge priveledge = new Priveledge();
-		try {			
+		try {
+			System.out.println("Creating initial user");
 			role.setName("ADMIN");
 			role.setStatus("ACTIVE");
 			roleRepository.saveAndFlush(role);
@@ -52,6 +53,16 @@ protected ConfigurableApplicationContext springContext;
 			user.setRollNo("0000");
 			user.setRole(role);
 			userRepository.saveAndFlush(user);
+			System.out.println("Initial user created");
+			System.out.println("With the following attributes");
+			System.out.println("Username : admin");
+			System.out.println("Password : password");
+			System.out.println("First Name : Default");
+			System.out.println("Last Name : Default");
+			System.out.println("Priveledge : ADMIN");
+			System.out.println("Role : ADMIN");
+			System.out.println("Roll No : 0000");
+			System.out.println("Status : ACTIVE");
 		}catch(Exception e) {
 			System.out.println("Could not create initial user");
 		}				

@@ -1,6 +1,7 @@
 ﻿Public Class frmPayPoint
-    Public Shared cashReceived As String = ""
-    Public Shared balance As String = ""
+    Public Shared cashReceived As Double = 0
+    Public Shared balance As Double = 0
+
     Private Sub btnAccept_Click(sender As Object, e As EventArgs) Handles btnAccept.Click
         Dim amount As Double = txtTotal.Text
         If Val(txtBalance.Text) >= 0 Then
@@ -43,6 +44,7 @@
     Public Shared CRNote As Double = 0
     Public Shared mobile As Double = 0
     Public Shared cheque As Double = 0
+    Public Shared other As Double = 0
 
     Public Shared Function updateTill()
         SaleSequence.seqNo = SaleSequence.seqNo + 1

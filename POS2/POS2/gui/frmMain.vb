@@ -805,8 +805,51 @@ Public Class frmMain
             If frmPayPoint.DialogResult = Windows.Forms.DialogResult.Cancel Then
                 calculateValues()
             Else
+
+                Dim receipt As New Receipt
+                receipt.cash = frmPayPoint.cashReceived
+                receipt.voucher = frmPayPoint.voucher
+                receipt.deposit = frmPayPoint.deposit
+                receipt.loyalty = frmPayPoint.loyalty
+                receipt.crCard = frmPayPoint.CRCard
+                receipt.cheque = frmPayPoint.cheque
+                receipt.cap = frmPayPoint.CAP
+                receipt.invoice = frmPayPoint.invoice
+                receipt.crNote = frmPayPoint.CRNote
+                receipt.mobile = frmPayPoint.mobile
+                receipt.other = frmPayPoint.other
+
                 Dim cashReceived As String = frmPayPoint.cashReceived
                 Dim balance As String = frmPayPoint.balance
+
+                receipt.till.no = Till.TILLNO
+                receipt.issueDate = Day.systemDate
+
+                receipt.cart.id = txtId.Text
+
+                Dim detail As ReceiptDetail = New ReceiptDetail
+                Dim details As List(Of ReceiptDetail) = New List(Of ReceiptDetail)
+                For i As Integer = 0 To dtgrdViewItemList.RowCount - 2
+                    detail.barcode = dtgrdViewItemList.Item(0, i).Value
+                    detail.code = dtgrdViewItemList.Item(1, i).Value
+                    detail.description = dtgrdViewItemList.Item(2, i).Value
+                    detail.sellingPriceVatIncl = dtgrdViewItemList.Item(4, i).Value
+                    detail.vat = dtgrdViewItemList.Item(5, i).Value
+                    detail.discount = dtgrdViewItemList.Item(6, i).Value
+                    detail.qty = dtgrdViewItemList.Item(7, i).Value
+                    detail.amount = dtgrdViewItemList.Item(8, i).Value
+
+                    details.Add(detail)
+                Next
+                receipt.receiptDetails = details
+
+
+                Dim response As Object = New Object
+                Dim json As JObject = New JObject
+                response = Web.post(receipt, "receipts/new")
+
+
+
                 Dim tillNo As String = Till.TILLNO
                 Dim date_ As String = Day.systemDate
                 Dim receiptNo As String = RECEIPT_NO.ToString
@@ -828,37 +871,10 @@ Public Class frmMain
                     RECEIPT_NO = RECEIPT_NO + 1
 
                     'record sales details with the specified sale id
-                    If Not recordSaleDetails(saleId) = True Then
-                        Exit Sub
-                    End If
-                    frmPayPoint.updateTill()
-                    Dim ref As String = "TillNo: " + tillNo + " Date: " + date_ + " ReceiptNo: " + receiptNo
-                    updateInventory(ref)
-                    dtgrdViewItemList.Rows.Clear()
 
-                    Dim conn As New MySqlConnection(Database.conString)
-                    Try
-                        conn.Open()
-                        Dim command As New MySqlCommand()
-                        command.Connection = conn
-                        command.CommandText = "UPDATE `cart` SET `till_no`='DIRTYVALUE' WHERE `till_no`='" + Till.TILLNO + "'"
-                        command.Prepare()
-                        command.ExecuteNonQuery()
-                        conn.Close()
-                    Catch ex As Exception
-                        MsgBox(ex.StackTrace)
-                        Exit Sub
-                    End Try
                     loadCart(txtId.Text, Till.TILLNO)
-                    Do While dtgrdViewItemList.RowCount > 1
-                        emptyCart(Till.TILLNO)
-                        loadCart(txtId.Text, Till.TILLNO)
-                    Loop
-                    For i As Integer = 1 To 3
-                        If emptyCart(Till.TILLNO) = True Then
-                            Exit For
-                        End If
-                    Next
+
+
 
                     calculateValues()
                     allowVoid = False
@@ -1609,8 +1625,9 @@ Public Class frmMain
             dtgrdViewItemList.CurrentCell = dtgrdViewItemList(0, dtgrdViewItemList.RowCount - 1)
         End If
     End Sub
-    Private Function emptyCart(tillNo As String)
+    Private Function emptyCart1(tillNo As String)
         Dim emptied As Boolean = False
+
         Try
             Dim conn As New MySqlConnection(Database.conString)
             Dim command As New MySqlCommand()
