@@ -61,11 +61,12 @@ public class Receipt {
 	private double loyalty = 0;
 	private double crCard = 0;
 	private double cheque = 0;
-	private double cap = 0;
+	private double cap = 0;	
 	private double invoice = 0;
 	private double crNote = 0;
 	private double mobile = 0;
 	private double other = 0;
+	private double total = 0;
 	
 	@ManyToOne(targetEntity = Cart.class, fetch = FetchType.LAZY,  optional = true)
     @JoinColumn(name = "cart_id", nullable = true , updatable = true)
@@ -98,6 +99,14 @@ public class Receipt {
 
 	public Cart getCart() {
 		return cart;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 	public void setCart(Cart cart) {
