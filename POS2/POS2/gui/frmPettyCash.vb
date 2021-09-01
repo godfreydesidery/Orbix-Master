@@ -1,4 +1,6 @@
 ﻿Imports Devart.Data.MySql
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class frmPettyCash
 
@@ -24,50 +26,34 @@ Public Class frmPettyCash
     Private Function getCurrentCash()
         Dim available As Double = 0
 
-        Dim query As String = "SELECT  `cash` FROM `till_total` WHERE `till_no`='" + Till.TILLNO + "'"
-        Dim command As New MySqlCommand()
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
 
-            While reader.Read
-                available = reader.GetString("cash")
-                Exit While
-            End While
-        Catch ex As Devart.Data.MySql.MySqlException
-            LError.databaseConnection()
-            Return vbNull
-            Exit Function
+        Try
+            response = Web.get_("tills/get_till_position_by_no?no=" + Till.TILLNO)
+        Catch ex As Exception
+            MsgBox(ex.ToString)
         End Try
+        json = JObject.Parse(response)
+        Dim till_ As Till = JsonConvert.DeserializeObject(Of Till)(json.ToString)
+        available = till_.cash
 
         Return available
     End Function
     Private Function getCurrentFloat()
         Dim available As Double = 0
 
-        Dim query As String = "SELECT  `amount` FROM `float_balance` WHERE `till_no`='" + Till.TILLNO + "'"
-        Dim command As New MySqlCommand()
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
 
-            While reader.Read
-                available = reader.GetString("amount")
-                Exit While
-            End While
-        Catch ex As Devart.Data.MySql.MySqlException
-            LError.databaseConnection()
-            Return vbNull
-            Exit Function
+        Try
+            response = Web.get_("tills/get_till_position_by_no?no=" + Till.TILLNO)
+        Catch ex As Exception
+            MsgBox(ex.ToString)
         End Try
+        json = JObject.Parse(response)
+        Dim till_ As Till = JsonConvert.DeserializeObject(Of Till)(json.ToString)
+        available = till_.floatBalance
 
         Return available
     End Function
@@ -83,40 +69,22 @@ Public Class frmPettyCash
         If res = DialogResult.Yes Then
             'record petty cash
 
-            Dim conn As New MySqlConnection(Database.conString)
-            Try
-                conn.Open()
-                Dim command As New MySqlCommand()
-                command.Connection = conn
-                command.CommandText = "INSERT INTO `petty_cash`(`till_no`,`amount`,`date_time`, `details`) VALUES ('" + Till.TILLNO + "','" + amount + "','" + Day.systemDate + "','" + detail + "')"
-                command.ExecuteNonQuery()
-                txtAmount.Text = ""
-                conn.Close()
-            Catch ex As Devart.Data.MySql.MySqlException
-                LError.databaseConnection()
-                Exit Sub
-            End Try
+            Dim pettyCash As New PettyCash
+            pettyCash.amount = amount
+            pettyCash.details = txtDetails.Text
+            pettyCash.till.no = Till.TILLNO
 
-            Dim conn2 As New MySqlConnection(Database.conString)
+
+            Dim response As Object = New Object
+            Dim json As JObject = New JObject
             Try
-                conn2.Open()
-                Dim command2 As New MySqlCommand()
-                command2.Connection = conn2
-                command2.CommandText = "UPDATE `till_total` SET`cash`=`cash`-'" + amount.ToString + "' WHERE `till_no`='" + Till.TILLNO + "'"
-                command2.ExecuteNonQuery()
-                conn2.Close()
-            Catch ex As Devart.Data.MySql.MySqlException
-                LError.databaseConnection()
+                response = Web.post(pettyCash, "petty_cashs/collect_by_till_no?no=" + Till.TILLNO)
+            Catch ex As Exception
+                MsgBox(ex.ToString)
                 Exit Sub
             End Try
-            Dim collection As New Collection
-            collection.collect(Till.TILLNO, Day.systemDate, amount, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+            MsgBox("Petty cash registered successifully")
             Me.Dispose()
         End If
-
-    End Sub
-
-    Private Sub frmPettyCash_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
     End Sub
 End Class

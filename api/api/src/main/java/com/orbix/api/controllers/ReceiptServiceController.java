@@ -32,7 +32,6 @@ import com.orbix.api.models.ReceiptDetail;
 import com.orbix.api.models.Sale;
 import com.orbix.api.models.SaleDetail;
 import com.orbix.api.models.Till;
-import com.orbix.api.models.TillPosition;
 import com.orbix.api.models.User;
 import com.orbix.api.models.Voided;
 import com.orbix.api.repositories.CartRepository;
@@ -40,7 +39,6 @@ import com.orbix.api.repositories.ReceiptDetailRepository;
 import com.orbix.api.repositories.ReceiptRepository;
 import com.orbix.api.repositories.SaleDetailRepository;
 import com.orbix.api.repositories.SaleRepository;
-import com.orbix.api.repositories.TillPositionRepository;
 import com.orbix.api.repositories.TillRepository;
 import com.orbix.api.repositories.UserRepository;
 import com.orbix.api.repositories.VoidedRepository;
@@ -65,9 +63,7 @@ public class ReceiptServiceController {
     @Autowired
     SaleRepository saleRepository;
     @Autowired
-    SaleDetailRepository saleDetailRepository;
-    @Autowired
-    TillPositionRepository tillPositionRepository;
+    SaleDetailRepository saleDetailRepository;    
     @Autowired
     CartRepository cartRepository;
     @Autowired
@@ -229,36 +225,34 @@ public class ReceiptServiceController {
     	/**
     	 * Update till position
     	 */
-    	Optional<TillPosition> _tillPosition = tillPositionRepository.findByTill(till.get());
-    	if(!_tillPosition.isPresent()) {
-    		TillPosition position = new TillPosition();
-    		position.setTill(till.get());
-    		position.setCap(0);
-    		position.setCash(0);
-    		position.setCheque(0);
-    		position.setCrCard(0);
-    		position.setCrNote(0);
-    		position.setDeposit(0);
-    		position.setInvoice(0);
-    		position.setLoyalty(0);
-    		position.setMobile(0);
-    		position.setOther(0);
+    	Optional<Till> _tillPosition = tillRepository.findById(till.get().getId());
+    	if(_tillPosition.isPresent()) {
     		
-    		tillPositionRepository.saveAndFlush(position);
+    		_tillPosition.get().setCap(0);
+    		_tillPosition.get().setCash(0);
+    		_tillPosition.get().setCheque(0);
+    		_tillPosition.get().setCrCard(0);
+    		_tillPosition.get().setCrNote(0);
+    		_tillPosition.get().setDeposit(0);
+    		_tillPosition.get().setInvoice(0);
+    		_tillPosition.get().setLoyalty(0);
+    		_tillPosition.get().setMobile(0);
+    		_tillPosition.get().setOther(0);
+    		
+    		tillRepository.saveAndFlush(_tillPosition.get());
     	}
-    	_tillPosition = tillPositionRepository.findByTill(till.get());
-    	TillPosition position = _tillPosition.get();
-    	position.setCap(position.getCap() + receipt.getCap());
-		position.setCash(position.getCash() + receipt.getCash());
-		position.setCheque(position.getCheque() + receipt.getCheque());
-		position.setCrCard(position.getCrCard() + receipt.getCrCard());
-		position.setCrNote(position.getCrNote() + receipt.getCrNote());
-		position.setDeposit(position.getDeposit() + receipt.getDeposit());
-		position.setInvoice(position.getInvoice() + receipt.getInvoice());
-		position.setLoyalty(position.getLoyalty() + receipt.getLoyalty());
-		position.setMobile(position.getMobile() + receipt.getMobile());
-		position.setOther(position.getOther() + receipt.getOther());
-		tillPositionRepository.saveAndFlush(position);
+    	_tillPosition = tillRepository.findById(till.get().getId());
+    	_tillPosition.get().setCap(_tillPosition.get().getCap() + receipt.getCap());
+    	_tillPosition.get().setCash(_tillPosition.get().getCash() + receipt.getCash());
+    	_tillPosition.get().setCheque(_tillPosition.get().getCheque() + receipt.getCheque());
+    	_tillPosition.get().setCrCard(_tillPosition.get().getCrCard() + receipt.getCrCard());
+    	_tillPosition.get().setCrNote(_tillPosition.get().getCrNote() + receipt.getCrNote());
+    	_tillPosition.get().setDeposit(_tillPosition.get().getDeposit() + receipt.getDeposit());
+    	_tillPosition.get().setInvoice(_tillPosition.get().getInvoice() + receipt.getInvoice());
+    	_tillPosition.get().setLoyalty(_tillPosition.get().getLoyalty() + receipt.getLoyalty());
+    	_tillPosition.get().setMobile(_tillPosition.get().getMobile() + receipt.getMobile());
+    	_tillPosition.get().setOther(_tillPosition.get().getOther() + receipt.getOther());
+		tillRepository.saveAndFlush(_tillPosition.get());
     	
     	Sale sale = new Sale();
     	sale.setReceipt(receipt);

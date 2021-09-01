@@ -16,12 +16,7 @@ import com.orbix.api.models.Till;
  */
 @Repository
 public interface TillRepository extends JpaRepository<Till, Long> {
-	/**
-	 * @param no
-	 * @return
-	 */
-	Optional<Till> findByNo(String no);
-
+	
 	/**
 	 * @param name
 	 * @return
@@ -29,5 +24,7 @@ public interface TillRepository extends JpaRepository<Till, Long> {
 	Optional<Till> findByName(String name);
 
 	Optional<Till> findByComputerName(String computerName);
+
+	Optional<Till> findByNo(String no);
 
 }

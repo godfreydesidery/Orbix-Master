@@ -31,8 +31,6 @@ import com.orbix.api.accessories.Formater;
 import com.orbix.api.exceptions.NotFoundException;
 import com.orbix.api.exceptions.ResourceNotFoundException;
 import com.orbix.api.models.Till;
-import com.orbix.api.models.TillPosition;
-import com.orbix.api.repositories.TillPositionRepository;
 import com.orbix.api.repositories.TillRepository;
 
 /**
@@ -46,8 +44,6 @@ public class TillServiceController {
 
     @Autowired
     TillRepository tillRepository;
-    @Autowired
-    TillPositionRepository tillPositionRepository;
     
     /**
      * @param userId
@@ -76,6 +72,18 @@ public class TillServiceController {
      */
     @RequestMapping(method = RequestMethod.GET, value = "/tills/get_by_no", produces=MediaType.APPLICATION_JSON_VALUE)
     public Till getTillByNo(@RequestParam(name = "no") String no, @RequestHeader("user_id") Long userId) {
+        return tillRepository.findByNo(no)
+                .orElseThrow(() -> new NotFoundException("Till not found"));
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/tills/get_till_position_by_no", produces=MediaType.APPLICATION_JSON_VALUE)
+    public Till getTillPositionByNo(@RequestParam(name = "no") String no, @RequestHeader("user_id") Long userId) {
+        return tillRepository.findByNo(no)
+                .orElseThrow(() -> new NotFoundException("Till not found"));
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/tills/get_float_by_no", produces=MediaType.APPLICATION_JSON_VALUE)
+    public Till getFloatByNo(@RequestParam(name = "no") String no, @RequestHeader("user_id") Long userId) {
         return tillRepository.findByNo(no)
                 .orElseThrow(() -> new NotFoundException("Till not found"));
     }
@@ -141,6 +149,18 @@ public class TillServiceController {
     	return tillRepository.saveAndFlush(till);
     }
     
+    @RequestMapping(method = RequestMethod.PUT, value="/tills/update_float_by_no", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public Till updateFloat(
+    		@RequestParam(name = "no") String tillNo,
+            								@Valid @RequestBody Till till_, 
+            								@RequestHeader("user_id") Long userId) throws Exception {
+		Till till = tillRepository.findByNo(tillNo)
+                .orElseThrow(() -> new NotFoundException("Till not found"));
+		till.setFloatBalance(till_.getFloatBalance());		
+    	return tillRepository.saveAndFlush(till);
+    }
     
     /**
      * @param tillId
@@ -218,7 +238,7 @@ public class TillServiceController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET, value = "/till_positions", produces=MediaType.APPLICATION_JSON_VALUE)
-    public List<TillPosition> getAllTillPositions(){//(@RequestHeader("user_id") Long userId) {
-        return tillPositionRepository.findAll();
+    public List<Till> getAllTillPositions(){//(@RequestHeader("user_id") Long userId) {
+        return tillRepository.findAll();
     }
 }

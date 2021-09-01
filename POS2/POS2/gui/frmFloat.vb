@@ -1,4 +1,6 @@
 ﻿Imports Devart.Data.MySql
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class frmFloat
 
@@ -8,31 +10,18 @@ Public Class frmFloat
 
     Private Sub frmFloat_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Dim query As String = ""
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
 
-        Dim command As New MySqlCommand()
-        Dim conn As New MySqlConnection(Database.conString)
         Try
-            conn.Open()
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            query = "INSERT IGNORE INTO `float_balance`( `till_no`) VALUES ('" + Till.TILLNO + "')"
-            command.CommandText = query
-            command.ExecuteNonQuery()
-            query = "SELECT  `amount` FROM `float_balance` WHERE `till_no`='" + Till.TILLNO + "'"
-            command.CommandText = query
-
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                currentFloat = reader.GetString("amount")
-                Exit While
-            End While
-            conn.Close()
-            txtCurrentFloat.Text = LCurrency.displayValue(currentFloat.ToString)
-        Catch ex As Devart.Data.MySql.MySqlException
-            LError.databaseConnection()
-            Exit Sub
+            response = Web.get_("tills/get_float_by_no?no=" + Till.TILLNO)
+        Catch ex As Exception
+            MsgBox(ex.ToString)
         End Try
+        json = JObject.Parse(response)
+        Dim till_ As Till = JsonConvert.DeserializeObject(Of Till)(json.ToString)
+        currentFloat = till_.floatBalance
+        txtCurrentFloat.Text = LCurrency.displayValue(currentFloat.ToString)
 
     End Sub
 
@@ -73,24 +62,24 @@ Public Class frmFloat
             currentFloat = Val(LCurrency.getValue(txtNewFloat.Text))
             txtCurrentFloat.Text = LCurrency.displayValue(currentFloat.ToString)
 
-            Dim conn As New MySqlConnection(Database.conString)
+            Dim till As New Till
+            till.no = Till.TILLNO
+            till.computerName = "NA"
+            till.name = "NA"
+            till.floatBalance = currentFloat
+
+            Dim response As Object = New Object
+            Dim json As JObject = New JObject
             Try
-                conn.Open()
-                Dim command As New MySqlCommand()
-                command.Connection = conn
-                command.CommandText = "UPDATE `float_balance` SET `amount`='" + currentFloat.ToString + "' WHERE `till_no`='" + Till.TILLNO + "'"
-                command.Prepare()
-                command.ExecuteNonQuery()
-                conn.Close()
-            Catch ex As Devart.Data.MySql.MySqlException
-                LError.databaseConnection()
+                response = Web.put(till, "tills/update_float_by_no?no=" + Till.TILLNO)
+            Catch ex As Exception
+                MsgBox(ex.ToString)
                 Exit Sub
             End Try
-
             txtAddFloat.Text = ""
             txtDeductFloat.Text = ""
+            MsgBox("Float updated successifully")
         End If
-
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
@@ -99,22 +88,6 @@ Public Class frmFloat
 
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         Me.Dispose()
-    End Sub
-
-    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
-
-    End Sub
-
-    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
-
-    End Sub
-
-    Private Sub txtCurrentFloat_TextChanged(sender As Object, e As EventArgs) Handles txtCurrentFloat.TextChanged
-
-    End Sub
-
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-
     End Sub
 
     Private Sub txtDeductFloat_GotFocus(sender As Object, e As EventArgs) Handles txtDeductFloat.GotFocus

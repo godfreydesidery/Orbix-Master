@@ -118,6 +118,20 @@ public class CartServiceController {
     	return true;	
     }
     
+    @RequestMapping(method = RequestMethod.PUT, value="/carts/update_discount", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public boolean updateDiscount(
+    		@RequestParam(name = "detail_id") Long id, 
+    		@RequestParam(name = "discount") double discount, 
+    		@RequestHeader("user_id") Long userId) throws Exception { 
+    	CartDetail detail = cartDetailRepository.findById(id)
+                .orElseThrow(() -> new MissingInformationException("Detail not found"));
+    	detail.setDiscount(discount);
+    	cartDetailRepository.saveAndFlush(detail);   	
+    	return true;	
+    }
+    
     @RequestMapping(method = RequestMethod.PUT, value="/carts/unvoid", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @Transactional

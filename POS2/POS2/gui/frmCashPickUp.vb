@@ -1,51 +1,30 @@
 ﻿Imports Devart.Data.MySql
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class frmCashPickUp
-
     Dim currentAmount As Double = 0
     Dim pickUpAmount As Double = 0
     Dim newCashAmount As Double = 0
     Dim currentFloat As Double = 0
 
     Private Sub frmCashPickUp_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim query As String = "SELECT `till_no`, `cash`, `voucher`, `deposit`, `loyalty`, `cr_card`, `cap`, `invoice`, `cr_note`, `mobile` FROM `till_total` WHERE `till_no`='" + Till.TILLNO + "'"
-        Dim command As New MySqlCommand()
-        Dim conn As New MySqlConnection(Database.conString)
-        Try
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                currentAmount = reader.GetString("cash")
-            End While
-            txtAvailable.Text = LCurrency.displayValue(currentAmount.ToString)
-            txtPickUp.Text = ""
-            txtRemaining.Text = ""
-        Catch ex As Devart.Data.MySql.MySqlException
-            LError.databaseConnection()
-            Exit Sub
-        End Try
 
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
 
-        Dim query2 As String = "SELECT  `amount` FROM `float_balance` WHERE `till_no`='" + Till.TILLNO + "'"
-        Dim command2 As New MySqlCommand()
-        Dim conn2 As New MySqlConnection(Database.conString)
         Try
-            conn2.Open()
-            command2.CommandText = query2
-            command2.Connection = conn2
-            command2.CommandType = CommandType.Text
-            Dim reader2 As MySqlDataReader = command2.ExecuteReader()
-            While reader2.Read
-                currentFloat = reader2.GetString("amount")
-                Exit While
-            End While
-        Catch ex As Devart.Data.MySql.MySqlException
-            LError.databaseConnection()
-            Exit Sub
+            response = Web.get_("tills/get_till_position_by_no?no=" + Till.TILLNO)
+        Catch ex As Exception
+            MsgBox(ex.ToString)
         End Try
+        json = JObject.Parse(response)
+        Dim till_ As Till = JsonConvert.DeserializeObject(Of Till)(json.ToString)
+        currentAmount = till_.cash
+        currentFloat = till_.floatBalance
+        txtAvailable.Text = LCurrency.displayValue(currentAmount.ToString)
+        txtPickUp.Text = ""
+        txtRemaining.Text = ""
 
     End Sub
 

@@ -5,7 +5,7 @@
     Private Sub btnAccept_Click(sender As Object, e As EventArgs) Handles btnAccept.Click
         Dim amount As Double = txtTotal.Text
         If Val(txtBalance.Text) >= 0 Then
-            ' Dim confirm As Integer = MessageBox.Show("Total amount payable is " + LCurrency.displayValue(amount.ToString) + ". Confirm payment?", "Confirm payment", MessageBoxButtons.YesNo)
+            'Dim confirm As Integer = MessageBox.Show("Total amount payable is " + LCurrency.displayValue(amount.ToString) + ". Confirm payment?", "Confirm payment", MessageBoxButtons.YesNo)
             Dim confirm As Integer = MsgBox("Total amount payable is " + LCurrency.displayValue(amount.ToString) + ". Confirm payment?", vbQuestion + vbYesNo, "Confirm Payment: " + LCurrency.displayValue(amount.ToString))
             If confirm = DialogResult.Yes Then
                 cashReceived = LCurrency.displayValue(txtAmountReceived.Text)
@@ -45,6 +45,7 @@
     Public Shared mobile As Double = 0
     Public Shared cheque As Double = 0
     Public Shared other As Double = 0
+    Public Shared total As Double = 0
 
     Public Shared Function updateTill()
         SaleSequence.seqNo = SaleSequence.seqNo + 1
@@ -249,30 +250,7 @@
         Catch ex As Exception
 
         End Try
-        'Try
-        '    Dim row As Integer = dtgrdViewItemList.CurrentCell.RowIndex
-        '    Dim col As Integer = dtgrdViewItemList.CurrentCell.ColumnIndex
-        '    If dtgrdViewItemList.CurrentCell.ColumnIndex = 0 Or dtgrdViewItemList.CurrentCell.ColumnIndex = 7 Then
 
-        '        dtgrdViewItemList.Select()
-        '        dtgrdViewItemList.CurrentCell = dtgrdViewItemList.Item(col, row)
-        '        Dim control As TextBox = DirectCast(dtgrdViewItemList.EditingControl, TextBox)
-        '        control.SelectionStart = dtgrdViewItemList.CurrentCell.Value.ToString.Length
-        '        control.SelectionLength = 0
-        '        SendKeys.Send(key)
-        '    Else
-        '        dtgrdViewItemList.Select()
-        '        dtgrdViewItemList.CurrentCell = dtgrdViewItemList.Item(col, row)
-        '        SendKeys.Send(key)
-        '    End If
-        'Catch ex As Exception
-        '    Try
-        '        SendKeys.Send(key)
-        '    Catch ex2 As Exception
-
-        '    End Try
-
-        'End Try
         Return vbNull
     End Function
 

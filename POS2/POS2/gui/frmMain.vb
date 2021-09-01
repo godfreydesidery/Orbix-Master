@@ -45,52 +45,6 @@ Public Class frmMain
         End Try
         Return isOpen
     End Function
-    Private Function add(barCode As String, code As String, descr As String, pck As String, price As String, vat As String, disc As String, qty As String, amount As String, shortDescr As String)
-
-        Dim dtgrdRow As New DataGridViewRow
-        Dim dtgrdCell As DataGridViewCell
-
-        dtgrdViewItemList.EndEdit()
-
-        dtgrdCell = New DataGridViewTextBoxCell()
-        dtgrdCell.Value = barCode
-        dtgrdRow.Cells.Add(dtgrdCell)
-
-        dtgrdCell = New DataGridViewTextBoxCell()
-        dtgrdCell.Value = code.ToString
-        dtgrdRow.Cells.Add(dtgrdCell)
-
-        dtgrdCell = New DataGridViewTextBoxCell()
-        dtgrdCell.Value = descr.ToString
-        dtgrdRow.Cells.Add(dtgrdCell)
-
-        dtgrdCell = New DataGridViewTextBoxCell()
-        dtgrdCell.Value = pck.ToString
-        dtgrdRow.Cells.Add(dtgrdCell)
-
-        dtgrdCell = New DataGridViewTextBoxCell()
-        dtgrdCell.Value = price
-        dtgrdRow.Cells.Add(dtgrdCell)
-
-        dtgrdCell = New DataGridViewTextBoxCell()
-        dtgrdCell.Value = vat
-        dtgrdRow.Cells.Add(dtgrdCell)
-
-        dtgrdCell = New DataGridViewTextBoxCell()
-        dtgrdCell.Value = disc
-        dtgrdRow.Cells.Add(dtgrdCell)
-
-        dtgrdCell = New DataGridViewTextBoxCell()
-        dtgrdCell.Value = qty
-        dtgrdRow.Cells.Add(dtgrdCell)
-
-        dtgrdCell = New DataGridViewTextBoxCell()
-        dtgrdCell.Value = amount
-        dtgrdRow.Cells.Add(dtgrdCell)
-
-        dtgrdViewItemList.Rows.Add(dtgrdRow)
-        Return vbNull
-    End Function
 
     Private Sub dtgrdViewItemList_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dtgrdViewItemList.CellEndEdit
         Dim qty As Double = 0
@@ -200,7 +154,7 @@ Public Class frmMain
                                 ' SendKeys.Send("{right}")
                             Next
                         Else
-                            ' SendKeys.Send("{down}")
+                            'SendKeys.Send("{down}")
                             'SendKeys.Send("{left}")
                         End If
                     ElseIf found = False Then
@@ -238,8 +192,8 @@ Public Class frmMain
                                 ' SendKeys.Send("{right}")
                             Next
                         Else
-                            ' SendKeys.Send("{down}")
-                            ' SendKeys.Send("{left}")
+                            'SendKeys.Send("{down}")
+                            'SendKeys.Send("{left}")
                             'SendKeys.Send("{left}")
                         End If
                     ElseIf found = False Then
@@ -249,7 +203,7 @@ Public Class frmMain
                 End If
             ElseIf col = 7 And row = dtgrdViewItemList.RowCount - 2 Then
                 For i As Integer = 0 To 6
-                    '  SendKeys.Send("{left}")
+                    'SendKeys.Send("{left}")
                 Next
                 ' SendKeys.Send("{down}")
             End If
@@ -458,7 +412,6 @@ Public Class frmMain
 
 
                 If User.authorize("VOID") Then
-                    'manager and chief cashier can void directly without entering passswords
                     allowVoid = True
                 Else
                     frmAllow.ShowDialog()
@@ -521,7 +474,7 @@ Public Class frmMain
 
                         Dim discPercentage = (Val(discount) / amount) * 100
 
-                        updateDiscount(Till.TILLNO, sn, discPercentage.ToString)
+                        updateDiscount(Till.TILLNO, sn, discPercentage)
 
                     Else
                         MsgBox("Invalid Discount Amount. Discount should be less than Unit Price", vbOKOnly + vbCritical, "Invalid Amount")
@@ -542,33 +495,15 @@ Public Class frmMain
         refreshList()
         calculateValues()
     End Sub
-    Private Sub updateDiscount(tillNo As String, sn As String, disc As String)
-        Dim cart As New Cart
-        Dim cartDetail As New CartDetail
-        cart.id = txtId.Text
-        cart.cartDetail.id = sn
-
-        Dim response As Object = New Object
-        Dim json As JObject = New JObject
-        response = Web.put(cart, "carts/update_discount")
+    Private Sub updateDiscount(tillNo As String, sn As String, disc As Double)
+        Dim detail As CartDetail = New CartDetail
+        detail.id = sn
+        detail.discount = discount
+        Web.put(detail, "carts/update_discount?detail_id=" + sn + "&discount=" + disc.ToString)
+        '''''''''''
     End Sub
+
     Dim dialog As frmSearchItem
-    Private Function setDetails()
-        Dim barCode As String = dialog.txtBarCode.Text
-        Dim itemCode As String = dialog.txtItemCode.Text
-        Dim description As String = dialog.txtDescription.Text
-        Dim pck As String = dialog.txtPck.Text
-        Dim price As String = dialog.txtPrice.Text
-        Dim vat As String = dialog.txtVAT.Text
-        Dim discount As String = dialog.txtDiscount.Text
-        Dim qty As String = dialog.txtQty.Text
-        Dim amount As String = dialog.txtAmount.Text
-        Dim shortDescr As String = dialog.txtShortDescription.Text
-
-        add(barCode, itemCode, description, pck, price, vat, discount, qty, amount, shortDescr)
-
-        Return vbNull
-    End Function
 
     Private Sub ToolStripButton6_Click(sender As Object, e As EventArgs) Handles tlstrDescription.Click
 
@@ -663,7 +598,6 @@ Public Class frmMain
                 Dim balance As String = frmPayPoint.balance
 
                 receipt.no = "NA"
-
 
                 receipt.till.no = Till.TILLNO
                 receipt.issueDate = Day.systemDate

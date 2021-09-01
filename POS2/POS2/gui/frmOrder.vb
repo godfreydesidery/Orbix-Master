@@ -1,22 +1,6 @@
 ﻿Imports Devart.Data.MySql
 
 Public Class frmOrder
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-
-    End Sub
-
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles txtWaiterID.TextChanged
-
-    End Sub
-
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-
-    End Sub
-
-    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub frmOrder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         dtgrdOrders.Rows.Clear()
         loadOrders()
@@ -818,19 +802,19 @@ Public Class frmOrder
 
                     If found = True Then
 
-                            dtgrdItemList.Item(0, row).Value = barCode
-                            dtgrdItemList.Item(1, row).Value = itemCode
-                            dtgrdItemList.Item(2, row).Value = longDescription
-                            dtgrdItemList.Item(4, row).Value = LCurrency.displayValue(price.ToString)
-                            dtgrdItemList.Item(5, row).Value = LCurrency.displayValue(vat.ToString)
-                            dtgrdItemList.Item(6, row).Value = LCurrency.displayValue(discount.ToString)
-                            dtgrdItemList.Item(7, row).Value = qty
-                            dtgrdItemList.Item(8, row).Value = LCurrency.displayValue(amount.ToString)
-                            dtgrdItemList.Item(10, row).Value = description
+                        dtgrdItemList.Item(0, row).Value = barCode
+                        dtgrdItemList.Item(1, row).Value = itemCode
+                        dtgrdItemList.Item(2, row).Value = longDescription
+                        dtgrdItemList.Item(4, row).Value = LCurrency.displayValue(price.ToString)
+                        dtgrdItemList.Item(5, row).Value = LCurrency.displayValue(vat.ToString)
+                        dtgrdItemList.Item(6, row).Value = LCurrency.displayValue(discount.ToString)
+                        dtgrdItemList.Item(7, row).Value = qty
+                        dtgrdItemList.Item(8, row).Value = LCurrency.displayValue(amount.ToString)
+                        dtgrdItemList.Item(10, row).Value = description
 
-                            dtgrdItemList.Item(0, row).ReadOnly = True
-                            dtgrdItemList.Item(1, row).ReadOnly = True
-                            dtgrdItemList.Item(2, row).ReadOnly = True
+                        dtgrdItemList.Item(0, row).ReadOnly = True
+                        dtgrdItemList.Item(1, row).ReadOnly = True
+                        dtgrdItemList.Item(2, row).ReadOnly = True
 
 
 
@@ -1246,7 +1230,7 @@ Public Class frmOrder
             Process.Start(osk)
         End If
     End Sub
-    Private Sub btnKeyboard_Click(sender As Object, e As EventArgs) Handles btnKeyboard.Click
+    Private Sub btnKeyboard_Click(sender As Object, e As EventArgs) Handles btnKeyBoard.Click
         startOSK()
     End Sub
 
