@@ -1396,7 +1396,7 @@ Public Class frmMain
             End If
 
         Catch ex As Exception
-            MsgBox(ex.StackTrace)
+            MsgBox(ex.ToString)
         End Try
         If frmOrder.showAgain = True Then
             order = New frmOrder()

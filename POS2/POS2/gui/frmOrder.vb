@@ -1,28 +1,35 @@
 ﻿Imports Devart.Data.MySql
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class frmOrder
     Private Sub frmOrder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         dtgrdOrders.Rows.Clear()
-        loadOrders()
+        ' loadOrders()
         txtWaiterID.Text = ""
         cmbWaiters.Items.Clear()
         cmbWaiters.Items.Add("")
+
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim codeQuery As String = "SELECT `id`, `first_name`, `second_name`, `last_name`, `pay_roll_no`, `username`, `password`, `biometric`, `role`, `alias`, `status` FROM `users` WHERE `role`='WAITER'"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                cmbWaiters.Items.Add(reader.GetString("alias"))
-            End While
-            conn.Close()
+            response = Web.get_("users")
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.ToString)
         End Try
+        Try
+            ' json = JObject.Parse(response)
+            Dim users_ As List(Of User) = JsonConvert.DeserializeObject(Of List(Of User))(response.ToString)
+
+            For Each user In users_
+                cmbWaiters.Items.Add(user.rollNo)
+            Next
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+
+
     End Sub
     Private Sub clearFields()
         txtOrderNo.Text = ""
