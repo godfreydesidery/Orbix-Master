@@ -5,7 +5,7 @@ Imports Newtonsoft.Json.Linq
 Public Class frmOrder
     Private Sub frmOrder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         dtgrdOrders.Rows.Clear()
-        ' loadOrders()
+        'loadOrders()
         txtWaiterID.Text = ""
         cmbWaiters.Items.Clear()
         cmbWaiters.Items.Add("")
@@ -28,7 +28,6 @@ Public Class frmOrder
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
-
 
     End Sub
     Private Sub clearFields()
@@ -56,7 +55,6 @@ Public Class frmOrder
             Dim status As String = ""
             Dim timeCompleted As String = ""
 
-
             While reader.Read
                 Dim item As New Item
                 orderNo = reader.GetString("order_no")
@@ -68,11 +66,9 @@ Public Class frmOrder
                 Dim dtgrdRow As New DataGridViewRow
                 Dim dtgrdCell As DataGridViewCell
 
-
                 dtgrdCell = New DataGridViewTextBoxCell()
                 dtgrdCell.Value = orderNo
                 dtgrdRow.Cells.Add(dtgrdCell)
-
 
                 dtgrdCell = New DataGridViewTextBoxCell()
                 dtgrdCell.Value = (New User).getAlias(waiterID)
@@ -279,7 +275,6 @@ Public Class frmOrder
         Return found
     End Function
 
-
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         If search(txtOrderNo.Text) = True Then
             txtOrderNo.ReadOnly = True
@@ -408,14 +403,6 @@ Public Class frmOrder
             PointOfSale.printOrder("1", txtOrderNo.Text, cmbWaiters.Text, icodes, descr, qtys, prices, amounts, txtGrandTotal.Text)
             PointOfSale.printOrder("2", txtOrderNo.Text, cmbWaiters.Text, icodes, descr, qtys, prices, amounts, txtGrandTotal.Text)
         End If
-    End Sub
-
-    Private Sub Label7_Click(sender As Object, e As EventArgs) Handles Label7.Click
-
-    End Sub
-
-    Private Sub txtStatus_TextChanged(sender As Object, e As EventArgs) Handles txtStatus.TextChanged
-
     End Sub
 
     Private Sub cmbWaiters_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbWaiters.SelectedIndexChanged
@@ -823,8 +810,6 @@ Public Class frmOrder
                         dtgrdItemList.Item(1, row).ReadOnly = True
                         dtgrdItemList.Item(2, row).ReadOnly = True
 
-
-
                     End If
                     Exit While
                 End While
@@ -929,7 +914,6 @@ Public Class frmOrder
                         dtgrdItemList.Item(1, row).ReadOnly = True
                         dtgrdItemList.Item(2, row).ReadOnly = True
 
-
                     End If
                     Exit While
                 End While
@@ -1005,9 +989,6 @@ Public Class frmOrder
                         dtgrdItemList.Item(0, row).ReadOnly = True
                         dtgrdItemList.Item(1, row).ReadOnly = True
                         dtgrdItemList.Item(2, row).ReadOnly = True
-
-
-
 
                     End If
                     Exit While
@@ -1116,7 +1097,6 @@ Public Class frmOrder
         Catch ex As Exception
 
         End Try
-
         Dim conn As New MySqlConnection(Database.conString)
         Try
             conn.Open()
@@ -1219,7 +1199,6 @@ Public Class frmOrder
         Catch ex As Exception
             'MsgBox(ex.StackTrace)
         End Try
-
     End Sub
 
     Declare Function Wow64DisableWow64FsRedirection Lib "kernel32" (ByRef oldvalue As Long) As Boolean
@@ -1242,7 +1221,6 @@ Public Class frmOrder
     End Sub
 
     Private Sub AddToOrderDetails(sn As String, orderNo As String, barcode As String, itemCode As String, description As String, price As String, vat As String, discount As String, qty As String, amount As String, shortDescr As String)
-
         Dim conn As New MySqlConnection(Database.conString)
         Try
             conn.Open()

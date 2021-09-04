@@ -158,6 +158,7 @@
     <Compile Include="general\Bill.vb" />
     <Compile Include="general\Cart.vb" />
     <Compile Include="general\CartDetail.vb" />
+    <Compile Include="general\CashPickUp.vb" />
     <Compile Include="general\Collection.vb" />
     <Compile Include="general\CRNote.vb" />
     <Compile Include="general\Crypt.vb" />

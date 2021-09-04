@@ -1,11 +1,25 @@
 ﻿Imports Devart.Data.MySql
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class Day
+    Public Shared Property bussinessDate As Date
     Public Shared DAY As String = ""
     Public startedAt As String = ""
     Public endAt As String = ""
     Public Function getCurrentDay() As Date
         Dim date_ As Date = #0001-01-01#
+        Dim day As New Day
+
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+        response = Web.post(DAY, "days/end_day")
+        json = JObject.Parse(response)
+        DAY = JsonConvert.DeserializeObject(Of Day)(json.ToString)
+
+
+
+
         Try
             Dim conn As New MySqlConnection(Database.conString)
             Dim command As New MySqlCommand()

@@ -46,34 +46,54 @@ Public Class frmCashPickUp
             txtRemaining.Text = ""
         End If
     End Sub
+
+    Private Function getCurrentCash()
+        Dim available As Double = 0
+
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+
+        Try
+            response = Web.get_("tills/get_till_position_by_no?no=" + Till.TILLNO)
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+        json = JObject.Parse(response)
+        Dim till_ As Till = JsonConvert.DeserializeObject(Of Till)(json.ToString)
+        available = till_.cash
+
+        Return available
+    End Function
+
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
 
-        If Val(txtPickUp.Text) <= 0 Then
-            MsgBox("Invalid amount", vbExclamation + vbOKOnly, "Error")
-            txtPickUp.Text = ""
-        Else
-            Dim res As Integer = MessageBox.Show("Pick Up amount: " + LCurrency.displayValue(txtPickUp.Text) + " New amount: " + LCurrency.displayValue(txtRemaining.Text) + " Confirm?", "Confirm Cash Pick Up", MessageBoxButtons.YesNo)
-            Dim pickUpamount As Double = Val(txtPickUp.Text)
-            If res = DialogResult.Yes Then
-                currentAmount = Val(LCurrency.getValue(txtRemaining.Text))
-                txtAvailable.Text = LCurrency.displayValue(currentAmount.ToString)
-                txtPickUp.Text = ""
-                Dim conn As New MySqlConnection(Database.conString)
-                Try
-                    conn.Open()
-                    Dim command As New MySqlCommand()
-                    command.Connection = conn
-                    command.CommandText = "UPDATE `till_total` SET `cash`='" + currentAmount.ToString + "' WHERE `till_no`='" + Till.TILLNO + "'"
-                    command.Prepare()
-                    command.ExecuteNonQuery()
-                    conn.Close()
-                Catch ex As Devart.Data.MySql.MySqlException
-                    LError.databaseConnection()
-                    Exit Sub
-                End Try
-                Dim collection As New Collection
-                collection.collect(Till.TILLNO, Day.systemDate, pickUpamount, 0, 0, 0, 0, 0, 0, 0, 0, 0) 'add to collections
-            End If
+        Dim amount As String = txtPickUp.Text
+        'Dim detail As String = txtDetails.Text
+
+        If getCurrentCash() < Val(amount) Then
+            MsgBox("Could not complete operation. Insufficient cash amount available.", vbExclamation + vbOKOnly, "Error: Insufficient Funds")
+            Exit Sub
+        End If
+        Dim res As Integer = MessageBox.Show("Pick up amount: " + LCurrency.displayValue(txtPickUp.Text) + " Confirm?", "Confirm Cash Pick up", MessageBoxButtons.YesNo)
+        If res = DialogResult.Yes Then
+            'record petty cash
+
+            Dim cashPickUp As New CashPickUp
+            cashPickUp.amount = amount
+            '     pettyCash.details = txtDetails.Text
+            cashPickUp.till.no = Till.TILLNO
+
+
+            Dim response As Object = New Object
+            Dim json As JObject = New JObject
+            Try
+                response = Web.post(cashPickUp, "cash_pick_ups/pick_up_by_till_no?no=" + Till.TILLNO)
+            Catch ex As Exception
+                MsgBox(ex.ToString)
+                Exit Sub
+            End Try
+            MsgBox("Cash Pick up registered successifully")
+            Me.Dispose()
         End If
     End Sub
 
