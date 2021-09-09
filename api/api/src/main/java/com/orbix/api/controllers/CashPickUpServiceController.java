@@ -21,6 +21,7 @@ import com.orbix.api.models.CashPickUp;
 import com.orbix.api.models.Till;
 import com.orbix.api.models.User;
 import com.orbix.api.repositories.CashPickUpRepository;
+import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.TillRepository;
 import com.orbix.api.repositories.UserRepository;
 
@@ -34,6 +35,8 @@ public class CashPickUpServiceController {
 	TillRepository tillRepository;
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+    DayRepository dayRepository;
 	
 	@RequestMapping(method = RequestMethod.POST, value="/cash_pick_ups/pick_up_by_till_no", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -58,6 +61,8 @@ public class CashPickUpServiceController {
 		cashPickUp.setTill(till);
 		cashPickUp.setDetails(cashPickUp_.getDetails());
 		cashPickUp.setPickedBy(user);
+		
+		cashPickUp.setDay(dayRepository.getCurrentBussinessDay());
 		
     	return cashPickUpRepository.saveAndFlush(cashPickUp);
     }

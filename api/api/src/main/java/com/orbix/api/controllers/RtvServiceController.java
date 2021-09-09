@@ -36,6 +36,7 @@ import com.orbix.api.models.Rtv;
 import com.orbix.api.models.RtvDetail;
 import com.orbix.api.models.Supplier;
 import com.orbix.api.models.User;
+import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.RtvDetailRepository;
 import com.orbix.api.repositories.RtvRepository;
 import com.orbix.api.repositories.SupplierRepository;
@@ -58,6 +59,8 @@ public class RtvServiceController {
     RtvDetailRepository rtvDetailRepository;
 	@Autowired
     UserRepository userRepository;
+	@Autowired
+    DayRepository dayRepository;
 			
 	/**
 	 * Get all Rtvs
@@ -148,6 +151,7 @@ public class RtvServiceController {
     	rtv.setIssueDate(systemDate);
     	String random = String.valueOf(Math.random()).replace(".", "") + String.valueOf(Math.random()).replace(".", "");
     	rtv.setNo(random); 
+    	rtv.setDay(dayRepository.getCurrentBussinessDay());
     	rtvRepository.saveAndFlush(rtv);
     	
     	rtv.setStatus("PENDING");

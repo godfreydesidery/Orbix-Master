@@ -71,6 +71,13 @@ public class Grn {
 	@Embedded
     private Supplier supplier;
 	
+	@ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = true)
+    @JoinColumn(name = "day_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@Autowired
+	@Embedded
+    private Day day;
+	
 	@OneToMany(targetEntity = GrnDetail.class, mappedBy = "grn", fetch = FetchType.EAGER, orphanRemoval = true)
     @Valid
     @JsonIgnoreProperties("grn")
@@ -156,5 +163,14 @@ public class Grn {
 		this.grnDetails = grnDetails;
 	}
 
+	public Day getDay() {
+		return day;
+	}
+
+	public void setDay(Day day) {
+		this.day = day;
+	}
+
+	
 	
 }

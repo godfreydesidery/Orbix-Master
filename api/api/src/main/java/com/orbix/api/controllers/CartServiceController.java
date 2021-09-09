@@ -29,6 +29,7 @@ import com.orbix.api.models.Till;
 import com.orbix.api.repositories.CartDetailRepository;
 import com.orbix.api.repositories.CartRepository;
 import com.orbix.api.repositories.ClassRepository;
+import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.DepartmentRepository;
 import com.orbix.api.repositories.TillRepository;
 
@@ -42,6 +43,8 @@ public class CartServiceController {
     CartDetailRepository cartDetailRepository;
     @Autowired
     TillRepository tillRepository;
+    @Autowired
+    DayRepository dayRepository;
     
     @RequestMapping(method = RequestMethod.POST, value="/carts/new", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -54,6 +57,7 @@ public class CartServiceController {
     	tillRepository.save(till); 
     	List<CartDetail> cartDetails = cart.getCartDetails();
     	cart.setTill(till);
+    	cart.setDay(dayRepository.getCurrentBussinessDay());
     	cartRepository.saveAndFlush(cart);       	
     	for(CartDetail detail : cartDetails) {   		
     		detail.setCart(cart);

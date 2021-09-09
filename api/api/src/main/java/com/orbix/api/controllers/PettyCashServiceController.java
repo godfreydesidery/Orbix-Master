@@ -20,6 +20,7 @@ import com.orbix.api.exceptions.NotFoundException;
 import com.orbix.api.models.PettyCash;
 import com.orbix.api.models.Till;
 import com.orbix.api.models.User;
+import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.PettyCashRepository;
 import com.orbix.api.repositories.TillRepository;
 import com.orbix.api.repositories.UserRepository;
@@ -34,6 +35,8 @@ public class PettyCashServiceController {
     TillRepository tillRepository;
 	@Autowired
     PettyCashRepository pettyCashRepository;
+	@Autowired
+    DayRepository dayRepository;
 	
 	@RequestMapping(method = RequestMethod.POST, value="/petty_cashs/collect_by_till_no", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -58,7 +61,7 @@ public class PettyCashServiceController {
 		pettyCash.setTill(till);
 		pettyCash.setDetails(pettyCash_.getDetails());
 		pettyCash.setPickedBy(user);
-		
+		pettyCash.setDay(dayRepository.getCurrentBussinessDay());
     	return pettyCashRepository.saveAndFlush(pettyCash);
     }
 }

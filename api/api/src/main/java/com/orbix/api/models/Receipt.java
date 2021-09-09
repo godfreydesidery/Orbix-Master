@@ -92,6 +92,13 @@ public class Receipt {
 	@Embedded	
     private User reprintedUser;
 	
+	@ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = true)
+    @JoinColumn(name = "day_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@Autowired
+	@Embedded
+    private Day day;
+	
 	@OneToMany(targetEntity = ReceiptDetail.class, mappedBy = "receipt", fetch = FetchType.EAGER, orphanRemoval = true)
     @Valid
     @JsonIgnoreProperties("receipt")
@@ -353,6 +360,15 @@ public class Receipt {
 
 	public void setOther(double other) {
 		this.other = other;
+	}
+
+	public Day getDay() {
+		return day;
+	}
+
+	public void setDay(Day day) {
+		this.day = day;
 	}	
+	
 	
 }

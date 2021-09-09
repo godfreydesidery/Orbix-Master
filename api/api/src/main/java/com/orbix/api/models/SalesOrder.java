@@ -40,6 +40,13 @@ public class SalesOrder {
 	@Autowired
 	@Embedded	
     private User attendant;
+	
+	@ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = true)
+    @JoinColumn(name = "day_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@Autowired
+	@Embedded
+    private Day day;
 
 	public Long getId() {
 		return id;
@@ -80,6 +87,15 @@ public class SalesOrder {
 	public void setCompletedDateTime(LocalDateTime completedDateTime) {
 		this.completedDateTime = completedDateTime;
 	}
+
+	public Day getDay() {
+		return day;
+	}
+
+	public void setDay(Day day) {
+		this.day = day;
+	}
+	
 	
 	
 }

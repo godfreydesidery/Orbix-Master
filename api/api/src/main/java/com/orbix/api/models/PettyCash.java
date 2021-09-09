@@ -48,6 +48,13 @@ public class PettyCash {
 	@Autowired
 	@Embedded	
     private User pickedBy;
+	
+	@ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = true)
+    @JoinColumn(name = "day_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@Autowired
+	@Embedded
+    private Day day;
 
 	public Long getId() {
 		return id;
@@ -94,6 +101,14 @@ public class PettyCash {
 
 	public void setPickedBy(User pickedBy) {
 		this.pickedBy = pickedBy;
+	}
+
+	public Day getDay() {
+		return day;
+	}
+
+	public void setDay(Day day) {
+		this.day = day;
 	}
 	
 	

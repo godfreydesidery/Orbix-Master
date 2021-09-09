@@ -37,6 +37,7 @@ import com.orbix.api.models.GrnDetail;
 import com.orbix.api.models.Lpo;
 import com.orbix.api.models.Supplier;
 import com.orbix.api.models.User;
+import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.GrnDetailRepository;
 import com.orbix.api.repositories.GrnRepository;
 import com.orbix.api.repositories.LpoDetailRepository;
@@ -65,6 +66,8 @@ public class GrnServiceController {
     LpoDetailRepository lpoDetailRepository;
 	@Autowired
     UserRepository userRepository;
+	@Autowired
+    DayRepository dayRepository;
 	
 	
     /**
@@ -134,7 +137,7 @@ public class GrnServiceController {
     	String grnNo = "GRN-"+Formater.formatNine(serial);
     	grn.setNo(grnNo); 
     	grn.setStatus("COMPLETED");
-    	
+    	grn.setDay(dayRepository.getCurrentBussinessDay());
     	grnRepository.saveAndFlush(grn);
     	
     	List<GrnDetail> grnDetails = grn.getGrnDetails();

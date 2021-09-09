@@ -35,6 +35,7 @@ import com.orbix.api.models.Till;
 import com.orbix.api.models.User;
 import com.orbix.api.models.Voided;
 import com.orbix.api.repositories.CartRepository;
+import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.ReceiptDetailRepository;
 import com.orbix.api.repositories.ReceiptRepository;
 import com.orbix.api.repositories.SaleDetailRepository;
@@ -68,6 +69,8 @@ public class ReceiptServiceController {
     CartRepository cartRepository;
     @Autowired
     VoidedRepository voidedRepository;
+    @Autowired
+    DayRepository dayRepository;
    
    
     /**
@@ -165,6 +168,7 @@ public class ReceiptServiceController {
     	String serial = receipt.getId().toString();
     	String recNo = "R-"+Formater.formatNine(serial);
     	receipt.setNo(recNo); 
+    	receipt.setDay(dayRepository.getCurrentBussinessDay());
     	receiptRepository.saveAndFlush(receipt);
     	
     	List<ReceiptDetail> receiptDetails = new Vector<ReceiptDetail>();

@@ -74,6 +74,13 @@ public class SalesInvoice {
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private CorporateCustomer corporateCustomer;
 	
+	@ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = true)
+    @JoinColumn(name = "day_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@Autowired
+	@Embedded
+    private Day day;
+	
 	@OneToMany(targetEntity = SalesInvoiceDetail.class, mappedBy = "salesInvoice", fetch = FetchType.EAGER, orphanRemoval = true)
     @Valid
     @JsonIgnoreProperties("salesInvoice")
@@ -213,4 +220,13 @@ public class SalesInvoice {
 		this.salesInvoiceDetails = salesInvoiceDetails;
 	}
 
+	public Day getDay() {
+		return day;
+	}
+
+	public void setDay(Day day) {
+		this.day = day;
+	}
+
+	
 }

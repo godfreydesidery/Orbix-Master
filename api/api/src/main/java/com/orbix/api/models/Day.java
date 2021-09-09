@@ -3,6 +3,7 @@ package com.orbix.api.models;
 import java.time.LocalDate;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -15,12 +16,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Component;
+
+import com.sun.istack.NotNull;
 
 @Entity
 @Component
@@ -29,7 +33,9 @@ import org.springframework.stereotype.Component;
 public class Day {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;	
+	@NotNull
+	@Column(unique = true)
 	private LocalDate bussinessDate;
 	@Temporal(TemporalType.TIMESTAMP)
     private Date startedAt;

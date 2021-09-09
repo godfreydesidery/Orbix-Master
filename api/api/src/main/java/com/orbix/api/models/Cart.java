@@ -41,6 +41,13 @@ public class Cart {
 	@Embedded
     private Till till;
 	
+	@ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = true)
+    @JoinColumn(name = "day_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@Autowired
+	@Embedded
+    private Day day;
+	
 	@OneToMany(targetEntity = CartDetail.class, mappedBy = "cart", fetch = FetchType.EAGER, orphanRemoval = true)
     @Valid
     @JsonIgnoreProperties("cart")
@@ -77,5 +84,14 @@ public class Cart {
 	public void setCartDetails(List<CartDetail> cartDetails) {
 		this.cartDetails = cartDetails;
 	}
+
+	public Day getDay() {
+		return day;
+	}
+
+	public void setDay(Day day) {
+		this.day = day;
+	}
+	
 	
 }

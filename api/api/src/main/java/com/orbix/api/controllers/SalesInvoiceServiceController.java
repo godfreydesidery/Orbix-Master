@@ -43,6 +43,7 @@ import com.orbix.api.models.SalesInvoice;
 import com.orbix.api.models.SalesInvoiceDetail;
 import com.orbix.api.models.User;
 import com.orbix.api.repositories.CorporateCustomerRepository;
+import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.SaleDetailRepository;
 import com.orbix.api.repositories.SaleRepository;
 import com.orbix.api.repositories.SalesInvoiceDetailRepository;
@@ -70,6 +71,8 @@ public class SalesInvoiceServiceController {
 	SaleRepository saleRepository;
 	@Autowired
 	SaleDetailRepository saleDetailRepository;
+	@Autowired
+    DayRepository dayRepository;
 	
 	/**
 	 * Get all the Sales invoices
@@ -143,6 +146,7 @@ public class SalesInvoiceServiceController {
     	invoice.setCompletedUser(null);
     	    	
     	LocalDate systemDate =LocalDate.now(); //day.getSystemDate();
+    	invoice.setDay(dayRepository.getCurrentBussinessDay());
     	
     	invoice.setIssueDate(systemDate);
     	String random = String.valueOf(Math.random()).replace(".", "") + String.valueOf(Math.random()).replace(".", "");
@@ -345,6 +349,7 @@ public class SalesInvoiceServiceController {
     		saleDetail.setSellingPriceVatIncl(detail.getSellingPriceVatIncl());
     		saleDetail.setSellingPriceVatExcl(detail.getSellingPriceVatExcl());
     		saleDetail.setDiscount(detail.getDiscount());
+    		
     		saleDetailRepository.save(saleDetail);    		
     	} 
 		return true;		

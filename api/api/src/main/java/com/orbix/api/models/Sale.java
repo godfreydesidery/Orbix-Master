@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
@@ -24,6 +25,7 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.envers.Audited;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Component;
 
@@ -55,6 +57,13 @@ public class Sale {
     @OnDelete(action = OnDeleteAction.CASCADE)
 	//@JsonIgnoreProperties("receiptDetail")
     private Receipt receipt;
+	
+	@ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = true)
+    @JoinColumn(name = "day_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@Autowired
+	@Embedded
+    private Day day;
 
 	public Long getId() {
 		return id;
@@ -87,5 +96,14 @@ public class Sale {
 	public void setReceipt(Receipt receipt) {
 		this.receipt = receipt;
 	}
+
+	public Day getDay() {
+		return day;
+	}
+
+	public void setDay(Day day) {
+		this.day = day;
+	}
+
 	
 }

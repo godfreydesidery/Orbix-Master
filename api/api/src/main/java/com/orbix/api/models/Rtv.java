@@ -79,6 +79,13 @@ public class Rtv {
 	@Embedded
     private Supplier supplier;
 	
+	@ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = true)
+    @JoinColumn(name = "day_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@Autowired
+	@Embedded
+    private Day day;
+	
 	@OneToMany(targetEntity = RtvDetail.class, mappedBy = "rtv", fetch = FetchType.EAGER, orphanRemoval = true)
     @Valid
     @JsonIgnoreProperties("rtv")
@@ -210,4 +217,21 @@ public class Rtv {
 		this.rtvDetails = rtvDetails;
 	}
 
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public Day getDay() {
+		return day;
+	}
+
+	public void setDay(Day day) {
+		this.day = day;
+	}
+
+	
 }

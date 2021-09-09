@@ -75,6 +75,13 @@ public class Lpo {
 	@Embedded
     private Supplier supplier;
 	
+	@ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = true)
+    @JoinColumn(name = "day_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@Autowired
+	@Embedded
+    private Day day;
+	
     @OneToMany(targetEntity = LpoDetail.class, mappedBy = "lpo", fetch = FetchType.EAGER, orphanRemoval = true)
     @Valid
     @JsonIgnoreProperties("lpo")
@@ -174,6 +181,14 @@ public class Lpo {
 
 	public void setLpoDetails(List<LpoDetail> lpoDetails) {
 		this.lpoDetails = lpoDetails;
+	}
+
+	public Day getDay() {
+		return day;
+	}
+
+	public void setDay(Day day) {
+		this.day = day;
 	}
 
 	 

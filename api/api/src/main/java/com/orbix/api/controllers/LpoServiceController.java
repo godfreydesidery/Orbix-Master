@@ -45,6 +45,7 @@ import com.orbix.api.models.Lpo;
 import com.orbix.api.models.LpoDetail;
 import com.orbix.api.models.Supplier;
 import com.orbix.api.models.User;
+import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.LpoDetailRepository;
 import com.orbix.api.repositories.LpoRepository;
 import com.orbix.api.repositories.SupplierRepository;
@@ -67,6 +68,8 @@ public class LpoServiceController {
     LpoDetailRepository lpoDetailRepository;    
     @Autowired
     SupplierRepository supplierRepository;
+    @Autowired
+    DayRepository dayRepository;
     
     /**
      * Get All LPOs
@@ -156,6 +159,7 @@ public class LpoServiceController {
     	
     	String lpoNo = "LPO-"+Formater.formatNine(serial);
     	lpo.setNo(lpoNo); 
+    	lpo.setDay(dayRepository.getCurrentBussinessDay());
     	lpoRepository.saveAndFlush(lpo);    	
         return lpoRepository.findById(lpo.getId()).get();
     }
