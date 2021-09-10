@@ -35,7 +35,7 @@ Public Class frmEndDay
                 MsgBox("Day ended successifully, Application will close")
                 End
             Catch ex As Exception
-                MsgBox(ex.ToString)
+                MsgBox("Could not end the day. Please contact System administrator")
             End Try
 
         End If

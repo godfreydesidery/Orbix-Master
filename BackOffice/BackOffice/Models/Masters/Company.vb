@@ -80,55 +80,14 @@ Public Class Company
         Try
             Dim success As Boolean = False
 
-            response = Web.post(companyProfile, "company_profile")
+            response = Web.post(companyProfile, "company_profile/save")
             json = JObject.Parse(response)
-            'Dim data As Product = New Product
             MsgBox("Company profile saved successifully", vbOKOnly, "Success: Profile saved.")
 
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
 
-
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim query As String = ""
-            query = "DELETE FROM `company`"
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            command.ExecuteNonQuery()
-            conn.Close()
-
-            query = "INSERT INTO `company`( `company_name`, `contact_name`, `tin`, `vrn`, `bank_acc_name`, `bank_acc_address`, `bank_post_code`, `bank_name`, `bank_acc_no`, `address`, `post_code`, `physical_address`, `telephone`, `mobile`, `email`, `fax`, `logo`) VALUES (@company_name, @contact_name, @tin, @vrn, @bank_acc_name, @bank_acc_address, @bank_post_code, @bank_name, @bank_acc_no, @address, @post_code, @physical_address, @telephone, @mobile, @email, @fax, @logo)"
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            command.Parameters.AddWithValue("@company_name", GL_NAME)
-            command.Parameters.AddWithValue("@contact_name", GL_CONTACT_NAME)
-            command.Parameters.AddWithValue("@tin", GL_TIN)
-            command.Parameters.AddWithValue("@vrn", GL_VRN)
-            command.Parameters.AddWithValue("@bank_acc_name", GL_BANK_ACCOUNT_NAME)
-            command.Parameters.AddWithValue("@bank_acc_address", GL_BANK_ADDRESS)
-            command.Parameters.AddWithValue("@bank_post_code", GL_BANK_POST_CODE)
-            command.Parameters.AddWithValue("@bank_name", GL_BANK_NAME)
-            command.Parameters.AddWithValue("@bank_acc_no", GL_BANK_ACCOUNT_NO)
-            command.Parameters.AddWithValue("@address", GL_POST_ADDRESS)
-            command.Parameters.AddWithValue("@post_code", GL_POST_CODE)
-            command.Parameters.AddWithValue("@physical_address", GL_PHYSICAL_ADDRESS)
-            command.Parameters.AddWithValue("@telephone", GL_TELEPHONE)
-            command.Parameters.AddWithValue("@mobile", GL_MOBILE)
-            command.Parameters.AddWithValue("@email", GL_EMAIL)
-            command.Parameters.AddWithValue("@fax", GL_FAX)
-            command.Parameters.AddWithValue("@logo", GL_LOGO)
-            command.ExecuteNonQuery()
-            conn.Close()
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
         Return vbNull
     End Function
     Public Shared Function loadCompanyDetails() As Boolean

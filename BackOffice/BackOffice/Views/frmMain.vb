@@ -90,8 +90,6 @@ Public Class frmMain
             End
         End Sub)
 
-
-
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         'lblCompany.Text = Company.NAME
@@ -103,7 +101,7 @@ Public Class frmMain
 
         tstrpAlias.Text = tstrpAlias.Text + " " + User.CURRENT_FIRST_NAME + "  " + User.CURRENT_LAST_NAME
         ' t.Start()
-        tsrpDateTime.Text = "System Date: " + Day.DAY
+        tsrpDateTime.Text = "System Date: " + Day.DAY.ToString("yyyy-MM-dd")
 
 
         If User.authorize("VIEW REPORTS") Then
@@ -111,20 +109,6 @@ Public Class frmMain
         Else
             tlstripReports.Enabled = False
         End If
-
-
-    End Sub
-
-    Private Sub WindowsMenu_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-
-    Private Sub ToolStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ToolStrip1.ItemClicked
-
-    End Sub
-
-    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
 
     End Sub
 
@@ -134,14 +118,6 @@ Public Class frmMain
         Else
             MsgBox("Access denied!", vbOKOnly + vbExclamation)
         End If
-
-    End Sub
-
-    Private Sub ToolStripDropDownButton2_Click(sender As Object, e As EventArgs) Handles ToolStripDropDownButton2.Click
-
-    End Sub
-
-    Private Sub ToolStripButton6_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -617,8 +593,8 @@ Public Class frmMain
         Dim _date As Date = CDate(dtCustomDate.Text)
         Dim res As Integer = MsgBox("Set custom date to " + dtCustomDate.Text + "?", vbYesNo + vbQuestion, "Set System date to custom date")
         If res = DialogResult.Yes Then
-            Day.DAY = _date.ToString("yyyy-MM-dd")
-            tsrpDateTime.Text = "System Date: " + Day.DAY
+            Day.DAY = _date
+            tsrpDateTime.Text = "System Date: " + Day.DAY.ToString("yyyy-MM-dd")
             lblCustomDate.Text = "Custom date set to " + _date.ToString("yyyy-MM-dd") + " yyyy-MM-dd. Please log out after completing operations that require a custom date in order to resume to the normal system date"
             lblCustomDate.Visible = True
             lblCustDate.Visible = True

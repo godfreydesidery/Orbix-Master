@@ -27,9 +27,8 @@ Partial Class frmEndDay
         Me.txtOpenAt = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnCloseDay = New System.Windows.Forms.Button()
-        Me.Label29 = New System.Windows.Forms.Label()
-        Me.btnBack = New System.Windows.Forms.Button()
         Me.lblStatus = New System.Windows.Forms.Label()
+        Me.btnBack = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -38,9 +37,9 @@ Partial Class frmEndDay
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(12, 73)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(213, 25)
+        Me.Label1.Size = New System.Drawing.Size(240, 25)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Current System Date"
+        Me.Label1.Text = "Current Bussiness Date"
         '
         'txtCurrentDate
         '
@@ -66,9 +65,9 @@ Partial Class frmEndDay
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(318, 73)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(113, 25)
+        Me.Label2.Size = New System.Drawing.Size(109, 25)
         Me.Label2.TabIndex = 2
-        Me.Label2.Text = "Opened at"
+        Me.Label2.Text = "Started At"
         '
         'btnCloseDay
         '
@@ -84,25 +83,6 @@ Partial Class frmEndDay
         Me.btnCloseDay.Text = "Close Current day and start a new Day"
         Me.btnCloseDay.UseVisualStyleBackColor = False
         '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label29.Location = New System.Drawing.Point(12, 9)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(84, 24)
-        Me.Label29.TabIndex = 19
-        Me.Label29.Text = "End Day"
-        '
-        'btnBack
-        '
-        Me.btnBack.Location = New System.Drawing.Point(547, 361)
-        Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(75, 42)
-        Me.btnBack.TabIndex = 20
-        Me.btnBack.Text = "Back"
-        Me.btnBack.UseVisualStyleBackColor = True
-        '
         'lblStatus
         '
         Me.lblStatus.AutoSize = True
@@ -112,14 +92,24 @@ Partial Class frmEndDay
         Me.lblStatus.Size = New System.Drawing.Size(0, 18)
         Me.lblStatus.TabIndex = 21
         '
+        'btnBack
+        '
+        Me.btnBack.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
+        Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnBack.Location = New System.Drawing.Point(522, 363)
+        Me.btnBack.Name = "btnBack"
+        Me.btnBack.Size = New System.Drawing.Size(100, 40)
+        Me.btnBack.TabIndex = 107
+        Me.btnBack.UseVisualStyleBackColor = True
+        '
         'frmEndDay
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(634, 415)
-        Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.btnBack)
-        Me.Controls.Add(Me.Label29)
+        Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.btnCloseDay)
         Me.Controls.Add(Me.txtOpenAt)
         Me.Controls.Add(Me.Label2)
@@ -143,7 +133,6 @@ Partial Class frmEndDay
     Friend WithEvents txtOpenAt As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents btnCloseDay As Button
-    Friend WithEvents Label29 As Label
-    Friend WithEvents btnBack As Button
     Friend WithEvents lblStatus As Label
+    Friend WithEvents btnBack As Button
 End Class

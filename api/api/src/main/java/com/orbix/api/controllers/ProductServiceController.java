@@ -145,6 +145,7 @@ public class ProductServiceController {
 	 */
 	@RequestMapping(method = RequestMethod.PUT, value="/products/update_inventory_by_product_id", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
+    @Transactional
     public Product updateInventory(@RequestParam(name = "product_id") Long productId,
             								@Valid @RequestBody Product inventoryDetails, @RequestHeader("user_id") Long userId) throws Exception {
 		Product product = productRepository.findById(productId)
@@ -154,9 +155,7 @@ public class ProductServiceController {
 		product.setMinimumStock(inventoryDetails.getMinimumStock());
 		product.setDefaultReorderLevel(inventoryDetails.getDefaultReorderLevel());
 		product.setDefaultReorderQty(inventoryDetails.getDefaultReorderQty());			
-    	productRepository.saveAndFlush(product);
-    	System.out.println(product.getStock());
-    	System.out.println(inventoryDetails.getStock());
+    	productRepository.saveAndFlush(product);    	
     	return product;
     }
 	
@@ -323,7 +322,7 @@ public class ProductServiceController {
 		}
 		
 		/**
-		 * To avoid dirty wrinting the inventory
+		 * To avoid dirty writing the inventory
 		 */
 		product.setPrimaryBarcode(productDetails.getPrimaryBarcode());
 		product.setDescription(productDetails.getDescription());
@@ -332,6 +331,9 @@ public class ProductServiceController {
 		product.setStandardUom(productDetails.getStandardUom());
 		product.setPackSize(productDetails.getPackSize());
 		product.setIngredients(productDetails.getIngredients());
+		/**
+		 * If there is any change in price, register a price change
+		 */
 		product.setCostPriceVatIncl(productDetails.getCostPriceVatIncl());
 		product.setCostPriceVatExcl(productDetails.getCostPriceVatExcl());
 		product.setSellingPriceVatIncl(productDetails.getSellingPriceVatIncl());

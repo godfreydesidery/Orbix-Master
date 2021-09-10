@@ -2,7 +2,6 @@ package com.orbix.api;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
@@ -94,8 +93,7 @@ protected ConfigurableApplicationContext springContext;
 			System.out.println("Started at: "+ timestamp);
 			System.out.println("Started by: admin");
 			System.out.println("Status: STARTED");			
-		}
-		
+		}		
 	}
 	
 	public static void main(String[] args) throws Throwable {

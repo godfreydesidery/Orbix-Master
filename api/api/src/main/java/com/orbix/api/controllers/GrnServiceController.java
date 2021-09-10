@@ -35,6 +35,8 @@ import com.orbix.api.exceptions.NotFoundException;
 import com.orbix.api.models.Grn;
 import com.orbix.api.models.GrnDetail;
 import com.orbix.api.models.Lpo;
+import com.orbix.api.models.Product;
+import com.orbix.api.models.StockCard;
 import com.orbix.api.models.Supplier;
 import com.orbix.api.models.User;
 import com.orbix.api.repositories.DayRepository;
@@ -42,6 +44,8 @@ import com.orbix.api.repositories.GrnDetailRepository;
 import com.orbix.api.repositories.GrnRepository;
 import com.orbix.api.repositories.LpoDetailRepository;
 import com.orbix.api.repositories.LpoRepository;
+import com.orbix.api.repositories.ProductRepository;
+import com.orbix.api.repositories.StockCardRepository;
 import com.orbix.api.repositories.SupplierRepository;
 import com.orbix.api.repositories.UserRepository;
 
@@ -68,6 +72,10 @@ public class GrnServiceController {
     UserRepository userRepository;
 	@Autowired
     DayRepository dayRepository;
+	@Autowired
+    ProductRepository productRepository;
+	@Autowired
+    StockCardRepository stockCardRepository;
 	
 	
     /**
@@ -144,6 +152,28 @@ public class GrnServiceController {
     	for(GrnDetail grnDetail : grnDetails) {
     		grnDetail.setGrn(grn);
     		grnDetailRepository.saveAndFlush(grnDetail);
+    		/**
+    		 * Update stocks and
+    		 * Create stock card
+    		 */
+    		Product product;
+    		StockCard stockCard;
+    		
+    		product = productRepository.findByCode(grnDetail.getCode()).get();
+    		product.setStock(product.getStock() + grnDetail.getQtyReceived());
+    		productRepository.saveAndFlush(product);
+    		
+    		stockCard = new StockCard();
+    		product = productRepository.findByCode(grnDetail.getCode()).get();
+    		stockCard.setCode(grnDetail.getCode());
+    		stockCard.setDescription(grnDetail.getDescription());
+    		stockCard.setDay(dayRepository.getCurrentBussinessDay());
+    		stockCard.setCreatedOn(new Date());
+    		stockCard.setQtyIn(grnDetail.getQtyReceived());
+    		stockCard.setQtyOut(0);
+    		stockCard.setBalance(product.getStock());
+    		stockCard.setReference("Received: GRN No "+grnNo);
+    		stockCardRepository.saveAndFlush(stockCard);
     	}   	
         return grn;
     }

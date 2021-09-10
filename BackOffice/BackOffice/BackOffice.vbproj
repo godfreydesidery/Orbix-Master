@@ -152,7 +152,6 @@
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Models\Till.vb" />
-    <Compile Include="Models\TillPosition.vb" />
     <Compile Include="Utilities\Application\LApplication.vb" />
     <Compile Include="Utilities\Application\LSystem.vb" />
     <Compile Include="Utilities\Application\Web.vb" />

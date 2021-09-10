@@ -48,7 +48,7 @@ public class CorporateCustomer {
     private String email;
     private String fax;
     private String bankAccountName;
-    private String bankAddress;
+    private String bankPostAddress;
     private String bankPostCode;
     private String bankName;
     private String bankAccountNo;
@@ -235,17 +235,12 @@ public class CorporateCustomer {
 	public void setBankAccountName(String bankAccountName) {
 		this.bankAccountName = bankAccountName;
 	}
-	/**
-	 * @return the bankAddress
-	 */
-	public String getBankAddress() {
-		return bankAddress;
+	
+	public String getBankPostAddress() {
+		return bankPostAddress;
 	}
-	/**
-	 * @param bankAddress the bankAddress to set
-	 */
-	public void setBankAddress(String bankAddress) {
-		this.bankAddress = bankAddress;
+	public void setBankPostAddress(String bankPostAddress) {
+		this.bankPostAddress = bankPostAddress;
 	}
 	/**
 	 * @return the bankPostCode

@@ -147,7 +147,7 @@ public class RtvServiceController {
 //    	}else if(!issueDate.equals(systemDate)) {
 //    		throw new InvalidEntryException("Date does not match with System date");
 //    	}  
-    	
+    	rtv.setDay(dayRepository.getCurrentBussinessDay());
     	rtv.setIssueDate(systemDate);
     	String random = String.valueOf(Math.random()).replace(".", "") + String.valueOf(Math.random()).replace(".", "");
     	rtv.setNo(random); 

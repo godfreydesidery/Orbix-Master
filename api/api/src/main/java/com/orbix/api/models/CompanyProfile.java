@@ -36,7 +36,7 @@ public class CompanyProfile {
 	private String email;
 	private String fax;
 	@Lob
-	private Byte logo;
+	private Byte[] logo;
 	private String bankAccountName;
 	private String bankAddress;
 	private String bankPostCode;
@@ -122,10 +122,11 @@ public class CompanyProfile {
 	public void setFax(String fax) {
 		this.fax = fax;
 	}
-	public Byte getLogo() {
+	
+	public Byte[] getLogo() {
 		return logo;
 	}
-	public void setLogo(Byte logo) {
+	public void setLogo(Byte[] logo) {
 		this.logo = logo;
 	}
 	public String getBankAccountName() {

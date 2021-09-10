@@ -720,9 +720,6 @@ Public Class frmCompany
 
     Private Sub btnSaveCompanyDetails_Click(sender As Object, e As EventArgs) Handles btnSaveCompanyDetails.Click
 
-        Dim ms As New MemoryStream
-        pctLogo.Image.Save(ms, pctLogo.Image.RawFormat)
-        Dim logo As Byte() = ms.GetBuffer()
         If validateDetails() = True Then
             Company.GL_NAME = txtName.Text
             Company.GL_CONTACT_NAME = txtContactName.Text
@@ -740,9 +737,16 @@ Public Class frmCompany
             Company.GL_MOBILE = txtMobile.Text
             Company.GL_EMAIL = txtEmail.Text
             Company.GL_FAX = txtFax.Text
-            Company.GL_LOGO = logo
+            Try
+                Dim ms As New MemoryStream
+                pctLogo.Image.Save(ms, pctLogo.Image.RawFormat)
+                Dim logo As Byte() = ms.GetBuffer()
+                Company.GL_LOGO = logo
+            Catch ex As Exception
+                Company.GL_LOGO = Nothing
+            End Try
+
             Company.saveCompanyDetails()
-            MsgBox("Company details saved successively", vbOKOnly + vbInformation, "Success: Save company details")
             btnSaveCompanyDetails.Enabled = False
             lock()
             Company.loadCompanyDetails()
