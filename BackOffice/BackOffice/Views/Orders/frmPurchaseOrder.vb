@@ -369,7 +369,7 @@ Public Class frmPurchaseOrder
                 cmbSupplier.Text = lpo_.supplier.name
             End If
             txtId.Text = lpo_.id
-            dateIssueDate.Value = lpo_.issueDate
+            dateIssueDate.Text = lpo_.issueDate.ToString("yyyy-MM-dd")
 
             txtOrderStatus.Text = lpo_.status
             cmbValidityPeriod.Text = lpo_.validityDays
@@ -415,12 +415,12 @@ Public Class frmPurchaseOrder
         clear()
         clearFields()
         cmbValidityPeriod.Text = "30"
-        dateValidUntil.Value = ((New Day).getCurrentDay.AddDays(Val(cmbValidityPeriod.Text)))
+        dateValidUntil.Text = ((New Day).getCurrentDay.AddDays(Val(cmbValidityPeriod.Text))).ToString("yyyy-MM-dd")
         txtOrderNo.ReadOnly = True
         txtSupplierCode.ReadOnly = False
         cmbSupplier.Enabled = True
         txtOrderStatus.Text = ""
-        dateIssueDate.Value = Date.Now() ' Day.DAY
+        dateIssueDate.Text = Day.DAY.ToString("yyyy-MM-dd")
         unlock()
         btnSave.Enabled = False
         txtOrderNo.Text = "NA"
@@ -462,9 +462,9 @@ Public Class frmPurchaseOrder
             lpo_.no = "NA"
             lpo_.createdUser.id = User.CURRENT_USER_ID
         End If
-        lpo_.issueDate = dateIssueDate.Value.ToString("yyyy-MM-dd")
+        lpo_.issueDate = dateIssueDate.Text
         lpo_.validityDays = cmbValidityPeriod.Text
-        lpo_.validUntil = dateValidUntil.Value.ToString("yyyy-MM-dd")
+        lpo_.validUntil = dateValidUntil.Text
         lpo_.comment = txtComment.Text
 
         If dtgrdItemList.RowCount = 0 Then
@@ -532,7 +532,7 @@ Public Class frmPurchaseOrder
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
-            dtgrdCell.Value = detail.packSize
+            dtgrdCell.Value = ""
             dtgrdRow.Cells.Add(dtgrdCell)
 
             dtgrdCell = New DataGridViewTextBoxCell()
@@ -692,13 +692,14 @@ Public Class frmPurchaseOrder
 
     Private Sub cmbValidityPeriod_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbValidityPeriod.SelectedIndexChanged
         If txtId.Text = "" Then
-            Exit Sub
+            '  Exit Sub
+            dateIssueDate.Text = Day.DAY.ToString("yyyy-MM-dd")
         End If
         Dim validityPeriod As Integer = Val(cmbValidityPeriod.Text)
         If validityPeriod > 0 And validityPeriod <= 60 Then
-            dateValidUntil.Value = ((New Day).getCurrentDay.AddDays(validityPeriod))
+            dateValidUntil.Text = ((New Day).getCurrentDay.AddDays(validityPeriod)).ToString("yyyy-MM-dd")
         Else
-            dateValidUntil.Value = Nothing
+            dateValidUntil.Text = Nothing
         End If
     End Sub
 
@@ -890,9 +891,9 @@ Public Class frmPurchaseOrder
                 lpo_.createdUser.id = User.CURRENT_USER_ID
                 lpo_.supplier.code = txtSupplierCode.Text
                 lpo_.supplier.name = cmbSupplier.Text
-                lpo_.issueDate = dateIssueDate.Value.ToString("yyyy-MM-dd")
+                lpo_.issueDate = dateIssueDate.Text
                 lpo_.validityDays = cmbValidityPeriod.Text
-                lpo_.validUntil = dateValidUntil.Value.ToString("yyyy-MM-dd")
+                lpo_.validUntil = dateValidUntil.Text
                 lpo_.comment = txtComment.Text
 
                 response = Web.post(lpo_, "lpos/new")
@@ -1091,7 +1092,7 @@ Public Class frmPurchaseOrder
         If archived = True Then
             MsgBox("LPO Successively archived", vbOKOnly + vbInformation, "")
         Else
-            MsgBox("Poeration failed")
+            MsgBox("Archiving failed")
         End If
         search(txtId.Text, "")
         refreshLPOList()
@@ -1219,5 +1220,19 @@ Public Class frmPurchaseOrder
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         clear()
         clearFields()
+    End Sub
+
+    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
+        Dim res As Integer = MsgBox("Archive all completed LPOs? Completed LPOs will be archived for future references", vbYesNo + vbQuestion, "Archive all")
+        If Not res = DialogResult.Yes Then
+            Exit Sub
+        End If
+        Try
+            Web.put(vbNull, "lpos/archive_all")
+            MsgBox("Success", vbOKOnly + vbInformation, "")
+        Catch ex As Exception
+            MsgBox("Failed", vbOKOnly + vbInformation, "")
+        End Try
+        refreshLPOList()
     End Sub
 End Class

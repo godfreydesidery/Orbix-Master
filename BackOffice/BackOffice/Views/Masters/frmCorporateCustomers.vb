@@ -23,6 +23,10 @@ Public Class frmCorporateCustomers
         txtMobile.Text = ""
         txtEmail.Text = ""
         txtFax.Text = ""
+        chkActive.Checked = False
+        txtInvoiceLimit.Text = ""
+        txtCreditLimit.Text = ""
+        txtCreditDays.Text = ""
         Return vbNull
     End Function
     Private Function lock()
@@ -43,6 +47,10 @@ Public Class frmCorporateCustomers
         txtMobile.ReadOnly = True
         txtEmail.ReadOnly = True
         txtFax.ReadOnly = True
+        chkActive.Enabled = False
+        txtInvoiceLimit.ReadOnly = True
+        txtCreditLimit.ReadOnly = True
+        txtCreditDays.ReadOnly = True
         Return vbNull
     End Function
     Private Function unlock()
@@ -63,6 +71,10 @@ Public Class frmCorporateCustomers
         txtMobile.ReadOnly = False
         txtEmail.ReadOnly = False
         txtFax.ReadOnly = False
+        chkActive.Enabled = True
+        txtInvoiceLimit.ReadOnly = False
+        txtCreditLimit.ReadOnly = False
+        txtCreditDays.ReadOnly = False
         Return vbNull
     End Function
 

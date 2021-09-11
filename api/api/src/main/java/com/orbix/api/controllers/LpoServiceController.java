@@ -137,14 +137,8 @@ public class LpoServiceController {
     	lpo.setApprovedUser(null);
     	lpo.setCompletedUser(null);
     	    	
-    	//Day day = dayRepository.findTopByOrderByIdDesc(); 	
-    	LocalDate systemDate =LocalDate.now(); //day.getSystemDate();
-    	System.out.println(systemDate);
-    	if(issueDate == null) {
-    		throw new MissingInformationException("Date required");
-    	}else if(!issueDate.equals(systemDate)) {
-    		throw new InvalidEntryException("Date does not match with System date");
-    	}  
+    	LocalDate systemDate =dayRepository.getCurrentBussinessDay().getBussinessDate();
+    	
     	List<LpoDetail> lpoDetails = lpo.getLpoDetails();
     	
     	
@@ -378,13 +372,24 @@ public class LpoServiceController {
 		if(!lpo.isPresent()) {
 			throw new NotFoundException("LPO not found");
 		}
-		if(lpo.get().getStatus().equals("COPMLETED")) {
+		if(lpo.get().getStatus().equals("COMPLETED")) {
 			lpo.get().setStatus("ARCHIVED");
 			lpoRepository.save(lpo.get());
 			return true;
 		}else {
 			throw new InvalidOperationException("Could not archive, Only completed LPO can be archived");
 		}      	
+	}
+    
+    @Transactional
+    @RequestMapping(method = RequestMethod.PUT, value = "/lpos/archive_all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean archiveAll(@RequestHeader("user_id") Long userId) {
+    	List<Lpo> lpos = lpoRepository.findAllByStatus("COMPLETED");
+    	for(Lpo lpo : lpos) {
+    		lpo.setStatus("ARCHIVED");
+			lpoRepository.save(lpo);
+    	}
+		return true;   	
 	}
   
 
@@ -420,8 +425,16 @@ public class LpoServiceController {
     public ResponseEntity<?> deleteLPODetail(@RequestParam(name = "id") Long lpoDetailId, @RequestHeader("user_id") Long userId) {
     	LpoDetail lpoDetail = lpoDetailRepository.findById(lpoDetailId)
                 .orElseThrow(() -> new NotFoundException("LPO Detail not found"));
+    	Optional<Lpo> lpo = lpoRepository.findById(lpoDetail.getLpo().getId());
+    	if(!lpo.isPresent()) {
+    		throw new NotFoundException("LPO not found");
+    	}
+    	String status = lpo.get().getStatus();
+    	if(status.equals("PRINTED") || status.equals("REPRINTED") || status.equals("COMPLETED") || status.equals("ARCHIVED")) {
+			throw new InvalidOperationException("Could not delete detail. Only BLANK and PENDING LPOs can be modified.");
+    	}
     	lpoDetailRepository.delete(lpoDetail);
-    	return new ResponseEntity<>("LPO deleted successifully.", HttpStatus.OK);  	 	
+    	return new ResponseEntity<>("LPO detail deleted successifully.", HttpStatus.OK);  	 	
     }
     
  

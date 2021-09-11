@@ -285,7 +285,7 @@ Partial Class frmSuppliers
         Me.txtTIN.Location = New System.Drawing.Point(123, 107)
         Me.txtTIN.MaxLength = 50
         Me.txtTIN.Name = "txtTIN"
-        Me.txtTIN.Size = New System.Drawing.Size(208, 22)
+        Me.txtTIN.Size = New System.Drawing.Size(279, 22)
         Me.txtTIN.TabIndex = 33
         '
         'txtVRN
@@ -293,7 +293,7 @@ Partial Class frmSuppliers
         Me.txtVRN.Location = New System.Drawing.Point(123, 134)
         Me.txtVRN.MaxLength = 50
         Me.txtVRN.Name = "txtVRN"
-        Me.txtVRN.Size = New System.Drawing.Size(251, 22)
+        Me.txtVRN.Size = New System.Drawing.Size(279, 22)
         Me.txtVRN.TabIndex = 34
         '
         'txtTelephone
@@ -334,7 +334,7 @@ Partial Class frmSuppliers
         Me.btnProductAndService.Enabled = False
         Me.btnProductAndService.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnProductAndService.ForeColor = System.Drawing.Color.Black
-        Me.btnProductAndService.Location = New System.Drawing.Point(360, 664)
+        Me.btnProductAndService.Location = New System.Drawing.Point(346, 664)
         Me.btnProductAndService.Name = "btnProductAndService"
         Me.btnProductAndService.Size = New System.Drawing.Size(115, 43)
         Me.btnProductAndService.TabIndex = 53
@@ -516,19 +516,19 @@ Partial Class frmSuppliers
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(3, 162)
+        Me.Label19.Location = New System.Drawing.Point(67, 162)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(121, 17)
+        Me.Label19.Size = New System.Drawing.Size(48, 17)
         Me.Label19.TabIndex = 110
-        Me.Label19.Text = "Terms of Contract"
+        Me.Label19.Text = "Terms"
         '
         'txtTermsOfContract
         '
-        Me.txtTermsOfContract.Location = New System.Drawing.Point(130, 162)
+        Me.txtTermsOfContract.Location = New System.Drawing.Point(123, 162)
         Me.txtTermsOfContract.MaxLength = 50
         Me.txtTermsOfContract.Multiline = True
         Me.txtTermsOfContract.Name = "txtTermsOfContract"
-        Me.txtTermsOfContract.Size = New System.Drawing.Size(272, 53)
+        Me.txtTermsOfContract.Size = New System.Drawing.Size(279, 53)
         Me.txtTermsOfContract.TabIndex = 109
         '
         'txtId

@@ -624,6 +624,7 @@ Partial Class frmCorporateCustomers
         Me.txtInvoiceLimit.Name = "txtInvoiceLimit"
         Me.txtInvoiceLimit.Size = New System.Drawing.Size(153, 22)
         Me.txtInvoiceLimit.TabIndex = 110
+        Me.txtInvoiceLimit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label22
         '
@@ -640,6 +641,7 @@ Partial Class frmCorporateCustomers
         Me.txtCreditLimit.Name = "txtCreditLimit"
         Me.txtCreditLimit.Size = New System.Drawing.Size(153, 22)
         Me.txtCreditLimit.TabIndex = 112
+        Me.txtCreditLimit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label23
         '

@@ -17,4 +17,6 @@ public interface LpoRepository extends JpaRepository<Lpo, Long> {
 
 	Optional<Lpo> findByNo(String no);
 
+	List<Lpo> findAllByStatus(String string);
+
 }
