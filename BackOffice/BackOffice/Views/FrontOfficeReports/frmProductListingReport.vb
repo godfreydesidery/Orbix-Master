@@ -4,6 +4,8 @@ Imports Microsoft.Office.Interop
 Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class frmProductListingReport
 
@@ -13,6 +15,15 @@ Public Class frmProductListingReport
     Private Sub refreshList()
         Cursor = Cursors.WaitCursor
         dtgrdList.Rows.Clear()
+
+
+
+
+
+
+
+
+
         Try
             Dim conn As New MySqlConnection(Database.conString)
             Dim command As New MySqlCommand()
@@ -99,8 +110,10 @@ Public Class frmProductListingReport
 
     Private Sub frmProductListingReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         dtgrdList.Rows.Clear()
-        Dim item As New Item
-        longList = item.getItems()
+
+        Dim product_ As New Product
+        longList = product_.getDescriptions
+
     End Sub
     Private Sub defineStyles(doc As Document)
         'Get the predefined style Normal.
@@ -376,48 +389,31 @@ Public Class frmProductListingReport
         Dim found As Boolean = False
         Dim valid As Boolean = False
         Dim barCode As String = txtBarCode.Text
-        Dim itemCode As String = txtItemCodeS.Text
+        Dim code As String = txtItemCodeS.Text
         Dim descr As String = cmbDescription.Text
 
         If barCode <> "" Then
-            itemCode = (New Item).getItemCode(barCode, "")
-        ElseIf itemCode <> "" Then
-            itemCode = itemCode
+            code = (New Product).getCode(barCode, "")
+        ElseIf code <> "" Then
+            code = code
         ElseIf descr <> "" Then
-            itemCode = (New Item).getItemCode("", descr)
+            code = (New Product).getCode("", descr)
         Else
-            itemCode = ""
+            code = ""
         End If
 
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim codeQuery As String = "SELECT `item_code`, `item_long_description`, `pck`,`unit_cost_price`, `retail_price`,`vat`, `margin`, `standard_uom`, `active` FROM `items` WHERE `item_code`='" + itemCode + "' "
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                txtItemCodeS.Text = reader.GetString("item_code")
-                cmbDescription.Text = reader.GetString("item_long_description")
-
-                found = True
-
-                valid = True
-
-                Exit While
-            End While
-            conn.Close()
-            If found = False Then
-                MsgBox("Item not found")
-                btnAdd.Enabled = False
-            Else
-                btnAdd.Enabled = True
-            End If
+            response = Web.get_("products/get_by_code?code=" + code)
+            json = JObject.Parse(response)
+            Dim product As Product = JsonConvert.DeserializeObject(Of Product)(json.ToString)
+            txtItemCodeS.Text = product.code
+            cmbDescription.Text = product.description
+            btnAdd.Enabled = True
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            MsgBox("Not found")
+            Exit Sub
         End Try
     End Sub
 

@@ -22,9 +22,9 @@ Partial Class frmDailySalesReport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnBack = New System.Windows.Forms.Button()
         Me.btnView = New System.Windows.Forms.Button()
         Me.dateEnd = New System.Windows.Forms.DateTimePicker()
@@ -32,10 +32,6 @@ Partial Class frmDailySalesReport
         Me.dateStart = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtgrdList = New System.Windows.Forms.DataGridView()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtTotalSales = New System.Windows.Forms.TextBox()
         Me.txtTotalDiscount = New System.Windows.Forms.TextBox()
         Me.txtTotalVat = New System.Windows.Forms.TextBox()
@@ -47,6 +43,10 @@ Partial Class frmDailySalesReport
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.btnExportToPDF = New System.Windows.Forms.ToolStripButton()
         Me.btnExportToExcel = New System.Windows.Forms.ToolStripButton()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dtgrdList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -124,32 +124,6 @@ Partial Class frmDailySalesReport
         Me.dtgrdList.Size = New System.Drawing.Size(1322, 403)
         Me.dtgrdList.TabIndex = 12
         '
-        'Column1
-        '
-        Me.Column1.HeaderText = "Date"
-        Me.Column1.Name = "Column1"
-        '
-        'Column2
-        '
-        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column2.DefaultCellStyle = DataGridViewCellStyle25
-        Me.Column2.HeaderText = "Amount"
-        Me.Column2.Name = "Column2"
-        '
-        'Column3
-        '
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column3.DefaultCellStyle = DataGridViewCellStyle26
-        Me.Column3.HeaderText = "Discount"
-        Me.Column3.Name = "Column3"
-        '
-        'Column4
-        '
-        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column4.DefaultCellStyle = DataGridViewCellStyle27
-        Me.Column4.HeaderText = "Vat"
-        Me.Column4.Name = "Column4"
-        '
         'txtTotalSales
         '
         Me.txtTotalSales.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -209,20 +183,20 @@ Partial Class frmDailySalesReport
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(23, 76)
+        Me.Label4.Location = New System.Drawing.Point(10, 76)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(79, 17)
+        Me.Label4.Size = New System.Drawing.Size(92, 17)
         Me.Label4.TabIndex = 27
-        Me.Label4.Text = "Total Sales"
+        Me.Label4.Text = "Total Amount"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(31, 41)
+        Me.Label6.Location = New System.Drawing.Point(71, 41)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(71, 17)
+        Me.Label6.Size = New System.Drawing.Size(31, 17)
         Me.Label6.TabIndex = 26
-        Me.Label6.Text = "Total VAT"
+        Me.Label6.Text = "Tax"
         '
         'Label5
         '
@@ -258,6 +232,32 @@ Partial Class frmDailySalesReport
         Me.btnExportToExcel.Name = "btnExportToExcel"
         Me.btnExportToExcel.Size = New System.Drawing.Size(180, 24)
         Me.btnExportToExcel.Text = "Export to Spreadsheet"
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "Date"
+        Me.Column1.Name = "Column1"
+        '
+        'Column2
+        '
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column2.DefaultCellStyle = DataGridViewCellStyle7
+        Me.Column2.HeaderText = "Amount"
+        Me.Column2.Name = "Column2"
+        '
+        'Column3
+        '
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column3.DefaultCellStyle = DataGridViewCellStyle8
+        Me.Column3.HeaderText = "Discount"
+        Me.Column3.Name = "Column3"
+        '
+        'Column4
+        '
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column4.DefaultCellStyle = DataGridViewCellStyle9
+        Me.Column4.HeaderText = "Tax"
+        Me.Column4.Name = "Column4"
         '
         'frmDailySalesReport
         '
@@ -301,11 +301,11 @@ Partial Class frmDailySalesReport
     Friend WithEvents Label4 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents btnExportToPDF As ToolStripButton
+    Friend WithEvents btnExportToExcel As ToolStripButton
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
-    Friend WithEvents ToolStrip1 As ToolStrip
-    Friend WithEvents btnExportToPDF As ToolStripButton
-    Friend WithEvents btnExportToExcel As ToolStripButton
 End Class

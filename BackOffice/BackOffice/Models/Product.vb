@@ -73,4 +73,20 @@ Public Class Product
         End Try
         Return list
     End Function
+
+    Public Function getCode(barCode As String, descr As String) As String
+        '
+        Try
+            Dim response As Object = New Object
+            Dim json As JObject = New JObject
+            If descr <> "" Then
+                response = Web.get_("products/get_code_by_description?description=" + descr)
+            Else
+                response = Web.get_("products/get_code_by_barcode?barcode=" + barCode)
+            End If
+            Return JsonConvert.DeserializeObject(Of String)(response.ToString)
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
 End Class

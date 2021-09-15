@@ -4,6 +4,8 @@ Imports Microsoft.Office.Interop
 Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class frmDailySalesReport
 
@@ -13,73 +15,63 @@ Public Class frmDailySalesReport
     Private Function refreshList()
         dtgrdList.Rows.Clear()
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim codeQuery As String = "SELECT `date`,SUM(`amount`) AS total_amount,SUM(`discount`) AS total_discount,SUM(`tax_return`) AS total_tax FROM `sale` WHERE `date`>='" + dateStart.Text + "' AND `date`<='" + dateEnd.Text + "' GROUP BY `date`"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
 
-            Dim date_ As String = ""
-            Dim totalAmount As String = ""
-            Dim totalDiscount As String = ""
-            Dim totalTax As String = ""
+            Dim response As Object = New Object
+            response = Web.get_("sales/get_daily_sales_report_by_date?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text)
+            Dim details As List(Of DailySalesReport) = JsonConvert.DeserializeObject(Of List(Of DailySalesReport))(response.ToString)
+
+            Dim totalAmount As Double = 0
+            Dim totalDiscount As Double = 0
+            Dim totalTax As Double = 0
 
             Dim total As Double = 0
             Dim discount As Double = 0
             Dim tax As Double = 0
 
-            While reader.Read
+            For Each detail In details
 
-                date_ = reader.GetString("date")
-                totalAmount = LCurrency.displayValue(reader.GetString("total_amount"))
-                totalDiscount = LCurrency.displayValue(reader.GetString("total_discount"))
-                totalTax = LCurrency.displayValue(reader.GetString("total_tax"))
-
-                total = total + Val(reader.GetString("total_amount"))
-                discount = discount + Val(reader.GetString("total_discount"))
-                tax = tax + Val(reader.GetString("total_tax"))
-
+                total = total + detail.amount
+                discount = detail.discount
+                tax = tax + 0
 
                 Dim dtgrdRow As New DataGridViewRow
                 Dim dtgrdCell As DataGridViewCell
 
-
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = date_
+                dtgrdCell.Value = detail.date.ToString("yyyy-MM-dd")
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = totalAmount
+                dtgrdCell.Value = LCurrency.displayValue(detail.amount)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = totalDiscount
+                dtgrdCell.Value = LCurrency.displayValue(detail.discount)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = totalTax
+                dtgrdCell.Value = ""
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdList.Rows.Add(dtgrdRow)
-            End While
-            conn.Close()
+
+            Next
+
             txtTotalDiscount.Text = LCurrency.displayValue(discount.ToString)
             txtTotalSales.Text = LCurrency.displayValue(total.ToString)
             txtTotalVat.Text = LCurrency.displayValue(tax.ToString)
+
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
+
+        dtgrdList.ClearSelection()
         Return vbNull
     End Function
     Private Sub btnView_Click(sender As Object, e As EventArgs) Handles btnView.Click
-
-
-
+        Cursor = Cursors.WaitCursor
         refreshList()
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub frmDailySalesReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -92,9 +84,9 @@ Public Class frmDailySalesReport
         'font of the whole document. Or, more exactly, it changes the font of
         'all styles And paragraphs that do Not redefine the font.
         style.Font.Name = "Verdana"
+        style = doc.Styles(StyleNames.Footer)
         'style = doc.Document.Styles(StyleNames.Header)
         style.ParagraphFormat.AddTabStop("16cm", TabAlignment.Right)
-        style = doc.Styles(StyleNames.Footer)
         style.ParagraphFormat.AddTabStop("8cm", TabAlignment.Center)
         'Create a new style called Table based on style Normal
         style = doc.Styles.AddStyle("Table", "Normal")
@@ -109,10 +101,7 @@ Public Class frmDailySalesReport
 
     End Sub
 
-    Private Sub btnPrint_Click(sender As Object, e As EventArgs)
 
-
-    End Sub
     Private Sub createDocument(doc As Document)
         'Each MigraDoc document needs at least one section.
         Dim section As Section = doc.AddSection()
@@ -340,7 +329,7 @@ Public Class frmDailySalesReport
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
         row.Cells(1).AddParagraph("")
         row.Cells(1).Format.Alignment = ParagraphAlignment.Right
-        row.Cells(2).AddParagraph("Total Sales")
+        row.Cells(2).AddParagraph("Total Amount")
         row.Cells(2).Format.Alignment = ParagraphAlignment.Right
         row.Cells(3).AddParagraph(txtTotalSales.Text)
         row.Cells(3).Format.Alignment = ParagraphAlignment.Right
@@ -374,7 +363,7 @@ Public Class frmDailySalesReport
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
         row.Cells(1).AddParagraph("")
         row.Cells(1).Format.Alignment = ParagraphAlignment.Right
-        row.Cells(2).AddParagraph("Total Vat")
+        row.Cells(2).AddParagraph("Tax")
         row.Cells(2).Format.Alignment = ParagraphAlignment.Right
         row.Cells(3).AddParagraph(txtTotalVat.Text)
         row.Cells(3).Format.Alignment = ParagraphAlignment.Right
@@ -462,7 +451,7 @@ Public Class frmDailySalesReport
         shXL.Cells(r, 1).Value = "Date"
         shXL.Cells(r, 2).Value = "Amount"
         shXL.Cells(r, 3).Value = "Discount"
-        shXL.Cells(r, 4).Value = "Vat"
+        shXL.Cells(r, 4).Value = "Tax"
 
         ' Format A1:D1 as bold, vertical alignment = center.
         With shXL.Range("A" + r.ToString, "D" + r.ToString)
@@ -488,10 +477,10 @@ Public Class frmDailySalesReport
         shXL.Cells(r, 1).Value = "Total Discount"
         shXL.Cells(r, 2).Value = txtTotalDiscount.Text
         r = r + 1
-        shXL.Cells(r, 1).Value = "Total Vat"
+        shXL.Cells(r, 1).Value = "Total Tax"
         shXL.Cells(r, 2).Value = txtTotalVat.Text
         r = r + 1
-        shXL.Cells(r, 1).Value = "Total Sales"
+        shXL.Cells(r, 1).Value = "Total Amount"
         shXL.Cells(r, 2).Value = txtTotalSales.Text
 
 

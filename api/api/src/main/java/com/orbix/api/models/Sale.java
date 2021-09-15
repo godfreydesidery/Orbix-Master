@@ -52,10 +52,10 @@ public class Sale {
 	//@JsonIgnoreProperties("salesInvoiceDetail")
     private SalesInvoice salesInvoice;
 	
-	@OneToOne(fetch = FetchType.LAZY, optional = true)
+	@OneToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "receipt_id", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
-	//@JsonIgnoreProperties("receiptDetail")
+	@JsonIgnoreProperties("receiptDetail")
     private Receipt receipt;
 	
 	@ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = true)

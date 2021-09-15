@@ -117,7 +117,6 @@ public class LpoServiceController {
     @ResponseBody
     @Transactional
     public Lpo createLpo(@Valid @RequestBody Lpo lpo, @RequestHeader("user_id") Long userId) {
-    	LocalDate issueDate = lpo.getIssueDate();	
     	String supplierName = (lpo.getSupplier()).getName();
     	Optional<Supplier> supplier = supplierRepository.findByName(supplierName);
     	if(supplier.isPresent() == true) {
@@ -137,12 +136,12 @@ public class LpoServiceController {
     	lpo.setApprovedUser(null);
     	lpo.setCompletedUser(null);
     	    	
-    	LocalDate systemDate =dayRepository.getCurrentBussinessDay().getBussinessDate();
+    	LocalDate bussinessDate =dayRepository.getCurrentBussinessDay().getBussinessDate();
+    	if(!lpo.getIssueDate().isEqual(bussinessDate)) {
+    		throw new InvalidEntryException("Date synchronization failed. Please contact the system administrator.");
+    	}
     	
-    	List<LpoDetail> lpoDetails = lpo.getLpoDetails();
-    	
-    	
-    	lpo.setIssueDate(systemDate);
+    	lpo.setIssueDate(bussinessDate);
     	String random = String.valueOf(Math.random()).replace(".", "") + String.valueOf(Math.random()).replace(".", "");
     	lpo.setNo(random); 
     	lpoRepository.saveAndFlush(lpo);

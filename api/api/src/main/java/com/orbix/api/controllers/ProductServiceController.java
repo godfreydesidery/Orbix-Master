@@ -72,6 +72,20 @@ public class ProductServiceController {
     public Iterable <Product> getAllProductsDescription(@RequestHeader("user_id") Long userId) {
         return productRepository.getDescription();
     }
+    
+    @RequestMapping(method = RequestMethod.GET, value="/products/get_code_by_description", produces=MediaType.APPLICATION_JSON_VALUE)
+    public String  getProductCodeByDescription(
+    		@RequestHeader("user_id") Long userId,
+    		@RequestParam("description") String description) {
+        return productRepository.findByDescription(description).get().getCode();
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value="/products/get_code_by_barcode", produces=MediaType.APPLICATION_JSON_VALUE)
+    public String  getProductCodeByBarcode(
+    		@RequestHeader("user_id") Long userId,
+    		@RequestParam("barcode") String barcode) {
+        return productRepository.findByPrimaryBarcode(barcode).get().getCode();
+    }
 	
 	/**
 	 * @param product
