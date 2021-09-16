@@ -18,8 +18,8 @@ Public Class frmProductListingReport
 
         Try
             Dim response As Object = New Object
-            If list.Count > 0 Then
-                response = Web.get_("sales/get_product_listing_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&codes=" + list.ToString)
+            If list <> "" Then
+                response = Web.get_("sales/get_product_listing_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&codes=" + list)
             Else
                 response = Web.get_("sales/get_product_listing_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&codes=")
             End If
@@ -428,7 +428,7 @@ Public Class frmProductListingReport
         'cmbSupplier.Text = ""
         dtgrdList.Rows.Clear()
         clearFields()
-        list.Clear()
+        list = ""
     End Sub
     Private Sub clearFields()
         txtItemCodeS.Text = ""
@@ -456,11 +456,15 @@ Public Class frmProductListingReport
             searchItem()
         End If
     End Sub
-    Dim list As List(Of String) = New List(Of String)
+    Dim list As String = ""
 
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btnView.Click
+        list = ""
         For i As Integer = 0 To lstCode.Items.Count - 1
-            list.Add(lstCode.Items.Item(i))
+            list = list + lstCode.Items.Item(i)
+            If i < lstCode.Items.Count - 1 Then
+                list = list + ","
+            End If
         Next
         refreshList()
     End Sub
