@@ -46,6 +46,13 @@ public class Sale {
     private Long id;
 	private LocalDate saleDate;
 	
+	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER,  optional = false)
+    @JoinColumn(name = "sale_user_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@Autowired
+	@Embedded	
+    private User saleBy;
+	
 	@OneToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "sales_invoice_id", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -64,6 +71,14 @@ public class Sale {
 	@Autowired
 	@Embedded
     private Day day;
+	
+	public User getSaleBy() {
+		return saleBy;
+	}
+
+	public void setSaleBy(User saleBy) {
+		this.saleBy = saleBy;
+	}
 
 	public Long getId() {
 		return id;

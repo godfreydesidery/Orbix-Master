@@ -8,6 +8,7 @@ public interface ProductListingReport {
 	String getDescription();
 	String getCashier();
 	String getReceiptNo();
+	String getInvoiceNo();
 	String getTillNo();	
     double getAmount();	
 }

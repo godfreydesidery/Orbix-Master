@@ -152,6 +152,7 @@
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Models\Reports\DailySalesReport.vb" />
+    <Compile Include="Models\Reports\ProductListingReport.vb" />
     <Compile Include="Models\Till.vb" />
     <Compile Include="Utilities\Application\LApplication.vb" />
     <Compile Include="Utilities\Application\LSystem.vb" />

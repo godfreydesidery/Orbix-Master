@@ -22,17 +22,10 @@ Partial Class frmProductListingReport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnBack = New System.Windows.Forms.Button()
         Me.dtgrdList = New System.Windows.Forms.DataGridView()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dateStart = New System.Windows.Forms.DateTimePicker()
         Me.dateEnd = New System.Windows.Forms.DateTimePicker()
@@ -53,6 +46,14 @@ Partial Class frmProductListingReport
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.btnExportToPDF = New System.Windows.Forms.ToolStripButton()
         Me.btnExportToExcel = New System.Windows.Forms.ToolStripButton()
+        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dtgrdList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -77,59 +78,13 @@ Partial Class frmProductListingReport
         Me.dtgrdList.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         Me.dtgrdList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.dtgrdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dtgrdList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column7, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6})
+        Me.dtgrdList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column6, Me.Column1, Me.Column7, Me.Column5, Me.Column2, Me.Column3, Me.Column8, Me.Column4})
         Me.dtgrdList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dtgrdList.Location = New System.Drawing.Point(10, 196)
         Me.dtgrdList.Name = "dtgrdList"
         Me.dtgrdList.RowTemplate.Height = 24
         Me.dtgrdList.Size = New System.Drawing.Size(1329, 428)
         Me.dtgrdList.TabIndex = 6
-        '
-        'Column1
-        '
-        Me.Column1.FillWeight = 91.89236!
-        Me.Column1.HeaderText = "Code"
-        Me.Column1.Name = "Column1"
-        '
-        'Column7
-        '
-        Me.Column7.FillWeight = 251.9296!
-        Me.Column7.HeaderText = "Description"
-        Me.Column7.Name = "Column7"
-        '
-        'Column2
-        '
-        Me.Column2.FillWeight = 50.85976!
-        Me.Column2.HeaderText = "Cashier"
-        Me.Column2.Name = "Column2"
-        '
-        'Column3
-        '
-        Me.Column3.FillWeight = 45.46114!
-        Me.Column3.HeaderText = "Receipt No"
-        Me.Column3.Name = "Column3"
-        '
-        'Column4
-        '
-        Me.Column4.FillWeight = 39.77383!
-        Me.Column4.HeaderText = "Till No"
-        Me.Column4.Name = "Column4"
-        '
-        'Column5
-        '
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column5.DefaultCellStyle = DataGridViewCellStyle15
-        Me.Column5.FillWeight = 113.4845!
-        Me.Column5.HeaderText = "Amount"
-        Me.Column5.Name = "Column5"
-        '
-        'Column6
-        '
-        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.Column6.DefaultCellStyle = DataGridViewCellStyle16
-        Me.Column6.FillWeight = 106.599!
-        Me.Column6.HeaderText = "Date"
-        Me.Column6.Name = "Column6"
         '
         'Label1
         '
@@ -320,6 +275,58 @@ Partial Class frmProductListingReport
         Me.btnExportToExcel.Size = New System.Drawing.Size(180, 24)
         Me.btnExportToExcel.Text = "Export to Spreadsheet"
         '
+        'Column6
+        '
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.Column6.DefaultCellStyle = DataGridViewCellStyle1
+        Me.Column6.FillWeight = 68.95222!
+        Me.Column6.HeaderText = "Date"
+        Me.Column6.Name = "Column6"
+        '
+        'Column1
+        '
+        Me.Column1.FillWeight = 80.77941!
+        Me.Column1.HeaderText = "Code"
+        Me.Column1.Name = "Column1"
+        '
+        'Column7
+        '
+        Me.Column7.FillWeight = 221.4627!
+        Me.Column7.HeaderText = "Description"
+        Me.Column7.Name = "Column7"
+        '
+        'Column5
+        '
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column5.DefaultCellStyle = DataGridViewCellStyle2
+        Me.Column5.FillWeight = 99.76032!
+        Me.Column5.HeaderText = "Amount"
+        Me.Column5.Name = "Column5"
+        '
+        'Column2
+        '
+        Me.Column2.FillWeight = 98.06259!
+        Me.Column2.HeaderText = "Cashier"
+        Me.Column2.Name = "Column2"
+        '
+        'Column3
+        '
+        Me.Column3.FillWeight = 81.21828!
+        Me.Column3.HeaderText = "Receipt No"
+        Me.Column3.Name = "Column3"
+        '
+        'Column8
+        '
+        Me.Column8.FillWeight = 91.99205!
+        Me.Column8.HeaderText = "Invoice No"
+        Me.Column8.Name = "Column8"
+        '
+        'Column4
+        '
+        Me.Column4.FillWeight = 57.77247!
+        Me.Column4.HeaderText = "Till No"
+        Me.Column4.Name = "Column4"
+        '
         'frmProductListingReport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -356,13 +363,6 @@ Partial Class frmProductListingReport
     Friend WithEvents Label2 As Label
     Friend WithEvents btnView As Button
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column7 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As DataGridViewTextBoxColumn
-    Friend WithEvents Column4 As DataGridViewTextBoxColumn
-    Friend WithEvents Column5 As DataGridViewTextBoxColumn
-    Friend WithEvents Column6 As DataGridViewTextBoxColumn
     Friend WithEvents Panel3 As Panel
     Friend WithEvents lstCode As ListBox
     Friend WithEvents Label16 As Label
@@ -377,4 +377,12 @@ Partial Class frmProductListingReport
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents btnExportToPDF As ToolStripButton
     Friend WithEvents btnExportToExcel As ToolStripButton
+    Friend WithEvents Column6 As DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column7 As DataGridViewTextBoxColumn
+    Friend WithEvents Column5 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column8 As DataGridViewTextBoxColumn
+    Friend WithEvents Column4 As DataGridViewTextBoxColumn
 End Class

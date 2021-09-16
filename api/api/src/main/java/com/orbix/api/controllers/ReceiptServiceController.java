@@ -261,6 +261,7 @@ public class ReceiptServiceController {
     	Sale sale = new Sale();
     	sale.setReceipt(receipt);
     	sale.setDay(dayRepository.getCurrentBussinessDay());
+    	sale.setSaleBy(user.get());
     	saleRepository.saveAndFlush(sale);
     	SaleDetail saleDetail = new SaleDetail();
     	for(ReceiptDetail detail : receiptDetails) {

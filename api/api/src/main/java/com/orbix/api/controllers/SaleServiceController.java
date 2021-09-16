@@ -20,6 +20,7 @@ import com.orbix.api.models.Day;
 import com.orbix.api.models.Sale;
 import com.orbix.api.models.SaleDetail;
 import com.orbix.api.reports.DailySalesReport;
+import com.orbix.api.reports.ProductListingReport;
 import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.SaleDetailRepository;
 import com.orbix.api.repositories.SaleRepository;
@@ -55,6 +56,21 @@ public class SaleServiceController {
 	/**
 	 * Get product listing / detailed sales by product
 	 */
+	@Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/sales/get_product_listing_report", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<ProductListingReport> getProductListingReport(
+    		@RequestParam(name = "from_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+    		@RequestParam(name = "to_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+    		@RequestParam(name = "codes") ArrayList<String> codes,
+    		@RequestHeader("user_id") Long userId) {
+		List<ProductListingReport> report;
+		if(codes.isEmpty()) {			
+			report = saleRepository.getProductListingReport(fromDate, toDate);	
+		}else {			
+			report = saleRepository.getProductListingReportBySelectedProducts(fromDate, toDate, codes);	
+		}			
+		return report;
+    }
 	
 	/**
 	 * Get Z History

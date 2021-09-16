@@ -12,7 +12,7 @@
          <Members>
           <Member Name="#getCreditNoteNo(System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\general" File="CRNote.vb" Line="12">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'CRNote.getCreditNoteNo(String)' could contain the following variables 'cRNo'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
@@ -23,7 +23,7 @@
          <Members>
           <Member Name="#checkAllowed(System.String,System.String)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmAllow.vb" Line="27">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmAllow.checkAllowed(String, String)' could contain the following variables 'uname'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
@@ -34,28 +34,28 @@
          <Members>
           <Member Name="#Wow64DisableWow64FsRedirection(System.Int64&amp;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'frmLogin.Wow64DisableWow64FsRedirection(ByRef Long)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'frmLogin.Wow64DisableWow64FsRedirection(ByRef Long)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Wow64EnableWow64FsRedirection(System.Int64&amp;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'frmLogin.Wow64EnableWow64FsRedirection(ByRef Long)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message Id="0" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message Id="0" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Name="Parameter" Certainty="95" Level="Error">As it is declared in your code, parameter 'oldvalue' of P/Invoke 'frmLogin.Wow64EnableWow64FsRedirection(ByRef Long)' will be 4 bytes wide on 32-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 32-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Long&amp;'.</Issue>
              <Issue Name="Parameter" Certainty="95" Level="Error">As it is declared in your code, parameter 'oldvalue' of P/Invoke 'frmLogin.Wow64EnableWow64FsRedirection(ByRef Long)' will be 8 bytes wide on 64-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 64-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Long&amp;'.</Issue>
             </Message>
-            <Message Id="return" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message Id="return" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Name="Return" Certainty="95" Level="Error">As it is declared in your code, the return type of P/Invoke 'frmLogin.Wow64EnableWow64FsRedirection(ByRef Long)' will be 4 bytes wide on 32-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 32-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Boolean'.</Issue>
              <Issue Name="Return" Certainty="95" Level="Error">As it is declared in your code, the return type of P/Invoke 'frmLogin.Wow64EnableWow64FsRedirection(ByRef Long)' will be 4 bytes wide on 64-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 64-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Boolean'.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'frmLogin.Wow64EnableWow64FsRedirection(ByRef Long)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
            </Messages>
@@ -66,28 +66,28 @@
          <Members>
           <Member Name="#Wow64DisableWow64FsRedirection(System.Int64&amp;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'frmMain.Wow64DisableWow64FsRedirection(ByRef Long)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'frmMain.Wow64DisableWow64FsRedirection(ByRef Long)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Wow64EnableWow64FsRedirection(System.Int64&amp;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'frmMain.Wow64EnableWow64FsRedirection(ByRef Long)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message Id="0" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message Id="0" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Name="Parameter" Certainty="95" Level="Error">As it is declared in your code, parameter 'oldvalue' of P/Invoke 'frmMain.Wow64EnableWow64FsRedirection(ByRef Long)' will be 4 bytes wide on 32-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 32-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Long&amp;'.</Issue>
              <Issue Name="Parameter" Certainty="95" Level="Error">As it is declared in your code, parameter 'oldvalue' of P/Invoke 'frmMain.Wow64EnableWow64FsRedirection(ByRef Long)' will be 8 bytes wide on 64-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 64-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Long&amp;'.</Issue>
             </Message>
-            <Message Id="return" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message Id="return" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Name="Return" Certainty="95" Level="Error">As it is declared in your code, the return type of P/Invoke 'frmMain.Wow64EnableWow64FsRedirection(ByRef Long)' will be 4 bytes wide on 32-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 32-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Boolean'.</Issue>
              <Issue Name="Return" Certainty="95" Level="Error">As it is declared in your code, the return type of P/Invoke 'frmMain.Wow64EnableWow64FsRedirection(ByRef Long)' will be 4 bytes wide on 64-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 64-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Boolean'.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'frmMain.Wow64EnableWow64FsRedirection(ByRef Long)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
            </Messages>
@@ -98,10 +98,10 @@
          <Members>
           <Member Name="#addInList(System.String,System.String)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmOrder.vb" Line="1125">Object 'conn' can be disposed more than once in method 'frmOrder.addInList(String, String)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 1125</Issue>
             </Message>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmOrder.vb" Line="1105">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmOrder.addInList(String, String)' could contain the following variables 'Me.dtgrdItemList(11, i).Value'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmOrder.vb" Line="1122">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmOrder.addInList(String, String)' could contain the following variables 'barcode', 'Me.dtgrdItemList(11, i).Value'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
@@ -109,98 +109,98 @@
           </Member>
           <Member Name="#btnDelete_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmOrder.vb" Line="1285">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmOrder.btnDelete_Click(Object, EventArgs)' could contain the following variables 'New String(5)(1)', 'New String(5)(3)'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#cmbWaiters_SelectedIndexChanged(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmOrder.vb" Line="414">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmOrder.cmbWaiters_SelectedIndexChanged(Object, EventArgs)' could contain the following variables 'Me.cmbWaiters.Text'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#getOrder(System.String)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmOrder.vb" Line="114">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmOrder.getOrder(String)' could contain the following variables 'orderNo'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#getOrderStatus(System.String)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmOrder.vb" Line="95">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmOrder.getOrderStatus(String)' could contain the following variables 'orderNo'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#loadOrder(System.String)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmOrder.vb" Line="657">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmOrder.loadOrder(String)' could contain the following variables 'orderNo'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#loadOrderDetails(System.String)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmOrder.vb" Line="137">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmOrder.loadOrderDetails(String)' could contain the following variables 'orderNo'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#save()" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmOrder.vb" Line="359">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmOrder.save()' could contain the following variables 'qty', 'Me.dtgrdItemList(11, i).Value'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#search(System.String)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmOrder.vb" Line="254">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmOrder.search(String)' could contain the following variables 'orderNo'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#searchByDescription(System.String)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmOrder.vb" Line="872">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmOrder.searchByDescription(String)' could contain the following variables 'longDescr'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#updateQty(System.Int32,System.String)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmOrder.vb" Line="1140">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmOrder.updateQty(Integer, String)' could contain the following variables 'New String(5)(1)', 'sn'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Wow64DisableWow64FsRedirection(System.Int64&amp;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'frmOrder.Wow64DisableWow64FsRedirection(ByRef Long)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'frmOrder.Wow64DisableWow64FsRedirection(ByRef Long)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Wow64EnableWow64FsRedirection(System.Int64&amp;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'frmOrder.Wow64EnableWow64FsRedirection(ByRef Long)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message Id="0" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message Id="0" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Name="Parameter" Certainty="95" Level="Error">As it is declared in your code, parameter 'oldvalue' of P/Invoke 'frmOrder.Wow64EnableWow64FsRedirection(ByRef Long)' will be 4 bytes wide on 32-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 32-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Long&amp;'.</Issue>
              <Issue Name="Parameter" Certainty="95" Level="Error">As it is declared in your code, parameter 'oldvalue' of P/Invoke 'frmOrder.Wow64EnableWow64FsRedirection(ByRef Long)' will be 8 bytes wide on 64-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 64-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Long&amp;'.</Issue>
             </Message>
-            <Message Id="return" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message Id="return" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Name="Return" Certainty="95" Level="Error">As it is declared in your code, the return type of P/Invoke 'frmOrder.Wow64EnableWow64FsRedirection(ByRef Long)' will be 4 bytes wide on 32-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 32-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Boolean'.</Issue>
              <Issue Name="Return" Certainty="95" Level="Error">As it is declared in your code, the return type of P/Invoke 'frmOrder.Wow64EnableWow64FsRedirection(ByRef Long)' will be 4 bytes wide on 64-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 64-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Boolean'.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'frmOrder.Wow64EnableWow64FsRedirection(ByRef Long)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
            </Messages>
@@ -211,28 +211,28 @@
          <Members>
           <Member Name="#Wow64DisableWow64FsRedirection(System.Int64&amp;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'frmPayPoint.Wow64DisableWow64FsRedirection(ByRef Long)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'frmPayPoint.Wow64DisableWow64FsRedirection(ByRef Long)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Wow64EnableWow64FsRedirection(System.Int64&amp;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'frmPayPoint.Wow64EnableWow64FsRedirection(ByRef Long)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message Id="0" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message Id="0" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Name="Parameter" Certainty="95" Level="Error">As it is declared in your code, parameter 'oldvalue' of P/Invoke 'frmPayPoint.Wow64EnableWow64FsRedirection(ByRef Long)' will be 4 bytes wide on 32-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 32-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Long&amp;'.</Issue>
              <Issue Name="Parameter" Certainty="95" Level="Error">As it is declared in your code, parameter 'oldvalue' of P/Invoke 'frmPayPoint.Wow64EnableWow64FsRedirection(ByRef Long)' will be 8 bytes wide on 64-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 64-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Long&amp;'.</Issue>
             </Message>
-            <Message Id="return" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message Id="return" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Name="Return" Certainty="95" Level="Error">As it is declared in your code, the return type of P/Invoke 'frmPayPoint.Wow64EnableWow64FsRedirection(ByRef Long)' will be 4 bytes wide on 32-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 32-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Boolean'.</Issue>
              <Issue Name="Return" Certainty="95" Level="Error">As it is declared in your code, the return type of P/Invoke 'frmPayPoint.Wow64EnableWow64FsRedirection(ByRef Long)' will be 4 bytes wide on 64-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 1 bytes wide on 64-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'Boolean'.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'frmPayPoint.Wow64EnableWow64FsRedirection(ByRef Long)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
            </Messages>
@@ -243,7 +243,7 @@
          <Members>
           <Member Name="#frmXReport_Load(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmXReport.vb" Line="24">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmXReport.frmXReport_Load(Object, EventArgs)' could contain the following variables 'Till.TILLNO', 'Day.systemDate'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
@@ -254,7 +254,7 @@
          <Members>
           <Member Name="#frmZReport_Load(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmZReport.vb" Line="36">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmZReport.frmZReport_Load(Object, EventArgs)' could contain the following variables 'Till.TILLNO'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\gui" File="frmZReport.vb" Line="26">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'frmZReport.frmZReport_Load(Object, EventArgs)' could contain the following variables 'Till.TILLNO', 'Day.systemDate'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
@@ -266,14 +266,14 @@
          <Members>
           <Member Name="#adjustInventory(System.String,System.Double)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\general" File="Inventory.vb" Line="40">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'Inventory.adjustInventory(String, Double)' could contain the following variables 'actValue', 'itemCode'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#getInventory(System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\general" File="Inventory.vb" Line="17">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'Inventory.getInventory(String)' could contain the following variables 'itemCode'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
@@ -284,14 +284,14 @@
          <Members>
           <Member Name="#getCostPrice(System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\general" File="Item.vb" Line="31">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'Item.getCostPrice(String)' could contain the following variables 'itemCode'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#getShortDescription(System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\general" File="Item.vb" Line="11">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'Item.getShortDescription(String)' could contain the following variables 'itemCode'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
@@ -300,89 +300,89 @@
         </Type>
         <Type Name="RawPrinterHelper" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="TypesThatOwnNativeResourcesShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1049" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnNativeResourcesShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1049" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="NonBreaking">
            <Issue Certainty="50" Level="CriticalError">Implement IDisposable on 'RawPrinterHelper'.</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#ClosePrinter(System.IntPtr)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'RawPrinterHelper.ClosePrinter(IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'RawPrinterHelper.ClosePrinter(IntPtr)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#EndDocPrinter(System.IntPtr)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'RawPrinterHelper.EndDocPrinter(IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'RawPrinterHelper.EndDocPrinter(IntPtr)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#EndPagePrinter(System.IntPtr)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'RawPrinterHelper.EndPagePrinter(IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'RawPrinterHelper.EndPagePrinter(IntPtr)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#OpenPrinter(System.String,System.IntPtr&amp;,System.IntPtr)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'RawPrinterHelper.OpenPrinter(String, ByRef IntPtr, IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'RawPrinterHelper.OpenPrinter(String, ByRef IntPtr, IntPtr)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
-            <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="NonBreaking">
+            <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="NonBreaking">
              <Issue Name="ParameterImplicitAnsi" Certainty="75" Level="Error">To reduce security risk, marshal parameter 'szPrinter' as Unicode, by setting DllImport.CharSet to CharSet.Unicode, or by explicitly marshaling the parameter as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, and set BestFitMapping=false; for added security, also set ThrowOnUnmappableChar=true.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#StartDocPrinter(System.IntPtr,System.Int32,POS2.RawPrinterHelper+DOCINFOA)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'RawPrinterHelper.StartDocPrinter(IntPtr, Integer, RawPrinterHelper.DOCINFOA)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'RawPrinterHelper.StartDocPrinter(IntPtr, Integer, RawPrinterHelper.DOCINFOA)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
-            <Message Id="DOCINFOA.pDataType" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="NonBreaking">
+            <Message Id="DOCINFOA.pDataType" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="NonBreaking">
              <Issue Name="FieldImplicitAnsi" Certainty="75" Level="Error">To reduce security risk, marshal field 'RawPrinterHelper.DOCINFOA.pDataType' as Unicode, by setting StructLayout.CharSet on 'RawPrinterHelper.DOCINFOA' to CharSet.Unicode, or by explicitly marshaling the field as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, use the BestFitMapping attribute to turn best-fit mapping off, and for added security, to turn ThrowOnUnmappableChar on.</Issue>
             </Message>
-            <Message Id="DOCINFOA.pDocName" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="NonBreaking">
+            <Message Id="DOCINFOA.pDocName" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="NonBreaking">
              <Issue Name="FieldImplicitAnsi" Certainty="75" Level="Error">To reduce security risk, marshal field 'RawPrinterHelper.DOCINFOA.pDocName' as Unicode, by setting StructLayout.CharSet on 'RawPrinterHelper.DOCINFOA' to CharSet.Unicode, or by explicitly marshaling the field as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, use the BestFitMapping attribute to turn best-fit mapping off, and for added security, to turn ThrowOnUnmappableChar on.</Issue>
             </Message>
-            <Message Id="DOCINFOA.pOutputFile" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="NonBreaking">
+            <Message Id="DOCINFOA.pOutputFile" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="NonBreaking">
              <Issue Name="FieldImplicitAnsi" Certainty="75" Level="Error">To reduce security risk, marshal field 'RawPrinterHelper.DOCINFOA.pOutputFile' as Unicode, by setting StructLayout.CharSet on 'RawPrinterHelper.DOCINFOA' to CharSet.Unicode, or by explicitly marshaling the field as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, use the BestFitMapping attribute to turn best-fit mapping off, and for added security, to turn ThrowOnUnmappableChar on.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#StartPagePrinter(System.IntPtr)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'RawPrinterHelper.StartPagePrinter(IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'RawPrinterHelper.StartPagePrinter(IntPtr)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#WritePrinter(System.IntPtr,System.IntPtr,System.Int32,System.Int32&amp;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'RawPrinterHelper.WritePrinter(IntPtr, IntPtr, Integer, ByRef Integer)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'RawPrinterHelper.WritePrinter(IntPtr, IntPtr, Integer, ByRef Integer)' so that it is no longer visible from outside its assembly.</Issue>
             </Message>
            </Messages>
@@ -393,7 +393,7 @@
          <Members>
           <Member Name="#makeReceipt(System.String,System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\general" File="Receipt.vb" Line="42">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'Receipt.makeReceipt(String, String)' could contain the following variables 'tillNo', 'date_'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>
            </Messages>
@@ -404,7 +404,7 @@
          <Members>
           <Member Name="#tillTotalRegister(System.String,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-15 10:22:50Z" FixCategory="DependsOnFix">
+            <Message TypeName="Review SQL queries for security vulnerabilities" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2021-09-16 06:27:32Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\general" File="Till.vb" Line="41">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'Till.tillTotalRegister(String, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double)' could contain the following variables 'New String(23)(1)', 'New String(23)(3)', 'New String(23)(5)', 'New String(23)(7)', 'New String(23)(9)', 'New String(23)(11)', 'New String(23)(13)', 'New String(23)(15)', 'New String(23)(17)', 'New String(23)(19)', 'tillNo'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="D:\Orbix Master\POS2\POS2\general" File="Till.vb" Line="37">The query string passed to 'MySqlCommand.CommandText.Set(String)' in 'Till.tillTotalRegister(String, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double)' could contain the following variables 'Till.TILLNO'. If any of these variables could come from user input, consider using a stored procedure or a parameterized SQL query instead of building the query with string concatenations.</Issue>
             </Message>

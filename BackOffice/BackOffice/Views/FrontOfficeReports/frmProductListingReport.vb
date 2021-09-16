@@ -16,96 +16,60 @@ Public Class frmProductListingReport
         Cursor = Cursors.WaitCursor
         dtgrdList.Rows.Clear()
 
-
-
-
-
-
-
-
-
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim query As String = "SELECT `sale_details`.`sale_id` AS `bill_no`,`sale_details`.`item_code` AS `item_code`,SUM(`sale_details`.`qty`) AS `qty`,SUM(`sale_details`.`amount`) AS `amount`,`sale`.`till_no` AS `till_no`,`sale`.`user_id` as `user_id`,`sale`.`date` AS `date` FROM `sale`,`sale_details` WHERE `sale_details`.`sale_id`=`sale`.`id` AND `sale`.`date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' GROUP BY `sale_details`.`item_code`,`sale`.`till_no`,`sale`.`user_id`,`sale_details`.`sale_id`,`sale`.`date` ORDER BY `amount` "
-            'Dim codeQuery As String = "SELECT `sale`.`id`,`sale`.`till_no`,`sale`.`user_id`,`sale`.`date`,`sale_details`.`item_code`,`sale_details`.`amount` FROM `sale`,`sale_details` WHERE `sale`.`id`=`sale_details`.`sale_id` AND `sale`.`date`>='" + dateStart.Text + "' AND `sale`.`date`<='" + dateEnd.Text + "'"
-            If list <> "" Then
-                query = "SELECT `sale_details`.`sale_id` AS `bill_no`,`sale_details`.`item_code` AS `item_code`,SUM(`sale_details`.`qty`) AS `qty`,SUM(`sale_details`.`amount`) AS `amount`,`sale`.`till_no` AS `till_no`,`sale`.`user_id` as `user_id`,`sale`.`date` AS `date` FROM `sale`,`sale_details` WHERE `sale_details`.`sale_id`=`sale`.`id` AND `sale`.`date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' AND `item_code` IN (" + list + ") GROUP BY `sale_details`.`item_code`,`sale`.`till_no`,`sale`.`user_id`,`sale_details`.`sale_id`,`sale`.`date` ORDER BY `amount` "
-                'query = "SELECT `sale`.`date` as `date`,`sale_details`.`item_code` AS `item_code`,SUM((`sale_details`.`selling_price`-`sale_details`.`discounted_price`)*`sale_details`.`qty`) AS `discount`,`sale_details`.`selling_price`AS `price`,SUM(`sale_details`.`qty`) AS `qty`,SUM(`sale_details`.`tax_return`) AS `tax`,SUM(`sale_details`.`amount`) AS `amount` FROM `sale`,`sale_details` WHERE `sale`.`id`=`sale_details`.`sale_id` AND `sale`.`date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' AND `item_code` IN (" + list + ") GROUP BY `item_code`,`date`,`price`,`price` ORDER BY `amount` DESC"
+            Dim response As Object = New Object
+            If list.Count > 0 Then
+                response = Web.get_("sales/get_product_listing_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&codes=" + list.ToString)
+            Else
+                response = Web.get_("sales/get_product_listing_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&codes=")
             End If
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
 
-            Dim itemCode As String = ""
-            Dim cashier As String = ""
-            Dim receiptNo As String = ""
-            Dim tillNo As String = ""
-            Dim amount As String = ""
-            Dim date_ As String = ""
+            Dim details As List(Of ProductListingReport) = JsonConvert.DeserializeObject(Of List(Of ProductListingReport))(response.ToString)
 
-            While reader.Read
-
-                itemCode = reader.GetString("item_code")
-                cashier = reader.GetString("user_id")
-                receiptNo = (New Receipt).getReceiptNo(reader.GetString("bill_no"))
-                tillNo = reader.GetString("till_no")
-                amount = LCurrency.displayValue(reader.GetString("amount"))
-                date_ = reader.GetString("date")
+            For Each detail In details
 
                 Dim dtgrdRow As New DataGridViewRow
                 Dim dtgrdCell As DataGridViewCell
 
-
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = itemCode
+                dtgrdCell.Value = detail.date.ToString("yyyy-MM-dd")
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = (New Item).getItemLongDescription(itemCode)
+                dtgrdCell.Value = detail.code
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = cashier
+                dtgrdCell.Value = detail.description
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = receiptNo
+                dtgrdCell.Value = LCurrency.displayValue(detail.amount)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = tillNo
+                dtgrdCell.Value = detail.cashier
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = amount
+                dtgrdCell.Value = detail.receiptNo
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = date_
+                dtgrdCell.Value = detail.invoiceNo
+                dtgrdRow.Cells.Add(dtgrdCell)
+
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = detail.tillNo
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdList.Rows.Add(dtgrdRow)
-            End While
-            conn.Close()
+            Next
+
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
         Cursor = Cursors.Default
-    End Sub
-
-    Private Sub btnView_Click(sender As Object, e As EventArgs) Handles btnView.Click
-        list = ""
-        For i As Integer = 0 To lstCode.Items.Count - 1
-            list = list + "'" + lstCode.Items.Item(i) + "'"
-            If i < lstCode.Items.Count - 1 Then
-                list = list + ","
-            End If
-        Next
-        refreshList()
     End Sub
 
     Private Sub frmProductListingReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -285,30 +249,30 @@ Public Class frmProductListingReport
         'Before you can add a row, you must define the columns
         Dim column As Column
 
-        column = table.AddColumn("2cm")
+        column = table.AddColumn("1.6cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("7cm")
-        column.Format.Alignment = ParagraphAlignment.Right
+        column = table.AddColumn("1.5cm")
+        column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("1cm")
-        column.Format.Alignment = ParagraphAlignment.Right
+        column = table.AddColumn("5.5cm")
+        column.Format.Alignment = ParagraphAlignment.Left
+
+        column = table.AddColumn("1.8cm")
+        column.Format.Alignment = ParagraphAlignment.Left
+
+        column = table.AddColumn("2.7cm")
+        column.Format.Alignment = ParagraphAlignment.Left
+
+        column = table.AddColumn("2.0cm")
+        column.Format.Alignment = ParagraphAlignment.Left
+
+        column = table.AddColumn("2.0cm")
+        column.Format.Alignment = ParagraphAlignment.Left
 
         column = table.AddColumn("1.5cm")
-        column.Format.Alignment = ParagraphAlignment.Right
+        column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("1.3cm")
-        column.Format.Alignment = ParagraphAlignment.Center
-
-
-        column = table.AddColumn("2cm")
-        column.Format.Alignment = ParagraphAlignment.Right
-
-        column = table.AddColumn("2cm")
-        column.Format.Alignment = ParagraphAlignment.Right
-
-        column = table.AddColumn("2cm")
-        column.Format.Alignment = ParagraphAlignment.Right
 
         'Create the header of the table
         Dim row As Row
@@ -321,22 +285,24 @@ Public Class frmProductListingReport
         row.Format.Font.Bold = True
         row.Format.Font.Size = 8
         row.Borders.Color = Colors.White
-        row.Cells(0).AddParagraph("Code")
+        row.Cells(0).AddParagraph("Date")
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(1).AddParagraph("Description")
+        row.Cells(1).AddParagraph("Code")
         row.Cells(1).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(2).AddParagraph("Cashier")
+        row.Cells(2).AddParagraph("Description")
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(3).AddParagraph("Receipt")
+        row.Cells(3).AddParagraph("Amount")
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(4).AddParagraph("Till")
+        row.Cells(4).AddParagraph("S Officer")
         row.Cells(4).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(5).AddParagraph("Amount")
+        row.Cells(5).AddParagraph("Receipt No")
         row.Cells(5).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(6).AddParagraph("Date")
+        row.Cells(6).AddParagraph("Invoice No")
         row.Cells(6).Format.Alignment = ParagraphAlignment.Left
+        row.Cells(7).AddParagraph("Till No")
+        row.Cells(7).Format.Alignment = ParagraphAlignment.Left
 
-        table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+        table.SetEdge(0, 0, 8, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         Dim totalAmount As Double = 0
         Dim totalVat As Double = 0
@@ -344,13 +310,40 @@ Public Class frmProductListingReport
 
         For i As Integer = 0 To dtgrdList.RowCount - 1
 
-            Dim code As String = dtgrdList.Item(0, i).Value.ToString
-            Dim descr As String = dtgrdList.Item(1, i).Value.ToString
-            Dim cashier As String = dtgrdList.Item(2, i).Value.ToString
-            Dim receipt As String = dtgrdList.Item(3, i).Value
-            Dim till As String = dtgrdList.Item(4, i).Value
-            Dim amount As String = dtgrdList.Item(5, i).Value
-            Dim date_ As String = dtgrdList.Item(6, i).Value
+            Dim [date] As String = ""
+            Dim code As String = ""
+            Dim descr As String = ""
+            Dim cashier As String = ""
+            Dim receipt As String = ""
+            Dim till As String = ""
+            Dim amount As String = ""
+            Dim invoiceNo As String = ""
+
+            If Not String.IsNullOrEmpty(dtgrdList.Item(0, i).Value) Then
+                [date] = dtgrdList.Item(0, i).Value.ToString
+            End If
+            If Not String.IsNullOrEmpty(dtgrdList.Item(1, i).Value) Then
+                code = dtgrdList.Item(1, i).Value.ToString
+            End If
+            If Not String.IsNullOrEmpty(dtgrdList.Item(2, i).Value) Then
+                descr = dtgrdList.Item(2, i).Value.ToString
+            End If
+            If Not String.IsNullOrEmpty(dtgrdList.Item(3, i).Value) Then
+                amount = dtgrdList.Item(3, i).Value.ToString
+            End If
+            If Not String.IsNullOrEmpty(dtgrdList.Item(4, i).Value) Then
+                cashier = dtgrdList.Item(4, i).Value.ToString
+            End If
+            If Not String.IsNullOrEmpty(dtgrdList.Item(5, i).Value) Then
+                receipt = dtgrdList.Item(5, i).Value.ToString
+            End If
+            If Not String.IsNullOrEmpty(dtgrdList.Item(6, i).Value) Then
+                invoiceNo = dtgrdList.Item(6, i).Value.ToString
+            End If
+            If Not String.IsNullOrEmpty(dtgrdList.Item(7, i).Value) Then
+                till = dtgrdList.Item(7, i).Value.ToString
+            End If
+
 
             row = table.AddRow()
             row.Format.Font.Bold = False
@@ -358,22 +351,24 @@ Public Class frmProductListingReport
             row.HeadingFormat = False
             row.Format.Alignment = ParagraphAlignment.Center
             row.Borders.Color = Colors.White
-            row.Cells(0).AddParagraph(code)
+            row.Cells(0).AddParagraph([date])
             row.Cells(0).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(1).AddParagraph(descr)
+            row.Cells(1).AddParagraph(code)
             row.Cells(1).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(2).AddParagraph(cashier)
+            row.Cells(2).AddParagraph(descr)
             row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(3).AddParagraph(receipt)
-            row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(4).AddParagraph(till)
+            row.Cells(3).AddParagraph(amount)
+            row.Cells(3).Format.Alignment = ParagraphAlignment.Right
+            row.Cells(4).AddParagraph(cashier)
             row.Cells(4).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(5).AddParagraph(amount)
-            row.Cells(5).Format.Alignment = ParagraphAlignment.Right
-            row.Cells(6).AddParagraph(date_)
+            row.Cells(5).AddParagraph(receipt)
+            row.Cells(5).Format.Alignment = ParagraphAlignment.Left
+            row.Cells(6).AddParagraph(invoiceNo)
             row.Cells(6).Format.Alignment = ParagraphAlignment.Left
+            row.Cells(7).AddParagraph(till)
+            row.Cells(7).Format.Alignment = ParagraphAlignment.Left
 
-            table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+            table.SetEdge(0, 0, 8, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         Next
         paragraph = section.AddParagraph()
@@ -433,6 +428,7 @@ Public Class frmProductListingReport
         'cmbSupplier.Text = ""
         dtgrdList.Rows.Clear()
         clearFields()
+        list.Clear()
     End Sub
     Private Sub clearFields()
         txtItemCodeS.Text = ""
@@ -460,18 +456,13 @@ Public Class frmProductListingReport
             searchItem()
         End If
     End Sub
-    Dim list As String = ""
+    Dim list As List(Of String) = New List(Of String)
 
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btnView.Click
-        list = ""
         For i As Integer = 0 To lstCode.Items.Count - 1
-            list = list + "'" + lstCode.Items.Item(i) + "'"
-            If i < lstCode.Items.Count - 1 Then
-                list = list + ","
-            End If
+            list.Add(lstCode.Items.Item(i))
         Next
         refreshList()
-
     End Sub
     Dim longList As New List(Of String)
     Dim shortList As New List(Of String)
@@ -559,16 +550,17 @@ Public Class frmProductListingReport
         End With
         r = r + 2
         ' Add table headers going cell by cell.
-        shXL.Cells(r, 1).Value = "Code"
-        shXL.Cells(r, 2).Value = "Description"
-        shXL.Cells(r, 3).Value = "Cashier"
-        shXL.Cells(r, 4).Value = "Receipt"
-        shXL.Cells(r, 5).Value = "Till"
-        shXL.Cells(r, 6).Value = "Amount"
-        shXL.Cells(r, 7).Value = "Date"
+        shXL.Cells(r, 1).Value = "Date"
+        shXL.Cells(r, 2).Value = "Code"
+        shXL.Cells(r, 3).Value = "Description"
+        shXL.Cells(r, 4).Value = "Amount"
+        shXL.Cells(r, 5).Value = "Cashier"
+        shXL.Cells(r, 6).Value = "Receipt No"
+        shXL.Cells(r, 7).Value = "Invoice No"
+        shXL.Cells(r, 8).Value = "Till No"
 
         ' Format A1:D1 as bold, vertical alignment = center.
-        With shXL.Range("A" + r.ToString, "G" + r.ToString)
+        With shXL.Range("A" + r.ToString, "H" + r.ToString)
             .Font.Bold = True
             .VerticalAlignment = Excel.XlVAlign.xlVAlignCenter
         End With
@@ -585,6 +577,7 @@ Public Class frmProductListingReport
                 .Cells(r, 5).Value = dtgrdList.Item(4, i).Value
                 .Cells(r, 6).Value = dtgrdList.Item(5, i).Value
                 .Cells(r, 7).Value = dtgrdList.Item(6, i).Value
+                .Cells(r, 8).Value = dtgrdList.Item(7, i).Value
             End With
             r = r + 1
         Next
@@ -593,7 +586,7 @@ Public Class frmProductListingReport
 
 
         ' AutoFit columns A:D.
-        raXL = shXL.Range("A1", "G1")
+        raXL = shXL.Range("A1", "H1")
         raXL.EntireColumn.AutoFit()
 
         Dim strFileName As String = LSystem.saveToDesktop & "\Product Listing Report " & dateStart.Text & dateEnd.Text & ".xls"
