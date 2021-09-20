@@ -22,30 +22,25 @@ Partial Class frmSupplySalesReport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.btnBack = New System.Windows.Forms.Button()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.dateStart = New System.Windows.Forms.DateTimePicker()
         Me.dateEnd = New System.Windows.Forms.DateTimePicker()
         Me.btnGenerate = New System.Windows.Forms.Button()
-        Me.btnPrint = New System.Windows.Forms.Button()
         Me.dtgrdList = New System.Windows.Forms.DataGridView()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtTotal = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtTotalVAT = New System.Windows.Forms.TextBox()
@@ -64,28 +59,22 @@ Partial Class frmSupplySalesReport
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtItemCodeS = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.btnPrintWithProfit = New System.Windows.Forms.Button()
         Me.cmbSupplier = New System.Windows.Forms.ComboBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtTotalProfit = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.btnExportToPDF = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
+        Me.btnExportToExcel = New System.Windows.Forms.ToolStripButton()
+        Me.btnBack = New System.Windows.Forms.Button()
         CType(Me.dtgrdList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'btnBack
-        '
-        Me.btnBack.BackColor = System.Drawing.SystemColors.Control
-        Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.btnBack.Location = New System.Drawing.Point(1311, 615)
-        Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(115, 35)
-        Me.btnBack.TabIndex = 5
-        Me.btnBack.Text = "Back"
-        Me.btnBack.UseVisualStyleBackColor = False
         '
         'Label1
         '
@@ -127,19 +116,10 @@ Partial Class frmSupplySalesReport
         '
         Me.btnGenerate.Location = New System.Drawing.Point(963, 8)
         Me.btnGenerate.Name = "btnGenerate"
-        Me.btnGenerate.Size = New System.Drawing.Size(104, 34)
+        Me.btnGenerate.Size = New System.Drawing.Size(100, 35)
         Me.btnGenerate.TabIndex = 49
-        Me.btnGenerate.Text = "Generate"
+        Me.btnGenerate.Text = "Run"
         Me.btnGenerate.UseVisualStyleBackColor = True
-        '
-        'btnPrint
-        '
-        Me.btnPrint.Location = New System.Drawing.Point(1183, 8)
-        Me.btnPrint.Name = "btnPrint"
-        Me.btnPrint.Size = New System.Drawing.Size(104, 34)
-        Me.btnPrint.TabIndex = 50
-        Me.btnPrint.Text = "Print@ Profit"
-        Me.btnPrint.UseVisualStyleBackColor = True
         '
         'dtgrdList
         '
@@ -148,152 +128,137 @@ Partial Class frmSupplySalesReport
         Me.dtgrdList.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         Me.dtgrdList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.dtgrdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dtgrdList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column9, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column8, Me.Column10})
-        Me.dtgrdList.Location = New System.Drawing.Point(4, 158)
+        Me.dtgrdList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column9, Me.Column7, Me.Column5, Me.Column6, Me.Column8})
+        Me.dtgrdList.Location = New System.Drawing.Point(4, 176)
         Me.dtgrdList.Name = "dtgrdList"
         Me.dtgrdList.ReadOnly = True
         Me.dtgrdList.RowTemplate.Height = 24
-        Me.dtgrdList.Size = New System.Drawing.Size(1422, 451)
+        Me.dtgrdList.Size = New System.Drawing.Size(1422, 433)
         Me.dtgrdList.TabIndex = 51
         '
         'Column1
         '
-        Me.Column1.FillWeight = 84.25756!
+        Me.Column1.FillWeight = 83.37672!
         Me.Column1.HeaderText = "Code"
         Me.Column1.Name = "Column1"
         Me.Column1.ReadOnly = True
         '
         'Column2
         '
-        Me.Column2.FillWeight = 294.8904!
+        Me.Column2.FillWeight = 291.8076!
         Me.Column2.HeaderText = "Description"
         Me.Column2.Name = "Column2"
         Me.Column2.ReadOnly = True
         '
-        'Column9
-        '
-        Me.Column9.FillWeight = 45.68528!
-        Me.Column9.HeaderText = "Stock"
-        Me.Column9.Name = "Column9"
-        Me.Column9.ReadOnly = True
-        '
         'Column3
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column3.DefaultCellStyle = DataGridViewCellStyle1
-        Me.Column3.FillWeight = 53.87895!
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.Column3.DefaultCellStyle = DataGridViewCellStyle6
+        Me.Column3.FillWeight = 53.83073!
         Me.Column3.HeaderText = "Qty"
         Me.Column3.Name = "Column3"
         Me.Column3.ReadOnly = True
         '
-        'Column4
+        'Column9
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column4.DefaultCellStyle = DataGridViewCellStyle2
-        Me.Column4.FillWeight = 84.25756!
-        Me.Column4.HeaderText = "Unit Price"
-        Me.Column4.Name = "Column4"
-        Me.Column4.ReadOnly = True
+        Me.Column9.FillWeight = 53.22063!
+        Me.Column9.HeaderText = "Stock"
+        Me.Column9.Name = "Column9"
+        Me.Column9.ReadOnly = True
+        '
+        'Column7
+        '
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column7.DefaultCellStyle = DataGridViewCellStyle7
+        Me.Column7.FillWeight = 83.37672!
+        Me.Column7.HeaderText = "Amount"
+        Me.Column7.Name = "Column7"
+        Me.Column7.ReadOnly = True
         '
         'Column5
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column5.DefaultCellStyle = DataGridViewCellStyle3
-        Me.Column5.FillWeight = 84.25756!
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column5.DefaultCellStyle = DataGridViewCellStyle8
+        Me.Column5.FillWeight = 83.37672!
         Me.Column5.HeaderText = "Discount"
         Me.Column5.Name = "Column5"
         Me.Column5.ReadOnly = True
         '
         'Column6
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column6.DefaultCellStyle = DataGridViewCellStyle4
-        Me.Column6.FillWeight = 84.25756!
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column6.DefaultCellStyle = DataGridViewCellStyle9
+        Me.Column6.FillWeight = 83.37672!
         Me.Column6.HeaderText = "TAX"
         Me.Column6.Name = "Column6"
         Me.Column6.ReadOnly = True
         '
-        'Column7
-        '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column7.DefaultCellStyle = DataGridViewCellStyle5
-        Me.Column7.FillWeight = 84.25756!
-        Me.Column7.HeaderText = "Amount"
-        Me.Column7.Name = "Column7"
-        Me.Column7.ReadOnly = True
-        '
         'Column8
         '
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column8.DefaultCellStyle = DataGridViewCellStyle6
-        Me.Column8.FillWeight = 84.25756!
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column8.DefaultCellStyle = DataGridViewCellStyle10
+        Me.Column8.FillWeight = 83.37672!
         Me.Column8.HeaderText = "Profit"
         Me.Column8.Name = "Column8"
         Me.Column8.ReadOnly = True
         '
-        'Column10
-        '
-        Me.Column10.HeaderText = "Date"
-        Me.Column10.Name = "Column10"
-        Me.Column10.ReadOnly = True
-        '
         'txtTotal
         '
-        Me.txtTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTotal.Location = New System.Drawing.Point(690, 3)
+        Me.txtTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTotal.Location = New System.Drawing.Point(145, 4)
         Me.txtTotal.Name = "txtTotal"
         Me.txtTotal.ReadOnly = True
-        Me.txtTotal.Size = New System.Drawing.Size(186, 28)
+        Me.txtTotal.Size = New System.Drawing.Size(186, 24)
         Me.txtTotal.TabIndex = 53
         Me.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(549, 6)
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(4, 7)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(122, 24)
+        Me.Label3.Size = New System.Drawing.Size(96, 18)
         Me.Label3.TabIndex = 54
         Me.Label3.Text = "Total Amount"
         '
         'txtTotalVAT
         '
-        Me.txtTotalVAT.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTotalVAT.Location = New System.Drawing.Point(362, 3)
+        Me.txtTotalVAT.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTotalVAT.Location = New System.Drawing.Point(401, 4)
         Me.txtTotalVAT.Name = "txtTotalVAT"
         Me.txtTotalVAT.ReadOnly = True
-        Me.txtTotalVAT.Size = New System.Drawing.Size(181, 28)
+        Me.txtTotalVAT.Size = New System.Drawing.Size(181, 24)
         Me.txtTotalVAT.TabIndex = 55
         Me.txtTotalVAT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtTotalDiscount
         '
-        Me.txtTotalDiscount.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTotalDiscount.Location = New System.Drawing.Point(95, 3)
+        Me.txtTotalDiscount.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTotalDiscount.Location = New System.Drawing.Point(680, 4)
         Me.txtTotalDiscount.Name = "txtTotalDiscount"
         Me.txtTotalDiscount.ReadOnly = True
-        Me.txtTotalDiscount.Size = New System.Drawing.Size(187, 28)
+        Me.txtTotalDiscount.Size = New System.Drawing.Size(187, 24)
         Me.txtTotalDiscount.TabIndex = 56
         Me.txtTotalDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(297, 3)
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(336, 4)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(49, 24)
+        Me.Label4.Size = New System.Drawing.Size(36, 18)
         Me.Label4.TabIndex = 57
         Me.Label4.Text = "TAX"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(6, 3)
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(591, 4)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(83, 24)
+        Me.Label5.Size = New System.Drawing.Size(67, 18)
         Me.Label5.TabIndex = 58
         Me.Label5.Text = "Discount"
         '
@@ -301,7 +266,6 @@ Partial Class frmSupplySalesReport
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel1.Controls.Add(Me.Panel3)
-        Me.Panel1.Controls.Add(Me.btnPrintWithProfit)
         Me.Panel1.Controls.Add(Me.cmbSupplier)
         Me.Panel1.Controls.Add(Me.Label7)
         Me.Panel1.Controls.Add(Me.Label1)
@@ -309,10 +273,9 @@ Partial Class frmSupplySalesReport
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.dateEnd)
         Me.Panel1.Controls.Add(Me.btnGenerate)
-        Me.Panel1.Controls.Add(Me.btnPrint)
-        Me.Panel1.Location = New System.Drawing.Point(4, 12)
+        Me.Panel1.Location = New System.Drawing.Point(4, 30)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1422, 140)
+        Me.Panel1.Size = New System.Drawing.Size(1069, 140)
         Me.Panel1.TabIndex = 59
         '
         'Panel3
@@ -421,15 +384,6 @@ Partial Class frmSupplySalesReport
         Me.Label10.TabIndex = 57
         Me.Label10.Text = "Item Description"
         '
-        'btnPrintWithProfit
-        '
-        Me.btnPrintWithProfit.Location = New System.Drawing.Point(1073, 8)
-        Me.btnPrintWithProfit.Name = "btnPrintWithProfit"
-        Me.btnPrintWithProfit.Size = New System.Drawing.Size(104, 34)
-        Me.btnPrintWithProfit.TabIndex = 55
-        Me.btnPrintWithProfit.Text = "Print"
-        Me.btnPrintWithProfit.UseVisualStyleBackColor = True
-        '
         'cmbSupplier
         '
         Me.cmbSupplier.FormattingEnabled = True
@@ -449,21 +403,21 @@ Partial Class frmSupplySalesReport
         '
         'txtTotalProfit
         '
-        Me.txtTotalProfit.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTotalProfit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTotalProfit.Location = New System.Drawing.Point(997, 3)
         Me.txtTotalProfit.Name = "txtTotalProfit"
         Me.txtTotalProfit.ReadOnly = True
-        Me.txtTotalProfit.Size = New System.Drawing.Size(166, 28)
+        Me.txtTotalProfit.Size = New System.Drawing.Size(166, 24)
         Me.txtTotalProfit.TabIndex = 60
         Me.txtTotalProfit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.Location = New System.Drawing.Point(882, 7)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(97, 24)
+        Me.Label6.Size = New System.Drawing.Size(80, 18)
         Me.Label6.TabIndex = 61
         Me.Label6.Text = "Total Profit"
         '
@@ -483,15 +437,61 @@ Partial Class frmSupplySalesReport
         Me.Panel2.Size = New System.Drawing.Size(1179, 42)
         Me.Panel2.TabIndex = 62
         '
+        'ToolStrip1
+        '
+        Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnExportToPDF, Me.ToolStripButton1, Me.btnExportToExcel})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.Size = New System.Drawing.Size(1438, 27)
+        Me.ToolStrip1.TabIndex = 109
+        Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'btnExportToPDF
+        '
+        Me.btnExportToPDF.Image = Global.BackOffice.My.Resources.Resources.pdfred
+        Me.btnExportToPDF.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnExportToPDF.Name = "btnExportToPDF"
+        Me.btnExportToPDF.Size = New System.Drawing.Size(124, 24)
+        Me.btnExportToPDF.Text = "Export to PDF"
+        '
+        'ToolStripButton1
+        '
+        Me.ToolStripButton1.Image = Global.BackOffice.My.Resources.Resources.pdfred
+        Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButton1.Name = "ToolStripButton1"
+        Me.ToolStripButton1.Size = New System.Drawing.Size(189, 24)
+        Me.ToolStripButton1.Text = "Export to PDF (@profit)"
+        '
+        'btnExportToExcel
+        '
+        Me.btnExportToExcel.Image = Global.BackOffice.My.Resources.Resources.spreadsheet
+        Me.btnExportToExcel.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnExportToExcel.Name = "btnExportToExcel"
+        Me.btnExportToExcel.Size = New System.Drawing.Size(180, 24)
+        Me.btnExportToExcel.Text = "Export to Spreadsheet"
+        '
+        'btnBack
+        '
+        Me.btnBack.BackColor = System.Drawing.SystemColors.Control
+        Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
+        Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnBack.Location = New System.Drawing.Point(1326, 617)
+        Me.btnBack.Name = "btnBack"
+        Me.btnBack.Size = New System.Drawing.Size(100, 40)
+        Me.btnBack.TabIndex = 110
+        Me.btnBack.UseVisualStyleBackColor = False
+        '
         'frmSupplySalesReport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1438, 665)
+        Me.Controls.Add(Me.btnBack)
+        Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.dtgrdList)
-        Me.Controls.Add(Me.btnBack)
         Me.MinimizeBox = False
         Me.Name = "frmSupplySalesReport"
         Me.ShowIcon = False
@@ -505,16 +505,17 @@ Partial Class frmSupplySalesReport
         Me.Panel3.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnBack As System.Windows.Forms.Button
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents dateStart As DateTimePicker
     Friend WithEvents dateEnd As DateTimePicker
     Friend WithEvents btnGenerate As Button
-    Friend WithEvents btnPrint As Button
     Friend WithEvents dtgrdList As DataGridView
     Friend WithEvents txtTotal As TextBox
     Friend WithEvents Label3 As Label
@@ -528,7 +529,6 @@ Partial Class frmSupplySalesReport
     Friend WithEvents Label7 As Label
     Friend WithEvents cmbSupplier As ComboBox
     Friend WithEvents Panel2 As Panel
-    Friend WithEvents btnPrintWithProfit As Button
     Friend WithEvents Panel3 As Panel
     Friend WithEvents lstCode As ListBox
     Friend WithEvents Label16 As Label
@@ -539,15 +539,18 @@ Partial Class frmSupplySalesReport
     Friend WithEvents txtItemCodeS As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents Button1 As Button
+    Friend WithEvents cmbDescription As ComboBox
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
     Friend WithEvents Column2 As DataGridViewTextBoxColumn
-    Friend WithEvents Column9 As DataGridViewTextBoxColumn
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
-    Friend WithEvents Column4 As DataGridViewTextBoxColumn
+    Friend WithEvents Column9 As DataGridViewTextBoxColumn
+    Friend WithEvents Column7 As DataGridViewTextBoxColumn
     Friend WithEvents Column5 As DataGridViewTextBoxColumn
     Friend WithEvents Column6 As DataGridViewTextBoxColumn
-    Friend WithEvents Column7 As DataGridViewTextBoxColumn
     Friend WithEvents Column8 As DataGridViewTextBoxColumn
-    Friend WithEvents Column10 As DataGridViewTextBoxColumn
-    Friend WithEvents cmbDescription As ComboBox
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents btnExportToPDF As ToolStripButton
+    Friend WithEvents btnExportToExcel As ToolStripButton
+    Friend WithEvents ToolStripButton1 As ToolStripButton
+    Friend WithEvents btnBack As Button
 End Class

@@ -704,40 +704,6 @@ Public Class frmProductMaster
         Cursor.Current = Cursors.Default
     End Sub
 
-    Private Sub cmbDescription_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDescription.SelectedIndexChanged
-        If cmbDescription.Text.Contains("'") Then
-            cmbDescription.Text = ""
-        End If
-    End Sub
-    Private Sub cmbDescription_TextChanged(sender As Object, e As EventArgs) Handles cmbDescription.TextChanged
-
-        If cmbDescription.Text.Contains("'") Then
-            Try
-                cmbDescription.Text = cmbDescription.Text.Replace("'", "")
-            Catch ex As Exception
-                cmbDescription.Text = ""
-            End Try
-        End If
-    End Sub
-
-    Private Sub txtDescription_TextChanged(sender As Object, e As EventArgs) Handles txtShortDescription.TextChanged
-        If txtShortDescription.Text.Contains("'") Then
-            txtShortDescription.Text = ""
-        End If
-    End Sub
-
-    Private Sub cmbPck_SelectedIndexChanged(sender As Object, e As EventArgs) Handles txtPackSize.SelectedIndexChanged
-        If txtPackSize.Text.Contains("'") Then
-            txtPackSize.Text = ""
-        End If
-    End Sub
-
-    Private Sub txtStandardUOM_TextChanged(sender As Object, e As EventArgs) Handles txtStandardUom.TextChanged
-        If txtStandardUom.Text.Contains("'") Then
-            txtStandardUom.Text = ""
-        End If
-    End Sub
-
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         clearAll()
     End Sub

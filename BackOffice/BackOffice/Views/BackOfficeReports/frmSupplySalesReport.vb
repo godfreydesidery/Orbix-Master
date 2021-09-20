@@ -3,6 +3,8 @@ Imports Devart.Data.MySql
 Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class frmSupplySalesReport
 
@@ -13,26 +15,14 @@ Public Class frmSupplySalesReport
     Private Sub frmSupplySalesReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cmbSupplier.Items.Clear()
         dtgrdList.Rows.Clear()
-        Dim item As New Item
-        longList = item.getItems()
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim query As String = ""
-            query = "SELECT`supplier_name` FROM `supplier` "
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                cmbSupplier.Items.Add(reader.GetString("supplier_name"))
-            End While
-            conn.Close()
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
+        Dim product_ As New Product
+        longList = product_.getDescriptions
+
+        Dim supplier As New Supplier
+        cmbSupplier.Items.Add("")
+        longSupplierList = supplier.getNames()
+        ' cmbSupplier.Items.AddRange(supplier.getNames().ToArray)
+
     End Sub
     Private Sub defineStyles(doc As Document)
         'Get the predefined style Normal.
@@ -78,13 +68,9 @@ Public Class frmSupplySalesReport
 
         Process.Start(filename)
 
-
-
-
         Return vbNull
     End Function
     Private Function printWithoutProfit()
-
 
         Dim document As Document = New Document
 
@@ -104,9 +90,6 @@ Public Class frmSupplySalesReport
         myRenderer.PdfDocument.Save(filename)
 
         Process.Start(filename)
-
-
-
 
         Return vbNull
     End Function
@@ -225,6 +208,13 @@ Public Class frmSupplySalesReport
         titleRow.Cells(1).Format.Alignment = ParagraphAlignment.Left
         tittleTable.SetEdge(0, 0, 2, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
         'end of header
+        paragraph = section.AddParagraph()
+        paragraph.AddText("Supplier:  " + cmbSupplier.Text)
+        paragraph.Format.Alignment = ParagraphAlignment.Left
+        paragraph.Format.Font.Size = 8
+        paragraph.Format.Font.Color = Colors.Green
+
+        paragraph = section.AddParagraph()
 
         paragraph = section.AddParagraph()
         paragraph.AddText("From:  " + dateStart.Text + "  To:  " + dateEnd.Text)
@@ -255,33 +245,28 @@ Public Class frmSupplySalesReport
         column = table.AddColumn("1.5cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("5.0cm")
-        column.Format.Alignment = ParagraphAlignment.Right
-
-        column = table.AddColumn("0.7cm")
-        column.Format.Alignment = ParagraphAlignment.Right
-
-        column = table.AddColumn("0.7cm")
-        column.Format.Alignment = ParagraphAlignment.Right
-
-        column = table.AddColumn("1.4cm")
-        column.Format.Alignment = ParagraphAlignment.Right
-
-        column = table.AddColumn("1.3cm")
-        column.Format.Alignment = ParagraphAlignment.Center
-
+        column = table.AddColumn("6.0cm")
+        column.Format.Alignment = ParagraphAlignment.Left
 
         column = table.AddColumn("1.5cm")
-        column.Format.Alignment = ParagraphAlignment.Right
+        column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("2.2cm")
-        column.Format.Alignment = ParagraphAlignment.Right
-
-        column = table.AddColumn("1.7cm")
-        column.Format.Alignment = ParagraphAlignment.Right
+        column = table.AddColumn("1.0cm")
+        column.Format.Alignment = ParagraphAlignment.Left
 
         column = table.AddColumn("2.3cm")
-        column.Format.Alignment = ParagraphAlignment.Right
+        column.Format.Alignment = ParagraphAlignment.Left
+
+        column = table.AddColumn("1.6cm")
+        column.Format.Alignment = ParagraphAlignment.Left
+
+        column = table.AddColumn("1.8cm")
+        column.Format.Alignment = ParagraphAlignment.Left
+
+        column = table.AddColumn("1.8cm")
+        column.Format.Alignment = ParagraphAlignment.Left
+
+
 
         'Create the header of the table
         Dim row As Row
@@ -298,24 +283,21 @@ Public Class frmSupplySalesReport
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
         row.Cells(1).AddParagraph("Description")
         row.Cells(1).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(2).AddParagraph("Stk")
+        row.Cells(2).AddParagraph("Qty")
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(3).AddParagraph("Qty")
+        row.Cells(3).AddParagraph("Stk")
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(4).AddParagraph("Price@")
+        row.Cells(4).AddParagraph("Amount")
         row.Cells(4).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(5).AddParagraph("Disc")
+        row.Cells(5).AddParagraph("Discount")
         row.Cells(5).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(6).AddParagraph("VAT")
+        row.Cells(6).AddParagraph("Tax")
         row.Cells(6).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(7).AddParagraph("Amount")
+        row.Cells(7).AddParagraph("Profit")
         row.Cells(7).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(8).AddParagraph("Profit")
-        row.Cells(8).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(9).AddParagraph("Date")
-        row.Cells(9).Format.Alignment = ParagraphAlignment.Left
 
-        table.SetEdge(0, 0, 10, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+
+        table.SetEdge(0, 0, 8, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         Dim totalQty As Double = 0
 
@@ -323,41 +305,35 @@ Public Class frmSupplySalesReport
 
             Dim code As String = dtgrdList.Item(0, i).Value
             Dim descr As String = dtgrdList.Item(1, i).Value
-            Dim stock As String = dtgrdList.Item(2, i).Value
-            Dim qty As String = dtgrdList.Item(3, i).Value
-            Dim price As String = LCurrency.displayValue(dtgrdList.Item(4, i).Value)
+            Dim qty As String = dtgrdList.Item(2, i).Value
+            Dim stock As String = dtgrdList.Item(3, i).Value
+            Dim amount As String = LCurrency.displayValue(dtgrdList.Item(4, i).Value)
             Dim discount As String = LCurrency.displayValue(dtgrdList.Item(5, i).Value)
-            Dim vat As String = LCurrency.displayValue(dtgrdList.Item(6, i).Value)
-            Dim amount As String = LCurrency.displayValue(dtgrdList.Item(7, i).Value)
-            Dim profit As String = LCurrency.displayValue(dtgrdList.Item(8, i).Value)
-            Dim _date As String = dtgrdList.Item(9, i).Value
+            Dim tax As String = LCurrency.displayValue(dtgrdList.Item(6, i).Value)
+            Dim profit As String = LCurrency.displayValue(dtgrdList.Item(7, i).Value)
 
             row = table.AddRow()
-            row.Format.Font.Size = 6
+            row.Format.Font.Size = 8
             row.Format.Alignment = ParagraphAlignment.Center
             row.Borders.Color = Colors.White
             row.Cells(0).AddParagraph(code)
             row.Cells(0).Format.Alignment = ParagraphAlignment.Left
             row.Cells(1).AddParagraph(descr)
             row.Cells(1).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(2).AddParagraph(stock)
+            row.Cells(2).AddParagraph(qty)
             row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(3).AddParagraph(qty)
+            row.Cells(3).AddParagraph(stock)
             row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(4).AddParagraph(price)
+            row.Cells(4).AddParagraph(amount)
             row.Cells(4).Format.Alignment = ParagraphAlignment.Right
             row.Cells(5).AddParagraph(discount)
             row.Cells(5).Format.Alignment = ParagraphAlignment.Right
-            row.Cells(6).AddParagraph(vat)
+            row.Cells(6).AddParagraph(tax)
             row.Cells(6).Format.Alignment = ParagraphAlignment.Right
-            row.Cells(7).AddParagraph(amount)
+            row.Cells(7).AddParagraph(profit)
             row.Cells(7).Format.Alignment = ParagraphAlignment.Right
-            row.Cells(8).AddParagraph(profit)
-            row.Cells(8).Format.Alignment = ParagraphAlignment.Right
-            row.Cells(9).AddParagraph(_date)
-            row.Cells(9).Format.Alignment = ParagraphAlignment.Right
 
-            table.SetEdge(0, 0, 10, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+            table.SetEdge(0, 0, 8, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         Next
 
@@ -383,10 +359,6 @@ Public Class frmSupplySalesReport
         row.Cells(6).Format.Alignment = ParagraphAlignment.Left
         row.Cells(7).AddParagraph()
         row.Cells(7).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(8).AddParagraph()
-        row.Cells(8).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(9).AddParagraph()
-        row.Cells(9).Format.Alignment = ParagraphAlignment.Left
 
         row = table.AddRow()
         row.Format.Font.Bold = True
@@ -402,24 +374,18 @@ Public Class frmSupplySalesReport
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
         row.Cells(3).AddParagraph()
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(4).AddParagraph()
-        row.Cells(4).Format.Alignment = ParagraphAlignment.Left
+        row.Cells(4).AddParagraph(txtTotal.Text)
+        row.Cells(4).Format.Alignment = ParagraphAlignment.Right
         row.Cells(5).AddParagraph(txtTotalDiscount.Text)
         row.Cells(5).Format.Alignment = ParagraphAlignment.Right
         row.Cells(6).AddParagraph(txtTotalVAT.Text)
         row.Cells(6).Format.Alignment = ParagraphAlignment.Right
-        row.Cells(7).AddParagraph(txtTotal.Text)
+        row.Cells(7).AddParagraph(txtTotalProfit.Text)
         row.Cells(7).Format.Alignment = ParagraphAlignment.Right
-        row.Cells(8).AddParagraph(txtTotalProfit.Text)
-        row.Cells(8).Format.Alignment = ParagraphAlignment.Right
-        row.Cells(9).AddParagraph()
-        row.Cells(9).Format.Alignment = ParagraphAlignment.Right
 
-
-        table.SetEdge(0, 0, 10, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+        table.SetEdge(0, 0, 8, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         paragraph = section.AddParagraph()
-
 
         paragraph = section.AddParagraph()
         paragraph = section.AddParagraph()
@@ -544,6 +510,11 @@ Public Class frmSupplySalesReport
         titleRow.Cells(1).Format.Alignment = ParagraphAlignment.Left
         tittleTable.SetEdge(0, 0, 2, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
         'end of header
+        paragraph = section.AddParagraph()
+        paragraph.AddText("Supplier:  " + cmbSupplier.Text)
+        paragraph.Format.Alignment = ParagraphAlignment.Left
+        paragraph.Format.Font.Size = 8
+        paragraph.Format.Font.Color = Colors.Green
 
         paragraph = section.AddParagraph()
         paragraph.AddText("From:  " + dateStart.Text + "  To:  " + dateEnd.Text)
@@ -573,33 +544,23 @@ Public Class frmSupplySalesReport
         column = table.AddColumn("1.5cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("5.0cm")
-        column.Format.Alignment = ParagraphAlignment.Right
-
-        column = table.AddColumn("0.7cm")
-        column.Format.Alignment = ParagraphAlignment.Right
-
-        column = table.AddColumn("0.7cm")
-        column.Format.Alignment = ParagraphAlignment.Right
-
-        column = table.AddColumn("1.4cm")
-        column.Format.Alignment = ParagraphAlignment.Right
-
-        column = table.AddColumn("1.3cm")
-        column.Format.Alignment = ParagraphAlignment.Center
-
+        column = table.AddColumn("6.0cm")
+        column.Format.Alignment = ParagraphAlignment.Left
 
         column = table.AddColumn("1.5cm")
-        column.Format.Alignment = ParagraphAlignment.Right
+        column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("1.7cm")
-        column.Format.Alignment = ParagraphAlignment.Right
+        column = table.AddColumn("1.0cm")
+        column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("2.2cm")
-        column.Format.Alignment = ParagraphAlignment.Right
+        column = table.AddColumn("2.3cm")
+        column.Format.Alignment = ParagraphAlignment.Left
 
-        ' column = table.AddColumn("2.3cm")
-        ' column.Format.Alignment = ParagraphAlignment.Right
+        column = table.AddColumn("1.6cm")
+        column.Format.Alignment = ParagraphAlignment.Left
+
+        column = table.AddColumn("1.8cm")
+        column.Format.Alignment = ParagraphAlignment.Left
 
         'Create the header of the table
         Dim row As Row
@@ -616,22 +577,19 @@ Public Class frmSupplySalesReport
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
         row.Cells(1).AddParagraph("Description")
         row.Cells(1).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(2).AddParagraph("Stk")
+        row.Cells(2).AddParagraph("Qty")
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(3).AddParagraph("Qty")
+        row.Cells(3).AddParagraph("Stk")
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(4).AddParagraph("Price@")
+        row.Cells(4).AddParagraph("Amount")
         row.Cells(4).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(5).AddParagraph("Disc")
+        row.Cells(5).AddParagraph("Discount")
         row.Cells(5).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(6).AddParagraph("VAT")
+        row.Cells(6).AddParagraph("Tax")
         row.Cells(6).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(7).AddParagraph("Amount")
-        row.Cells(7).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(8).AddParagraph("Date")
-        row.Cells(8).Format.Alignment = ParagraphAlignment.Left
 
-        table.SetEdge(0, 0, 9, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+
+        table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         Dim totalQty As Double = 0
 
@@ -639,38 +597,32 @@ Public Class frmSupplySalesReport
 
             Dim code As String = dtgrdList.Item(0, i).Value
             Dim descr As String = dtgrdList.Item(1, i).Value
-            Dim stock As String = dtgrdList.Item(2, i).Value
-            Dim qty As String = dtgrdList.Item(3, i).Value
-            Dim price As String = LCurrency.displayValue(dtgrdList.Item(4, i).Value)
+            Dim qty As String = dtgrdList.Item(2, i).Value
+            Dim stock As String = dtgrdList.Item(3, i).Value
+            Dim amount As String = LCurrency.displayValue(dtgrdList.Item(4, i).Value)
             Dim discount As String = LCurrency.displayValue(dtgrdList.Item(5, i).Value)
-            Dim vat As String = LCurrency.displayValue(dtgrdList.Item(6, i).Value)
-            Dim amount As String = LCurrency.displayValue(dtgrdList.Item(7, i).Value)
-            Dim _date As String = dtgrdList.Item(9, i).Value
+            Dim tax As String = LCurrency.displayValue(dtgrdList.Item(6, i).Value)
 
             row = table.AddRow()
-            row.Format.Font.Size = 6
+            row.Format.Font.Size = 8
             row.Format.Alignment = ParagraphAlignment.Center
             row.Borders.Color = Colors.White
             row.Cells(0).AddParagraph(code)
             row.Cells(0).Format.Alignment = ParagraphAlignment.Left
             row.Cells(1).AddParagraph(descr)
             row.Cells(1).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(2).AddParagraph(stock)
+            row.Cells(2).AddParagraph(qty)
             row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(3).AddParagraph(qty)
+            row.Cells(3).AddParagraph(stock)
             row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(4).AddParagraph(price)
+            row.Cells(4).AddParagraph(amount)
             row.Cells(4).Format.Alignment = ParagraphAlignment.Right
             row.Cells(5).AddParagraph(discount)
             row.Cells(5).Format.Alignment = ParagraphAlignment.Right
-            row.Cells(6).AddParagraph(vat)
+            row.Cells(6).AddParagraph(tax)
             row.Cells(6).Format.Alignment = ParagraphAlignment.Right
-            row.Cells(7).AddParagraph(amount)
-            row.Cells(7).Format.Alignment = ParagraphAlignment.Right
-            row.Cells(8).AddParagraph(_date)
-            row.Cells(8).Format.Alignment = ParagraphAlignment.Right
 
-            table.SetEdge(0, 0, 9, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+            table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         Next
 
@@ -694,10 +646,6 @@ Public Class frmSupplySalesReport
         row.Cells(5).Format.Alignment = ParagraphAlignment.Left
         row.Cells(6).AddParagraph()
         row.Cells(6).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(7).AddParagraph()
-        row.Cells(7).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(8).AddParagraph()
-        row.Cells(8).Format.Alignment = ParagraphAlignment.Left
 
         row = table.AddRow()
         row.Format.Font.Bold = True
@@ -713,25 +661,16 @@ Public Class frmSupplySalesReport
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
         row.Cells(3).AddParagraph()
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(4).AddParagraph()
-        row.Cells(4).Format.Alignment = ParagraphAlignment.Left
+        row.Cells(4).AddParagraph(txtTotal.Text)
+        row.Cells(4).Format.Alignment = ParagraphAlignment.Right
         row.Cells(5).AddParagraph(txtTotalDiscount.Text)
         row.Cells(5).Format.Alignment = ParagraphAlignment.Right
         row.Cells(6).AddParagraph(txtTotalVAT.Text)
         row.Cells(6).Format.Alignment = ParagraphAlignment.Right
-        row.Cells(7).AddParagraph(txtTotal.Text)
-        row.Cells(7).Format.Alignment = ParagraphAlignment.Right
-        row = table.AddRow()
-        row.Format.Font.Bold = True
-        row.Format.Alignment = ParagraphAlignment.Center
-        row.Format.Font.Bold = True
-        row.Format.Font.Size = 8
-        row.Borders.Color = Colors.White
 
-        table.SetEdge(0, 0, 9, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+        table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         paragraph = section.AddParagraph()
-
 
         paragraph = section.AddParagraph()
         paragraph = section.AddParagraph()
@@ -742,113 +681,84 @@ Public Class frmSupplySalesReport
 
     End Sub
     Private Function refreshList()
-        dtgrdList.Rows.Clear()
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim query As String = ""
-            query = "SELECT `sale`.`date` as `date`,`sale_details`.`item_code` AS `item_code`,SUM((`sale_details`.`selling_price`-`sale_details`.`discounted_price`)*`sale_details`.`qty`) AS `discount`,`sale_details`.`selling_price`AS `price`,SUM(`sale_details`.`qty`) AS `qty`,SUM(`sale_details`.`tax_return`) AS `tax`,SUM(`sale_details`.`amount`) AS `amount` FROM `sale`,`sale_details` WHERE `sale`.`id`=`sale_details`.`sale_id` AND `sale`.`date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' GROUP BY `item_code`,`date`,`price` ORDER BY `amount` DESC"
 
+        dtgrdList.Rows.Clear()
+        If cmbSupplier.Text = "" Then
+            MsgBox("Please select supplier", vbOKOnly + vbExclamation, "Error: Missing Information")
+            Return vbNull
+            Exit Function
+        End If
+        Cursor = Cursors.AppStarting
+        Try
+            Dim response As Object = New Object
             If list <> "" Then
-                query = "SELECT `sale`.`date` as `date`,`sale_details`.`item_code` AS `item_code`,SUM((`sale_details`.`selling_price`-`sale_details`.`discounted_price`)*`sale_details`.`qty`) AS `discount`,`sale_details`.`selling_price`AS `price`,SUM(`sale_details`.`qty`) AS `qty`,SUM(`sale_details`.`tax_return`) AS `tax`,SUM(`sale_details`.`amount`) AS `amount` FROM `sale`,`sale_details` WHERE `sale`.`id`=`sale_details`.`sale_id` AND `sale`.`date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' AND `item_code` IN (" + list + ") GROUP BY `item_code`,`date`,`price`,`price` ORDER BY `amount` DESC"
+                response = Web.get_("sales/get_supply_sales_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&supplier_name=" + cmbSupplier.Text + "&codes=" + list)
+            Else
+                response = Web.get_("sales/get_supply_sales_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&supplier_name=" + cmbSupplier.Text + "&codes=")
             End If
 
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
+            Dim details As List(Of SupplySalesReport) = JsonConvert.DeserializeObject(Of List(Of SupplySalesReport))(response.ToString)
 
             Dim total As Double = 0
             Dim totalVat As Double = 0
             Dim totalDiscount As Double = 0
             Dim totalProfit As Double = 0
 
+            For Each detail In details
 
-
-            While reader.Read
-                Dim itemCode As String = reader.GetString("item_code")
-                Dim description As String = (New Item).getItemLongDescription(itemCode)
-                Dim stock As String = (New Item).getStock(itemCode)
-                Dim qty As String = reader.GetString("qty")
-                Dim price As String = reader.GetString("price")
-                Dim _date As String = reader.GetString("date")
-                Dim discount As String = reader.GetString("discount")
-                Dim tax As String = reader.GetString("tax")
-                Dim amount As String = reader.GetString("amount")
-                Dim item As New Item
-                item.searchItem(itemCode)
-
-
-                If cmbSupplier.Text <> "" Then
-                    If cmbSupplier.Text <> (New Supplier).getSupplierName((New Item).getSupplierId("", "", itemCode), "") Then
-                        Continue While
-                    Else
-
-                    End If
-                End If
-
-
-                Dim profit As String = (Val(amount) - (Val(qty) * Val(item.GL_COST_PRICE)) - Val(tax)).ToString
-                totalProfit = totalProfit + Val(profit)
-
-                total = total + Val(amount)
-                totalDiscount = totalDiscount + Val(discount)
-                totalVat = totalVat + Val(tax)
+                total = total + Val(detail.amount)
+                totalDiscount = totalDiscount + Val(detail.discount)
+                totalVat = totalVat + Val(detail.tax)
 
                 Dim dtgrdRow As New DataGridViewRow
                 Dim dtgrdCell As DataGridViewCell
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = itemCode
+                dtgrdCell.Value = detail.code
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = description
+                dtgrdCell.Value = detail.description
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = stock
+                dtgrdCell.Value = detail.qty
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = qty
+                dtgrdCell.Value = detail.stock
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(price)
+                dtgrdCell.Value = LCurrency.displayValue(detail.amount)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(discount)
+                dtgrdCell.Value = LCurrency.displayValue(detail.discount)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(tax)
+                dtgrdCell.Value = LCurrency.displayValue(detail.tax)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(amount)
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(profit)
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = _date
+                dtgrdCell.Value = LCurrency.displayValue(detail.profit)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdList.Rows.Add(dtgrdRow)
-            End While
 
-            conn.Close()
+            Next
+            dtgrdList.ClearSelection()
+
             txtTotal.Text = LCurrency.displayValue(total.ToString)
             txtTotalDiscount.Text = LCurrency.displayValue(totalDiscount.ToString)
             txtTotalVAT.Text = LCurrency.displayValue(totalVat.ToString)
             txtTotalProfit.Text = LCurrency.displayValue(totalProfit.ToString)
+
+            Cursor = Cursors.Default
         Catch ex As Exception
             MsgBox(ex.Message)
+            Cursor = Cursors.Default
         End Try
         Return vbNull
     End Function
@@ -857,49 +767,25 @@ Public Class frmSupplySalesReport
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btnGenerate.Click
         list = ""
         For i As Integer = 0 To lstCode.Items.Count - 1
-            list = list + "'" + lstCode.Items.Item(i) + "'"
+            list = list + lstCode.Items.Item(i)
             If i < lstCode.Items.Count - 1 Then
                 list = list + ","
             End If
         Next
         refreshList()
-
     End Sub
 
-    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+    Private Sub btnPrint_Click(sender As Object, e As EventArgs)
         print()
-    End Sub
-
-    Private Sub txtTotal_TextChanged(sender As Object, e As EventArgs) Handles txtTotal.TextChanged
-
-    End Sub
-
-    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
-
-    End Sub
-
-    Private Sub txtTotalDiscount_TextChanged(sender As Object, e As EventArgs) Handles txtTotalDiscount.TextChanged
-
-    End Sub
-
-    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
-
-    End Sub
-
-    Private Sub txtTotalVAT_TextChanged(sender As Object, e As EventArgs) Handles txtTotalVAT.TextChanged
-
-    End Sub
-
-    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
-
     End Sub
 
     Private Sub cmbSupplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSupplier.SelectedIndexChanged
         clearFields()
         lstCode.Items.Clear()
+        dtgrdList.Rows.Clear()
     End Sub
 
-    Private Sub btnPrintWithProfit_Click(sender As Object, e As EventArgs) Handles btnPrintWithProfit.Click
+    Private Sub btnPrintWithProfit_Click(sender As Object, e As EventArgs)
         printWithoutProfit()
     End Sub
 
@@ -908,48 +794,31 @@ Public Class frmSupplySalesReport
         Dim found As Boolean = False
         Dim valid As Boolean = False
         Dim barCode As String = txtBarCode.Text
-        Dim itemCode As String = txtItemCodeS.Text
+        Dim code As String = txtItemCodeS.Text
         Dim descr As String = cmbDescription.Text
 
         If barCode <> "" Then
-            itemCode = (New Item).getItemCode(barCode, "")
-        ElseIf itemCode <> "" Then
-            itemCode = itemCode
+            code = (New Product).getCode(barCode, "")
+        ElseIf code <> "" Then
+            code = code
         ElseIf descr <> "" Then
-            itemCode = (New Item).getItemCode("", descr)
+            code = (New Product).getCode("", descr)
         Else
-            itemCode = ""
+            code = ""
         End If
 
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim codeQuery As String = "SELECT `item_code`, `item_long_description`, `pck`,`unit_cost_price`, `retail_price`,`vat`, `margin`, `standard_uom`, `active` FROM `items` WHERE `item_code`='" + itemCode + "' "
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                txtItemCodeS.Text = reader.GetString("item_code")
-                cmbDescription.Text = reader.GetString("item_long_description")
-
-                found = True
-
-                valid = True
-
-                Exit While
-            End While
-            conn.Close()
-            If found = False Then
-                MsgBox("Item not found")
-                btnAdd.Enabled = False
-            Else
-                btnAdd.Enabled = True
-            End If
+            response = Web.get_("products/get_by_code?code=" + code)
+            json = JObject.Parse(response)
+            Dim product As Product = JsonConvert.DeserializeObject(Of Product)(json.ToString)
+            txtItemCodeS.Text = product.code
+            cmbDescription.Text = product.description
+            btnAdd.Enabled = True
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            MsgBox("Not found")
+            Exit Sub
         End Try
     End Sub
 
@@ -1016,7 +885,34 @@ Public Class frmSupplySalesReport
         Cursor.Current = Cursors.Default
     End Sub
 
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
-
+    Private Sub btnExportToPDF_Click(sender As Object, e As EventArgs) Handles btnExportToPDF.Click
+        printWithoutProfit()
     End Sub
+
+    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
+        print()
+    End Sub
+
+
+    Dim longSupplierList As New List(Of String)
+    Dim shortSupplierList As New List(Of String)
+    Private Sub cmbSupplier_KeyUp(sender As Object, e As EventArgs) Handles cmbSupplier.KeyUp
+
+        Dim currentText As String = cmbSupplier.Text
+        shortSupplierList.Clear()
+        cmbSupplier.Items.Clear()
+        cmbSupplier.Items.Add(currentText)
+
+        cmbSupplier.DroppedDown = True
+        For Each text As String In longSupplierList
+            Dim formattedText As String = text.ToUpper()
+            If formattedText.Contains(cmbSupplier.Text.ToUpper()) Then
+                shortSupplierList.Add(text)
+            End If
+        Next
+        cmbSupplier.Items.AddRange(shortSupplierList.ToArray())
+        cmbSupplier.SelectionStart = cmbSupplier.Text.Length
+        Cursor.Current = Cursors.Default
+    End Sub
+
 End Class

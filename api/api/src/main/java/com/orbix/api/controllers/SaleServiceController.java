@@ -21,6 +21,7 @@ import com.orbix.api.models.Sale;
 import com.orbix.api.models.SaleDetail;
 import com.orbix.api.reports.DailySalesReport;
 import com.orbix.api.reports.ProductListingReport;
+import com.orbix.api.reports.SupplySalesReport;
 import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.SaleDetailRepository;
 import com.orbix.api.repositories.SaleRepository;
@@ -83,4 +84,24 @@ public class SaleServiceController {
 	/**
 	 * 
 	 */
+	
+	/**
+	 * Get supply sales report
+	 */
+	@Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/sales/get_supply_sales_report", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<SupplySalesReport> getSupplySalesReport(
+    		@RequestParam(name = "from_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+    		@RequestParam(name = "to_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+    		@RequestParam(name = "supplier_name") String supplierName,
+    		@RequestParam(name = "codes") ArrayList<String> codes,
+    		@RequestHeader("user_id") Long userId) {
+		List<SupplySalesReport> report;
+		if(codes.isEmpty()) {			
+			report = saleRepository.getSupplySalesReport(fromDate, toDate, supplierName);	
+		}else {			
+			report = saleRepository.getSupplySalesReportByProduct(fromDate, toDate, supplierName, codes);		
+		}			
+		return report;
+    }
 }

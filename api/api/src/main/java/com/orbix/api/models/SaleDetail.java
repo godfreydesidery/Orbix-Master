@@ -53,6 +53,7 @@ public class SaleDetail {
 	private double sellingPriceVatIncl;
 	private double sellingPriceVatExcl;
 	private double discount = 0;
+	private double tax = 0;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "sale_id", nullable = false)
@@ -211,5 +212,14 @@ public class SaleDetail {
 	 */
 	public void setSale(Sale sale) {
 		this.sale = sale;
-	}	
+	}
+
+	public double getTax() {
+		return tax;
+	}
+
+	public void setTax(double tax) {
+		this.tax = tax;
+	}
+	
 }
