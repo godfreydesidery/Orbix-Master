@@ -897,7 +897,6 @@ Public Class frmSupplySalesReport
     Dim longSupplierList As New List(Of String)
     Dim shortSupplierList As New List(Of String)
     Private Sub cmbSupplier_KeyUp(sender As Object, e As EventArgs) Handles cmbSupplier.KeyUp
-
         Dim currentText As String = cmbSupplier.Text
         shortSupplierList.Clear()
         cmbSupplier.Items.Clear()
@@ -915,4 +914,7 @@ Public Class frmSupplySalesReport
         Cursor.Current = Cursors.Default
     End Sub
 
+    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
+
+    End Sub
 End Class

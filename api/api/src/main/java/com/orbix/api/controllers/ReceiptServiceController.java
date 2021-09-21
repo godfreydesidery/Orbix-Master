@@ -4,6 +4,7 @@
 package com.orbix.api.controllers;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Vector;
@@ -27,19 +28,23 @@ import com.orbix.api.accessories.Formater;
 import com.orbix.api.exceptions.NotFoundException;
 import com.orbix.api.models.Cart;
 import com.orbix.api.models.CartDetail;
+import com.orbix.api.models.Product;
 import com.orbix.api.models.Receipt;
 import com.orbix.api.models.ReceiptDetail;
 import com.orbix.api.models.Sale;
 import com.orbix.api.models.SaleDetail;
+import com.orbix.api.models.StockCard;
 import com.orbix.api.models.Till;
 import com.orbix.api.models.User;
 import com.orbix.api.models.Voided;
 import com.orbix.api.repositories.CartRepository;
 import com.orbix.api.repositories.DayRepository;
+import com.orbix.api.repositories.ProductRepository;
 import com.orbix.api.repositories.ReceiptDetailRepository;
 import com.orbix.api.repositories.ReceiptRepository;
 import com.orbix.api.repositories.SaleDetailRepository;
 import com.orbix.api.repositories.SaleRepository;
+import com.orbix.api.repositories.StockCardRepository;
 import com.orbix.api.repositories.TillRepository;
 import com.orbix.api.repositories.UserRepository;
 import com.orbix.api.repositories.VoidedRepository;
@@ -71,6 +76,10 @@ public class ReceiptServiceController {
     VoidedRepository voidedRepository;
     @Autowired
     DayRepository dayRepository;
+    @Autowired
+    ProductRepository productRepository;
+    @Autowired
+    StockCardRepository stockCardRepository;
    
    
     /**
@@ -275,6 +284,25 @@ public class ReceiptServiceController {
     		saleDetail.setSellingPriceVatExcl(detail.getSellingPriceVatExcl());
     		saleDetail.setDiscount(detail.getDiscount());
     		saleDetailRepository.saveAndFlush(saleDetail);
+    		
+    		Product product;
+    		StockCard stockCard;
+    		
+    		product = productRepository.findByCode(detail.getCode()).get();
+    		product.setStock(product.getStock() - detail.getQty());
+    		productRepository.saveAndFlush(product);
+    		
+    		stockCard = new StockCard();
+    		product = productRepository.findByCode(detail.getCode()).get();
+    		stockCard.setCode(detail.getCode());
+    		stockCard.setDescription(detail.getDescription());
+    		stockCard.setDay(dayRepository.getCurrentBussinessDay());
+    		stockCard.setCreatedOn(new Date());
+    		stockCard.setQtyIn(0);
+    		stockCard.setQtyOut(detail.getQty());
+    		stockCard.setBalance(product.getStock());
+    		stockCard.setReference("Cash Sale, Receipt No: "+receipt.getNo());
+    		stockCardRepository.saveAndFlush(stockCard);   		
     	}     	
     	return receipt;
     }   

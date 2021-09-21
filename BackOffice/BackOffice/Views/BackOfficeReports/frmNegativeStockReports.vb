@@ -3,6 +3,7 @@ Imports Devart.Data.MySql
 Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
 
 Public Class frmNegativeStockReports
     Private Sub defineStyles(doc As Document)
@@ -260,6 +261,18 @@ Public Class frmNegativeStockReports
     End Sub
     Private Function refreshList()
         dtgrdItemList.Rows.Clear()
+
+        Try
+            Dim response As Object = New Object
+
+            response = Web.get_("products/get_negative_stock_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&supplier_name=" + cmbSupplier.Text + "&codes=")
+
+            Dim details As List(Of NegativeStockReport) = JsonConvert.DeserializeObject(Of List(Of NegativeStockReport))(response.ToString)
+        Catch ex As Exception
+
+        End Try
+
+
         Try
             Dim conn As New MySqlConnection(Database.conString)
             Dim command As New MySqlCommand()

@@ -3,12 +3,15 @@
  */
 package com.orbix.api.controllers;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +33,10 @@ import com.orbix.api.models.Department;
 import com.orbix.api.models.Product;
 import com.orbix.api.models.SubClass;
 import com.orbix.api.models.Supplier;
+import com.orbix.api.reports.NegativeStockReport;
+import com.orbix.api.reports.ProductListingReport;
+import com.orbix.api.reports.SupplySalesReport;
+import com.orbix.api.reports.SupplyStockStatus;
 import com.orbix.api.repositories.ClassRepository;
 import com.orbix.api.repositories.DepartmentRepository;
 import com.orbix.api.repositories.ProductRepository;
@@ -445,4 +452,35 @@ public class ProductServiceController {
     	}
     	return productRepository.existsByCodeAndPrimarySupplier(productCode, supplier.get());   	
     }
+    
+    @Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/products/get_supply_stock_status", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<SupplyStockStatus> getSupplyStockStatus( 
+    		@RequestParam(name = "supplier_name") String supplierName,
+    		@RequestParam(name = "codes") ArrayList<String> codes,
+    		@RequestHeader("user_id") Long userId) {
+		List<SupplyStockStatus> report;
+		if(codes.isEmpty()) {			
+			report = productRepository.getSupplyStockStatus(supplierName);	
+		}else {			
+			//report = saleRepository.getProductListingReportBySelectedProducts(fromDate, toDate, codes);	
+		}			
+		//return report;
+		
+		return productRepository.getSupplyStockStatus(supplierName);
+    }
+    
+    @Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/products/get_negative_stock_report", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<NegativeStockReport> getNegativeStockReport( 
+    		@RequestParam(name = "supplier_name") String supplierName,
+    		@RequestParam(name = "department_name") String departmentName,
+    		@RequestParam(name = "class_name") String className,
+    		@RequestParam(name = "sub_class_name") String subClassName,
+    		@RequestHeader("user_id") Long userId) {
+		List<NegativeStockReport> report;
+		
+		return productRepository.getNegativeStockReport();
+    }
+    
 }

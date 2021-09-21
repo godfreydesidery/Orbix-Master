@@ -2,6 +2,8 @@
 Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class frmStockCardReports
 
@@ -10,28 +12,17 @@ Public Class frmStockCardReports
     End Sub
 
     Private Sub frmStockCardReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         cmbSupplier.Items.Clear()
         dtgrdList.Rows.Clear()
-        Dim item As New Item
-        longList = item.getItems()
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim query As String = ""
-            query = "SELECT`supplier_name` FROM `supplier` "
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                cmbSupplier.Items.Add(reader.GetString("supplier_name"))
-            End While
-            conn.Close()
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
+        Dim product_ As New Product
+        longList = product_.getDescriptions
+
+        Dim supplier As New Supplier
+        cmbSupplier.Items.Add("")
+        longSupplierList = supplier.getNames()
+        ' cmbSupplier.Items.AddRange(supplier.getNames().ToArray)
+
     End Sub
     Private Sub defineStyles(doc As Document)
         'Get the predefined style Normal.
@@ -269,11 +260,8 @@ Public Class frmStockCardReports
         column = table.AddColumn("1.5cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
-
         column = table.AddColumn("6.0cm")
         column.Format.Alignment = ParagraphAlignment.Left
-
-
 
         'Create the header of the table
         Dim row As Row
@@ -288,7 +276,7 @@ Public Class frmStockCardReports
         row.Borders.Color = Colors.White
         row.Cells(0).AddParagraph("Date")
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(1).AddParagraph("Item Code")
+        row.Cells(1).AddParagraph("Code")
         row.Cells(1).Format.Alignment = ParagraphAlignment.Left
         row.Cells(2).AddParagraph("Description")
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
@@ -362,9 +350,7 @@ Public Class frmStockCardReports
         row.Cells(6).AddParagraph()
         row.Cells(6).Format.Alignment = ParagraphAlignment.Left
 
-
         paragraph = section.AddParagraph()
-
 
         paragraph = section.AddParagraph()
         paragraph = section.AddParagraph()
@@ -377,96 +363,59 @@ Public Class frmStockCardReports
 
     Private Function refreshList()
         dtgrdList.Rows.Clear()
+        Cursor = Cursors.AppStarting
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim query As String = ""
-            query = "SELECT `stock_cards`.`date` as `date`,`stock_cards`.`item_code` AS `item_code`,`stock_cards`.`qty_in` AS `qty_in`,`stock_cards`.`qty_out` AS `qty_out`,`stock_cards`.`balance` AS `balance`,`stock_cards`.`reference` AS `reference` FROM `stock_cards` WHERE `stock_cards`.`date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "'"
-
-            'query = "SELECT `stock_cards`.`date` as `date`,`stock_cards`.`item_code` AS `item_code`,`stock_cards`.`qty_in` AS `qty_in`,`stock_cards`.`qty_out` AS `qty_out`,`stock_cards`.`balance` AS `balance`,`stock_cards`.`reference` AS `reference` FROM `stock_cards` WHERE `stock_cards`.`date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "'"
-
+            Dim response As Object = New Object
             If list <> "" Then
-                query = "SELECT `stock_cards`.`date` as `date`,`stock_cards`.`item_code` AS `item_code`,`stock_cards`.`qty_in` AS `qty_in`,`stock_cards`.`qty_out` AS `qty_out`,`stock_cards`.`balance` AS `balance`,`stock_cards`.`reference` AS `reference` FROM `stock_cards` WHERE `stock_cards`.`date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' AND `item_code` IN (" + list + ")"
-                'query = "SELECT `sale`.`date` as `date`,`sale_details`.`item_code` AS `item_code`,SUM((`sale_details`.`selling_price`-`sale_details`.`discounted_price`)*`sale_details`.`qty`) AS `discount`,`sale_details`.`selling_price`AS `price`,SUM(`sale_details`.`qty`) AS `qty`,SUM(`sale_details`.`tax_return`) AS `tax`,SUM(`sale_details`.`amount`) AS `amount` FROM `sale`,`sale_details` WHERE `sale`.`id`=`sale_details`.`sale_id` AND `sale`.`date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' AND `item_code` IN (" + list + ") GROUP BY `item_code`,`date`,`price`,`price` ORDER BY `amount` DESC"
+                response = Web.get_("sales/get_stock_card_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&supplier_name=" + cmbSupplier.Text + "&codes=" + list)
+            Else
+                response = Web.get_("sales/get_stock_card_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&supplier_name=" + cmbSupplier.Text + "&codes=")
             End If
 
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
+            response = Web.get_("sales/get_stock_card_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&supplier_name=" + "&codes=")
 
-            Dim total As Double = 0
-            Dim totalVat As Double = 0
-            Dim totalDiscount As Double = 0
-            Dim totalProfit As Double = 0
+            Dim details As List(Of StockCardReport) = JsonConvert.DeserializeObject(Of List(Of StockCardReport))(response.ToString)
 
-
-
-            While reader.Read
-                Dim date_ As String = reader.GetString("date")
-                Dim itemCode As String = reader.GetString("item_code")
-                Dim description As String = (New Item).getItemLongDescription(itemCode)
-                Dim qtyIn As String = reader.GetString("qty_in")
-                Dim qtyOut As String = reader.GetString("qty_out")
-                Dim balance As String = reader.GetString("balance")
-                Dim reference As String = reader.GetString("reference")
-
-                'Item.searchItem(itemCode)
-
-
-                If cmbSupplier.Text <> "" Then
-                    If cmbSupplier.Text <> (New Supplier).getSupplierName((New Item).getSupplierId("", "", itemCode), "") Then
-                        Continue While
-                    Else
-
-                    End If
-                End If
-
-
-
-
-
-
+            For Each detail In details
                 Dim dtgrdRow As New DataGridViewRow
                 Dim dtgrdCell As DataGridViewCell
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = date_
+                dtgrdCell.Value = detail.date.ToString("yyyy-MM-dd")
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = itemCode
+                dtgrdCell.Value = detail.code
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = description
+                dtgrdCell.Value = detail.description
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = qtyIn
+                dtgrdCell.Value = detail.qtyIn
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = qtyOut
+                dtgrdCell.Value = detail.qtyOut
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = balance
+                dtgrdCell.Value = detail.balance
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = reference
+                dtgrdCell.Value = detail.reference
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdList.Rows.Add(dtgrdRow)
-            End While
-
-            conn.Close()
+            Next
 
         Catch ex As Exception
+            Cursor = Cursors.Default
             MsgBox(ex.Message)
         End Try
+        Cursor = Cursors.Default
         Return vbNull
     End Function
     Dim list As String = ""
@@ -474,41 +423,16 @@ Public Class frmStockCardReports
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btnRun.Click
         list = ""
         For i As Integer = 0 To lstCode.Items.Count - 1
-            list = list + "'" + lstCode.Items.Item(i) + "'"
+            list = list + lstCode.Items.Item(i)
             If i < lstCode.Items.Count - 1 Then
                 list = list + ","
             End If
         Next
         refreshList()
-
     End Sub
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs)
         print()
-    End Sub
-
-    Private Sub txtTotal_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label5_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub txtTotalDiscount_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label4_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub txtTotalVAT_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label3_Click(sender As Object, e As EventArgs)
-
     End Sub
 
     Private Sub cmbSupplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSupplier.SelectedIndexChanged
@@ -520,55 +444,35 @@ Public Class frmStockCardReports
         printWithoutProfit()
     End Sub
 
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
-
-    End Sub
     Private Sub searchItem()
         Dim found As Boolean = False
         Dim valid As Boolean = False
         Dim barCode As String = txtBarCode.Text
-        Dim itemCode As String = txtItemCodeS.Text
+        Dim code As String = txtItemCodeS.Text
         Dim descr As String = cmbDescription.Text
 
         If barCode <> "" Then
-            itemCode = (New Item).getItemCode(barCode, "")
-        ElseIf itemCode <> "" Then
-            itemCode = itemCode
+            code = (New Product).getCode(barCode, "")
+        ElseIf code <> "" Then
+            code = code
         ElseIf descr <> "" Then
-            itemCode = (New Item).getItemCode("", descr)
+            code = (New Product).getCode("", descr)
         Else
-            itemCode = ""
+            code = ""
         End If
 
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim codeQuery As String = "SELECT `item_code`, `item_long_description`, `pck`,`unit_cost_price`, `retail_price`,`vat`, `margin`, `standard_uom`, `active` FROM `items` WHERE `item_code`='" + itemCode + "' "
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                txtItemCodeS.Text = reader.GetString("item_code")
-                cmbDescription.Text = reader.GetString("item_long_description")
-
-                found = True
-
-                valid = True
-
-                Exit While
-            End While
-            conn.Close()
-            If found = False Then
-                MsgBox("Item not found")
-                btnAdd.Enabled = False
-            Else
-                btnAdd.Enabled = True
-            End If
+            response = Web.get_("products/get_by_code?code=" + code)
+            json = JObject.Parse(response)
+            Dim product As Product = JsonConvert.DeserializeObject(Of Product)(json.ToString)
+            txtItemCodeS.Text = product.code
+            cmbDescription.Text = product.description
+            btnAdd.Enabled = True
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            MsgBox("Not found")
+            Exit Sub
         End Try
     End Sub
 
@@ -596,14 +500,6 @@ Public Class frmStockCardReports
         cmbDescription.Text = ""
     End Sub
 
-    Private Sub txtDescription_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-
-    Private Sub txtBarCode_TextChanged(sender As Object, e As EventArgs) Handles txtBarCode.TextChanged
-
-    End Sub
     Private Sub txtBarCode_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBarCode.KeyDown
         If e.KeyCode = Keys.Enter Then
             searchItem()
@@ -635,6 +531,26 @@ Public Class frmStockCardReports
         Next
         cmbDescription.Items.AddRange(shortList.ToArray())
         cmbDescription.SelectionStart = cmbDescription.Text.Length
+        Cursor.Current = Cursors.Default
+    End Sub
+
+    Dim longSupplierList As New List(Of String)
+    Dim shortSupplierList As New List(Of String)
+    Private Sub cmbSupplier_KeyUp(sender As Object, e As EventArgs) Handles cmbSupplier.KeyUp
+        Dim currentText As String = cmbSupplier.Text
+        shortSupplierList.Clear()
+        cmbSupplier.Items.Clear()
+        cmbSupplier.Items.Add(currentText)
+
+        cmbSupplier.DroppedDown = True
+        For Each text As String In longSupplierList
+            Dim formattedText As String = text.ToUpper()
+            If formattedText.Contains(cmbSupplier.Text.ToUpper()) Then
+                shortSupplierList.Add(text)
+            End If
+        Next
+        cmbSupplier.Items.AddRange(shortSupplierList.ToArray())
+        cmbSupplier.SelectionStart = cmbSupplier.Text.Length
         Cursor.Current = Cursors.Default
     End Sub
 End Class

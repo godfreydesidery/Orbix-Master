@@ -4,6 +4,8 @@ Imports Microsoft.Office.Interop
 Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class frmSupplierStockStatus
 
@@ -11,23 +13,88 @@ Public Class frmSupplierStockStatus
         Me.Dispose()
     End Sub
 
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-
-    End Sub
     Dim list As String = ""
 
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btnView.Click
         list = ""
         For i As Integer = 0 To lstCode.Items.Count - 1
-            list = list + "'" + lstCode.Items.Item(i) + "'"
+            list = list + lstCode.Items.Item(i)
             If i < lstCode.Items.Count - 1 Then
                 list = list + ","
             End If
         Next
-        refreshList(cmbSupplier.Text, cmbDepartment.Text)
+        refreshList(cmbSupplier.Text, cmbDepartment.Text, "", "")
     End Sub
-    Private Function refreshList(supplierName As String, departmentName As String)
+    Private Function refreshList(supplierName As String, departmentName As String, className As String, subClassname As String)
         dtgrdItemList.Rows.Clear()
+
+
+
+        Try
+            Dim response As Object = New Object
+            If list <> "" Then
+                response = Web.get_("products/get_supply_stock_status?supplier_name=&department_name=&class_name=&sub_class_name=&codes=" + list)
+            Else
+                response = Web.get_("products/get_supply_stock_status?supplier_name=" + supplierName + "&department_name=&class_name=&sub_class_name=&codes=")
+            End If
+
+            Dim details As List(Of SupplyStockStatus) = JsonConvert.DeserializeObject(Of List(Of SupplyStockStatus))(response.ToString)
+
+
+            Dim totalStockValue As Double = 0
+            Dim totalStockCost As Double = 0
+
+            For Each detail In details
+
+                If detail.stock >= 0 Then
+                    totalStockValue = totalStockValue + detail.stockValue
+                End If
+                If detail.stock >= 0 Then
+                    totalStockCost = totalStockCost + detail.stockCost
+                End If
+
+                Dim dtgrdRow As New DataGridViewRow
+                Dim dtgrdCell As DataGridViewCell
+
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = detail.code
+                dtgrdRow.Cells.Add(dtgrdCell)
+
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = detail.description
+                dtgrdRow.Cells.Add(dtgrdCell)
+
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = detail.stock
+                dtgrdRow.Cells.Add(dtgrdCell)
+
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = LCurrency.displayValue(detail.costPriceVatIncl.ToString)
+                dtgrdRow.Cells.Add(dtgrdCell)
+
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = LCurrency.displayValue(detail.sellingPriceVatIncl.ToString)
+                dtgrdRow.Cells.Add(dtgrdCell)
+
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = LCurrency.displayValue(detail.stockCost.ToString)
+                dtgrdRow.Cells.Add(dtgrdCell)
+
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = LCurrency.displayValue(detail.stockValue.ToString)
+                dtgrdRow.Cells.Add(dtgrdCell)
+
+                dtgrdItemList.Rows.Add(dtgrdRow)
+            Next
+            txtTotalStock.Text = LCurrency.displayValue(totalStockCost.ToString)
+            txtNetValue.Text = LCurrency.displayValue(totalStockValue.ToString)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+        Return vbNull
+        Exit Function
+
         Try
             Dim conn As New MySqlConnection(Database.conString)
             Dim command As New MySqlCommand()
@@ -330,23 +397,26 @@ Public Class frmSupplierStockStatus
         'Before you can add a row, you must define the columns
         Dim column As Column
 
-        column = table.AddColumn("1.8cm")
+        column = table.AddColumn("1.5cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("7cm")
+        column = table.AddColumn("5.5cm")
         column.Format.Alignment = ParagraphAlignment.Right
 
-        column = table.AddColumn("1cm")
+        column = table.AddColumn("1.2cm")
         column.Format.Alignment = ParagraphAlignment.Right
 
-        column = table.AddColumn("1.6cm")
+        column = table.AddColumn("1.7cm")
         column.Format.Alignment = ParagraphAlignment.Right
 
-        column = table.AddColumn("2cm")
+        column = table.AddColumn("1.7cm")
         column.Format.Alignment = ParagraphAlignment.Center
 
 
-        column = table.AddColumn("2.6cm")
+        column = table.AddColumn("2.2cm")
+        column.Format.Alignment = ParagraphAlignment.Right
+
+        column = table.AddColumn("2.5cm")
         column.Format.Alignment = ParagraphAlignment.Right
 
         'Create the header of the table
@@ -366,14 +436,16 @@ Public Class frmSupplierStockStatus
         row.Cells(1).Format.Alignment = ParagraphAlignment.Left
         row.Cells(2).AddParagraph("Stock")
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(3).AddParagraph("Cost Price")
+        row.Cells(3).AddParagraph("C Price")
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(4).AddParagraph("Selling Price")
+        row.Cells(4).AddParagraph("S Price")
         row.Cells(4).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(5).AddParagraph("Stock Value")
+        row.Cells(5).AddParagraph("Stock Cost")
         row.Cells(5).Format.Alignment = ParagraphAlignment.Left
+        row.Cells(6).AddParagraph("Stock Value")
+        row.Cells(6).Format.Alignment = ParagraphAlignment.Left
 
-        table.SetEdge(0, 0, 6, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+        table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         Dim totalQty As Double = 0
 
@@ -384,12 +456,13 @@ Public Class frmSupplierStockStatus
             Dim stock As String = dtgrdItemList.Item(2, i).Value
             Dim costPrice As String = LCurrency.displayValue(dtgrdItemList.Item(3, i).Value)
             Dim sellingPrice As String = LCurrency.displayValue(dtgrdItemList.Item(4, i).Value)
-            Dim stockValue As String = LCurrency.displayValue(dtgrdItemList.Item(5, i).Value)
+            Dim stockCost As String = LCurrency.displayValue(dtgrdItemList.Item(5, i).Value)
+            Dim stockValue As String = LCurrency.displayValue(dtgrdItemList.Item(6, i).Value)
 
             row = table.AddRow()
             row.Format.Font.Bold = False
             row.HeadingFormat = False
-            row.Format.Font.Size = 7
+            row.Format.Font.Size = 8
             row.Format.Alignment = ParagraphAlignment.Center
             row.Borders.Color = Colors.White
             row.Cells(0).AddParagraph(code)
@@ -402,10 +475,12 @@ Public Class frmSupplierStockStatus
             row.Cells(3).Format.Alignment = ParagraphAlignment.Right
             row.Cells(4).AddParagraph(sellingPrice)
             row.Cells(4).Format.Alignment = ParagraphAlignment.Right
-            row.Cells(5).AddParagraph(stockValue)
+            row.Cells(5).AddParagraph(stockCost)
             row.Cells(5).Format.Alignment = ParagraphAlignment.Right
+            row.Cells(6).AddParagraph(stockValue)
+            row.Cells(6).Format.Alignment = ParagraphAlignment.Right
 
-            table.SetEdge(0, 0, 6, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+            table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         Next
 
@@ -423,9 +498,12 @@ Public Class frmSupplierStockStatus
         row.Cells(4).Format.Alignment = ParagraphAlignment.Left
         row.Cells(5).AddParagraph()
         row.Cells(5).Format.Alignment = ParagraphAlignment.Left
+        row.Cells(6).AddParagraph()
+        row.Cells(6).Format.Alignment = ParagraphAlignment.Left
 
         row = table.AddRow()
         row.Borders.Color = Colors.White
+        row.Format.Font.Size = 8
         row.Cells(0).AddParagraph()
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
         row.Cells(1).AddParagraph()
@@ -434,13 +512,18 @@ Public Class frmSupplierStockStatus
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
         row.Cells(3).AddParagraph()
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(4).AddParagraph("Total(negative")
+        row.Cells(4).AddParagraph()
         row.Cells(4).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(5).AddParagraph("stocks excluded)")
+        row.Cells(5).AddParagraph("Stock Cost")
         row.Cells(5).Format.Alignment = ParagraphAlignment.Left
+        row.Cells(6).AddParagraph(txtTotalStock.Text)
+        row.Cells(6).Format.Alignment = ParagraphAlignment.Right
+
+        table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+
         row = table.AddRow()
-        row.Format.Font.Bold = True
         row.Borders.Color = Colors.White
+        row.Format.Font.Size = 8
         row.Cells(0).AddParagraph()
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
         row.Cells(1).AddParagraph()
@@ -449,30 +532,18 @@ Public Class frmSupplierStockStatus
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
         row.Cells(3).AddParagraph()
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(4).AddParagraph("Stock Cost")
-        row.Cells(4).Format.Alignment = ParagraphAlignment.Right
-        row.Cells(5).AddParagraph(txtTotalStock.Text)
-        row.Cells(5).Format.Alignment = ParagraphAlignment.Right
+        row.Cells(4).AddParagraph()
+        row.Cells(4).Format.Alignment = ParagraphAlignment.Left
+        row.Cells(5).AddParagraph("Stock Value")
+        row.Cells(5).Format.Alignment = ParagraphAlignment.Left
+        row.Cells(6).AddParagraph(txtNetValue.Text)
+        row.Cells(6).Format.Alignment = ParagraphAlignment.Right
 
-        table.SetEdge(0, 0, 6, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
-
-        row = table.AddRow()
-        row.Format.Font.Bold = True
-        row.Borders.Color = Colors.White
-        row.Cells(0).AddParagraph()
-        row.Cells(0).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(1).AddParagraph()
-        row.Cells(1).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(2).AddParagraph()
-        row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(3).AddParagraph()
-        row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(4).AddParagraph("Stock Value")
-        row.Cells(4).Format.Alignment = ParagraphAlignment.Right
-        row.Cells(5).AddParagraph(txtNetValue.Text)
-        row.Cells(5).Format.Alignment = ParagraphAlignment.Right
-
-        table.SetEdge(0, 0, 6, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+        table.SetEdge(0, 0, 7, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+        paragraph = section.AddParagraph()
+        paragraph.AddFormattedText("---NB: Negative stocks are excluded---")
+        paragraph.Format.Alignment = ParagraphAlignment.Right
+        paragraph.Format.Font.Size = 8
 
         paragraph = section.AddParagraph()
         paragraph = section.AddParagraph()
@@ -488,195 +559,45 @@ Public Class frmSupplierStockStatus
         dtgrdItemList.Rows.Clear()
         Dim item As New Item
         longList = item.getItems()
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim query As String = ""
-            query = "SELECT`supplier_name` FROM `supplier` "
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                cmbSupplier.Items.Add(reader.GetString("supplier_name"))
-            End While
-            conn.Close()
-            Dim conn2 As New MySqlConnection(Database.conString)
-            Dim command2 As New MySqlCommand()
-            query = "SELECT`department_name` FROM `department` "
-            conn2.Open()
-            command2.CommandText = query
-            command2.Connection = conn2
-            command2.CommandType = CommandType.Text
-            Dim reader1 As MySqlDataReader = command2.ExecuteReader()
-            While reader1.Read
-                cmbDepartment.Items.Add(reader1.GetString("department_name"))
-            End While
-            conn2.Close()
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
+        Dim supplier As New Supplier
+        cmbSupplier.Items.Add("")
+        longSupplierList = supplier.getNames()
+
     End Sub
-    Private Function sssrefreshList(supplierName As String)
-        dtgrdItemList.Rows.Clear()
-        Dim itemCode As String = ""
-        Dim description As String = ""
-        Dim stock As String = ""
-        Dim costPrice As String = ""
-        Dim sellingPrice As String = ""
-        Dim stockValue As String = ""
-        Dim supplier As String = ""
-        Dim supplierCode As String = ""
 
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim query As String = ""
-            If supplierName <> "" Then
-                query = "SELECT `item_code`,`item_scan_code`, `item_long_description`, `item_description`, `pck`, `department_id`, `class_id`, `sub_class_id`, `supplier_id`, `unit_cost_price`, `retail_price`, `discount`, `vat`, `margin`, `standard_uom`, `active` FROM `items` WHERE `supplier_id`='" + (New Supplier).getSupplierID("", cmbSupplier.Text) + "'"
-            Else
-                query = "SELECT `sn`, `item_code`, `item_scan_code`, `item_long_description`, `item_description`, `pck`, `department_id`, `class_id`, `sub_class_id`, `supplier_id`, `unit_cost_price`, `retail_price`, `discount`, `vat`, `margin`, `standard_uom`, `active` FROM `items`"
-            End If
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-
-            While reader.Read
-
-                itemCode = reader.GetString("item_code")
-                description = reader.GetString("item_long_description")
-                stock = (New Inventory).getInventory(itemCode)
-                costPrice = reader.GetString("unit_cost_price")
-                sellingPrice = reader.GetString("retail_price")
-                stockValue = (Val(stock) * Val(sellingPrice)).ToString
-                supplier = (New Supplier).getSupplierName(reader.GetString("supplier_id"), "")
-                supplierCode = (New Supplier).getSupplierCode(reader.GetString("supplier_id"), "")
-
-                Dim dtgrdRow As New DataGridViewRow
-                Dim dtgrdCell As DataGridViewCell
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = itemCode
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = description
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = stock
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(costPrice.ToString)
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(sellingPrice.ToString)
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(stockValue.ToString)
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = supplierCode
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = supplier
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdItemList.Rows.Add(dtgrdRow)
-            End While
-            conn.Close()
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
-
-        Return vbNull
-    End Function
     Private Sub btnView_Click(sender As Object, e As EventArgs) Handles btnView.Click
-        refreshList(cmbSupplier.Text, cmbDepartment.Text)
+        refreshList(cmbSupplier.Text, cmbDepartment.Text, "", "")
     End Sub
 
-    Private Sub dtgrdItemList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dtgrdItemList.CellContentClick
-
-    End Sub
-
-    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
-        'refreshList(cmbSupplier.Text, cmbDepartment.Text)
-        If dtgrdItemList.RowCount = 0 Then
-            MsgBox("Nothing to export")
-            Exit Sub
-        End If
-        If cmbSupplier.Text = "" Then
-            If list = "" Then
-                '   MsgBox("Select a supplier.", vbOKOnly + vbCritical, "Error: No selection")
-                '  Exit Sub
-            End If
-
-        End If
-        If dtgrdItemList.RowCount > 0 Then
-            print()
-        Else
-            Dim res As Integer = MsgBox("List is empty. Would you like to print an empty list?", vbYesNo + vbQuestion, "List empty")
-            If res = DialogResult.Yes Then
-                print()
-            End If
-        End If
-    End Sub
     Private Sub searchItem()
         Dim found As Boolean = False
         Dim valid As Boolean = False
         Dim barCode As String = txtBarCode.Text
-        Dim itemCode As String = txtItemCodeS.Text
+        Dim code As String = txtItemCodeS.Text
         Dim descr As String = cmbDescription.Text
 
         If barCode <> "" Then
-            itemCode = (New Item).getItemCode(barCode, "")
-        ElseIf itemCode <> "" Then
-            itemCode = itemCode
+            code = (New Product).getCode(barCode, "")
+        ElseIf code <> "" Then
+            code = code
         ElseIf descr <> "" Then
-            itemCode = (New Item).getItemCode("", descr)
+            code = (New Product).getCode("", descr)
         Else
-            itemCode = ""
+            code = ""
         End If
 
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim codeQuery As String = "SELECT `item_code`, `item_long_description`, `pck`,`unit_cost_price`, `retail_price`,`vat`, `margin`, `standard_uom`, `active` FROM `items` WHERE `item_code`='" + itemCode + "' "
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                txtItemCodeS.Text = reader.GetString("item_code")
-                cmbDescription.Text = reader.GetString("item_long_description")
-
-                found = True
-
-                valid = True
-
-                Exit While
-            End While
-            conn.Close()
-            If found = False Then
-                MsgBox("Item not found")
-                btnAdd.Enabled = False
-            Else
-                btnAdd.Enabled = True
-            End If
+            response = Web.get_("products/get_by_code?code=" + code)
+            json = JObject.Parse(response)
+            Dim product As Product = JsonConvert.DeserializeObject(Of Product)(json.ToString)
+            txtItemCodeS.Text = product.code
+            cmbDescription.Text = product.description
+            btnAdd.Enabled = True
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            MsgBox("Not found")
+            Exit Sub
         End Try
     End Sub
 
@@ -739,7 +660,15 @@ Public Class frmSupplierStockStatus
         Cursor.Current = Cursors.Default
     End Sub
 
-    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
+    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub cmbSupplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSupplier.SelectedIndexChanged
+        dtgrdItemList.Rows.Clear()
+    End Sub
+
+    Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
         If dtgrdItemList.RowCount = 0 Then
             MsgBox("Nothing to export")
             Exit Sub
@@ -772,13 +701,13 @@ Public Class frmSupplierStockStatus
         End With
         r = r + 2
         ' Add table headers going cell by cell.
-        shXL.Cells(r, 1).Value = "Item Code"
+        shXL.Cells(r, 1).Value = "Code"
         shXL.Cells(r, 2).Value = "Description"
         shXL.Cells(r, 3).Value = "Stock"
         shXL.Cells(r, 4).Value = "Cost Price@"
         shXL.Cells(r, 5).Value = "Selling Price@"
-        shXL.Cells(r, 6).Value = "Stock Value"
-        shXL.Cells(r, 7).Value = "Supplier# Name"
+        shXL.Cells(r, 6).Value = "Stock Cost"
+        shXL.Cells(r, 7).Value = "Stock Value"
         ' Format A1:D1 as bold, vertical alignment = center.
         With shXL.Range("A3", "G3")
             .Font.Bold = True
@@ -803,23 +732,74 @@ Public Class frmSupplierStockStatus
         ' AutoFit columns A:D.
         raXL = shXL.Range("A1", "G1")
         raXL.EntireColumn.AutoFit()
-        ' Make sure Excel is visible and give the user control
-        ' of Excel's lifetime.
-        appXL.Visible = True
-        appXL.UserControl = True
-        ' Release object references.
-        raXL = Nothing
-        shXL = Nothing
-        wbXl = Nothing
-        appXL.Quit()
-        appXL = Nothing
+        Dim strFileName As String = LSystem.saveToDesktop & "\Supply Stock Status " & cmbSupplier.Text & cmbDepartment.Text & ".xls"
+        Dim blnFileOpen As Boolean = False
+        Try
+            Dim fileTemp As System.IO.FileStream = System.IO.File.OpenWrite(strFileName)
+            fileTemp.Close()
+        Catch ex As Exception
+            blnFileOpen = False
+        End Try
+
+        If System.IO.File.Exists(strFileName) Then
+            Try
+                'System.IO.File.Delete(strFileName)
+            Catch ex As Exception
+            End Try
+        End If
+        Try
+            wbXl.Save()
+        Catch ex As Exception
+
+        End Try
+        ' appXL.Workbooks.Open(strFileName)
         Exit Sub
 Err_Handler:
         MsgBox(Err.Description, vbCritical, "Error: " & Err.Number)
 
     End Sub
 
-    Private Sub cmbSupplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSupplier.SelectedIndexChanged
-        dtgrdItemList.Rows.Clear()
+    Private Sub btnExportToPDF_Click(sender As Object, e As EventArgs) Handles btnExportToPDF.Click
+        'refreshList(cmbSupplier.Text, cmbDepartment.Text)
+        If dtgrdItemList.RowCount = 0 Then
+            MsgBox("Nothing to export")
+            Exit Sub
+        End If
+        If cmbSupplier.Text = "" Then
+            If list = "" Then
+                '   MsgBox("Select a supplier.", vbOKOnly + vbCritical, "Error: No selection")
+                '  Exit Sub
+            End If
+
+        End If
+        If dtgrdItemList.RowCount > 0 Then
+            print()
+        Else
+            Dim res As Integer = MsgBox("List is empty. Would you like to print an empty list?", vbYesNo + vbQuestion, "List empty")
+            If res = DialogResult.Yes Then
+                print()
+            End If
+        End If
     End Sub
+
+    Dim longSupplierList As New List(Of String)
+    Dim shortSupplierList As New List(Of String)
+    Private Sub cmbSupplier_KeyUp(sender As Object, e As EventArgs) Handles cmbSupplier.KeyUp
+        Dim currentText As String = cmbSupplier.Text
+        shortSupplierList.Clear()
+        cmbSupplier.Items.Clear()
+        cmbSupplier.Items.Add(currentText)
+
+        cmbSupplier.DroppedDown = True
+        For Each text As String In longSupplierList
+            Dim formattedText As String = text.ToUpper()
+            If formattedText.Contains(cmbSupplier.Text.ToUpper()) Then
+                shortSupplierList.Add(text)
+            End If
+        Next
+        cmbSupplier.Items.AddRange(shortSupplierList.ToArray())
+        cmbSupplier.SelectionStart = cmbSupplier.Text.Length
+        Cursor.Current = Cursors.Default
+    End Sub
+
 End Class
