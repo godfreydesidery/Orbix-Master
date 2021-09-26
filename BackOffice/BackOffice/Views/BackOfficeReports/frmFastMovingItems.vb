@@ -4,6 +4,7 @@ Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
 Imports Microsoft.Office.Interop
+Imports Newtonsoft.Json
 
 Public Class frmFastMovingItems
 
@@ -684,74 +685,45 @@ Public Class frmFastMovingItems
     Private Function refreshList()
         Cursor = Cursors.WaitCursor
         dtgrdList.Rows.Clear()
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim query As String = ""
-            'query = "SELECT `sale`.`date` as `date`,`sale_details`.`item_code` AS `item_code`,SUM(`sale_details`.`selling_price`-`sale_details`.`discounted_price`) AS `discount`,`sale_details`.`selling_price`AS `price`,SUM(`sale_details`.`qty`) AS `qty`,SUM(`sale_details`.`tax_return`) AS `tax`,SUM(`sale_details`.`amount`) AS `amount` FROM `sale`,`sale_details` WHERE `sale`.`id`=`sale_details`.`sale_id` AND `sale`.`date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' GROUP BY `item_code`,`date`,`price` ORDER BY `qty` DESC"
-            query = "SELECT `sale`.`date` as `date`,`sale_details`.`item_code` AS `item_code`,SUM(`sale_details`.`selling_price`-`sale_details`.`discounted_price`) AS `discount`,`sale_details`.`selling_price`AS `price`,SUM(`sale_details`.`qty`) AS `qty`,SUM(`sale_details`.`tax_return`) AS `tax`,SUM(`sale_details`.`selling_price`*`sale_details`.`qty`) AS `amount` FROM `sale`,`sale_details` WHERE `sale`.`id`=`sale_details`.`sale_id` AND `sale`.`date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' GROUP BY `item_code` ORDER BY `qty` DESC"
 
-            If list <> "" Then
-                query = "SELECT `sale`.`date` as `date`,`sale_details`.`item_code` AS `item_code`,SUM(`sale_details`.`selling_price`-`sale_details`.`discounted_price`) AS `discount`,`sale_details`.`selling_price`AS `price`,SUM(`sale_details`.`qty`) AS `qty`,SUM(`sale_details`.`tax_return`) AS `tax`,SUM(`sale_details`.`amount`) AS `amount` FROM `sale`,`sale_details` WHERE `sale`.`id`=`sale_details`.`sale_id` AND `sale`.`date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' AND `item_code` IN (" + list + ") GROUP BY `item_code`,`date`,`price` ORDER BY `qty` DESC"
-            End If
-            If cmbSupplier.Text <> "" Then
-                ' query = "SELECT `items`.`supplier_id` AS `supplier_id`,`sale`.`date` as `date`,`sale_details`.`item_code` AS `item_code`,SUM(`sale_details`.`selling_price`-`sale_details`.`discounted_price`) AS `discount`,`sale_details`.`selling_price`AS `price`,SUM(`sale_details`.`qty`) AS `qty`,SUM(`sale_details`.`vat`) AS `vat`,SUM(`sale_details`.`amount`) AS `amount` FROM `sale`,`sale_details`,`items` WHERE `sale`.`id`=`sale_details`.`sale_id` AND `sale`.`date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' GROUP BY `item_code`,`date`,`price` ORDER BY `amount` DESC"
-            End If
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
+        Try
+
+            Dim response As Object = New Object
+
+            response = Web.get_("sales/get_fast_moving_items?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&supplier_name=&department_name=&class_name=&sub_class_name=")
+
+            Dim details As List(Of FastMovingItems) = JsonConvert.DeserializeObject(Of List(Of FastMovingItems))(response.ToString)
 
             Dim total As Double = 0
             Dim totalVat As Double = 0
             Dim totalDiscount As Double = 0
             Dim totalProfit As Double = 0
 
-            While reader.Read
-                Dim itemCode As String = reader.GetString("item_code")
-                Dim description As String = (New Item).getItemLongDescription(itemCode)
-                Dim stock As String = (New Item).getStock(itemCode)
-                Dim qty As String = reader.GetString("qty")
-                Dim price As String = reader.GetString("price")
-                Dim discount As String = reader.GetString("discount")
-                Dim tax As String = reader.GetString("tax")
-                Dim amount As String = reader.GetString("amount")
-                Dim item As New Item
-                item.searchItem(itemCode)
-
-                If cmbSupplier.Text <> "" Then
-                    If cmbSupplier.Text <> (New Supplier).getSupplierName((New Item).getSupplierId("", "", itemCode), "") Then
-                        Continue While
-                    Else
-
-                    End If
-                End If
-
+            For Each detail In details
                 Dim profit As String = "" '(Val(amount) - (Val(qty) * Val(item.GL_COST_PRICE)) - Val(tax)).ToString
                 totalProfit = totalProfit + Val(profit)
 
-                total = total + Val(amount)
-                totalDiscount = totalDiscount + Val(discount)
-                totalVat = totalVat + Val(tax)
+                total = total + detail.amount
+                '   totalDiscount = totalDiscount + Val(discount)
+                '   totalVat = totalVat + Val(tax)
 
                 Dim dtgrdRow As New DataGridViewRow
                 Dim dtgrdCell As DataGridViewCell
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = itemCode
+                dtgrdCell.Value = detail.code
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = description
+                dtgrdCell.Value = detail.description
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = stock
+                dtgrdCell.Value = detail.stock
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = qty
+                dtgrdCell.Value = detail.qty
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
@@ -767,7 +739,7 @@ Public Class frmFastMovingItems
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(amount)
+                dtgrdCell.Value = LCurrency.displayValue(detail.amount)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
@@ -775,13 +747,12 @@ Public Class frmFastMovingItems
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdList.Rows.Add(dtgrdRow)
-            End While
-
-            conn.Close()
+            Next
 
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
+        dtgrdList.ClearSelection()
         Cursor = Cursors.Default
         Return vbNull
     End Function
@@ -796,43 +767,6 @@ Public Class frmFastMovingItems
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
         print()
-    End Sub
-
-
-
-
-
-
-
-
-
-
-
-
-
-    Private Sub cmbSupplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSupplier.SelectedIndexChanged
-    End Sub
-
-
-
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
-
-    End Sub
-
-
-
-
-
-
-
-
-
-
-
-
-
-    Private Sub dtgrdList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dtgrdList.CellContentClick
-
     End Sub
 
     Private Sub btnExportToPDF_Click(sender As Object, e As EventArgs) Handles btnExportToPDF.Click

@@ -152,8 +152,14 @@
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Models\Reports\DailySalesReport.vb" />
+    <Compile Include="Models\Reports\FastMovingItems.vb" />
+    <Compile Include="Models\Reports\GRNReport.vb" />
     <Compile Include="Models\Reports\NegativeStockReport.vb" />
+    <Compile Include="Models\Reports\PendingLPO.vb" />
+    <Compile Include="Models\Reports\PriceChangeReport.vb" />
+    <Compile Include="Models\Reports\PrintedLPO.vb" />
     <Compile Include="Models\Reports\ProductListingReport.vb" />
+    <Compile Include="Models\Reports\SlowMovingItems.vb" />
     <Compile Include="Models\Reports\StockCardReport.vb" />
     <Compile Include="Models\Reports\SupplySalesReport.vb" />
     <Compile Include="Models\Reports\SupplyStockStatus.vb" />

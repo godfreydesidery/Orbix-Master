@@ -47,6 +47,7 @@ public class ReceiptDetail {
 	private double sellingPriceVatIncl;
 	private double sellingPriceVatExcl;
 	private double discount = 0;
+	private double discountRatio = 0;
 	
 	@ManyToOne(targetEntity = Receipt.class, fetch = FetchType.EAGER,  optional = true)
     @JoinColumn(name = "receipt_id", nullable = true , updatable = true)
@@ -139,6 +140,14 @@ public class ReceiptDetail {
 
 	public void setReceipt(Receipt receipt) {
 		this.receipt = receipt;
+	}
+
+	public double getDiscountRatio() {
+		return discountRatio;
+	}
+
+	public void setDiscountRatio(double discountRatio) {
+		this.discountRatio = discountRatio;
 	}
 	
 	

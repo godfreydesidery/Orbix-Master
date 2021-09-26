@@ -40,7 +40,7 @@ public class Product {
 	private double sellingPriceVatExcl = 0;
 	private double profitMargin = 0;
 	private double vat = 0;
-	private double discount = 0;
+	private double discountRatio = 0;
 	private double stock = 0;
 	private double maximumStock = 0;
 	private double minimumStock = 0;
@@ -197,13 +197,13 @@ public class Product {
 	public void setVat(double vat) {
 		this.vat = vat;
 	}
-
-	public double getDiscount() {
-		return discount;
+	
+	public double getDiscountRatio() {
+		return discountRatio;
 	}
 
-	public void setDiscount(double discount) {
-		this.discount = discount;
+	public void setDiscountRatio(double discountRatio) {
+		this.discountRatio = discountRatio;
 	}
 
 	public double getStock() {

@@ -22,10 +22,11 @@ Partial Class frmSupplierStockStatus
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.cmbSupplier = New System.Windows.Forms.ComboBox()
         Me.btnView = New System.Windows.Forms.Button()
         Me.dtgrdItemList = New System.Windows.Forms.DataGridView()
@@ -404,8 +405,8 @@ Partial Class frmSupplierStockStatus
         '
         'Column3
         '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.Column3.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.Column3.DefaultCellStyle = DataGridViewCellStyle1
         Me.Column3.FillWeight = 62.43238!
         Me.Column3.HeaderText = "Stock"
         Me.Column3.Name = "Column3"
@@ -413,8 +414,8 @@ Partial Class frmSupplierStockStatus
         '
         'Column4
         '
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column4.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column4.DefaultCellStyle = DataGridViewCellStyle2
         Me.Column4.FillWeight = 73.40728!
         Me.Column4.HeaderText = "Cost Price@"
         Me.Column4.Name = "Column4"
@@ -422,8 +423,8 @@ Partial Class frmSupplierStockStatus
         '
         'Column5
         '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column5.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column5.DefaultCellStyle = DataGridViewCellStyle3
         Me.Column5.FillWeight = 71.06599!
         Me.Column5.HeaderText = "Selling Price@"
         Me.Column5.Name = "Column5"
@@ -431,8 +432,8 @@ Partial Class frmSupplierStockStatus
         '
         'Column6
         '
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column6.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column6.DefaultCellStyle = DataGridViewCellStyle4
         Me.Column6.FillWeight = 88.30824!
         Me.Column6.HeaderText = "Stock Cost"
         Me.Column6.Name = "Column6"
@@ -440,6 +441,8 @@ Partial Class frmSupplierStockStatus
         '
         'Column8
         '
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column8.DefaultCellStyle = DataGridViewCellStyle5
         Me.Column8.FillWeight = 169.7005!
         Me.Column8.HeaderText = "Stock Value"
         Me.Column8.Name = "Column8"

@@ -2,6 +2,7 @@
 Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
 
 Public Class frmGrnReport2
     Dim GLORDERNO As String
@@ -264,12 +265,12 @@ Public Class frmGrnReport2
         table.SetEdge(0, 0, 10, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         Dim totalAmount As Double = 0
-            Dim totalVat As Double = 0
-            Dim totalDiscount As Double = 0
+        Dim totalVat As Double = 0
+        Dim totalDiscount As Double = 0
 
 
 
-            For i As Integer = 0 To dtgrdItemList.RowCount - 1
+        For i As Integer = 0 To dtgrdItemList.RowCount - 1
             Dim _date As String = dtgrdItemList.Item(0, i).Value.ToString
             Dim code As String = dtgrdItemList.Item(1, i).Value.ToString
             Dim description As String = dtgrdItemList.Item(2, i).Value.ToString
@@ -377,210 +378,73 @@ Public Class frmGrnReport2
         Dim totalVat As Double = 0
         Dim totalProfit As Double = 0
 
+        Dim total As Double = 0
+
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim query As String = ""
 
-            Dim _supplierId As String = ""
-            Dim _orderNo As String = txtLpoNo.Text
-            Dim _grnNo As String = txtGrnNo.Text
-            Dim _invoiceNo As String = txtInvoiceNo.text
+            Dim response As Object = New Object
 
-            GLSUPPLIER = cmbSuppliers.Text
-            GLORDERNO = _orderNo
-            GLGRNNO = _grnNo
-            GLINVOICENO = _invoiceNo
+            response = Web.get_("grns/get_grn_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&lpo_no=&invoice_no=&grn_no=&supplier_name=")
 
-            query = "SELECT
-                        `goods_received_note`.`grn_no` AS `grn_no`,
-                        `goods_received_note`.`grn_date` as `date`,
-                        `goods_received_note`.`order_no` as `order_no`,
-                        `goods_received_note`.`invoice_no` as `invoice_no`,
-                        `goods_received_note_particulars`.`item_code` AS `item_code`,
-                        `goods_received_note_particulars`.`qty` AS `qty`,
-                        `goods_received_note_particulars`.`unit_cost` AS `price`,
-                        `orders`.`supplier_id` AS `supplier_id`
-                    FROM
-                        `goods_received_note_particulars`
-                        JOIN `goods_received_note`
-	                        ON `goods_received_note_particulars`.`grn_no`=`goods_received_note`.`grn_no`
-                        JOIN `orders`
-	                        ON `goods_received_note`.`order_no`=`orders`.`order_no`
-                    WHERE `goods_received_note`.`grn_date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "'
-                    ORDER BY `date` ASC
-                    "
+            Dim details As List(Of GRNReport) = JsonConvert.DeserializeObject(Of List(Of GRNReport))(response.ToString)
 
-            If cmbSuppliers.Text <> "" Then
-                _supplierId = (New Supplier).getSupplierID("", cmbSuppliers.Text)
-                If _supplierId = "" Then
-                    GLSUPPLIER = ""
-                    MsgBox("Could not generate report. No matching supplier", vbOKOnly + vbExclamation, "Error: Supplier not found")
-                    Exit Sub
-                End If
-            End If
+            For Each detail In details
 
-            If _supplierId <> "" Then
-                query = "SELECT
-                            `goods_received_note`.`grn_no` AS `grn_no`,
-                            `goods_received_note`.`grn_date` as `date`,
-                            `goods_received_note`.`order_no` as `order_no`,
-                            `goods_received_note`.`invoice_no` as `invoice_no`,
-                            `goods_received_note_particulars`.`item_code` AS `item_code`,
-                            `goods_received_note_particulars`.`qty` AS `qty`,
-                            `goods_received_note_particulars`.`unit_cost` AS `price`,
-                            `orders`.`supplier_id` AS `supplier_id`
-                        FROM
-                            `goods_received_note_particulars`
-                            JOIN `goods_received_note`
-	                            ON `goods_received_note_particulars`.`grn_no`=`goods_received_note`.`grn_no`
-                            JOIN `orders`
-	                            ON `goods_received_note`.`order_no`=`orders`.`order_no`
-                        WHERE `goods_received_note`.`grn_date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' AND
-                                `supplier_id`='" + _supplierId + "'
-                        ORDER BY `date` ASC
-                        "
-            End If
-            If _orderNo <> "" Then
-                query = "SELECT
-                            `goods_received_note`.`grn_no` AS `grn_no`,
-                            `goods_received_note`.`grn_date` as `date`,
-                            `goods_received_note`.`order_no` as `order_no`,
-                            `goods_received_note`.`invoice_no` as `invoice_no`,
-                            `goods_received_note_particulars`.`item_code` AS `item_code`,
-                            `goods_received_note_particulars`.`qty` AS `qty`,
-                            `goods_received_note_particulars`.`unit_cost` AS `price`,
-                            `orders`.`supplier_id` AS `supplier_id`
-                        FROM
-                            `goods_received_note_particulars`
-                            JOIN `goods_received_note`
-	                            ON `goods_received_note_particulars`.`grn_no`=`goods_received_note`.`grn_no`
-                            JOIN `orders`
-	                            ON `goods_received_note`.`order_no`=`orders`.`order_no`
-                        WHERE `goods_received_note`.`grn_date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' AND
-                                `goods_received_note`.`order_no`='" + _orderNo + "'
-                        ORDER BY `date` ASC
-                        "
-            End If
-            If _grnNo <> "" Then
-                query = "SELECT
-                            `goods_received_note`.`grn_no` AS `grn_no`,
-                            `goods_received_note`.`grn_date` as `date`,
-                            `goods_received_note`.`order_no` as `order_no`,
-                            `goods_received_note`.`invoice_no` as `invoice_no`,
-                            `goods_received_note_particulars`.`item_code` AS `item_code`,
-                            `goods_received_note_particulars`.`qty` AS `qty`,
-                            `goods_received_note_particulars`.`unit_cost` AS `price`,
-                            `orders`.`supplier_id` AS `supplier_id`
-                        FROM
-                            `goods_received_note_particulars`
-                            JOIN `goods_received_note`
-	                            ON `goods_received_note_particulars`.`grn_no`=`goods_received_note`.`grn_no`
-                            JOIN `orders`
-	                            ON `goods_received_note`.`order_no`=`orders`.`order_no`
-                        WHERE `goods_received_note`.`grn_date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' AND
-                                `goods_received_note`.`grn_no`='" + _grnNo + "'
-                        ORDER BY `date` ASC
-                        "
-            End If
-            If _invoiceNo <> "" Then
-                query = "SELECT
-                            `goods_received_note`.`grn_no` AS `grn_no`,
-                            `goods_received_note`.`grn_date` as `date`,
-                            `goods_received_note`.`order_no` as `order_no`,
-                            `goods_received_note`.`invoice_no` as `invoice_no`,
-                            `goods_received_note_particulars`.`item_code` AS `item_code`,
-                            `goods_received_note_particulars`.`qty` AS `qty`,
-                            `goods_received_note_particulars`.`unit_cost` AS `price`,
-                            `orders`.`supplier_id` AS `supplier_id`
-                        FROM
-                            `goods_received_note_particulars`
-                            JOIN `goods_received_note`
-	                            ON `goods_received_note_particulars`.`grn_no`=`goods_received_note`.`grn_no`
-                            JOIN `orders`
-	                            ON `goods_received_note`.`order_no`=`orders`.`order_no`
-                        WHERE `goods_received_note`.`grn_date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' AND
-                                `goods_received_note`.`invoice_no`='" + _invoiceNo + "'
-                        ORDER BY `date` ASC
-                        "
-            End If
-
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-
-            Dim total As Double = 0
-
-            While reader.Read
-                Dim _date As String = reader.GetString("date")
-                Dim itemCode As String = reader.GetString("item_code")
-                Dim description As String = (New Item).getItemLongDescription(itemCode)
-                Dim qty As String = reader.GetString("qty")
-                Dim price As String = reader.GetString("price")
-                Dim grnNo As String = reader.GetString("grn_no")
-                Dim orderNo As String = reader.GetString("order_no")
-                Dim invoiceNo As String = reader.GetString("invoice_no")
-                Dim supplier As String = (New Supplier).getSupplierName(reader.GetString("supplier_id"), "")
-
-                total = total + Val(qty) * Val(price)
+                total = total + detail.qty * detail.price
 
 
                 Dim dtgrdRow As New DataGridViewRow
                 Dim dtgrdCell As DataGridViewCell
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = _date
+                dtgrdCell.Value = detail.date.ToString("yyyy-MM-dd")
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = itemCode
+                dtgrdCell.Value = detail.code
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = description
+                dtgrdCell.Value = detail.description
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = qty
+                dtgrdCell.Value = detail.qty
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(price)
+                dtgrdCell.Value = LCurrency.displayValue(detail.price)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(Val(qty) * Val(price))
+                dtgrdCell.Value = LCurrency.displayValue(detail.amount)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = grnNo
+                dtgrdCell.Value = detail.grnNo
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = orderNo
+                dtgrdCell.Value = detail.lpoNo
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = invoiceNo
+                dtgrdCell.Value = detail.invoiceNo
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = supplier
+                dtgrdCell.Value = detail.supplier
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdItemList.Rows.Add(dtgrdRow)
-            End While
 
-            txtTotal.Text = LCurrency.displayValue(total.ToString)
+            Next
 
-            conn.Close()
-            ' txtTotal.Text = LCurrency.displayValue(totalSales.ToString)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
 
+        txtTotal.Text = LCurrency.displayValue(total.ToString)
     End Sub
 
     Private Sub txtLpoNo_TextChanged(sender As Object, e As EventArgs) Handles txtLpoNo.TextChanged
@@ -606,7 +470,7 @@ Public Class frmGrnReport2
         End If
     End Sub
 
-    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+    Private Sub btnWxportToPDF_Click(sender As Object, e As EventArgs) Handles btnExportToPDF.Click
         If dtgrdItemList.RowCount = 0 Then
             MsgBox("Could not print an empty document", vbOKOnly + vbExclamation, "Error: Empty selection")
             Exit Sub

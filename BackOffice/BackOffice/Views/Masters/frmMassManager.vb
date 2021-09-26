@@ -890,7 +890,7 @@ Public Class frmMassManager
                             Dim sellingPriceVatExcl As String = objXLWs.Range("T" & i).Value
                             Dim profitMargin As String = objXLWs.Range("U" & i).Value
                             Dim vat As String = objXLWs.Range("V" & i).Value
-                            Dim discount As String = objXLWs.Range("W" & i).Value
+                            Dim discountRatio As String = objXLWs.Range("W" & i).Value
                             Dim status As String = objXLWs.Range("X" & i).Value
                             Dim sellable As String = objXLWs.Range("Y" & i).Value
                             Dim returnable As String = objXLWs.Range("Z" & i).Value
@@ -924,7 +924,7 @@ Public Class frmMassManager
                             product.sellingPriceVatExcl = sellingPriceVatExcl
                             product.profitMargin = profitMargin
                             product.vat = vat
-                            product.discount = discount
+                            product.discountRatio = discountRatio
                             product.status = status
                             product.sellable = sellable
                             product.returnable = returnable
@@ -1166,7 +1166,7 @@ Public Class frmMassManager
                             Dim sellingPriceVatExcl As String = objXLWs.Range("T" & i).Value
                             Dim profitMargin As String = objXLWs.Range("U" & i).Value
                             Dim vat As String = objXLWs.Range("V" & i).Value
-                            Dim discount As String = objXLWs.Range("W" & i).Value
+                            Dim discountRatio As String = objXLWs.Range("W" & i).Value
                             Dim status As String = objXLWs.Range("X" & i).Value
                             Dim sellable As String = objXLWs.Range("Y" & i).Value
                             Dim returnable As String = objXLWs.Range("Z" & i).Value
@@ -1200,7 +1200,7 @@ Public Class frmMassManager
                             product.sellingPriceVatExcl = sellingPriceVatExcl
                             product.profitMargin = profitMargin
                             product.vat = vat
-                            product.discount = discount
+                            product.discountRatio = discountRatio
                             product.status = status
                             product.sellable = sellable
                             product.returnable = returnable
@@ -1430,7 +1430,7 @@ Err_Handler:
                 shXL.Cells(r, 20).Value = product.sellingPriceVatExcl
                 shXL.Cells(r, 21).Value = product.profitMargin
                 shXL.Cells(r, 22).Value = product.vat
-                shXL.Cells(r, 23).Value = product.discount
+                shXL.Cells(r, 23).Value = product.discountRatio
                 shXL.Cells(r, 24).Value = product.status
                 shXL.Cells(r, 25).Value = product.sellable
                 shXL.Cells(r, 26).Value = product.returnable

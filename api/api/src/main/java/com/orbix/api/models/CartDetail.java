@@ -42,6 +42,7 @@ public class CartDetail {
 	private double sellingPriceVatIncl;
 	private double sellingPriceVatExcl;
 	private double discount = 0;
+	private double discountRatio = 0;
 	private int voided = 0;
 	
 	@ManyToOne(targetEntity = Cart.class, fetch = FetchType.EAGER,  optional = true)
@@ -128,6 +129,12 @@ public class CartDetail {
 	}
 	public void setCart(Cart cart) {
 		this.cart = cart;
+	}
+	public double getDiscountRatio() {
+		return discountRatio;
+	}
+	public void setDiscountRatio(double discountRatio) {
+		this.discountRatio = discountRatio;
 	}
 	
 }

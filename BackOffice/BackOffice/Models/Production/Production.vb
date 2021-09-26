@@ -2,8 +2,6 @@
 
 Public Class Production
 
-
-
     Inherits Item
 
     Public Shared GLOBAL_ID As String = ""

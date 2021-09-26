@@ -127,11 +127,11 @@ public class CartServiceController {
     @Transactional
     public boolean updateDiscount(
     		@RequestParam(name = "detail_id") Long id, 
-    		@RequestParam(name = "discount") double discount, 
+    		@RequestParam(name = "discount_ratio") double discountRatio, 
     		@RequestHeader("user_id") Long userId) throws Exception { 
     	CartDetail detail = cartDetailRepository.findById(id)
                 .orElseThrow(() -> new MissingInformationException("Detail not found"));
-    	detail.setDiscount(discount);
+    	detail.setDiscountRatio(discountRatio);
     	cartDetailRepository.saveAndFlush(detail);   	
     	return true;	
     }

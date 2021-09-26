@@ -19,7 +19,7 @@ Public Class Product
     Public GL_SELLING_PRICE_VAT_EXCL As Double = 0
     Public GL_VAT As Double = 0
 
-    Public GL_DISCOUNT As Double = 0
+    Public GL_DISCOUNT_RATIO As Double = 0
     Public GL_SUPPLIER As String = 0
     Public GL_MARGIN As Double = 0
     Public GL_STANDARD_UOM As String = ""
@@ -43,7 +43,7 @@ Public Class Product
     Public Property sellingPriceVatExcl As Double
     Public Property profitMargin As Double
     Public Property vat As Double
-    Public Property discount As Double
+    Public Property discountRatio As Double
     Public Property stock As Double
     Public Property minimumStock As Double
     Public Property maximumStock As Double

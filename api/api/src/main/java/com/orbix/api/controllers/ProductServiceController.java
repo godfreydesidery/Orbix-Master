@@ -34,11 +34,13 @@ import com.orbix.api.models.Product;
 import com.orbix.api.models.SubClass;
 import com.orbix.api.models.Supplier;
 import com.orbix.api.reports.NegativeStockReport;
+import com.orbix.api.reports.PriceChangeReport;
 import com.orbix.api.reports.ProductListingReport;
 import com.orbix.api.reports.SupplySalesReport;
 import com.orbix.api.reports.SupplyStockStatus;
 import com.orbix.api.repositories.ClassRepository;
 import com.orbix.api.repositories.DepartmentRepository;
+import com.orbix.api.repositories.PriceChangeRepository;
 import com.orbix.api.repositories.ProductRepository;
 import com.orbix.api.repositories.SubClassRepository;
 import com.orbix.api.repositories.SupplierRepository;
@@ -61,6 +63,8 @@ public class ProductServiceController {
     ClassRepository classRepository;
 	@Autowired
     SubClassRepository subClassRepository;
+	@Autowired
+    PriceChangeRepository priceChangeRepository;
 	
     /**
      * @param userId
@@ -264,7 +268,7 @@ public class ProductServiceController {
 		product.setSellingPriceVatExcl(productDetails.getSellingPriceVatExcl());
 		product.setProfitMargin(productDetails.getProfitMargin());
 		product.setVat(productDetails.getVat());
-		product.setDiscount(productDetails.getDiscount());
+		product.setDiscountRatio(productDetails.getDiscountRatio());
 		product.setStatus(productDetails.getStatus());
 		product.setSellable(productDetails.getSellable());
 		product.setReturnable(productDetails.getReturnable());
@@ -361,7 +365,7 @@ public class ProductServiceController {
 		product.setSellingPriceVatExcl(productDetails.getSellingPriceVatExcl());
 		product.setProfitMargin(productDetails.getProfitMargin());
 		product.setVat(productDetails.getVat());
-		product.setDiscount(productDetails.getDiscount());
+		product.setDiscountRatio(productDetails.getDiscountRatio());
 		product.setStatus(productDetails.getStatus());
 		product.setSellable(productDetails.getSellable());
 		product.setReturnable(productDetails.getReturnable());
@@ -481,6 +485,21 @@ public class ProductServiceController {
 		List<NegativeStockReport> report;
 		
 		return productRepository.getNegativeStockReport();
+    }
+    
+    @Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/products/get_price_change_report", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<PriceChangeReport> getPriceChangeReport( 
+    		@RequestParam(name = "from_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+    		@RequestParam(name = "to_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+    		@RequestParam(name = "supplier_name") String supplierName,
+    		@RequestParam(name = "department_name") String departmentName,
+    		@RequestParam(name = "class_name") String className,
+    		@RequestParam(name = "sub_class_name") String subClassName,
+    		@RequestHeader("user_id") Long userId) {
+		List<PriceChangeReport> report;
+		
+		return priceChangeRepository.getPriceChangeReport(fromDate, toDate);
     }
     
 }

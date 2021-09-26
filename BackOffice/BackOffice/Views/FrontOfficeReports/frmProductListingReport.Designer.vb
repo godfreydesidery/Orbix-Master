@@ -22,16 +22,36 @@ Partial Class frmProductListingReport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnBack = New System.Windows.Forms.Button()
         Me.dtgrdList = New System.Windows.Forms.DataGridView()
+        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dateStart = New System.Windows.Forms.DateTimePicker()
         Me.dateEnd = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnView = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.btnExportToPDF = New System.Windows.Forms.ToolStripButton()
+        Me.btnExportToExcel = New System.Windows.Forms.ToolStripButton()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.cmbSubClass = New System.Windows.Forms.ComboBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cmbClass = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.cmbDepartment = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.cmbSupplier = New System.Windows.Forms.ComboBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.cmbDescription = New System.Windows.Forms.ComboBox()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -43,25 +63,16 @@ Partial Class frmProductListingReport
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtItemCodeS = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.btnExportToPDF = New System.Windows.Forms.ToolStripButton()
-        Me.btnExportToExcel = New System.Windows.Forms.ToolStripButton()
-        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dtgrdList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
-        Me.Panel3.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnBack
         '
+        Me.btnBack.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnBack.BackColor = System.Drawing.SystemColors.Control
         Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
         Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
@@ -74,17 +85,72 @@ Partial Class frmProductListingReport
         'dtgrdList
         '
         Me.dtgrdList.AllowUserToAddRows = False
+        Me.dtgrdList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtgrdList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dtgrdList.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         Me.dtgrdList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.dtgrdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgrdList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column6, Me.Column1, Me.Column7, Me.Column5, Me.Column2, Me.Column3, Me.Column8, Me.Column4})
         Me.dtgrdList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dtgrdList.Location = New System.Drawing.Point(10, 196)
+        Me.dtgrdList.Location = New System.Drawing.Point(356, 90)
         Me.dtgrdList.Name = "dtgrdList"
         Me.dtgrdList.RowTemplate.Height = 24
-        Me.dtgrdList.Size = New System.Drawing.Size(1329, 428)
+        Me.dtgrdList.Size = New System.Drawing.Size(985, 534)
         Me.dtgrdList.TabIndex = 6
+        '
+        'Column6
+        '
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.Column6.DefaultCellStyle = DataGridViewCellStyle11
+        Me.Column6.FillWeight = 68.95222!
+        Me.Column6.HeaderText = "Date"
+        Me.Column6.Name = "Column6"
+        '
+        'Column1
+        '
+        Me.Column1.FillWeight = 80.77941!
+        Me.Column1.HeaderText = "Code"
+        Me.Column1.Name = "Column1"
+        '
+        'Column7
+        '
+        Me.Column7.FillWeight = 221.4627!
+        Me.Column7.HeaderText = "Description"
+        Me.Column7.Name = "Column7"
+        '
+        'Column5
+        '
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column5.DefaultCellStyle = DataGridViewCellStyle12
+        Me.Column5.FillWeight = 99.76032!
+        Me.Column5.HeaderText = "Amount"
+        Me.Column5.Name = "Column5"
+        '
+        'Column2
+        '
+        Me.Column2.FillWeight = 98.06259!
+        Me.Column2.HeaderText = "Cashier"
+        Me.Column2.Name = "Column2"
+        '
+        'Column3
+        '
+        Me.Column3.FillWeight = 81.21828!
+        Me.Column3.HeaderText = "Receipt No"
+        Me.Column3.Name = "Column3"
+        '
+        'Column8
+        '
+        Me.Column8.FillWeight = 91.99205!
+        Me.Column8.HeaderText = "Invoice No"
+        Me.Column8.Name = "Column8"
+        '
+        'Column4
+        '
+        Me.Column4.FillWeight = 57.77247!
+        Me.Column4.HeaderText = "Till No"
+        Me.Column4.Name = "Column4"
         '
         'Label1
         '
@@ -124,7 +190,7 @@ Partial Class frmProductListingReport
         '
         'btnView
         '
-        Me.btnView.Location = New System.Drawing.Point(982, 50)
+        Me.btnView.Location = New System.Drawing.Point(356, 50)
         Me.btnView.Name = "btnView"
         Me.btnView.Size = New System.Drawing.Size(104, 34)
         Me.btnView.TabIndex = 11
@@ -140,114 +206,8 @@ Partial Class frmProductListingReport
         Me.Panel1.Controls.Add(Me.dateEnd)
         Me.Panel1.Location = New System.Drawing.Point(10, 50)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(341, 34)
+        Me.Panel1.Size = New System.Drawing.Size(340, 34)
         Me.Panel1.TabIndex = 15
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel3.Controls.Add(Me.cmbDescription)
-        Me.Panel3.Controls.Add(Me.Button1)
-        Me.Panel3.Controls.Add(Me.lstCode)
-        Me.Panel3.Controls.Add(Me.Label16)
-        Me.Panel3.Controls.Add(Me.btnAdd)
-        Me.Panel3.Controls.Add(Me.txtBarCode)
-        Me.Panel3.Controls.Add(Me.btnSearchItem)
-        Me.Panel3.Controls.Add(Me.Label11)
-        Me.Panel3.Controls.Add(Me.txtItemCodeS)
-        Me.Panel3.Controls.Add(Me.Label10)
-        Me.Panel3.Location = New System.Drawing.Point(353, 50)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(623, 140)
-        Me.Panel3.TabIndex = 65
-        '
-        'cmbDescription
-        '
-        Me.cmbDescription.FormattingEnabled = True
-        Me.cmbDescription.Location = New System.Drawing.Point(6, 67)
-        Me.cmbDescription.Name = "cmbDescription"
-        Me.cmbDescription.Size = New System.Drawing.Size(307, 24)
-        Me.cmbDescription.TabIndex = 100
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(319, 88)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(104, 34)
-        Me.Button1.TabIndex = 66
-        Me.Button1.Text = "Clear"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'lstCode
-        '
-        Me.lstCode.FormattingEnabled = True
-        Me.lstCode.ItemHeight = 16
-        Me.lstCode.Location = New System.Drawing.Point(429, 8)
-        Me.lstCode.Name = "lstCode"
-        Me.lstCode.Size = New System.Drawing.Size(183, 116)
-        Me.lstCode.TabIndex = 64
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(3, 2)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(67, 17)
-        Me.Label16.TabIndex = 60
-        Me.Label16.Text = "Bar Code"
-        '
-        'btnAdd
-        '
-        Me.btnAdd.Enabled = False
-        Me.btnAdd.Location = New System.Drawing.Point(319, 48)
-        Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(104, 34)
-        Me.btnAdd.TabIndex = 63
-        Me.btnAdd.Text = "Add>>"
-        Me.btnAdd.UseVisualStyleBackColor = True
-        '
-        'txtBarCode
-        '
-        Me.txtBarCode.Location = New System.Drawing.Point(6, 22)
-        Me.txtBarCode.MaxLength = 50
-        Me.txtBarCode.Name = "txtBarCode"
-        Me.txtBarCode.Size = New System.Drawing.Size(161, 22)
-        Me.txtBarCode.TabIndex = 61
-        '
-        'btnSearchItem
-        '
-        Me.btnSearchItem.Location = New System.Drawing.Point(319, 8)
-        Me.btnSearchItem.Name = "btnSearchItem"
-        Me.btnSearchItem.Size = New System.Drawing.Size(104, 34)
-        Me.btnSearchItem.TabIndex = 62
-        Me.btnSearchItem.Text = "Search"
-        Me.btnSearchItem.UseVisualStyleBackColor = True
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(170, 2)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(71, 17)
-        Me.Label11.TabIndex = 56
-        Me.Label11.Text = "Item Code"
-        '
-        'txtItemCodeS
-        '
-        Me.txtItemCodeS.Location = New System.Drawing.Point(173, 22)
-        Me.txtItemCodeS.MaxLength = 50
-        Me.txtItemCodeS.Name = "txtItemCodeS"
-        Me.txtItemCodeS.Size = New System.Drawing.Size(140, 22)
-        Me.txtItemCodeS.TabIndex = 58
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(3, 47)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(109, 17)
-        Me.Label10.TabIndex = 57
-        Me.Label10.Text = "Item Description"
         '
         'ToolStrip1
         '
@@ -275,65 +235,204 @@ Partial Class frmProductListingReport
         Me.btnExportToExcel.Size = New System.Drawing.Size(180, 24)
         Me.btnExportToExcel.Text = "Export to Spreadsheet"
         '
-        'Column6
+        'Panel2
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.Column6.DefaultCellStyle = DataGridViewCellStyle1
-        Me.Column6.FillWeight = 68.95222!
-        Me.Column6.HeaderText = "Date"
-        Me.Column6.Name = "Column6"
+        Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel2.Controls.Add(Me.Label3)
+        Me.Panel2.Controls.Add(Me.cmbSubClass)
+        Me.Panel2.Controls.Add(Me.Label6)
+        Me.Panel2.Controls.Add(Me.cmbClass)
+        Me.Panel2.Controls.Add(Me.Label5)
+        Me.Panel2.Controls.Add(Me.cmbDepartment)
+        Me.Panel2.Controls.Add(Me.Label4)
+        Me.Panel2.Controls.Add(Me.cmbSupplier)
+        Me.Panel2.Location = New System.Drawing.Point(10, 90)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(340, 139)
+        Me.Panel2.TabIndex = 125
         '
-        'Column1
+        'Label3
         '
-        Me.Column1.FillWeight = 80.77941!
-        Me.Column1.HeaderText = "Code"
-        Me.Column1.Name = "Column1"
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(14, 100)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(71, 17)
+        Me.Label3.TabIndex = 52
+        Me.Label3.Text = "Sub Class"
         '
-        'Column7
+        'cmbSubClass
         '
-        Me.Column7.FillWeight = 221.4627!
-        Me.Column7.HeaderText = "Description"
-        Me.Column7.Name = "Column7"
+        Me.cmbSubClass.FormattingEnabled = True
+        Me.cmbSubClass.Location = New System.Drawing.Point(91, 97)
+        Me.cmbSubClass.Name = "cmbSubClass"
+        Me.cmbSubClass.Size = New System.Drawing.Size(238, 24)
+        Me.cmbSubClass.TabIndex = 51
         '
-        'Column5
+        'Label6
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column5.DefaultCellStyle = DataGridViewCellStyle2
-        Me.Column5.FillWeight = 99.76032!
-        Me.Column5.HeaderText = "Amount"
-        Me.Column5.Name = "Column5"
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(43, 70)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(42, 17)
+        Me.Label6.TabIndex = 50
+        Me.Label6.Text = "Class"
         '
-        'Column2
+        'cmbClass
         '
-        Me.Column2.FillWeight = 98.06259!
-        Me.Column2.HeaderText = "Cashier"
-        Me.Column2.Name = "Column2"
+        Me.cmbClass.FormattingEnabled = True
+        Me.cmbClass.Location = New System.Drawing.Point(91, 67)
+        Me.cmbClass.Name = "cmbClass"
+        Me.cmbClass.Size = New System.Drawing.Size(238, 24)
+        Me.cmbClass.TabIndex = 49
         '
-        'Column3
+        'Label5
         '
-        Me.Column3.FillWeight = 81.21828!
-        Me.Column3.HeaderText = "Receipt No"
-        Me.Column3.Name = "Column3"
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(3, 37)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(82, 17)
+        Me.Label5.TabIndex = 48
+        Me.Label5.Text = "Department"
         '
-        'Column8
+        'cmbDepartment
         '
-        Me.Column8.FillWeight = 91.99205!
-        Me.Column8.HeaderText = "Invoice No"
-        Me.Column8.Name = "Column8"
+        Me.cmbDepartment.FormattingEnabled = True
+        Me.cmbDepartment.Location = New System.Drawing.Point(91, 37)
+        Me.cmbDepartment.Name = "cmbDepartment"
+        Me.cmbDepartment.Size = New System.Drawing.Size(238, 24)
+        Me.cmbDepartment.TabIndex = 47
         '
-        'Column4
+        'Label4
         '
-        Me.Column4.FillWeight = 57.77247!
-        Me.Column4.HeaderText = "Till No"
-        Me.Column4.Name = "Column4"
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(25, 5)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(60, 17)
+        Me.Label4.TabIndex = 45
+        Me.Label4.Text = "Supplier"
+        '
+        'cmbSupplier
+        '
+        Me.cmbSupplier.FormattingEnabled = True
+        Me.cmbSupplier.Location = New System.Drawing.Point(91, 5)
+        Me.cmbSupplier.Name = "cmbSupplier"
+        Me.cmbSupplier.Size = New System.Drawing.Size(238, 24)
+        Me.cmbSupplier.TabIndex = 6
+        '
+        'Panel3
+        '
+        Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel3.Controls.Add(Me.cmbDescription)
+        Me.Panel3.Controls.Add(Me.Button1)
+        Me.Panel3.Controls.Add(Me.lstCode)
+        Me.Panel3.Controls.Add(Me.Label16)
+        Me.Panel3.Controls.Add(Me.btnAdd)
+        Me.Panel3.Controls.Add(Me.txtBarCode)
+        Me.Panel3.Controls.Add(Me.btnSearchItem)
+        Me.Panel3.Controls.Add(Me.Label11)
+        Me.Panel3.Controls.Add(Me.txtItemCodeS)
+        Me.Panel3.Controls.Add(Me.Label10)
+        Me.Panel3.Location = New System.Drawing.Point(10, 235)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(340, 261)
+        Me.Panel3.TabIndex = 126
+        '
+        'cmbDescription
+        '
+        Me.cmbDescription.FormattingEnabled = True
+        Me.cmbDescription.Location = New System.Drawing.Point(6, 80)
+        Me.cmbDescription.Name = "cmbDescription"
+        Me.cmbDescription.Size = New System.Drawing.Size(323, 24)
+        Me.cmbDescription.TabIndex = 101
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(190, 110)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(100, 35)
+        Me.Button1.TabIndex = 65
+        Me.Button1.Text = "Clear"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'lstCode
+        '
+        Me.lstCode.FormattingEnabled = True
+        Me.lstCode.ItemHeight = 16
+        Me.lstCode.Location = New System.Drawing.Point(84, 151)
+        Me.lstCode.Name = "lstCode"
+        Me.lstCode.Size = New System.Drawing.Size(206, 100)
+        Me.lstCode.TabIndex = 64
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(17, 7)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(61, 17)
+        Me.Label16.TabIndex = 60
+        Me.Label16.Text = "Barcode"
+        '
+        'btnAdd
+        '
+        Me.btnAdd.Enabled = False
+        Me.btnAdd.Location = New System.Drawing.Point(84, 110)
+        Me.btnAdd.Name = "btnAdd"
+        Me.btnAdd.Size = New System.Drawing.Size(100, 35)
+        Me.btnAdd.TabIndex = 63
+        Me.btnAdd.Text = "Add>>"
+        Me.btnAdd.UseVisualStyleBackColor = True
+        '
+        'txtBarCode
+        '
+        Me.txtBarCode.Location = New System.Drawing.Point(84, 4)
+        Me.txtBarCode.MaxLength = 50
+        Me.txtBarCode.Name = "txtBarCode"
+        Me.txtBarCode.Size = New System.Drawing.Size(135, 22)
+        Me.txtBarCode.TabIndex = 61
+        '
+        'btnSearchItem
+        '
+        Me.btnSearchItem.Location = New System.Drawing.Point(229, 3)
+        Me.btnSearchItem.Name = "btnSearchItem"
+        Me.btnSearchItem.Size = New System.Drawing.Size(100, 35)
+        Me.btnSearchItem.TabIndex = 62
+        Me.btnSearchItem.Text = "Search"
+        Me.btnSearchItem.UseVisualStyleBackColor = True
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(37, 32)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(41, 17)
+        Me.Label11.TabIndex = 56
+        Me.Label11.Text = "Code"
+        '
+        'txtItemCodeS
+        '
+        Me.txtItemCodeS.Location = New System.Drawing.Point(84, 32)
+        Me.txtItemCodeS.MaxLength = 50
+        Me.txtItemCodeS.Name = "txtItemCodeS"
+        Me.txtItemCodeS.Size = New System.Drawing.Size(135, 22)
+        Me.txtItemCodeS.TabIndex = 58
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(3, 60)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(79, 17)
+        Me.Label10.TabIndex = 57
+        Me.Label10.Text = "Description"
         '
         'frmProductListingReport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1352, 673)
-        Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.Panel3)
+        Me.Controls.Add(Me.Panel2)
+        Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.btnView)
         Me.Controls.Add(Me.dtgrdList)
@@ -344,13 +443,16 @@ Partial Class frmProductListingReport
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Product Listing Report"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.dtgrdList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        Me.Panel3.ResumeLayout(False)
-        Me.Panel3.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -363,17 +465,6 @@ Partial Class frmProductListingReport
     Friend WithEvents Label2 As Label
     Friend WithEvents btnView As Button
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents Panel3 As Panel
-    Friend WithEvents lstCode As ListBox
-    Friend WithEvents Label16 As Label
-    Friend WithEvents btnAdd As Button
-    Friend WithEvents txtBarCode As TextBox
-    Friend WithEvents btnSearchItem As Button
-    Friend WithEvents Label11 As Label
-    Friend WithEvents txtItemCodeS As TextBox
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Button1 As Button
-    Friend WithEvents cmbDescription As ComboBox
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents btnExportToPDF As ToolStripButton
     Friend WithEvents btnExportToExcel As ToolStripButton
@@ -385,4 +476,24 @@ Partial Class frmProductListingReport
     Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents Column8 As DataGridViewTextBoxColumn
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents Label3 As Label
+    Friend WithEvents cmbSubClass As ComboBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents cmbClass As ComboBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents cmbDepartment As ComboBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents cmbSupplier As ComboBox
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents cmbDescription As ComboBox
+    Friend WithEvents Button1 As Button
+    Friend WithEvents lstCode As ListBox
+    Friend WithEvents Label16 As Label
+    Friend WithEvents btnAdd As Button
+    Friend WithEvents txtBarCode As TextBox
+    Friend WithEvents btnSearchItem As Button
+    Friend WithEvents Label11 As Label
+    Friend WithEvents txtItemCodeS As TextBox
+    Friend WithEvents Label10 As Label
 End Class

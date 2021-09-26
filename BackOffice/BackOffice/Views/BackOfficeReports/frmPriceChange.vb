@@ -2,6 +2,7 @@
 Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
 
 Public Class frmPriceChange
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btnGenerate.Click
@@ -9,82 +10,66 @@ Public Class frmPriceChange
     End Sub
     Private Function refreshList()
         dtgrdList.Rows.Clear()
+
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim query As String = ""
-            query = "SELECT `id`, `date`, `date_time`, `item_code`, `old_price`, `new_price`, `user_id`, `reason` FROM `price_history`WHERE `date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "'"
 
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
+            Dim response As Object = New Object
 
-            While reader.Read
-                Dim itemCode As String = reader.GetString("item_code")
-                Dim description As String = (New Item).getItemLongDescription(itemCode)
-                Dim dateTime As String = reader.GetString("date_time")
-                Dim _date As String = reader.GetString("date")
-                Dim oldPrice As String = reader.GetString("old_price")
-                Dim newPrice As String = reader.GetString("new_price")
-                Dim userId As String = (New User).getUserNames(reader.GetString("user_id"))
-                Dim reason As String = reader.GetString("reason")
-                Dim change As Double = Val(newPrice) - Val(oldPrice)
+            response = Web.get_("products/get_price_change_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&supplier_name=&department_name=&class_name=&sub_class_name=")
+
+            Dim details As List(Of PriceChangeReport) = JsonConvert.DeserializeObject(Of List(Of PriceChangeReport))(response.ToString)
+
+            For Each detail In details
 
                 Dim dtgrdRow As New DataGridViewRow
                 Dim dtgrdCell As DataGridViewCell
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = _date
+                dtgrdCell.Value = detail.date
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = dateTime
+                dtgrdCell.Value = detail.dateTime
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = itemCode
+                dtgrdCell.Value = detail.code
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = description
+                dtgrdCell.Value = detail.description
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(oldPrice.ToString)
+                dtgrdCell.Value = LCurrency.displayValue(detail.oldPrice.ToString)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(newPrice.ToString)
+                dtgrdCell.Value = LCurrency.displayValue(detail.newPrice.ToString)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(change.ToString)
+                dtgrdCell.Value = LCurrency.displayValue(detail.change.ToString)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = userId
+                dtgrdCell.Value = detail.user
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = reason
+                dtgrdCell.Value = detail.reason
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdList.Rows.Add(dtgrdRow)
-            End While
 
-            conn.Close()
+            Next
 
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            MsgBox(ex.Message)
         End Try
+
         Return vbNull
     End Function
-
-    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
-        print()
-    End Sub
 
     Private Sub defineStyles(doc As Document)
         'Get the predefined style Normal.
@@ -113,8 +98,8 @@ Public Class frmPriceChange
 
         Dim document As Document = New Document
 
-        document.Info.Title = "Fast Moving Items Report"
-        document.Info.Subject = "Fast Moving Items Report"
+        document.Info.Title = "Price change Report"
+        document.Info.Subject = "Price change Report"
         document.Info.Author = "Orbit"
 
         defineStyles(document)
@@ -124,14 +109,11 @@ Public Class frmPriceChange
         myRenderer.Document = document
         myRenderer.RenderDocument()
 
-        Dim filename As String = LSystem.getRoot & "\Fast Moving Items Report" & dateStart.Text & " to " & dateEnd.Text & " .pdf"
+        Dim filename As String = LSystem.getRoot & "\Price change Report" & dateStart.Text & " to " & dateEnd.Text & " .pdf"
 
         myRenderer.PdfDocument.Save(filename)
 
         Process.Start(filename)
-
-
-
 
         Return vbNull
     End Function
@@ -427,5 +409,9 @@ Public Class frmPriceChange
 
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         Me.Dispose()
+    End Sub
+
+    Private Sub btnExportToPDF_Click(sender As Object, e As EventArgs) Handles btnExportToPDF.Click
+        print()
     End Sub
 End Class

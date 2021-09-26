@@ -37,11 +37,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 					"`products`.`code` AS `code`,\r\n" + 
 					"`products`.`description` AS `description`,\r\n" + 
 					"`products`.`stock` AS `stock`,\r\n" + 
-					"`products`.`discount` AS `discount`,\r\n" + 
+					"`products`.`discount_ratio` AS `discountRatio`,\r\n" + 
 					"`products`.`cost_price_vat_incl` AS `costPriceVatIncl`,\r\n" + 
 					"`products`.`selling_price_vat_incl` AS `sellingPriceVatIncl`,\r\n" + 
 					"(`products`.`stock`*`products`.`cost_price_vat_incl`) AS `stockCost`,\r\n" + 
-					"(`products`.`selling_price_vat_incl`*`products`.`stock`*(1 - `products`.`discount`/100)) AS `stockValue`,\r\n" + 
+					"(`products`.`selling_price_vat_incl`*`products`.`stock`*(1 - `products`.`discount_ratio`/100)) AS `stockValue`,\r\n" + 
 					"`suppliers`.`name` AS `supplierName`\r\n" + 
 					"FROM\r\n" + 
 					"`products`\r\n" + 
@@ -62,7 +62,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 					"FROM\r\n" + 
 					"`products`\r\n" + 
 					"WHERE\r\n" + 
-					"`products`.`stock` > 0\r\n" + 
+					"`products`.`stock` < 0\r\n" + 
 					"ORDER BY `stock` DESC",
 					nativeQuery = true					
 			)

@@ -30,7 +30,7 @@ Public Class frmProductMaster
     Dim sellingPriceVatExcl As Double = 0
     Dim vat As Double = 0
 
-    Dim discount As Double = 0
+    Dim discountRatio As Double = 0
     Dim supplier As String = 0
     Dim profitMargin As Double = 0
     Dim standardUom As String = ""
@@ -48,7 +48,7 @@ Public Class frmProductMaster
         costPriceVatIncl = Val(txtCostPriceVatIncl.Text)
         sellingPriceVatIncl = Val(txtSellingPriceVatIncl.Text)
         vat = Val(txtVat.Text)
-        discount = Val(txtDiscount.Text)
+        discountRatio = Val(txtDiscount.Text)
         supplier = cmbSupplier.Text
         profitMargin = Val(txtProfitMargin.Text)
         standardUOM = txtStandardUom.Text
@@ -76,7 +76,7 @@ Public Class frmProductMaster
         txtSellingPriceVatIncl.Text = sellingPriceVatIncl
         txtSellingPriceVatExcl.Text = sellingPriceVatExcl
         txtVat.Text = vat
-        txtDiscount.Text = discount
+        txtDiscount.Text = discountRatio
         'cmbSupplier.Text = supplier
         txtProfitMargin.Text = profitMargin
         txtStandardUom.Text = standardUOM
@@ -160,7 +160,7 @@ Public Class frmProductMaster
         sellingPriceVatIncl = 0
         vat = 0
 
-        discount = 0
+        discountRatio = 0
         supplier = 0
         profitMargin = 0
         standardUOM = 0
@@ -380,7 +380,7 @@ Public Class frmProductMaster
         product.sellingPriceVatExcl = txtSellingPriceVatExcl.Text
         product.profitMargin = txtProfitMargin.Text
         product.vat = txtVat.Text
-        product.discount = txtDiscount.Text
+        product.discountRatio = txtDiscount.Text
         product.primarySupplier.name = cmbSupplier.Text
         product.department.name = cmbDepartment.Text
         product.clas.name = cmbClass.Text
@@ -514,7 +514,7 @@ Public Class frmProductMaster
             txtSellingPriceVatExcl.Text = product.sellingPriceVatExcl
             txtProfitMargin.Text = product.profitMargin
             txtVat.Text = product.vat
-            txtDiscount.Text = product.discount
+            txtDiscount.Text = product.discountRatio
             If Not IsNothing(product.department) Then
                 cmbDepartment.Text = product.department.name
             End If

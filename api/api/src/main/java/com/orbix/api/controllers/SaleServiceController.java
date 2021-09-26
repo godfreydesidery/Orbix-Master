@@ -20,7 +20,9 @@ import com.orbix.api.models.Day;
 import com.orbix.api.models.Sale;
 import com.orbix.api.models.SaleDetail;
 import com.orbix.api.reports.DailySalesReport;
+import com.orbix.api.reports.FastMovingItems;
 import com.orbix.api.reports.ProductListingReport;
+import com.orbix.api.reports.SlowMovingItems;
 import com.orbix.api.reports.SupplySalesReport;
 import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.SaleDetailRepository;
@@ -102,6 +104,40 @@ public class SaleServiceController {
 		}else {			
 			report = saleRepository.getSupplySalesReportByProduct(fromDate, toDate, supplierName, codes);		
 		}			
+		return report;
+    }
+	
+	@Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/sales/get_fast_moving_items", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<FastMovingItems> getFastMovingItems(
+    		@RequestParam(name = "from_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+    		@RequestParam(name = "to_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+    		@RequestParam(name = "supplier_name") String supplierName,
+    		@RequestParam(name = "department_name") String departmentName,
+    		@RequestParam(name = "class_name") String className,
+    		@RequestParam(name = "sub_class_name") String subClassName,
+    		@RequestHeader("user_id") Long userId) {
+		List<FastMovingItems> report;
+				
+			report = saleRepository.getFastMovingItems(fromDate, toDate);		
+		
+		return report;
+    }
+	
+	@Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/sales/get_slow_moving_items", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<SlowMovingItems> getSlowMovingItems(
+    		@RequestParam(name = "from_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+    		@RequestParam(name = "to_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+    		@RequestParam(name = "supplier_name") String supplierName,
+    		@RequestParam(name = "department_name") String departmentName,
+    		@RequestParam(name = "class_name") String className,
+    		@RequestParam(name = "sub_class_name") String subClassName,
+    		@RequestHeader("user_id") Long userId) {
+		List<SlowMovingItems> report;
+				
+			report = saleRepository.getSlowMovingItems(fromDate, toDate);		
+		
 		return report;
     }
 }

@@ -4,7 +4,7 @@ public interface SupplyStockStatus {
 	String getCode();
 	String getDescription();
 	String getStock();
-	double getDiscount();
+	double getDiscountRatio();
 	double getCostPriceVatIncl();
 	double getSellingPriceVatIncl();	
     double getStockCost();

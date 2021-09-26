@@ -16,6 +16,7 @@ import javax.swing.text.html.Option;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,9 @@ import com.orbix.api.models.Lpo;
 import com.orbix.api.models.LpoDetail;
 import com.orbix.api.models.Supplier;
 import com.orbix.api.models.User;
+import com.orbix.api.reports.NegativeStockReport;
+import com.orbix.api.reports.PendingLPO;
+import com.orbix.api.reports.PrintedLPO;
 import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.LpoDetailRepository;
 import com.orbix.api.repositories.LpoRepository;
@@ -436,5 +440,30 @@ public class LpoServiceController {
     	return new ResponseEntity<>("LPO detail deleted successifully.", HttpStatus.OK);  	 	
     }
     
+    
+    @Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/lpos/get_printed_lpos", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<PrintedLPO> getPrintedLPO(
+    		@RequestParam(name = "from_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+    		@RequestParam(name = "to_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+    		@RequestParam(name = "supplier_name") String supplierName,   		
+    		@RequestHeader("user_id") Long userId) {
+		List<PrintedLPO> report;
+		
+		return lpoRepository.getPrintedLPO(fromDate, toDate);
+    }
+    
+    
+    @Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/lpos/get_pending_lpos", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<PendingLPO> getPendingLPO(
+    		@RequestParam(name = "from_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+    		@RequestParam(name = "to_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+    		@RequestParam(name = "supplier_name") String supplierName,   		
+    		@RequestHeader("user_id") Long userId) {
+		List<PendingLPO> report;
+		
+		return lpoRepository.getPendingLPO(fromDate, toDate);
+    }
  
 }

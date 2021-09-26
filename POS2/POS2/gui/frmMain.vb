@@ -19,7 +19,7 @@ Public Class frmMain
     Dim packSize As Double = 1
     Dim price As Double = 0
     Dim vat As Double = 0
-    Dim discount As String = ""
+    Dim discountRatio As Double = 0
     Dim qty As Double = 0
     Dim amount As Double = 0
     Dim void As Boolean = False
@@ -245,11 +245,11 @@ Public Class frmMain
             description = product.description
             ShortDescription = product.shortDescription
             packSize = product.packSize
-            discount = product.discount
+            discountRatio = product.discountRatio
             vat = product.vat
             qty = q
             price = product.sellingPriceVatIncl
-            amount = (Val(qty) * price) * (1 - Val(discount) / 100)
+            amount = (Val(qty) * price) * (1 - Val(discountRatio) / 100)
             found = True
 
             If barcode = "" Then
@@ -271,7 +271,7 @@ Public Class frmMain
                 dtgrdViewItemList.Item(2, row).Value = description
                 dtgrdViewItemList.Item(4, row).Value = LCurrency.displayValue(price.ToString)
                 dtgrdViewItemList.Item(5, row).Value = LCurrency.displayValue(vat.ToString)
-                dtgrdViewItemList.Item(6, row).Value = LCurrency.displayValue(discount.ToString)
+                dtgrdViewItemList.Item(6, row).Value = LCurrency.displayValue(discountRatio.ToString)
                 dtgrdViewItemList.Item(7, row).Value = qty
                 dtgrdViewItemList.Item(8, row).Value = LCurrency.displayValue(amount.ToString)
                 dtgrdViewItemList.Item(10, row).Value = description
@@ -355,10 +355,10 @@ Public Class frmMain
 
                 Dim price As Double = Val(LCurrency.getValue(dtgrdViewItemList.Item(4, i).Value))
                 Dim vat As Double = Val(LCurrency.getValue(dtgrdViewItemList.Item(5, i).Value))
-                Dim discount As Double = Val(LCurrency.getValue(dtgrdViewItemList.Item(6, i).Value))
+                Dim discountRatio As Double = Val(LCurrency.getValue(dtgrdViewItemList.Item(6, i).Value))
                 Dim qty As Integer = Val(dtgrdViewItemList.Item(7, i).Value)
 
-                Dim amount As Double = price * qty * (1 - discount / 100)
+                Dim amount As Double = price * qty * (1 - discountRatio / 100)
                 dtgrdViewItemList.Item(8, i).Value = LCurrency.displayValue(amount.ToString)
 
 
@@ -367,7 +367,7 @@ Public Class frmMain
                     _vat = _vat + ((Val(LCurrency.getValue(dtgrdViewItemList.Item(5, i).Value.ToString)))) * Val(LCurrency.getValue(dtgrdViewItemList.Item(8, i).Value.ToString) / (100 + Val(LCurrency.getValue(dtgrdViewItemList.Item(5, i).Value.ToString))))
 
 
-                    Dim discountedPrice As Double = Val(LCurrency.getValue(price)) * (1 - Val(discount) / 100)
+                    Dim discountedPrice As Double = Val(LCurrency.getValue(price)) * (1 - Val(discountRatio) / 100)
 
                     _discount = _discount + ((price - discountedPrice) * qty)
 
@@ -495,11 +495,11 @@ Public Class frmMain
         refreshList()
         calculateValues()
     End Sub
-    Private Sub updateDiscount(tillNo As String, sn As String, disc As Double)
+    Private Sub updateDiscount(tillNo As String, sn As String, discRatio As Double)
         Dim detail As CartDetail = New CartDetail
         detail.id = sn
-        detail.discount = discount
-        Web.put(detail, "carts/update_discount?detail_id=" + sn + "&discount=" + disc.ToString)
+        detail.discountRatio = discRatio
+        Web.put(detail, "carts/update_discount?detail_id=" + sn + "&discount_ratio=" + discRatio.ToString)
         '''''''''''
     End Sub
 
@@ -550,7 +550,7 @@ Public Class frmMain
         Dim subTotal As String = txtTotal.Text
         Dim totalVat As String = txtVAT.Text
         Dim total As String = txtGrandTotal.Text
-        Dim discount As String = txtDiscount.Text
+        Dim discountRatio As String = txtDiscount.Text
         Dim count As Integer = 0
 
         For i As Integer = 0 To dtgrdViewItemList.RowCount - 2
@@ -740,7 +740,7 @@ Public Class frmMain
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btnDiscount.Click
-        frmNumInput.Text = "Enter Discount 0%-100%"
+        frmNumInput.Text = "Enter Discount ratio 0%-100%"
         Dim disc As String = ""
         Dim row As Integer = -1
         Dim col As Integer = -1
@@ -751,7 +751,7 @@ Public Class frmMain
             row = -1
         End Try
         If row < 0 Then
-            MsgBox("Select item to change Discount", vbExclamation + vbOKOnly, "Error: No Selection")
+            MsgBox("Select product to change Discount", vbExclamation + vbOKOnly, "Error: No Selection")
             Return
         End If
         If col <> 6 Then
@@ -776,7 +776,7 @@ Public Class frmMain
                     Return
                 End If
             Else
-                MsgBox("Invalid Value. Discount should be in percentage value between 0 and 100", vbExclamation + vbOKOnly, "Error: Invalid Entry")
+                MsgBox("Invalid Value. Discount ratio should be in percentage value between 0 and 100", vbExclamation + vbOKOnly, "Error: Invalid Entry")
             End If
         End If
     End Sub
@@ -1226,7 +1226,7 @@ Public Class frmMain
         startOSK()
     End Sub
 
-    Private Sub AddToCart(sn As String, tillNo As String, barcode As String, code As String, description As String, sellingPriceVatIncl As Double, vat As Double, discount As Double, qty As Double, amount As Double, shortDescr As String)
+    Private Sub AddToCart(sn As String, tillNo As String, barcode As String, code As String, description As String, sellingPriceVatIncl As Double, vat As Double, discountRatio As Double, qty As Double, amount As Double, shortDescr As String)
         Dim cart As New Cart
         cart.id = txtId.Text
         cart.till.no = tillNo
@@ -1237,7 +1237,7 @@ Public Class frmMain
         cartDetail.description = description
         cartDetail.sellingPriceVatIncl = sellingPriceVatIncl
         cartDetail.vat = vat
-        cartDetail.discount = discount
+        cartDetail.discountRatio = discountRatio
         cartDetail.qty = qty
         cart.cartDetails.Add(cartDetail)
 
@@ -1329,7 +1329,7 @@ Public Class frmMain
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = detail.discount
+                dtgrdCell.Value = detail.discountRatio
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()

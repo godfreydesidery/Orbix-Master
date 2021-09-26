@@ -166,6 +166,10 @@ Public Class frmNegativeStockReports
         titleRow.Cells(1).Format.Alignment = ParagraphAlignment.Left
         tittleTable.SetEdge(0, 0, 2, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
         'end of header
+        paragraph = section.AddParagraph()
+        paragraph.AddFormattedText("Supplier: " + cmbSupplier.Text + " Department: " + cmbDepartment.Text + " Class: " + cmbClass.Text + " Sub Class: " + cmbSubClass.Text)
+        paragraph.Format.Alignment = ParagraphAlignment.Left
+        paragraph.Format.Font.Size = 7
 
         'Add the print date field
         paragraph = section.AddParagraph()
@@ -187,17 +191,17 @@ Public Class frmNegativeStockReports
         'Before you can add a row, you must define the columns
         Dim column As Column
 
-        column = table.AddColumn("2cm")
+        column = table.AddColumn("2.5cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("4cm")
+        column = table.AddColumn("2.0cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("10cm")
-        column.Format.Alignment = ParagraphAlignment.Right
+        column = table.AddColumn("7.0cm")
+        column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("1cm")
-        column.Format.Alignment = ParagraphAlignment.Right
+        column = table.AddColumn("2.0cm")
+        column.Format.Alignment = ParagraphAlignment.Left
 
         'Create the header of the table
         Dim row As Row
@@ -210,9 +214,9 @@ Public Class frmNegativeStockReports
         row.Format.Font.Bold = True
         row.Format.Font.Size = 8
         row.Borders.Color = Colors.White
-        row.Cells(0).AddParagraph("Code")
+        row.Cells(0).AddParagraph("Barcode")
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(1).AddParagraph("Bar Codes")
+        row.Cells(1).AddParagraph("Code")
         row.Cells(1).Format.Alignment = ParagraphAlignment.Left
         row.Cells(2).AddParagraph("Description")
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
@@ -225,20 +229,20 @@ Public Class frmNegativeStockReports
 
         For i As Integer = 0 To dtgrdItemList.RowCount - 1
 
-            Dim code As String = dtgrdItemList.Item(0, i).Value
-            Dim barcodes As String = dtgrdItemList.Item(1, i).Value
+            Dim barcode As String = dtgrdItemList.Item(0, i).Value
+            Dim code As String = dtgrdItemList.Item(1, i).Value
             Dim descr As String = dtgrdItemList.Item(2, i).Value
             Dim stock As String = dtgrdItemList.Item(3, i).Value
 
             row = table.AddRow()
             row.Format.Font.Bold = False
             row.HeadingFormat = False
-            row.Format.Font.Size = 7
+            row.Format.Font.Size = 8
             row.Format.Alignment = ParagraphAlignment.Center
             row.Borders.Color = Colors.White
-            row.Cells(0).AddParagraph(code)
+            row.Cells(0).AddParagraph(barcode)
             row.Cells(0).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(1).AddParagraph(barcodes)
+            row.Cells(1).AddParagraph(code)
             row.Cells(1).Format.Alignment = ParagraphAlignment.Left
             row.Cells(2).AddParagraph(descr)
             row.Cells(2).Format.Alignment = ParagraphAlignment.Left
@@ -265,76 +269,56 @@ Public Class frmNegativeStockReports
         Try
             Dim response As Object = New Object
 
-            response = Web.get_("products/get_negative_stock_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&supplier_name=" + cmbSupplier.Text + "&codes=")
+            response = Web.get_("products/get_negative_stock_report?supplier_name=&department_name=&class_name=&sub_class_name=")
 
             Dim details As List(Of NegativeStockReport) = JsonConvert.DeserializeObject(Of List(Of NegativeStockReport))(response.ToString)
-        Catch ex As Exception
 
-        End Try
-
-
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim query As String = ""
-            query = "SELECT  `item_code`, `qty`, `min_inventory`, `max_inventory`, `def_reorder_qty`, `reorder_level` FROM `inventorys` WHERE `qty`<0 ORDER BY `qty`"
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-
-            Dim itemCode As String = ""
-            Dim description As String = ""
-            Dim qty As String = ""
-            Dim barcodes As String = ""
-
-            While reader.Read
-
-                itemCode = reader.GetString("item_code")
-                description = (New Item).getItemLongDescription(itemCode)
-                qty = reader.GetString("qty")
-                barcodes = (New Item).getBarCodesString(itemCode)
-
-
+            For Each detail In details
                 Dim dtgrdRow As New DataGridViewRow
                 Dim dtgrdCell As DataGridViewCell
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = itemCode
+                dtgrdCell.Value = detail.barcode
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = barcodes
+                dtgrdCell.Value = detail.code
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = description
+                dtgrdCell.Value = detail.description
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = qty
+                dtgrdCell.Value = detail.stock
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdItemList.Rows.Add(dtgrdRow)
-            End While
-            conn.Close()
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
+            Next
 
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+        dtgrdItemList.ClearSelection()
         Return vbNull
     End Function
     Private Sub frmNegativeStockReports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        clearAll()
+    End Sub
+
+    Private Sub clearAll()
+        cmbSupplier.Text = ""
+        cmbDepartment.Text = ""
+        cmbClass.Text = ""
+        cmbSubClass.Text = ""
+        dtgrdItemList.Rows.Clear()
+    End Sub
+
+    Private Sub btnRun_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         refreshList()
     End Sub
 
-    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
-        refreshList()
-    End Sub
-
-    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+    Private Sub btnExportToPDF_Click(sender As Object, e As EventArgs) Handles btnExportToPDF.Click
         refreshList()
         If dtgrdItemList.RowCount = 0 Then
             Dim res As Integer = MsgBox("The list is empty. Would you like to print an empty list?", vbYesNo + vbQuestion, "List empty")
@@ -346,9 +330,5 @@ Public Class frmNegativeStockReports
 
         End If
         print()
-    End Sub
-
-    Private Sub dtgrdItemList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dtgrdItemList.CellContentClick
-
     End Sub
 End Class

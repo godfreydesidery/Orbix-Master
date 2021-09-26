@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import com.orbix.api.models.Sale;
 import com.orbix.api.reports.DailySalesReport;
+import com.orbix.api.reports.FastMovingItems;
 import com.orbix.api.reports.ProductListingReport;
+import com.orbix.api.reports.SlowMovingItems;
 import com.orbix.api.reports.SupplySalesReport;
 
 @Repository
@@ -38,38 +40,12 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 			)
 	List<DailySalesReport> getDailySalesReportByDate(LocalDate fromDate, LocalDate toDate);
 	
-//	SELECT
-//	`days`.`bussiness_date` AS `date`,
-//	`sale_details`.`code` AS `code`,
-//	SUM(`sale_details`.`qty`*`sale_details`.`selling_price_vat_incl`) AS `amount`,
-//	CONCAT(`users`.`last_name`,', ',`users`.`first_name`) AS `cashier`,
-//	`receipts`.`no` AS `receiptNo`,
-//	`tills`.`no` AS `tillNo`
-//	FROM
-//	`sales`
-//	JOIN `days` ON
-//	`days`.`id`=`sales`.`day_id`
-//	JOIN `sale_details` ON
-//	`sale_details`.`sale_id`=`sales`.`id`
-//	LEFT JOIN `users` ON
-//	`users`.`id`=`sales`.`sale_user_id`
-//	JOIN `receipts` ON
-//	`receipts`.`id`=`sales`.`receipt_id`
-//	JOIN `tills` ON
-//	`tills`.`id`=`receipts`.`till_id`
-//	WHERE
-//	`days`.`bussiness_date` BETWEEN '2021-09-01' AND '2021-09-30'
-//	GROUP BY `date`,`code`,`receiptNo`,`cashier`,`tillNo`
-//	ORDER BY
-//	`date` ASC
-	
-	
 	@Query(
 			value = "SELECT\r\n" + 
 					"`days`.`bussiness_date` AS `date`,\r\n" + 
 					"`sale_details`.`code` AS `code`,\r\n" + 
 					"`sale_details`.`description` AS `description`,\r\n" + 
-					"SUM(`sale_details`.`qty`*`sale_details`.`selling_price_vat_incl`) AS `amount`,\r\n" + 
+					"SUM(`sale_details`.`qty`*(`sale_details`.`selling_price_vat_incl`-`sale_details`.`discount`)) AS `amount`,\r\n" + 
 					"CONCAT(`users`.`last_name`,', ',`users`.`first_name`) AS `cashier`,\r\n" + 
 					"`receipts`.`no` AS `receiptNo`,\r\n" + 
 					"`sales_invoices`.`no` as `invoiceNo`,\r\n" + 
@@ -103,7 +79,7 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 					"`days`.`bussiness_date` AS `date`,\r\n" + 
 					"`sale_details`.`code` AS `code`,\r\n" + 
 					"`sale_details`.`description` AS `description`,\r\n" + 
-					"SUM(`sale_details`.`qty`*`sale_details`.`selling_price_vat_incl`) AS `amount`,\r\n" + 
+					"SUM(`sale_details`.`qty`*(`sale_details`.`selling_price_vat_incl`-`sale_details`.`discount`)) AS `amount`,\r\n" + 
 					"CONCAT(`users`.`last_name`,', ',`users`.`first_name`) AS `cashier`,\r\n" + 
 					"`receipts`.`no` AS `receiptNo`,\r\n" + 
 					"`sales_invoices`.`no` as `invoiceNo`,\r\n" + 
@@ -138,7 +114,7 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 					"`products`.`description` AS `description`,\r\n" + 
 					"`products`.`stock` AS `stock`,\r\n" + 
 					"SUM(`sale_details`.`qty`) AS `qty`,\r\n" + 
-					"SUM(`sale_details`.`qty`*`sale_details`.`selling_price_vat_incl`) AS `amount`,\r\n" + 
+					"SUM(`sale_details`.`qty`*(`sale_details`.`selling_price_vat_incl`-`sale_details`.`discount`)) AS `amount`,\r\n" + 
 					"SUM(`sale_details`.`qty`*`sale_details`.`discount`) AS `discount`,\r\n" + 
 					"SUM(`sale_details`.`qty`*`sale_details`.`tax`) AS `tax`,\r\n" + 
 					"SUM(`sale_details`.`qty`*(`sale_details`.`selling_price_vat_incl`-`sale_details`.`cost_price_vat_incl`-`sale_details`.`discount`)) AS `profit`\r\n" + 
@@ -165,7 +141,7 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 					"`products`.`description` AS `description`,\r\n" + 
 					"`products`.`stock` AS `stock`,\r\n" + 
 					"SUM(`sale_details`.`qty`) AS `qty`,\r\n" + 
-					"SUM(`sale_details`.`qty`*`sale_details`.`selling_price_vat_incl`) AS `amount`,\r\n" + 
+					"SUM((`sale_details`.`qty`*(`sale_details`.`selling_price_vat_incl`-`sale_details`.`discount`)) AS `amount`,\r\n" + 
 					"SUM(`sale_details`.`qty`*`sale_details`.`discount`) AS `discount`,\r\n" + 
 					"SUM(`sale_details`.`qty`*`sale_details`.`tax`) AS `tax`,\r\n" + 
 					"SUM(`sale_details`.`qty`*(`sale_details`.`selling_price_vat_incl`-`sale_details`.`cost_price_vat_incl`-`sale_details`.`discount`)) AS `profit`\r\n" + 
@@ -185,4 +161,52 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 					nativeQuery = true					
 			)
 	List<SupplySalesReport> getSupplySalesReportByProduct(LocalDate fromDate, LocalDate toDate, String supplierName, @Param("codes") ArrayList<String> codes);
+
+	
+	@Query(
+			value = "SELECT\r\n" + 
+					"`sale_details`.`code` AS `code`,\r\n" + 
+					"SUM(`sale_details`.`qty`) AS `qty`,\r\n" + 
+					"SUM(`sale_details`.`qty`*(`sale_details`.`selling_price_vat_incl`-`sale_details`.`discount`)) AS `amount`,\r\n" + 
+					"`products`.`description` AS `description`,\r\n" + 
+					"`products`.`stock` as `stock`\r\n" + 
+					"FROM\r\n" + 
+					"`sales`\r\n" + 
+					"JOIN `days` ON\r\n" + 
+					"`days`.`id`=`sales`.`day_id`\r\n" + 
+					"JOIN `sale_details` ON\r\n" + 
+					"`sale_details`.`sale_id`=`sales`.`id`\r\n" + 
+					"JOIN `products` ON\r\n" + 
+					"`sale_details`.`code`=`products`.`code`\r\n" + 
+					"WHERE\r\n" + 
+					"`days`.`bussiness_date` BETWEEN :fromDate AND :toDate\r\n" + 
+					"GROUP BY `code`\r\n" + 
+					"ORDER BY `qty` DESC",
+					nativeQuery = true					
+			)
+	List<FastMovingItems> getFastMovingItems(LocalDate fromDate, LocalDate toDate);
+	
+	@Query(
+			value = "SELECT\r\n" + 
+					"`sale_details`.`code` AS `code`,\r\n" + 
+					"SUM(`sale_details`.`qty`) AS `qty`,\r\n" + 
+					"SUM(`sale_details`.`qty`*(`sale_details`.`selling_price_vat_incl`-`sale_details`.`discount`)) AS `amount`,\r\n" + 
+					"`products`.`description` AS `description`,\r\n" + 
+					"`products`.`stock` as `stock`\r\n" + 
+					"FROM\r\n" + 
+					"`sales`\r\n" + 
+					"JOIN `days` ON\r\n" + 
+					"`days`.`id`=`sales`.`day_id`\r\n" + 
+					"JOIN `sale_details` ON\r\n" + 
+					"`sale_details`.`sale_id`=`sales`.`id`\r\n" + 
+					"JOIN `products` ON\r\n" + 
+					"`sale_details`.`code`=`products`.`code`\r\n" + 
+					"WHERE\r\n" + 
+					"`days`.`bussiness_date` BETWEEN :fromDate AND :toDate\r\n" + 
+					"GROUP BY `code`\r\n" + 
+					"ORDER BY `qty` ASC",
+					nativeQuery = true					
+			)
+	List<SlowMovingItems> getSlowMovingItems(LocalDate fromDate, LocalDate toDate);
+
 }

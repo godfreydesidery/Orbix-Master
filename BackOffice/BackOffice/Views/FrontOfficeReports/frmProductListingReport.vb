@@ -412,18 +412,18 @@ Public Class frmProductListingReport
         End Try
     End Sub
 
-    Private Sub btnSearchItem_Click(sender As Object, e As EventArgs) Handles btnSearchItem.Click
+    Private Sub btnSearchItem_Click(sender As Object, e As EventArgs)
         searchItem()
     End Sub
 
-    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+    Private Sub btnAdd_Click(sender As Object, e As EventArgs)
         lstCode.Items.Add(txtItemCodeS.Text)
         clearFields()
         btnAdd.Enabled = False
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
         lstCode.Items.Clear()
         'cmbSupplier.Text = ""
         dtgrdList.Rows.Clear()
@@ -441,12 +441,12 @@ Public Class frmProductListingReport
 
     End Sub
 
-    Private Sub txtBarCode_KeyDown(sender As Object, e As KeyEventArgs) Handles txtBarCode.KeyDown
+    Private Sub txtBarCode_KeyDown(sender As Object, e As KeyEventArgs)
         If e.KeyCode = Keys.Enter Then
             searchItem()
         End If
     End Sub
-    Private Sub txtitemcodes_KeyDown(sender As Object, e As KeyEventArgs) Handles txtItemCodeS.KeyDown
+    Private Sub txtitemcodes_KeyDown(sender As Object, e As KeyEventArgs)
         If e.KeyCode = Keys.Enter Then
             searchItem()
         End If
@@ -618,5 +618,9 @@ Public Class frmProductListingReport
 Err_Handler:
         MsgBox(Err.Description, vbCritical, "Error: " & Err.Number)
         Cursor = Cursors.Default
+    End Sub
+
+    Private Sub btnSearchItem_Click_1(sender As Object, e As EventArgs) Handles btnSearchItem.Click
+        searchItem()
     End Sub
 End Class

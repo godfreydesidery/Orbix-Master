@@ -15,6 +15,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,8 @@ import com.orbix.api.models.Product;
 import com.orbix.api.models.StockCard;
 import com.orbix.api.models.Supplier;
 import com.orbix.api.models.User;
+import com.orbix.api.reports.GRNReport;
+import com.orbix.api.reports.PendingLPO;
 import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.GrnDetailRepository;
 import com.orbix.api.repositories.GrnRepository;
@@ -210,5 +213,20 @@ public class GrnServiceController {
     	}
     	grnRepository.save(grn.get());
 		return new ResponseEntity<>("GRN updated", HttpStatus.OK);    	
-    }    
+    }  
+    
+    @Transactional
+    @RequestMapping(method = RequestMethod.GET, value = "/grns/get_grn_report", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<GRNReport> getPendingLPO(
+    		@RequestParam(name = "from_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+    		@RequestParam(name = "to_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+    		@RequestParam(name = "lpo_no") String lpoNo,
+    		@RequestParam(name = "invoice_no") String invoiceNo,
+    		@RequestParam(name = "grn_no") String grnNo, 
+    		@RequestParam(name = "supplier_name") String supplierName,   		
+    		@RequestHeader("user_id") Long userId) {
+		List<GRNReport> report;
+		
+		return grnRepository.getGrnReport(fromDate, toDate);
+    }
 }

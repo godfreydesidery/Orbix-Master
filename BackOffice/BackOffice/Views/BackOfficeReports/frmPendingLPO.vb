@@ -3,79 +3,52 @@ Imports Devart.Data.MySql
 Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
 
 Public Class frmPendingLPO
 
-    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
-        Me.Dispose()
-    End Sub
     Private Function refreshList(filtered As Boolean)
         dtgrdOrderList.Rows.Clear()
+
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim query As String = ""
-            If filtered = True Then
-                query = "SELECT `order_id`, `order_no`, `order_date`, `validity_period`, `valid_until`, `supplier_id`, `status`, `user_id` FROM `orders` WHERE `status`='PENDING' AND `order_date` BETWEEN'" + dateStart.Text + "'AND'" + dateEnd.Text + "'"
-            Else
-                query = "SELECT `order_id`, `order_no`, `order_date`, `validity_period`, `valid_until`, `supplier_id`, `status`, `user_id` FROM `orders` WHERE `status`='PENDING'"
-            End If
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
 
-            Dim orderNo As String = ""
-            Dim supplierCode As String = ""
-            Dim dateCreated As String = ""
-            Dim validUpTo As String = ""
-            Dim validityPeriod As String = ""
-            Dim status As String = ""
+            Dim response As Object = New Object
 
-            While reader.Read
+            response = Web.get_("lpos/get_pending_lpos?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&supplier_name=")
 
-                orderNo = reader.GetString("order_no")
-                supplierCode = (New Supplier).getSupplierCode(reader.GetString("supplier_id"), "")
+            Dim details As List(Of PendingLPO) = JsonConvert.DeserializeObject(Of List(Of PendingLPO))(response.ToString)
 
-                dateCreated = reader.GetString("order_date")
-                validUpTo = reader.GetString("valid_until")
-                validityPeriod = reader.GetString("validity_period")
-                status = reader.GetString("status")
+            For Each detail In details
 
                 Dim dtgrdRow As New DataGridViewRow
                 Dim dtgrdCell As DataGridViewCell
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = orderNo
+                dtgrdCell.Value = detail.lpoNo
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = supplierCode
+                dtgrdCell.Value = detail.supplierName
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = (New Supplier).getSupplierName("", supplierCode)
+                dtgrdCell.Value = detail.dateCreated.ToString("yyyy-MM-dd")
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = dateCreated
+                dtgrdCell.Value = detail.validUntil.ToString("yyyy-MM-dd")
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = validUpTo
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = validityPeriod
+                dtgrdCell.Value = detail.summary
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdOrderList.Rows.Add(dtgrdRow)
-            End While
-            conn.Close()
+
+            Next
+
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            MsgBox(ex.Message)
         End Try
 
         Return vbNull
@@ -84,17 +57,7 @@ Public Class frmPendingLPO
         dtgrdOrderList.Rows.Clear()
         Return vbNull
     End Function
-    Private Sub btnFilter_Click(sender As Object, e As EventArgs) Handles btnFilter.Click
-        refreshList(True)
-    End Sub
 
-    Private Sub btnViewAll_Click(sender As Object, e As EventArgs) Handles btnViewAll.Click
-        refreshList(False)
-    End Sub
-
-    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
-        clear()
-    End Sub
     Private Sub defineStyles(doc As Document)
         'Get the predefined style Normal.
         Dim style As Style = doc.Styles("Normal")
@@ -138,10 +101,8 @@ Public Class frmPendingLPO
 
         Process.Start(filename)
 
-
         Return vbNull
     End Function
-
     Private Sub createDocument(doc As Document)
         'Each MigraDoc document needs at least one section.
         Dim section As Section = doc.AddSection()
@@ -261,7 +222,7 @@ Public Class frmPendingLPO
         paragraph = section.AddParagraph()
         paragraph.AddText("From:  " + dateStart.Text + "  To:  " + dateEnd.Text)
         paragraph.Format.Alignment = ParagraphAlignment.Left
-        paragraph.Format.Font.Size = 9
+        paragraph.Format.Font.Size = 8
         paragraph.Format.Font.Color = Colors.Green
 
         'Add the print date field
@@ -284,10 +245,7 @@ Public Class frmPendingLPO
         'Before you can add a row, you must define the columns
         Dim column As Column
 
-        column = table.AddColumn("2cm")
-        column.Format.Alignment = ParagraphAlignment.Left
-
-        column = table.AddColumn("2cm")
+        column = table.AddColumn("3cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
         column = table.AddColumn("7cm")
@@ -299,7 +257,7 @@ Public Class frmPendingLPO
         column = table.AddColumn("2cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
-        column = table.AddColumn("2cm")
+        column = table.AddColumn("3cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
         'Create the header of the table
@@ -311,52 +269,48 @@ Public Class frmPendingLPO
         row.HeadingFormat = True
         row.Format.Alignment = ParagraphAlignment.Center
         row.Format.Font.Bold = True
-        row.Format.Font.Size = 8
+        row.Format.Font.Size = 9
         row.Borders.Color = Colors.White
-        row.Cells(0).AddParagraph("Order#")
+        row.Cells(0).AddParagraph("LPO No")
         row.Cells(0).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(1).AddParagraph("Supplier#")
+        row.Cells(1).AddParagraph("Supplier")
         row.Cells(1).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(2).AddParagraph("Supplier Name")
+        row.Cells(2).AddParagraph("Date")
         row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(3).AddParagraph("Date")
+        row.Cells(3).AddParagraph("Valid to")
         row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(4).AddParagraph("Valid to")
+        row.Cells(4).AddParagraph("Summary")
         row.Cells(4).Format.Alignment = ParagraphAlignment.Left
-        row.Cells(5).AddParagraph("Days")
-        row.Cells(5).Format.Alignment = ParagraphAlignment.Left
 
-        table.SetEdge(0, 0, 6, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+        table.SetEdge(0, 0, 5, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
 
         For i As Integer = 0 To dtgrdOrderList.RowCount - 1
 
             Dim orderNo As String = dtgrdOrderList.Item(0, i).Value
-            Dim supplierCode As String = dtgrdOrderList.Item(1, i).Value
-            Dim supplierName As String = dtgrdOrderList.Item(2, i).Value
-            Dim dateCreated As String = dtgrdOrderList.Item(3, i).Value
-            Dim validUpTo As String = dtgrdOrderList.Item(4, i).Value
-            Dim validityPeriod As String = dtgrdOrderList.Item(5, i).Value
+            Dim supplier As String = dtgrdOrderList.Item(1, i).Value
+            Dim dateCreated As String = dtgrdOrderList.Item(2, i).Value
+            Dim validUpTo As String = dtgrdOrderList.Item(3, i).Value
+            Dim summary As String = dtgrdOrderList.Item(4, i).Value
 
             row = table.AddRow()
             row.Format.Font.Bold = False
             row.HeadingFormat = False
+            row.Format.Font.Size = 8
             row.Format.Alignment = ParagraphAlignment.Center
             row.Borders.Color = Colors.White
             row.Cells(0).AddParagraph(orderNo)
             row.Cells(0).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(1).AddParagraph(supplierCode)
+            row.Cells(1).AddParagraph(supplier)
             row.Cells(1).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(2).AddParagraph(supplierName)
+            row.Cells(2).AddParagraph(dateCreated)
             row.Cells(2).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(3).AddParagraph(dateCreated)
+            row.Cells(3).AddParagraph(validUpTo)
             row.Cells(3).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(4).AddParagraph(validUpTo)
+            row.Cells(4).AddParagraph(summary)
             row.Cells(4).Format.Alignment = ParagraphAlignment.Left
-            row.Cells(5).AddParagraph(validityPeriod)
-            row.Cells(5).Format.Alignment = ParagraphAlignment.Left
 
-            table.SetEdge(0, 0, 6, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
+            table.SetEdge(0, 0, 5, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
 
         Next
         paragraph = section.AddParagraph()
@@ -367,15 +321,24 @@ Public Class frmPendingLPO
         paragraph.Format.Font.Size = 9
 
     End Sub
-    Private Sub frmPendingLPO_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
+        clear()
     End Sub
 
-    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+    Private Sub btnViewAll_Click_1(sender As Object, e As EventArgs) Handles btnViewAll.Click
+        refreshList(False)
+    End Sub
+
+    Private Sub btnExportToPDF_Click(sender As Object, e As EventArgs) Handles btnExportToPDF.Click
         If dtgrdOrderList.RowCount = 0 Then
             MsgBox("Could not print! List Empty", vbOKOnly + vbExclamation, "Error: List empty")
             Exit Sub
         End If
         print()
+    End Sub
+
+    Private Sub btnBack_Click_1(sender As Object, e As EventArgs) Handles btnBack.Click
+        Me.Dispose()
     End Sub
 End Class

@@ -67,7 +67,7 @@ Public Class frmProductInquiry
             txtSellingPriceVatExcl.Text = LCurrency.displayValue(product.sellingPriceVatExcl.ToString)
             txtProfitMargin.Text = product.profitMargin
             txtVat.Text = product.vat
-            txtDiscount.Text = product.discount
+            txtDiscount.Text = product.discountRatio
             txtQty.Text = product.stock
             txtMinInventory.Text = product.minimumStock
             txtMaxInventory.Text = product.maximumStock

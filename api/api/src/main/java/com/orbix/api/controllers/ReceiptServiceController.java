@@ -207,7 +207,7 @@ public class ReceiptServiceController {
 	    		receiptDetail.setCostPriceVatExcl(detail.getCostPriceVatExcl());
 	    		receiptDetail.setSellingPriceVatIncl(detail.getSellingPriceVatIncl());
 	    		receiptDetail.setSellingPriceVatExcl(detail.getSellingPriceVatExcl());
-	    		receiptDetail.setDiscount(detail.getDiscount());
+	    		receiptDetail.setDiscount((detail.getDiscountRatio()/100) * detail.getSellingPriceVatIncl());
 	    		receiptDetails.add(receiptDetail);
 	    		receiptDetailRepository.saveAndFlush(receiptDetail);
     		}else {
@@ -224,7 +224,7 @@ public class ReceiptServiceController {
     			voided.setCostPriceVatExcl(detail.getCostPriceVatExcl());
     			voided.setSellingPriceVatIncl(detail.getSellingPriceVatIncl());
     			voided.setSellingPriceVatExcl(detail.getSellingPriceVatExcl());
-    			voided.setDiscount(detail.getDiscount());
+    			voided.setDiscount((detail.getDiscountRatio()/100) * detail.getSellingPriceVatIncl());
 	    		voidedRepository.saveAndFlush(voided);
     		}
     		

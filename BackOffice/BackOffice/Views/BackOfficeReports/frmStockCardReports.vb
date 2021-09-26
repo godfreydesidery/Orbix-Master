@@ -435,7 +435,7 @@ Public Class frmStockCardReports
         print()
     End Sub
 
-    Private Sub cmbSupplier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSupplier.SelectedIndexChanged
+    Private Sub cmbSupplier_SelectedIndexChanged(sender As Object, e As EventArgs)
         clearFields()
         lstCode.Items.Clear()
     End Sub
