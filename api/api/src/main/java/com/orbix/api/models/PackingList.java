@@ -97,35 +97,35 @@ public class PackingList {
     @OnDelete(action = OnDeleteAction.NO_ACTION)
 	@Autowired
 	@Embedded
-    private User createdBy;
+    private User createdByUser;
 	
 	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER,  optional = true)
     @JoinColumn(name = "approved_by_user_id", nullable = true , updatable = true)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
 	@Autowired
 	@Embedded
-    private User approvedBy;
+    private User approvedByUser;
 	
 	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER,  optional = true)
     @JoinColumn(name = "issued_by_user_id", nullable = true , updatable = true)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
 	@Autowired
 	@Embedded
-    private User issuedBy;
+    private User issuedByUser;
 	
 	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER,  optional = true)
     @JoinColumn(name = "printed_by_user_id", nullable = true , updatable = true)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
 	@Autowired
 	@Embedded
-    private User printedBy;
+    private User printedByUser;
 	
 	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER,  optional = true)
     @JoinColumn(name = "completed_by_user_id", nullable = true , updatable = true)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
 	@Autowired
 	@Embedded
-    private User completedBy;
+    private User completedByUser;
 	
 	@OneToMany(targetEntity = PackingListDetail.class, mappedBy = "packingList", fetch = FetchType.EAGER, orphanRemoval = true)
     @Valid
@@ -276,44 +276,44 @@ public class PackingList {
 		this.salesOfficer = salesOfficer;
 	}
 
-	public User getCreatedBy() {
-		return createdBy;
+	public User getCreatedByUser() {
+		return createdByUser;
 	}
 
-	public void setCreatedBy(User createdBy) {
-		this.createdBy = createdBy;
+	public void setCreatedByUser(User createdByUser) {
+		this.createdByUser = createdByUser;
 	}
 
-	public User getApprovedBy() {
-		return approvedBy;
+	public User getApprovedByUser() {
+		return approvedByUser;
 	}
 
-	public void setApprovedBy(User approvedBy) {
-		this.approvedBy = approvedBy;
+	public void setApprovedByUser(User approvedByUser) {
+		this.approvedByUser = approvedByUser;
 	}
 
-	public User getIssuedBy() {
-		return issuedBy;
+	public User getIssuedByUser() {
+		return issuedByUser;
 	}
 
-	public void setIssuedBy(User issuedBy) {
-		this.issuedBy = issuedBy;
+	public void setIssuedByUser(User issuedByUser) {
+		this.issuedByUser = issuedByUser;
 	}
 
-	public User getPrintedBy() {
-		return printedBy;
+	public User getPrintedByUser() {
+		return printedByUser;
 	}
 
-	public void setPrintedBy(User printedBy) {
-		this.printedBy = printedBy;
+	public void setPrintedByUser(User printedByUser) {
+		this.printedByUser = printedByUser;
 	}
 
-	public User getCompletedBy() {
-		return completedBy;
+	public User getCompletedByUser() {
+		return completedByUser;
 	}
 
-	public void setCompletedBy(User completedBy) {
-		this.completedBy = completedBy;
+	public void setCompletedByUser(User completedByUser) {
+		this.completedByUser = completedByUser;
 	}
 
 	public List<PackingListDetail> getPackingListDetails() {
@@ -323,6 +323,7 @@ public class PackingList {
 	public void setPackingListDetails(List<PackingListDetail> packingListDetails) {
 		this.packingListDetails = packingListDetails;
 	}
+
 	
 	
 }

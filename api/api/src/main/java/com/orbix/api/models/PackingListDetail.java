@@ -40,7 +40,7 @@ public class PackingListDetail {
 	private double damaged;
 	private double offered;
 	
-	@ManyToOne(targetEntity = Lpo.class, fetch = FetchType.EAGER,  optional = false)
+	@ManyToOne(targetEntity = PackingList.class, fetch = FetchType.EAGER,  optional = false)
     @JoinColumn(name = "packing_list_id", nullable = false , updatable = true)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
 	@Autowired

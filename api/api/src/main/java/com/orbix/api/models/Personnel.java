@@ -30,7 +30,10 @@ public class Personnel {
 	
 	@NotBlank
 	@Column(unique = true)
-    private String no;
+    private String regNo;
+	@NotBlank
+	@Column(unique = true)
+    private String rollNo;
 	@NotBlank
 	private String firstName;
 	private String secondName;
@@ -63,12 +66,12 @@ public class Personnel {
 		this.id = id;
 	}
 
-	public String getNo() {
-		return no;
+	public String getRollNo() {
+		return rollNo;
 	}
 
-	public void setNo(String no) {
-		this.no = no;
+	public void setRollNo(String rollNo) {
+		this.rollNo = rollNo;
 	}
 
 	public String getFirstName() {
@@ -141,6 +144,14 @@ public class Personnel {
 
 	public void setTerminationDay(Day terminationDay) {
 		this.terminationDay = terminationDay;
+	}
+
+	public String getRegNo() {
+		return regNo;
+	}
+
+	public void setRegNo(String regNo) {
+		this.regNo = regNo;
 	}
 	
 	

@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Models\HR\Personnel.vb" />
     <Compile Include="Models\Reports\DailySalesReport.vb" />
     <Compile Include="Models\Reports\FastMovingItems.vb" />
     <Compile Include="Models\Reports\GRNReport.vb" />
@@ -249,6 +250,12 @@
       <DependentUpon>frmPettyCash.vb</DependentUpon>
     </Compile>
     <Compile Include="Views\FrontOfficeReports\frmPettyCash.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HR\frmPersonnel.Designer.vb">
+      <DependentUpon>frmPersonnel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HR\frmPersonnel.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Masters\frmCompany.Designer.vb">
@@ -864,6 +871,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FrontOfficeReports\frmReturnedBottles.resx">
       <DependentUpon>frmReturnedBottles.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HR\frmPersonnel.resx">
+      <DependentUpon>frmPersonnel.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Masters\Company\frmCompanyClass.resx">
       <DependentUpon>frmCompanyClass.vb</DependentUpon>

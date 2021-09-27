@@ -1,12 +1,19 @@
 package com.orbix.api.models;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +41,15 @@ public class Material {
 	private double defaultRequisitionLevel = 0;
 	private double defaultRequisitionQty = 0;
 	private String status;
+	private double unitProductEquivalent = 0;
+	
+	@OneToOne(targetEntity = Till.class, fetch = FetchType.EAGER,  optional = true)
+    @JoinColumn(name = "product_id", nullable = true , updatable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+	@Autowired
+	@Embedded
+    private Product product;
+	
 	public Long getId() {
 		return id;
 	}
@@ -129,6 +145,18 @@ public class Material {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public double getUnitProductEquivalent() {
+		return unitProductEquivalent;
+	}
+	public void setUnitProductEquivalent(double unitProductEquivalent) {
+		this.unitProductEquivalent = unitProductEquivalent;
+	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
 	}	
 	
 	
