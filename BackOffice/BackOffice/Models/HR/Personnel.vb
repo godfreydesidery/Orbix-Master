@@ -9,4 +9,5 @@
     Public Property telephone As String = ""
     Public Property email As String = ""
     Public Property status As String = ""
+    Public Property [alias] As String = ""
 End Class

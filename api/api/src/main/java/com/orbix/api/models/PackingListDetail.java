@@ -33,12 +33,12 @@ public class PackingListDetail {
 	private String description;
 	private double price;
 	private double previousReturns;
-	private double packed;
-	private double totalIssued;
+	private double issued;
+	private double totalPacked;
 	private double sold;
 	private double returned;
 	private double damaged;
-	private double offered;
+	//private double sample;
 	
 	@ManyToOne(targetEntity = PackingList.class, fetch = FetchType.EAGER,  optional = false)
     @JoinColumn(name = "packing_list_id", nullable = false , updatable = true)
@@ -95,21 +95,6 @@ public class PackingListDetail {
 		this.previousReturns = previousReturns;
 	}
 
-	public double getPacked() {
-		return packed;
-	}
-
-	public void setPacked(double packed) {
-		this.packed = packed;
-	}
-
-	public double getTotalIssued() {
-		return totalIssued;
-	}
-
-	public void setTotalIssued(double totalIssued) {
-		this.totalIssued = totalIssued;
-	}
 
 	public double getSold() {
 		return sold;
@@ -135,14 +120,6 @@ public class PackingListDetail {
 		this.damaged = damaged;
 	}
 
-	public double getOffered() {
-		return offered;
-	}
-
-	public void setOffered(double offered) {
-		this.offered = offered;
-	}
-
 	public PackingList getPackingList() {
 		return packingList;
 	}
@@ -150,6 +127,21 @@ public class PackingListDetail {
 	public void setPackingList(PackingList packingList) {
 		this.packingList = packingList;
 	}
-	
-	
+
+	public double getIssued() {
+		return issued;
+	}
+
+	public void setIssued(double issued) {
+		this.issued = issued;
+	}
+
+	public double getTotalPacked() {
+		return totalPacked;
+	}
+
+	public void setTotalPacked(double totalPacked) {
+		this.totalPacked = totalPacked;
+	}
+
 }

@@ -152,6 +152,7 @@
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Models\HR\Personnel.vb" />
+    <Compile Include="Models\HR\SalesPerson.vb" />
     <Compile Include="Models\Reports\DailySalesReport.vb" />
     <Compile Include="Models\Reports\FastMovingItems.vb" />
     <Compile Include="Models\Reports\GRNReport.vb" />
@@ -205,7 +206,7 @@
     <Compile Include="Models\RtvDetail.vb" />
     <Compile Include="Models\SalesInvoice.vb" />
     <Compile Include="Models\SalesInvoiceDetail.vb" />
-    <Compile Include="Models\SalesPerson\SalesPerson.vb" />
+    <Compile Include="Models\SalesPerson\SalesPersons.vb" />
     <Compile Include="Models\StockCard.vb" />
     <Compile Include="Models\Transactions\Refund.vb" />
     <Compile Include="Models\Transactions\SaleInvoice.vb" />
@@ -256,6 +257,12 @@
       <DependentUpon>frmPersonnel.vb</DependentUpon>
     </Compile>
     <Compile Include="Views\HR\frmPersonnel.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\HR\frmSalesPersons.Designer.vb">
+      <DependentUpon>frmSalesPersons.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HR\frmSalesPersons.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Masters\frmCompany.Designer.vb">
@@ -379,10 +386,10 @@
     <Compile Include="Views\ProductionAndSales\frmMaterialVsProduction.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ProductionAndSales\frmParkingList.Designer.vb">
-      <DependentUpon>frmParkingList.vb</DependentUpon>
+    <Compile Include="Views\ProductionAndSales\frmPackingList.Designer.vb">
+      <DependentUpon>frmPackingList.vb</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProductionAndSales\frmParkingList.vb">
+    <Compile Include="Views\ProductionAndSales\frmPackingList.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\ProductionAndSales\frmProductionReport.Designer.vb">
@@ -875,6 +882,9 @@
     <EmbeddedResource Include="Views\HR\frmPersonnel.resx">
       <DependentUpon>frmPersonnel.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\HR\frmSalesPersons.resx">
+      <DependentUpon>frmSalesPersons.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Masters\Company\frmCompanyClass.resx">
       <DependentUpon>frmCompanyClass.vb</DependentUpon>
     </EmbeddedResource>
@@ -992,8 +1002,8 @@
     <EmbeddedResource Include="Views\ProductionAndSales\frmMaterialVsProduction.resx">
       <DependentUpon>frmMaterialVsProduction.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ProductionAndSales\frmParkingList.resx">
-      <DependentUpon>frmParkingList.vb</DependentUpon>
+    <EmbeddedResource Include="Views\ProductionAndSales\frmPackingList.resx">
+      <DependentUpon>frmPackingList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ProductionAndSales\frmProductionReport.resx">
       <DependentUpon>frmProductionReport.vb</DependentUpon>

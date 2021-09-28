@@ -45,9 +45,9 @@ public class PackingList {
 	
 	private double discount;
 	private double expenses;
-	private double bank;
+	private double bankDeposit;
 	private double cash;
-	private double offer;
+	private double sample;
 	private double deficit;
 	
 	@ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = true)
@@ -86,11 +86,11 @@ public class PackingList {
     private Day completedDay;
 	
 	@ManyToOne(targetEntity = SalesPerson.class, fetch = FetchType.EAGER,  optional = false)
-    @JoinColumn(name = "sales_officer_id", nullable = false , updatable = true)
+    @JoinColumn(name = "sales_person_id", nullable = false , updatable = true)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
 	@Autowired
 	@Embedded
-    private User salesOfficer;
+    private SalesPerson salesPerson;
 	
 	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER,  optional = true)
     @JoinColumn(name = "created_by_user_id", nullable = true , updatable = true)
@@ -196,12 +196,13 @@ public class PackingList {
 		this.expenses = expenses;
 	}
 
-	public double getBank() {
-		return bank;
+
+	public double getBankDeposit() {
+		return bankDeposit;
 	}
 
-	public void setBank(double bank) {
-		this.bank = bank;
+	public void setBankDeposit(double bankDeposit) {
+		this.bankDeposit = bankDeposit;
 	}
 
 	public double getCash() {
@@ -212,12 +213,12 @@ public class PackingList {
 		this.cash = cash;
 	}
 
-	public double getOffer() {
-		return offer;
+	public double getSample() {
+		return sample;
 	}
 
-	public void setOffer(double offer) {
-		this.offer = offer;
+	public void setSample(double sample) {
+		this.sample = sample;
 	}
 
 	public double getDeficit() {
@@ -268,12 +269,13 @@ public class PackingList {
 		this.completedDay = completedDay;
 	}
 
-	public User getSalesOfficer() {
-		return salesOfficer;
+
+	public SalesPerson getSalesPerson() {
+		return salesPerson;
 	}
 
-	public void setSalesOfficer(User salesOfficer) {
-		this.salesOfficer = salesOfficer;
+	public void setSalesPerson(SalesPerson salesPerson) {
+		this.salesPerson = salesPerson;
 	}
 
 	public User getCreatedByUser() {

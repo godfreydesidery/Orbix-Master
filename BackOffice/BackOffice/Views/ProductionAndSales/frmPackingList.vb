@@ -2,6 +2,7 @@
 Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
 
 Public Class frmPackingList
 
@@ -159,7 +160,7 @@ Public Class frmPackingList
         paragraph.AddFormattedText("Issue No: " + txtIssueNo.Text)
         paragraph.Format.Font.Size = 8
         paragraph = section.AddParagraph()
-        paragraph.AddFormattedText("Issue Date: " + txtIssueDate.Text)
+        paragraph.AddFormattedText("Issue Date: " + txtCreated.Text)
         paragraph.Format.Font.Size = 8
         paragraph = section.AddParagraph()
         paragraph.AddFormattedText("Status: " + (New PackingList).getStatus(txtIssueNo.Text))
@@ -192,8 +193,6 @@ Public Class frmPackingList
         Dim skip As Integer = 0
 
         If status = "PRINTED" Or status = "APPROVED" Or status = "COMPLETED" Or status = "ARCHIVED" Then
-
-
 
             'Before you can add a row, you must define the columns
             Dim column As Column
@@ -459,7 +458,7 @@ Public Class frmPackingList
             paragraph.AddFormattedText("Returns:" + LCurrency.displayValue(txtTotalPreviousReturns.Text))
             paragraph.Format.Font.Size = 8
             paragraph = section.AddParagraph()
-            paragraph.AddFormattedText("Packed:" + LCurrency.displayValue(txtTotalPacked.Text))
+            paragraph.AddFormattedText("Packed:" + LCurrency.displayValue(txtTotalAmountPacked.Text))
             paragraph.Format.Font.Size = 8
             paragraph = section.AddParagraph()
             paragraph.AddFormattedText("Total Issued:" + LCurrency.displayValue(txtTotalAmountIssued.Text))
@@ -584,7 +583,7 @@ Public Class frmPackingList
             row3.Height = "6mm"
             row3.Cells(0).Format.Alignment = ParagraphAlignment.Left
             If Not status = "PRINTED" Or report = True Then
-                row3.Cells(1).AddParagraph(LCurrency.displayValue(txtTotalExpenditures.Text))
+                row3.Cells(1).AddParagraph(LCurrency.displayValue(txtTotalExpenses.Text))
             Else
                 row3.Cells(1).AddParagraph("")
             End If
@@ -603,7 +602,7 @@ Public Class frmPackingList
             row3.Height = "6mm"
             row3.Cells(0).Format.Alignment = ParagraphAlignment.Left
             If Not status = "PRINTED" Or report = True Then
-                row3.Cells(1).AddParagraph(LCurrency.displayValue(txtTotalBankCash.Text))
+                row3.Cells(1).AddParagraph(LCurrency.displayValue(txtTotalBankDeposit.Text))
             Else
                 row3.Cells(1).AddParagraph("")
             End If
@@ -656,17 +655,17 @@ Public Class frmPackingList
             txtIssueNo.ReadOnly = True
             'txtOrderNo.Text = order.GL_ORDER_NO
 
-            txtIssueDate.Text = list.GL_ISSUE_DATE
+            txtCreated.Text = list.GL_ISSUE_DATE
             txtStatus.Text = list.GL_STATUS
             cmbSalesPersons.Text = list.GL_SALES_PERSON
             txtTotalAmountIssued.Text = LCurrency.displayValue(list.GL_AMOUNT_ISSUED.ToString)
             txtTotalReturns.Text = LCurrency.displayValue(list.GL_TOTAL_RETURNS.ToString)
             txtTotalDamages.Text = LCurrency.displayValue(list.GL_TOTAL_DAMAGES.ToString)
             txtTotalDiscounts.Text = LCurrency.displayValue(list.GL_TOTAL_DISCOUNTS.ToString)
-            txtTotalExpenditures.Text = LCurrency.displayValue(list.GL_TOTAL_EXPENDITURES.ToString)
-            txtTotalBankCash.Text = LCurrency.displayValue(list.GL_TOTAL_BANK_CASH.ToString)
+            txtTotalExpenses.Text = LCurrency.displayValue(list.GL_TOTAL_EXPENDITURES.ToString)
+            txtTotalBankDeposit.Text = LCurrency.displayValue(list.GL_TOTAL_BANK_CASH.ToString)
             txtDebt.Text = LCurrency.displayValue(list.GL_DEBT.ToString)
-            txtCostOfGoodsSold.Text = LCurrency.displayValue(list.GL_COST_OF_GOODS_SOLD.ToString)
+            txtAmountSold.Text = LCurrency.displayValue(list.GL_COST_OF_GOODS_SOLD.ToString)
 
             'txtTotalSales.Text = LCurrency.displayValue((LCurrency.getValue(txtTotalAmountIssued.Text)).ToString)
 
@@ -686,17 +685,17 @@ Public Class frmPackingList
                 txtId.Text = list.GL_ID
                 txtIssueNo.ReadOnly = True
 
-                txtIssueDate.Text = list.GL_ISSUE_DATE
+                txtCreated.Text = list.GL_ISSUE_DATE
                 txtStatus.Text = list.GL_STATUS
                 cmbSalesPersons.Text = list.GL_SALES_PERSON
                 txtTotalAmountIssued.Text = LCurrency.displayValue(list.GL_AMOUNT_ISSUED.ToString)
                 txtTotalReturns.Text = LCurrency.displayValue(list.GL_TOTAL_RETURNS.ToString)
                 txtTotalDamages.Text = LCurrency.displayValue(list.GL_TOTAL_DAMAGES.ToString)
                 txtTotalDiscounts.Text = LCurrency.displayValue(list.GL_TOTAL_DISCOUNTS.ToString)
-                txtTotalExpenditures.Text = LCurrency.displayValue(list.GL_TOTAL_EXPENDITURES.ToString)
-                txtTotalBankCash.Text = LCurrency.displayValue(list.GL_TOTAL_BANK_CASH.ToString)
+                txtTotalExpenses.Text = LCurrency.displayValue(list.GL_TOTAL_EXPENDITURES.ToString)
+                txtTotalBankDeposit.Text = LCurrency.displayValue(list.GL_TOTAL_BANK_CASH.ToString)
                 txtDebt.Text = LCurrency.displayValue(list.GL_DEBT.ToString)
-                txtCostOfGoodsSold.Text = LCurrency.displayValue(list.GL_COST_OF_GOODS_SOLD.ToString)
+                txtAmountSold.Text = LCurrency.displayValue(list.GL_COST_OF_GOODS_SOLD.ToString)
 
                 'txtTotalSales.Text = LCurrency.displayValue((LCurrency.getValue(txtTotalAmountIssued.Text)).ToString)
 
@@ -734,8 +733,8 @@ Public Class frmPackingList
 
 
                     txtTotalDiscounts.ReadOnly = True
-                    txtTotalExpenditures.ReadOnly = True
-                    txtTotalBankCash.ReadOnly = True
+                    txtTotalExpenses.ReadOnly = True
+                    txtTotalBankDeposit.ReadOnly = True
                     txtDebt.ReadOnly = True
                 End If
 
@@ -754,8 +753,8 @@ Public Class frmPackingList
 
 
                     txtTotalDiscounts.ReadOnly = True
-                    txtTotalExpenditures.ReadOnly = True
-                    txtTotalBankCash.ReadOnly = True
+                    txtTotalExpenses.ReadOnly = True
+                    txtTotalBankDeposit.ReadOnly = True
                     txtDebt.ReadOnly = True
                 End If
                 If status = "PRINTED" Then
@@ -773,8 +772,8 @@ Public Class frmPackingList
 
 
                     txtTotalDiscounts.ReadOnly = False
-                    txtTotalExpenditures.ReadOnly = False
-                    txtTotalBankCash.ReadOnly = False
+                    txtTotalExpenses.ReadOnly = False
+                    txtTotalBankDeposit.ReadOnly = False
                     txtDebt.ReadOnly = False
                 End If
                 If status = "COMPLETED" Then
@@ -792,8 +791,8 @@ Public Class frmPackingList
 
 
                     txtTotalDiscounts.ReadOnly = True
-                    txtTotalExpenditures.ReadOnly = True
-                    txtTotalBankCash.ReadOnly = True
+                    txtTotalExpenses.ReadOnly = True
+                    txtTotalBankDeposit.ReadOnly = True
                     txtDebt.ReadOnly = True
                 End If
                 If status = "CANCELED" Then
@@ -811,8 +810,8 @@ Public Class frmPackingList
 
 
                     txtTotalDiscounts.ReadOnly = True
-                    txtTotalExpenditures.ReadOnly = True
-                    txtTotalBankCash.ReadOnly = True
+                    txtTotalExpenses.ReadOnly = True
+                    txtTotalBankDeposit.ReadOnly = True
                     txtDebt.ReadOnly = True
                 End If
                 If status = "ARCHIVED" Then
@@ -830,8 +829,8 @@ Public Class frmPackingList
 
 
                     txtTotalDiscounts.ReadOnly = True
-                    txtTotalExpenditures.ReadOnly = True
-                    txtTotalBankCash.ReadOnly = True
+                    txtTotalExpenses.ReadOnly = True
+                    txtTotalBankDeposit.ReadOnly = True
                     txtDebt.ReadOnly = True
                 End If
 
@@ -855,7 +854,7 @@ Public Class frmPackingList
         txtPrice.Text = ""
         txtReturns.Text = ""
         txtPacked.Text = ""
-        txtIssued.Text = ""
+        txtTotalIssued.Text = ""
         txtQtyReturned.Text = ""
         txtQtyDamaged.Text = ""
         txtQtySold.Text = ""
@@ -867,7 +866,7 @@ Public Class frmPackingList
 
         txtId.Text = ""
         txtIssueNo.Text = ""
-        txtIssueDate.Text = ""
+        txtCreated.Text = ""
         cmbSalesPersons.SelectedItem = Nothing
         txtStatus.Text = "PENDING"
 
@@ -877,23 +876,23 @@ Public Class frmPackingList
         txtPrice.Text = ""
         txtReturns.Text = ""
         txtPacked.Text = ""
-        txtIssued.Text = ""
+        txtTotalIssued.Text = ""
         txtQtyReturned.Text = ""
         txtQtyDamaged.Text = ""
         txtQtySold.Text = ""
         txtCPrice.Text = ""
 
         txtTotalPreviousReturns.Text = ""
-        txtTotalPacked.Text = ""
+        txtTotalAmountPacked.Text = ""
         txtTotalAmountIssued.Text = ""
         txtTotalSales.Text = ""
         txtTotalReturns.Text = ""
         txtTotalDiscounts.Text = ""
-        txtTotalExpenditures.Text = ""
+        txtTotalExpenses.Text = ""
         txtTotalDamages.Text = ""
-        txtTotalBankCash.Text = ""
+        txtTotalBankDeposit.Text = ""
         txtDebt.Text = ""
-        txtCostOfGoodsSold.Text = ""
+        txtAmountSold.Text = ""
 
 
 
@@ -911,12 +910,12 @@ Public Class frmPackingList
         txtQtyDamaged.ReadOnly = True
 
         txtTotalDiscounts.ReadOnly = True
-        txtTotalExpenditures.ReadOnly = True
-        txtTotalBankCash.ReadOnly = True
+        txtTotalExpenses.ReadOnly = True
+        txtTotalBankDeposit.ReadOnly = True
         txtDebt.ReadOnly = True
 
 
-        txtIssueDate.Text = Day.DAY
+        txtCreated.Text = Day.DAY
         btnSave.Enabled = False
         btnApprove.Enabled = False
         'clear()
@@ -942,7 +941,7 @@ Public Class frmPackingList
             btnSave.Enabled = False
             txtIssueNo.ReadOnly = False
             txtIssueNo.Text = ""
-            txtIssueDate.Text = ""
+            txtCreated.Text = ""
             cmbSalesPersons.SelectedItem = Nothing
             txtStatus.Text = ""
         Else
@@ -980,6 +979,13 @@ Public Class frmPackingList
     Private Function refreshList()
         Cursor = Cursors.WaitCursor
         dtgrdItemList.Rows.Clear()
+
+        Try
+
+        Catch ex As Exception
+
+        End Try
+
         Try
 
             Dim conn As New MySqlConnection(Database.conString)
@@ -1091,12 +1097,12 @@ Public Class frmPackingList
 
             conn.Close()
             txtTotalPreviousReturns.Text = LCurrency.displayValue(totalPreviousReturns.ToString)
-            txtTotalPacked.Text = LCurrency.displayValue(totalPacked.ToString)
+            txtTotalAmountPacked.Text = LCurrency.displayValue(totalPacked.ToString)
             txtTotalAmountIssued.Text = LCurrency.displayValue(amountIssued.ToString)
             txtTotalSales.Text = LCurrency.displayValue(totalSales.ToString)
             txtTotalReturns.Text = LCurrency.displayValue(totalreturned.ToString)
             txtTotalDamages.Text = LCurrency.displayValue(totalDamaged.ToString)
-            txtCostOfGoodsSold.Text = LCurrency.displayValue(totalCost.ToString)
+            txtAmountSold.Text = LCurrency.displayValue(totalCost.ToString)
 
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -1161,7 +1167,7 @@ Public Class frmPackingList
         txtPrice.Text = price
         txtReturns.Text = returns
         txtPacked.Text = packed
-        txtIssued.Text = qtyIssued
+        txtTotalIssued.Text = qtyIssued
         txtQtyReturned.Text = qtyReturned
         txtQtySold.Text = qtySold
         txtQtyDamaged.Text = qtyDamaged
@@ -1192,7 +1198,7 @@ Public Class frmPackingList
             txtQtySold.ReadOnly = True
             txtQtyDamaged.ReadOnly = True
 
-            txtIssued.ReadOnly = True
+            txtTotalIssued.ReadOnly = True
 
             btnAdd.Enabled = False
         End If
@@ -1413,7 +1419,7 @@ Public Class frmPackingList
         txtStockSize.Text = ""
         txtReturns.Text = ""
         txtPacked.Text = ""
-        txtIssued.Text = ""
+        txtTotalIssued.Text = ""
         txtQtyReturned.Text = ""
         txtQtySold.Text = ""
         txtQtyDamaged.Text = ""
@@ -1502,7 +1508,7 @@ Public Class frmPackingList
 
         Dim returns As String = txtReturns.Text
         Dim packed As String = txtPacked.Text
-        Dim qtyIssued As String = txtIssued.Text
+        Dim qtyIssued As String = txtTotalIssued.Text
         Dim qtyReturned As String = txtQtyReturned.Text
         Dim qtySold As String = txtQtySold.Text
         Dim qtyDamaged As String = txtQtyDamaged.Text
@@ -1529,6 +1535,9 @@ Public Class frmPackingList
         Dim _new As Boolean = False
         Dim list As PackingList
         If txtId.Text = "" Then
+
+
+
             _new = True
             list = New PackingList
             list.GL_ISSUE_NO = txtIssueNo.Text
@@ -1675,7 +1684,7 @@ Public Class frmPackingList
         txtPrice.Text = ""
         txtReturns.Text = ""
         txtPacked.Text = ""
-        txtIssued.Text = ""
+        txtTotalIssued.Text = ""
         txtQtyReturned.Text = ""
         txtQtyDamaged.Text = ""
         txtQtySold.Text = ""
@@ -1727,7 +1736,7 @@ Public Class frmPackingList
         End If
         Dim list As New PackingList
         list.GL_ISSUE_NO = txtIssueNo.Text
-        list.GL_ISSUE_DATE = txtIssueDate.Text
+        list.GL_ISSUE_DATE = txtCreated.Text
         list.GL_STATUS = txtStatus.Text
         list.GL_SALES_PERSON = cmbSalesPersons.Text
 
@@ -1735,10 +1744,10 @@ Public Class frmPackingList
         list.GL_TOTAL_RETURNS = Val(LCurrency.getValue(txtTotalReturns.Text))
         list.GL_TOTAL_DAMAGES = Val(LCurrency.getValue(txtTotalDamages.Text))
         list.GL_TOTAL_DISCOUNTS = Val(LCurrency.getValue(txtTotalDiscounts.Text))
-        list.GL_TOTAL_EXPENDITURES = Val(LCurrency.getValue(txtTotalExpenditures.Text))
-        list.GL_TOTAL_BANK_CASH = Val(LCurrency.getValue(txtTotalBankCash.Text))
+        list.GL_TOTAL_EXPENDITURES = Val(LCurrency.getValue(txtTotalExpenses.Text))
+        list.GL_TOTAL_BANK_CASH = Val(LCurrency.getValue(txtTotalBankDeposit.Text))
         list.GL_DEBT = Val(LCurrency.getValue(txtDebt.Text))
-        list.GL_COST_OF_GOODS_SOLD = Val(LCurrency.getValue(txtCostOfGoodsSold.Text))
+        list.GL_COST_OF_GOODS_SOLD = Val(LCurrency.getValue(txtAmountSold.Text))
         'check if new or existing 
 
         If txtId.Text = "" Then
@@ -1770,7 +1779,7 @@ Public Class frmPackingList
 
         txtId.Text = ""
         txtIssueNo.Text = ""
-        txtIssueDate.Text = ""
+        txtCreated.Text = ""
         cmbSalesPersons.SelectedItem = Nothing
         txtStatus.Text = ""
 
@@ -1781,23 +1790,23 @@ Public Class frmPackingList
         txtPrice.Text = ""
         txtReturns.Text = ""
         txtPacked.Text = ""
-        txtIssued.Text = ""
+        txtTotalIssued.Text = ""
         txtQtyReturned.Text = ""
         txtQtyDamaged.Text = ""
         txtQtySold.Text = ""
         txtCPrice.Text = ""
 
         txtTotalPreviousReturns.Text = ""
-        txtTotalPacked.Text = ""
+        txtTotalAmountPacked.Text = ""
         txtTotalAmountIssued.Text = ""
         txtTotalSales.Text = ""
         txtTotalReturns.Text = ""
         txtTotalDiscounts.Text = ""
-        txtTotalExpenditures.Text = ""
+        txtTotalExpenses.Text = ""
         txtTotalDamages.Text = ""
-        txtTotalBankCash.Text = ""
+        txtTotalBankDeposit.Text = ""
         txtDebt.Text = ""
-        txtCostOfGoodsSold.Text = ""
+        txtAmountSold.Text = ""
 
 
         'lock
@@ -1807,14 +1816,14 @@ Public Class frmPackingList
         txtQtyDamaged.ReadOnly = True
 
         txtTotalDiscounts.ReadOnly = True
-        txtTotalExpenditures.ReadOnly = True
-        txtTotalBankCash.ReadOnly = True
+        txtTotalExpenses.ReadOnly = True
+        txtTotalBankDeposit.ReadOnly = True
         txtDebt.ReadOnly = True
         txtPrice.ReadOnly = True
         txtBarCode.ReadOnly = True
         txtItemCode.ReadOnly = True
         cmbDescription.Enabled = False
-        txtIssueDate.Text = ""
+        txtCreated.Text = ""
         txtStatus.Text = ""
 
         'unlock
@@ -2000,21 +2009,21 @@ Public Class frmPackingList
         txtTotalReturns.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalReturns.Text))), 2, MidpointRounding.AwayFromZero).ToString)
         txtTotalDamages.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalDamages.Text))), 2, MidpointRounding.AwayFromZero).ToString)
         txtTotalDiscounts.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalDiscounts.Text))), 2, MidpointRounding.AwayFromZero).ToString)
-        txtTotalExpenditures.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalExpenditures.Text))), 2, MidpointRounding.AwayFromZero).ToString)
-        txtTotalBankCash.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalBankCash.Text))), 2, MidpointRounding.AwayFromZero).ToString)
+        txtTotalExpenses.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalExpenses.Text))), 2, MidpointRounding.AwayFromZero).ToString)
+        txtTotalBankDeposit.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalBankDeposit.Text))), 2, MidpointRounding.AwayFromZero).ToString)
         txtDebt.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtDebt.Text))), 2, MidpointRounding.AwayFromZero).ToString)
         txtTotalSales.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalSales.Text))), 2, MidpointRounding.AwayFromZero).ToString)
-        txtCostOfGoodsSold.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtCostOfGoodsSold.Text))), 2, MidpointRounding.AwayFromZero).ToString)
+        txtAmountSold.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtAmountSold.Text))), 2, MidpointRounding.AwayFromZero).ToString)
 
         Dim amountIssued As Double = Val(LCurrency.getValue(txtTotalAmountIssued.Text))
         Dim sales As Double = Val(LCurrency.getValue(txtTotalSales.Text))
         Dim returns As Double = Val(LCurrency.getValue(txtTotalReturns.Text))
         Dim damages As Double = Val(LCurrency.getValue(txtTotalDamages.Text))
         Dim discounts As Double = Val(LCurrency.getValue(txtTotalDiscounts.Text))
-        Dim expenditures As Double = Val(LCurrency.getValue(txtTotalExpenditures.Text))
-        Dim bankCash As Double = Val(LCurrency.getValue(txtTotalBankCash.Text))
+        Dim expenditures As Double = Val(LCurrency.getValue(txtTotalExpenses.Text))
+        Dim bankCash As Double = Val(LCurrency.getValue(txtTotalBankDeposit.Text))
         Dim debt As Double = Val(LCurrency.getValue(txtDebt.Text))
-        Dim costOfGoods As Double = Val(LCurrency.getValue(txtCostOfGoodsSold.Text))
+        Dim costOfGoods As Double = Val(LCurrency.getValue(txtAmountSold.Text))
 
 
         'validate entries
@@ -2082,7 +2091,7 @@ Public Class frmPackingList
 
         Dim list As PackingList = New PackingList
         list.GL_ISSUE_NO = txtIssueNo.Text
-        list.GL_ISSUE_DATE = txtIssueDate.Text
+        list.GL_ISSUE_DATE = txtCreated.Text
         list.GL_STATUS = txtStatus.Text
         list.GL_SALES_PERSON = cmbSalesPersons.Text
 
@@ -2090,10 +2099,10 @@ Public Class frmPackingList
         list.GL_TOTAL_RETURNS = Val(LCurrency.getValue(txtTotalReturns.Text))
         list.GL_TOTAL_DAMAGES = Val(LCurrency.getValue(txtTotalDamages.Text))
         list.GL_TOTAL_DISCOUNTS = Val(LCurrency.getValue(txtTotalDiscounts.Text))
-        list.GL_TOTAL_EXPENDITURES = Val(LCurrency.getValue(txtTotalExpenditures.Text))
-        list.GL_TOTAL_BANK_CASH = Val(LCurrency.getValue(txtTotalBankCash.Text))
+        list.GL_TOTAL_EXPENDITURES = Val(LCurrency.getValue(txtTotalExpenses.Text))
+        list.GL_TOTAL_BANK_CASH = Val(LCurrency.getValue(txtTotalBankDeposit.Text))
         list.GL_DEBT = Val(LCurrency.getValue(txtDebt.Text))
-        list.GL_COST_OF_GOODS_SOLD = Val(LCurrency.getValue(txtCostOfGoodsSold.Text))
+        list.GL_COST_OF_GOODS_SOLD = Val(LCurrency.getValue(txtAmountSold.Text))
 
         If list.completePackingList(txtIssueNo.Text) = True Then
             list.editPackingList(txtIssueNo.Text)
@@ -2110,7 +2119,7 @@ Public Class frmPackingList
     Private Function recordSale(receiptNo As String)
         Dim recorded As Boolean = False
         Dim tillNO As String = "PCKLIST" 'Till.TILLNO
-        Dim dayDate As String = txtIssueDate.Text
+        Dim dayDate As String = txtCreated.Text
         Dim dateTime As DateTime = Date.Now.ToString("yyyy/MM/dd HH:mm:ss")
         'Dim total As Double = LCurrency.getValue(txtTotal.Text)
         Dim discount As Double = txtTotalDiscounts.Text
@@ -2251,6 +2260,41 @@ Public Class frmPackingList
 
     Private Sub refreshPackingLists()
         dtgrdPackingLists.Rows.Clear()
+
+        Try
+            Dim response As Object = New Object
+
+            response = Web.get_("packing_lists/visible")
+
+            Dim packingLists As List(Of PackingList) = JsonConvert.DeserializeObject(Of List(Of PackingList))(response.ToString)
+
+            For Each packingList In packingLists
+
+                Dim dtgrdRow As New DataGridViewRow
+                Dim dtgrdCell As DataGridViewCell
+
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = packingList.no
+                dtgrdRow.Cells.Add(dtgrdCell)
+
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = packingList.createdDay.bussinessDate
+                dtgrdRow.Cells.Add(dtgrdCell)
+
+                dtgrdCell = New DataGridViewTextBoxCell()
+                dtgrdCell.Value = "Status: " + packingList.status + " S/M Officer: " + packingList.salesPerson.personnel.alias
+                dtgrdRow.Cells.Add(dtgrdCell)
+
+                dtgrdPackingLists.Rows.Add(dtgrdRow)
+
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+
+        Exit Sub
+
         Try
             Dim conn As New MySqlConnection(Database.conString)
             Dim command As New MySqlCommand()
@@ -2338,9 +2382,9 @@ Public Class frmPackingList
         End If
     End Sub
 
-    Private Sub txtQtyIssued_TextChanged(sender As Object, e As EventArgs) Handles txtIssued.TextChanged
-        If Not IsNumeric(txtIssued.Text) Or txtIssued.Text.Contains("-") Or Val(txtIssued.Text) < 0 Then
-            txtIssued.Text = ""
+    Private Sub txtQtyIssued_TextChanged(sender As Object, e As EventArgs) Handles txtTotalIssued.TextChanged
+        If Not IsNumeric(txtTotalIssued.Text) Or txtTotalIssued.Text.Contains("-") Or Val(txtTotalIssued.Text) < 0 Then
+            txtTotalIssued.Text = ""
         End If
     End Sub
 
@@ -2377,8 +2421,8 @@ Public Class frmPackingList
         Dim returns As Double = Val(LCurrency.getValue(txtTotalReturns.Text))
         Dim damages As Double = Val(LCurrency.getValue(txtTotalDamages.Text))
         Dim discounts As Double = Val(LCurrency.getValue(txtTotalDiscounts.Text))
-        Dim expenditures As Double = Val(LCurrency.getValue(txtTotalExpenditures.Text))
-        Dim bankCash As Double = Val(LCurrency.getValue(txtTotalBankCash.Text))
+        Dim expenditures As Double = Val(LCurrency.getValue(txtTotalExpenses.Text))
+        Dim bankCash As Double = Val(LCurrency.getValue(txtTotalBankDeposit.Text))
 
         Dim debt As Double = sales - (discounts + expenditures + bankCash)
 
@@ -2394,15 +2438,15 @@ Public Class frmPackingList
         End If
     End Sub
 
-    Private Sub txtTotalExpenditures_TextChanged(sender As Object, e As EventArgs) Handles txtTotalExpenditures.TextChanged
-        If Not IsNumeric(LCurrency.getValue(txtTotalExpenditures.Text)) Or txtTotalExpenditures.Text.Contains("-") Or Val(LCurrency.getValue(txtTotalExpenditures.Text)) < 0 Then
-            txtTotalExpenditures.Text = ""
+    Private Sub txtTotalExpenditures_TextChanged(sender As Object, e As EventArgs) Handles txtTotalExpenses.TextChanged
+        If Not IsNumeric(LCurrency.getValue(txtTotalExpenses.Text)) Or txtTotalExpenses.Text.Contains("-") Or Val(LCurrency.getValue(txtTotalExpenses.Text)) < 0 Then
+            txtTotalExpenses.Text = ""
         End If
     End Sub
 
-    Private Sub txtTotalBankCash_TextChanged(sender As Object, e As EventArgs) Handles txtTotalBankCash.TextChanged
-        If Not IsNumeric(LCurrency.getValue(txtTotalBankCash.Text)) Or txtTotalBankCash.Text.Contains("-") Or Val(LCurrency.getValue(txtTotalBankCash.Text)) < 0 Then
-            txtTotalBankCash.Text = ""
+    Private Sub txtTotalBankCash_TextChanged(sender As Object, e As EventArgs) Handles txtTotalBankDeposit.TextChanged
+        If Not IsNumeric(LCurrency.getValue(txtTotalBankDeposit.Text)) Or txtTotalBankDeposit.Text.Contains("-") Or Val(LCurrency.getValue(txtTotalBankDeposit.Text)) < 0 Then
+            txtTotalBankDeposit.Text = ""
         End If
     End Sub
 
@@ -2479,7 +2523,7 @@ Public Class frmPackingList
         If (txtReturns.Text).Contains("-") Then
             txtReturns.Text = ""
         End If
-        txtIssued.Text = (Val(txtReturns.Text) + Val(txtPacked.Text)).ToString
+        txtTotalIssued.Text = (Val(txtReturns.Text) + Val(txtPacked.Text)).ToString
     End Sub
 
     Private Sub txtPacked_TextChanged(sender As Object, e As EventArgs) Handles txtPacked.TextChanged
@@ -2492,7 +2536,7 @@ Public Class frmPackingList
         If (txtPacked.Text).Contains("-") Then
             txtPacked.Text = ""
         End If
-        txtIssued.Text = (Val(txtReturns.Text) + Val(txtPacked.Text)).ToString
+        txtTotalIssued.Text = (Val(txtReturns.Text) + Val(txtPacked.Text)).ToString
     End Sub
 
     Private Sub cmbDescription_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDescription.SelectedIndexChanged

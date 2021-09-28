@@ -34,6 +34,32 @@ Public Class PackingList
     Public GL_PRICE As Double = 0
     Public GL_C_PRICE As Double = 0
     Public GL_STOCK_SIZE As Integer = 0
+
+
+    Public Overloads Property id As String = ""
+    Public Property no As String = ""
+    Public Property createdDay As Day = New Day
+    Public Property issuedDay As Day = New Day
+    Public Property approvedDay As Day = New Day
+    Public Property printedDay As Day = New Day
+    Public Property completedDay As Day = New Day
+    Public Property salesPerson As SalesPerson = New SalesPerson
+    Public Property createdByUser As User = New User
+    Public Property approvedByUser As User = New User
+    Public Property issuedByUser As User = New User
+    Public Property printedByUser As User = New User
+    Public Property completedByUser As User = New User
+    Public Property status As String = ""
+    Public Property returns As Double = 0
+    Public Property packed As Double = 0
+    Public Property issued As Double = 0
+    Public Property discount As Double = 0
+    Public Property expenses As Double = 0
+    Public Property bankDeposit As Double = 0
+    Public Property cash As Double = 0
+    Public Property sample As Double = 0
+    Public Property deficit As Double = 0
+
     Public Function generateIssueNo() As String
         Dim no As String = ""
         Try

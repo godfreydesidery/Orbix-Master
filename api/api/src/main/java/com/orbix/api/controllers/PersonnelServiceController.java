@@ -23,8 +23,10 @@ import com.orbix.api.accessories.Formater;
 import com.orbix.api.exceptions.MissingInformationException;
 import com.orbix.api.exceptions.NotFoundException;
 import com.orbix.api.models.Personnel;
+import com.orbix.api.models.SalesPerson;
 import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.PersonnelRepository;
+import com.orbix.api.repositories.SalesPersonRepository;
 
 /**
  * @author GODFREY
@@ -36,6 +38,8 @@ import com.orbix.api.repositories.PersonnelRepository;
 public class PersonnelServiceController {
 	@Autowired
 	PersonnelRepository personnelRepository;
+	@Autowired
+	SalesPersonRepository salesPersonRepository;
 	@Autowired
     DayRepository dayRepository;
 	
@@ -54,7 +58,10 @@ public class PersonnelServiceController {
 	@RequestMapping(method = RequestMethod.POST, value="/personnels/new", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @Transactional
-    public Personnel createPersonnel(@Valid @RequestBody Personnel personnel, @RequestHeader("user_id") Long userId) throws Exception {
+    public Personnel createPersonnel(
+    		@Valid 
+    		@RequestBody Personnel personnel, 
+    		@RequestHeader("user_id") Long userId) throws Exception {
 		if(personnel.getRollNo().isEmpty()
 				|| personnel.getFirstName().isEmpty()
 				|| personnel.getLastName().isEmpty()
@@ -71,7 +78,8 @@ public class PersonnelServiceController {
     	String serial = personnel.getId().toString();
     	
     	String regNo = "PN-"+Formater.formatFive(serial);
-    	personnel.setRegNo(regNo); 
+    	personnel.setRegNo(regNo);
+    	personnel.setAlias(personnel.getLastName()+", "+personnel.getFirstName()+" "+personnel.getSecondName()+" ("+personnel.getRollNo()+")");
     	
     	return personnelRepository.saveAndFlush(personnel);
     }
@@ -94,7 +102,6 @@ public class PersonnelServiceController {
 		Personnel personnel_ = personnelRepository.findById(personnel.getId())
 				.orElseThrow(() -> new NotFoundException("Record not found"));
 		
-		
 		personnel_.setRollNo(personnel.getRollNo());
 		personnel_.setFirstName(personnel.getFirstName());
 		personnel_.setSecondName(personnel.getSecondName());
@@ -104,9 +111,74 @@ public class PersonnelServiceController {
 		personnel_.setAddress(personnel.getAddress());
 		personnel_.setEmail(personnel.getEmail());
 		personnel_.setStatus(personnel.getStatus());
+		personnel_.setAlias(personnel.getLastName()+", "+personnel.getFirstName()+" "+personnel.getSecondName()+" ("+personnel.getRollNo()+")");
 		
     	personnelRepository.saveAndFlush(personnel_);
     	
     	return true;
     }
+	
+	@RequestMapping(method = RequestMethod.GET, value="/sales_persons", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List <SalesPerson> getAllSalesPersons(@RequestHeader("user_id") Long userId) {
+        return salesPersonRepository.findAll();
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value="/personnels/get_sales_person_by_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    public SalesPerson  getSalesPersonById(
+    		@RequestHeader("user_id") Long userId,
+    		@RequestParam("id") Long id) {
+        return salesPersonRepository.findById(id).get();
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value="/personnels/get_sales_person_by_roll_no", produces=MediaType.APPLICATION_JSON_VALUE)
+    public SalesPerson  getSalesPersonByRollNo(
+    		@RequestHeader("user_id") Long userId,
+    		@RequestParam("roll_no") String rollNo) {
+		
+		
+		
+        return salesPersonRepository.findByPersonnel(personnelRepository.findByRollNo(rollNo)).get();
+    }
+	
+	@RequestMapping(method = RequestMethod.POST, value="/sales_persons/new", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public boolean createSalesPersons(
+    		@Valid 
+    		@RequestBody SalesPerson salesPerson, 
+    		@RequestHeader("user_id") Long userId) throws Exception {
+		if(salesPerson.getPersonnel().getRollNo().isEmpty()) {				
+			throw new MissingInformationException("Required fields missing");
+		}
+		salesPerson.setDesignationDay(dayRepository.getCurrentBussinessDay());
+		Personnel personnel = personnelRepository.findByRollNo(salesPerson.getPersonnel().getRollNo());
+		salesPerson.setPersonnel(personnel);
+		
+    	salesPersonRepository.saveAndFlush(salesPerson);
+    	
+    	return true;
+    }
+	
+	@RequestMapping(method = RequestMethod.PUT, value="/sales_persons/edit", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public boolean editSalesPersonById(
+    		@Valid 
+    		@RequestBody SalesPerson salesPerson, 
+    		@RequestHeader("user_id") Long userId) throws Exception {
+		if(salesPerson.getPersonnel().getRollNo().isEmpty()) {				
+			throw new MissingInformationException("Required fields missing");
+		}
+		
+		SalesPerson salesPerson_ = salesPersonRepository.findById(salesPerson.getId())
+				.orElseThrow(() -> new NotFoundException("Record not found"));
+		
+		salesPerson_.setInvoiceLimit(salesPerson.getInvoiceLimit());
+		salesPerson_.setCreditLimit(salesPerson.getCreditLimit());
+		
+    	salesPersonRepository.saveAndFlush(salesPerson_);
+    	
+    	return true;
+    }
+	
 }

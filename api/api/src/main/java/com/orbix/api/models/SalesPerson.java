@@ -32,6 +32,7 @@ public class SalesPerson {
 	private double invoiceLimit;
 	@NotNull
 	private double creditLimit;
+	private String status;
 	
 	@ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = false)
     @JoinColumn(name = "designation_day_id", nullable = false , updatable = true)
@@ -83,6 +84,14 @@ public class SalesPerson {
 
 	public void setDesignationDay(Day designationDay) {
 		this.designationDay = designationDay;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

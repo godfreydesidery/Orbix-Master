@@ -1,6 +1,6 @@
 ﻿Imports Devart.Data.MySql
 
-Public Class SalesPerson
+Public Class SalesPersons
     'shared fields
     Public Shared CURRENT_USER_ID As String = ""
     Public Shared CURRENT_USERNAME As String = ""

@@ -2,11 +2,15 @@
 Imports Newtonsoft.Json.Linq
 
 Public Class Day
+
     Public Shared GL_BUSSINESS_DATE As Date
     Public Property bussinessDate As Date
     Public Shared DAY As Date
-    Public startedAt As String = ""
+    Public Property startedAt As String = ""
     Public endAt As String = ""
+
+
+
     Public Function getCurrentDay() As Date
         Dim date_ As Date = #0001-01-01#
         Dim day_ As New Day

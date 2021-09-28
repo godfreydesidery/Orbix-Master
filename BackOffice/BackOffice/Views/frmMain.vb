@@ -639,4 +639,8 @@ Public Class frmMain
     Private Sub ToolStripMenuItem13_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem13.Click
         frmPersonnel.ShowDialog()
     End Sub
+
+    Private Sub SalesPersonsManagementToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalesPersonsManagementToolStripMenuItem.Click
+        frmSalesPersons.ShowDialog()
+    End Sub
 End Class
