@@ -153,6 +153,7 @@
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Models\HR\Personnel.vb" />
     <Compile Include="Models\HR\SalesPerson.vb" />
+    <Compile Include="Models\PackingList\PackingListDetail.vb" />
     <Compile Include="Models\Reports\DailySalesReport.vb" />
     <Compile Include="Models\Reports\FastMovingItems.vb" />
     <Compile Include="Models\Reports\GRNReport.vb" />

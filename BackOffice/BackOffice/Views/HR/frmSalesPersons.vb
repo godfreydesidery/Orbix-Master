@@ -196,8 +196,13 @@ Public Class frmSalesPersons
         If txtId.Text = "" Then
             salesPerson = New SalesPerson
             salesPerson.personnel.rollNo = txtRollNo.Text
-            salesPerson.invoiceLimit = LCurrency.getValue(txtInvoiceLimit.Text)
-            salesPerson.creditLimit = LCurrency.getValue(txtCreditLimit.Text)
+            Try
+                salesPerson.invoiceLimit = LCurrency.getValue(txtInvoiceLimit.Text.ToString)
+                salesPerson.creditLimit = LCurrency.getValue(txtCreditLimit.Text.ToString)
+            Catch ex As Exception
+
+            End Try
+
 
             If chkActive.Checked = True Then
                 salesPerson.status = "ACTIVE"

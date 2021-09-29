@@ -24,14 +24,6 @@ Public Class frmProductInquiry
                 response = Web.get_("products/get_by_barcode?barcode=" + txtPrimaryBarcode.Text)
                 json = JObject.Parse(response)
 
-                ' If searchByBarCode(txtPrimaryBarcode.Text) = True Then
-                'itemCode = txtCode.Text
-                'Dim barcodes As List(Of String) = (New Item).getBarCodes(itemCode)
-                'lstBarCodes.Items.Clear()
-                'For i As Integer = 0 To barcodes.Count - 1
-                'lstBarCodes.Items.Add(barcodes.ElementAt(i))
-                'Next
-                'End If
             ElseIf txtCode.Text <> "" Then
                 response = Web.get_("products/get_by_code?code=" + txtCode.Text)
                 json = JObject.Parse(response)

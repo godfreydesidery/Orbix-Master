@@ -89,6 +89,15 @@ public class PackingListServiceController {
         return packingListRepository.findAllByStatus(statuses);
     }
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/packing_lists/get_by_no", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public PackingList getPackingListByNo(
+    		@RequestParam(name = "no") String no, 
+    		@RequestHeader("user_id") Long userId) {
+        return packingListRepository.findByNo(no)
+                .orElseThrow(() -> new NotFoundException("Packing List not found"));
+    }
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/packing_lists/new", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @Transactional
@@ -101,15 +110,26 @@ public class PackingListServiceController {
     	SalesPerson salesPerson = salesPersonRepository
     			.findByPersonnel(
     					personnelRepository
-    					.findByAlias(packingList.getSalesPerson().getPersonnel().getAlias()))
+    					.findByName(packingList.getSalesPerson().getPersonnel().getName()))
     			.orElseThrow(() -> new NotFoundException("Sales Person not found"));
     	
     	Day day = dayRepository.getCurrentBussinessDay();
+    	
     	
     	packingList.setCreatedDay(day);
     	packingList.setCreatedByUser(user);
     	packingList.setSalesPerson(salesPerson);
     	packingList.setStatus("PENDING");
+    	
+    	packingList.setApprovedByUser(null);
+    	packingList.setPrintedByUser(null);
+    	packingList.setIssuedByUser(null);
+    	packingList.setCompletedByUser(null);
+    	
+    	packingList.setApprovedDay(null);
+    	packingList.setPrintedDay(null);
+    	packingList.setIssuedDay(null);
+    	packingList.setCompletedDay(null);
     	
     	String random = String.valueOf(Math.random()).replace(".", "") + String.valueOf(Math.random()).replace(".", "");
     	packingList.setNo(random); 
@@ -148,7 +168,7 @@ public class PackingListServiceController {
 	}
 	
 	@Transactional
-    @RequestMapping(method = RequestMethod.PUT, value = "/packing_lists/print", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.PUT, value = "/packing_lists/print_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean printPackingList(
     		@RequestParam(name = "id") Long packingListId, 
     		@RequestHeader("user_id") Long userId) {
@@ -205,7 +225,7 @@ public class PackingListServiceController {
 	}
 	
 	@Transactional
-    @RequestMapping(method = RequestMethod.PUT, value = "/packing_lists/complete", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.PUT, value = "/packing_lists/complete_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean completePackingList(
     		@RequestParam(name = "id") Long packingListId, 
     		@RequestHeader("user_id") Long userId) {
@@ -260,7 +280,7 @@ public class PackingListServiceController {
 	    			damagedProduct = new DamagedProduct();
 	    			damagedProduct.setCode(detail.getCode());
 	    			damagedProduct.setDescription(detail.getDescription());
-	    			damagedProduct.setPrice(detail.getPrice());
+	    			damagedProduct.setPrice(detail.getSellingPriceVatIncl());
 	    			damagedProduct.setQty(detail.getDamaged());
 	    			damagedProduct.setSummary("Damaged in PL# "+packingList.get().getNo());
 	    			damagedProductRepository.saveAndFlush(damagedProduct);
@@ -275,7 +295,7 @@ public class PackingListServiceController {
 	}
 	
 	@Transactional
-    @RequestMapping(method = RequestMethod.PUT, value = "/packing_lists/cancel", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.PUT, value = "/packing_lists/cancel_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean cancelPackingList(
     		@RequestParam(name = "id") Long packingListId, 
     		@RequestHeader("user_id") Long userId) {
@@ -292,7 +312,7 @@ public class PackingListServiceController {
 	}
 	
 	@Transactional
-    @RequestMapping(method = RequestMethod.PUT, value = "/packing_lists/archive", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.PUT, value = "/packing_lists/archive_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean archivePackingList(
     		@RequestParam(name = "id") Long packingListId, 
     		@RequestHeader("user_id") Long userId) {
@@ -310,19 +330,16 @@ public class PackingListServiceController {
 	
 	@Transactional
     @RequestMapping(method = RequestMethod.PUT, value = "/packing_lists/archive_all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public boolean archiveAllPackingList(
-    		@RequestParam(name = "id") Long packingListId, 
+    public boolean archiveAllPackingList( 
     		@RequestHeader("user_id") Long userId) {
 		List<String> statuses = Stream.of("COMPLETED").collect(Collectors.toList());
 		List <PackingList> packingLists = packingListRepository.findAllByStatus(statuses);
 		
 		for(PackingList list : packingLists) {
-			try {
-				
+			try {				
 				if(list.getStatus().equals("COMPLETED") && list.getDeficit() == 0) {
 					list.setStatus("ARCHIVED");
-					packingListRepository.save(list);
-					return true;
+					packingListRepository.save(list);					
 				}			
 			}catch(Exception e) {
 				System.out.println("Could not archive");
@@ -330,6 +347,54 @@ public class PackingListServiceController {
 		}
 		return true;
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/packing_lists/get_status_by_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public String getPackingListStatusById(
+    		@RequestParam(name = "id") Long id, 
+    		@RequestHeader("user_id") Long userId) {
+    	Optional<PackingList> packingList = packingListRepository.findById(id);
+    	if(packingList.isPresent()) {
+    		return packingList.get().getStatus();
+    	}else {
+    		return "";
+    	}       	
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/packing_lists/get_status_by_no", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public String getPackingListStatusByNo(
+    		@RequestParam(name = "no") String no, 
+    		@RequestHeader("user_id") Long userId) {
+    	Optional<PackingList> packingList = packingListRepository.findByNo(no);
+    	if(packingList.isPresent()) {
+    		return packingList.get().getStatus();
+    	}else {
+    		return "";
+    	}       	
+    }
+	
+	
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/packing_list_details/get_by_packing_list_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public List <PackingListDetail> getPackingListByPackingListId(
+    		@RequestParam(name = "id") Long id, 
+    		@RequestHeader("user_id") Long userId) {
+		PackingList packingList = packingListRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Packing List not found"));
+        return packingListDetailRepository.findByPackingList(packingList);
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/packing_list_details/get_by_packing_list_no", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public List <PackingListDetail> getPackingListByPackingListNo(
+    		@RequestParam(name = "no") String no, 
+    		@RequestHeader("user_id") Long userId) {
+		PackingList packingList = packingListRepository.findByNo(no)
+				.orElseThrow(() -> new NotFoundException("Packing List not found"));
+        return packingListDetailRepository.findByPackingList(packingList);
+    }
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/packing_list_details/new_or_edit", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -355,7 +420,7 @@ public class PackingListServiceController {
     		if(packingList.get().getStatus().equals("PENDING")) {
     			detail_.get().setDescription(packingListDetail.getDescription());
     			if(packingListDetail.getPreviousReturns() >= 0 && packingListDetail.getIssued() >=0) {
-	    			if(packingListDetail.getTotalPacked() == (packingListDetail.getPreviousReturns() + packingListDetail.getIssued()) && packingListDetail.getTotalPacked() > 0) {
+	    			if(packingListDetail.getTotalPacked() == (packingListDetail.getPreviousReturns() + packingListDetail.getIssued()) && packingListDetail.getTotalPacked() > 0) {	    				
 	    				detail_.get().setPreviousReturns(packingListDetail.getPreviousReturns());
 	    				detail_.get().setIssued(packingListDetail.getIssued());
 	    				detail_.get().setTotalPacked(packingListDetail.getTotalPacked());
@@ -391,6 +456,12 @@ public class PackingListServiceController {
     			detail.setDescription(packingListDetail.getDescription());
     			if(packingListDetail.getPreviousReturns() >= 0 && packingListDetail.getIssued() >=0) {
 	    			if(packingListDetail.getTotalPacked() == (packingListDetail.getPreviousReturns() + packingListDetail.getIssued()) && packingListDetail.getTotalPacked() > 0) {
+	    				detail.setPackingList(packingList.get());
+	    				detail.setBarcode(packingListDetail.getBarcode());
+	    				detail.setCode(packingListDetail.getCode());
+	    				detail.setDescription(packingListDetail.getDescription());
+	    				detail.setCostPriceVatIncl(packingListDetail.getCostPriceVatIncl());
+	    				detail.setSellingPriceVatIncl(packingListDetail.getSellingPriceVatIncl());
 	    				detail.setPreviousReturns(packingListDetail.getPreviousReturns());
 	    				detail.setIssued(packingListDetail.getIssued());
 	    				detail.setTotalPacked(packingListDetail.getTotalPacked());

@@ -24,8 +24,8 @@ Partial Class frmPackingList
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPackingList))
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtIssueNo = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -48,7 +48,7 @@ Partial Class frmPackingList
         Me.Label9 = New System.Windows.Forms.Label()
         Me.txtTotalBankDeposit = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.txtAmountSold = New System.Windows.Forms.TextBox()
+        Me.txtCostOfGoodsSold = New System.Windows.Forms.TextBox()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.Label26 = New System.Windows.Forms.Label()
         Me.txtTotalPreviousReturns = New System.Windows.Forms.TextBox()
@@ -61,25 +61,15 @@ Partial Class frmPackingList
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtTotalDamages = New System.Windows.Forms.TextBox()
         Me.dtgrdItemList = New System.Windows.Forms.DataGridView()
-        Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.txtDetailId = New System.Windows.Forms.TextBox()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.txtCPrice = New System.Windows.Forms.TextBox()
         Me.btnChange = New System.Windows.Forms.Button()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.txtReturns = New System.Windows.Forms.TextBox()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.txtPacked = New System.Windows.Forms.TextBox()
+        Me.txtIssuedQty = New System.Windows.Forms.TextBox()
         Me.cmbDescription = New System.Windows.Forms.ComboBox()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.txtQtyDamaged = New System.Windows.Forms.TextBox()
@@ -88,7 +78,7 @@ Partial Class frmPackingList
         Me.Label20 = New System.Windows.Forms.Label()
         Me.txtQtyReturned = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
-        Me.txtTotalIssued = New System.Windows.Forms.TextBox()
+        Me.txtPacked = New System.Windows.Forms.TextBox()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.btnReset = New System.Windows.Forms.Button()
@@ -100,13 +90,23 @@ Partial Class frmPackingList
         Me.txtBarCode = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.txtItemCode = New System.Windows.Forms.TextBox()
+        Me.txtCode = New System.Windows.Forms.TextBox()
         Me.txtPrice = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.cmbSalesPersons = New System.Windows.Forms.ComboBox()
         Me.txtId = New System.Windows.Forms.TextBox()
         Me.txtCreated = New System.Windows.Forms.TextBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.txtPrinted = New System.Windows.Forms.TextBox()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.txtCash = New System.Windows.Forms.TextBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.txtCompleted = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.txtIssued = New System.Windows.Forms.TextBox()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.txtApproved = New System.Windows.Forms.TextBox()
+        Me.Label30 = New System.Windows.Forms.Label()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.cntxtMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnRemove = New System.Windows.Forms.ToolStripMenuItem()
@@ -130,16 +130,17 @@ Partial Class frmPackingList
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnPrintReport = New System.Windows.Forms.ToolStripButton()
         Me.btnBack = New System.Windows.Forms.Button()
-        Me.txtApproved = New System.Windows.Forms.TextBox()
-        Me.Label30 = New System.Windows.Forms.Label()
-        Me.txtIssued = New System.Windows.Forms.TextBox()
-        Me.Label31 = New System.Windows.Forms.Label()
-        Me.txtCompleted = New System.Windows.Forms.TextBox()
-        Me.Label32 = New System.Windows.Forms.Label()
-        Me.txtCash = New System.Windows.Forms.TextBox()
-        Me.Label33 = New System.Windows.Forms.Label()
-        Me.txtPrinted = New System.Windows.Forms.TextBox()
-        Me.Label34 = New System.Windows.Forms.Label()
+        Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dtgrdPackingLists, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtgrdItemList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
@@ -151,7 +152,7 @@ Partial Class frmPackingList
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(20, 8)
+        Me.Label1.Location = New System.Drawing.Point(9, 9)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(63, 17)
         Me.Label1.TabIndex = 0
@@ -160,10 +161,10 @@ Partial Class frmPackingList
         'txtIssueNo
         '
         Me.txtIssueNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtIssueNo.Location = New System.Drawing.Point(82, 4)
+        Me.txtIssueNo.Location = New System.Drawing.Point(81, 8)
         Me.txtIssueNo.Name = "txtIssueNo"
         Me.txtIssueNo.ReadOnly = True
-        Me.txtIssueNo.Size = New System.Drawing.Size(100, 27)
+        Me.txtIssueNo.Size = New System.Drawing.Size(220, 27)
         Me.txtIssueNo.TabIndex = 1
         '
         'Label2
@@ -204,7 +205,7 @@ Partial Class frmPackingList
         '
         'btnSearch
         '
-        Me.btnSearch.Location = New System.Drawing.Point(188, 5)
+        Me.btnSearch.Location = New System.Drawing.Point(308, 5)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(100, 35)
         Me.btnSearch.TabIndex = 9
@@ -352,15 +353,15 @@ Partial Class frmPackingList
         Me.Label10.TabIndex = 82
         Me.Label10.Text = "Total expenditures"
         '
-        'txtAmountSold
+        'txtCostOfGoodsSold
         '
-        Me.txtAmountSold.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtAmountSold.Location = New System.Drawing.Point(228, 561)
-        Me.txtAmountSold.Name = "txtAmountSold"
-        Me.txtAmountSold.ReadOnly = True
-        Me.txtAmountSold.Size = New System.Drawing.Size(181, 27)
-        Me.txtAmountSold.TabIndex = 102
-        Me.txtAmountSold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtCostOfGoodsSold.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
+        Me.txtCostOfGoodsSold.Location = New System.Drawing.Point(228, 561)
+        Me.txtCostOfGoodsSold.Name = "txtCostOfGoodsSold"
+        Me.txtCostOfGoodsSold.ReadOnly = True
+        Me.txtCostOfGoodsSold.Size = New System.Drawing.Size(181, 27)
+        Me.txtCostOfGoodsSold.TabIndex = 102
+        Me.txtCostOfGoodsSold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label29
         '
@@ -477,100 +478,24 @@ Partial Class frmPackingList
         Me.dtgrdItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgrdItemList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column8, Me.Column9, Me.Column10, Me.Column2, Me.Column3, Me.Column11, Me.Column13, Me.Column12, Me.Column14, Me.Column1, Me.Column4})
         Me.dtgrdItemList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dtgrdItemList.Location = New System.Drawing.Point(439, 268)
+        Me.dtgrdItemList.Location = New System.Drawing.Point(439, 276)
         Me.dtgrdItemList.Name = "dtgrdItemList"
         Me.dtgrdItemList.ReadOnly = True
         Me.dtgrdItemList.RowTemplate.Height = 24
-        Me.dtgrdItemList.Size = New System.Drawing.Size(1348, 536)
+        Me.dtgrdItemList.Size = New System.Drawing.Size(1348, 528)
         Me.dtgrdItemList.TabIndex = 90
-        '
-        'Column8
-        '
-        Me.Column8.FillWeight = 61.77913!
-        Me.Column8.HeaderText = "Item Code"
-        Me.Column8.Name = "Column8"
-        Me.Column8.ReadOnly = True
-        '
-        'Column9
-        '
-        Me.Column9.FillWeight = 233.4812!
-        Me.Column9.HeaderText = "Description"
-        Me.Column9.Name = "Column9"
-        Me.Column9.ReadOnly = True
-        '
-        'Column10
-        '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column10.DefaultCellStyle = DataGridViewCellStyle2
-        Me.Column10.FillWeight = 89.8288!
-        Me.Column10.HeaderText = "Price"
-        Me.Column10.Name = "Column10"
-        Me.Column10.ReadOnly = True
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "Returns"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        '
-        'Column3
-        '
-        Me.Column3.HeaderText = "Packed"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        '
-        'Column11
-        '
-        Me.Column11.FillWeight = 85.86243!
-        Me.Column11.HeaderText = "Total Issued"
-        Me.Column11.Name = "Column11"
-        Me.Column11.ReadOnly = True
-        '
-        'Column13
-        '
-        Me.Column13.FillWeight = 76.53453!
-        Me.Column13.HeaderText = "Qty Sold"
-        Me.Column13.Name = "Column13"
-        Me.Column13.ReadOnly = True
-        '
-        'Column12
-        '
-        Me.Column12.FillWeight = 81.44789!
-        Me.Column12.HeaderText = "Qty Returned"
-        Me.Column12.Name = "Column12"
-        Me.Column12.ReadOnly = True
-        '
-        'Column14
-        '
-        Me.Column14.FillWeight = 71.06599!
-        Me.Column14.HeaderText = "Qty Damaged"
-        Me.Column14.Name = "Column14"
-        Me.Column14.ReadOnly = True
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = "id"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        Me.Column1.Visible = False
-        '
-        'Column4
-        '
-        Me.Column4.HeaderText = "CPrice"
-        Me.Column4.Name = "Column4"
-        Me.Column4.ReadOnly = True
-        Me.Column4.Visible = False
         '
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel2.Controls.Add(Me.txtDetailId)
         Me.Panel2.Controls.Add(Me.Label28)
         Me.Panel2.Controls.Add(Me.txtCPrice)
         Me.Panel2.Controls.Add(Me.btnChange)
         Me.Panel2.Controls.Add(Me.Label24)
         Me.Panel2.Controls.Add(Me.txtReturns)
         Me.Panel2.Controls.Add(Me.Label23)
-        Me.Panel2.Controls.Add(Me.txtPacked)
+        Me.Panel2.Controls.Add(Me.txtIssuedQty)
         Me.Panel2.Controls.Add(Me.cmbDescription)
         Me.Panel2.Controls.Add(Me.Label22)
         Me.Panel2.Controls.Add(Me.txtQtyDamaged)
@@ -579,7 +504,7 @@ Partial Class frmPackingList
         Me.Panel2.Controls.Add(Me.Label20)
         Me.Panel2.Controls.Add(Me.txtQtyReturned)
         Me.Panel2.Controls.Add(Me.Label19)
-        Me.Panel2.Controls.Add(Me.txtTotalIssued)
+        Me.Panel2.Controls.Add(Me.txtPacked)
         Me.Panel2.Controls.Add(Me.btnAdd)
         Me.Panel2.Controls.Add(Me.Label15)
         Me.Panel2.Controls.Add(Me.btnReset)
@@ -591,18 +516,27 @@ Partial Class frmPackingList
         Me.Panel2.Controls.Add(Me.txtBarCode)
         Me.Panel2.Controls.Add(Me.Label13)
         Me.Panel2.Controls.Add(Me.Label16)
-        Me.Panel2.Controls.Add(Me.txtItemCode)
+        Me.Panel2.Controls.Add(Me.txtCode)
         Me.Panel2.Controls.Add(Me.txtPrice)
         Me.Panel2.Controls.Add(Me.Label18)
         Me.Panel2.Location = New System.Drawing.Point(439, 50)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(795, 181)
+        Me.Panel2.Size = New System.Drawing.Size(795, 200)
         Me.Panel2.TabIndex = 93
+        '
+        'txtDetailId
+        '
+        Me.txtDetailId.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
+        Me.txtDetailId.Location = New System.Drawing.Point(278, 130)
+        Me.txtDetailId.MaxLength = 50
+        Me.txtDetailId.Name = "txtDetailId"
+        Me.txtDetailId.Size = New System.Drawing.Size(38, 27)
+        Me.txtDetailId.TabIndex = 107
         '
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(11, 152)
+        Me.Label28.Location = New System.Drawing.Point(11, 169)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(72, 17)
         Me.Label28.TabIndex = 105
@@ -611,7 +545,7 @@ Partial Class frmPackingList
         'txtCPrice
         '
         Me.txtCPrice.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtCPrice.Location = New System.Drawing.Point(88, 146)
+        Me.txtCPrice.Location = New System.Drawing.Point(88, 163)
         Me.txtCPrice.MaxLength = 50
         Me.txtCPrice.Name = "txtCPrice"
         Me.txtCPrice.ReadOnly = True
@@ -621,7 +555,7 @@ Partial Class frmPackingList
         '
         'btnChange
         '
-        Me.btnChange.Location = New System.Drawing.Point(194, 113)
+        Me.btnChange.Location = New System.Drawing.Point(194, 130)
         Me.btnChange.Name = "btnChange"
         Me.btnChange.Size = New System.Drawing.Size(50, 25)
         Me.btnChange.TabIndex = 104
@@ -655,22 +589,22 @@ Partial Class frmPackingList
         Me.Label23.TabIndex = 100
         Me.Label23.Text = "Issued"
         '
-        'txtPacked
+        'txtIssuedQty
         '
-        Me.txtPacked.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtPacked.Location = New System.Drawing.Point(521, 39)
-        Me.txtPacked.MaxLength = 50
-        Me.txtPacked.Name = "txtPacked"
-        Me.txtPacked.Size = New System.Drawing.Size(80, 27)
-        Me.txtPacked.TabIndex = 101
+        Me.txtIssuedQty.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
+        Me.txtIssuedQty.Location = New System.Drawing.Point(521, 39)
+        Me.txtIssuedQty.MaxLength = 50
+        Me.txtIssuedQty.Name = "txtIssuedQty"
+        Me.txtIssuedQty.Size = New System.Drawing.Size(80, 27)
+        Me.txtIssuedQty.TabIndex = 101
         '
         'cmbDescription
         '
         Me.cmbDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbDescription.FormattingEnabled = True
-        Me.cmbDescription.Location = New System.Drawing.Point(89, 76)
+        Me.cmbDescription.Location = New System.Drawing.Point(5, 96)
         Me.cmbDescription.Name = "cmbDescription"
-        Me.cmbDescription.Size = New System.Drawing.Size(366, 28)
+        Me.cmbDescription.Size = New System.Drawing.Size(449, 28)
         Me.cmbDescription.TabIndex = 99
         '
         'Label22
@@ -736,15 +670,15 @@ Partial Class frmPackingList
         Me.Label19.TabIndex = 55
         Me.Label19.Text = "Packed"
         '
-        'txtTotalIssued
+        'txtPacked
         '
-        Me.txtTotalIssued.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtTotalIssued.Location = New System.Drawing.Point(521, 76)
-        Me.txtTotalIssued.MaxLength = 50
-        Me.txtTotalIssued.Name = "txtTotalIssued"
-        Me.txtTotalIssued.ReadOnly = True
-        Me.txtTotalIssued.Size = New System.Drawing.Size(80, 27)
-        Me.txtTotalIssued.TabIndex = 56
+        Me.txtPacked.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
+        Me.txtPacked.Location = New System.Drawing.Point(521, 76)
+        Me.txtPacked.MaxLength = 50
+        Me.txtPacked.Name = "txtPacked"
+        Me.txtPacked.ReadOnly = True
+        Me.txtPacked.Size = New System.Drawing.Size(80, 27)
+        Me.txtPacked.TabIndex = 56
         '
         'btnAdd
         '
@@ -777,7 +711,7 @@ Partial Class frmPackingList
         '
         'txtPackSize
         '
-        Me.txtPackSize.Location = New System.Drawing.Point(358, 9)
+        Me.txtPackSize.Location = New System.Drawing.Point(346, 41)
         Me.txtPackSize.MaxLength = 50
         Me.txtPackSize.Name = "txtPackSize"
         Me.txtPackSize.ReadOnly = True
@@ -788,7 +722,7 @@ Partial Class frmPackingList
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(363, 16)
+        Me.Label17.Location = New System.Drawing.Point(355, 6)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(74, 17)
         Me.Label17.TabIndex = 46
@@ -850,19 +784,19 @@ Partial Class frmPackingList
         Me.Label16.TabIndex = 49
         Me.Label16.Text = "Barcode"
         '
-        'txtItemCode
+        'txtCode
         '
-        Me.txtItemCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtItemCode.Location = New System.Drawing.Point(89, 43)
-        Me.txtItemCode.MaxLength = 50
-        Me.txtItemCode.Name = "txtItemCode"
-        Me.txtItemCode.Size = New System.Drawing.Size(145, 27)
-        Me.txtItemCode.TabIndex = 39
+        Me.txtCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCode.Location = New System.Drawing.Point(89, 43)
+        Me.txtCode.MaxLength = 50
+        Me.txtCode.Name = "txtCode"
+        Me.txtCode.Size = New System.Drawing.Size(145, 27)
+        Me.txtCode.TabIndex = 39
         '
         'txtPrice
         '
         Me.txtPrice.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtPrice.Location = New System.Drawing.Point(89, 113)
+        Me.txtPrice.Location = New System.Drawing.Point(89, 130)
         Me.txtPrice.MaxLength = 50
         Me.txtPrice.Name = "txtPrice"
         Me.txtPrice.ReadOnly = True
@@ -873,7 +807,7 @@ Partial Class frmPackingList
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(3, 116)
+        Me.Label18.Location = New System.Drawing.Point(3, 133)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(86, 17)
         Me.Label18.TabIndex = 45
@@ -892,9 +826,9 @@ Partial Class frmPackingList
         '
         'txtId
         '
-        Me.txtId.Location = New System.Drawing.Point(5, 11)
+        Me.txtId.Location = New System.Drawing.Point(51, 29)
         Me.txtId.Name = "txtId"
-        Me.txtId.Size = New System.Drawing.Size(23, 22)
+        Me.txtId.Size = New System.Drawing.Size(21, 22)
         Me.txtId.TabIndex = 95
         Me.txtId.Visible = False
         '
@@ -922,7 +856,7 @@ Partial Class frmPackingList
         Me.Panel3.Controls.Add(Me.Label31)
         Me.Panel3.Controls.Add(Me.txtApproved)
         Me.Panel3.Controls.Add(Me.Label30)
-        Me.Panel3.Controls.Add(Me.txtAmountSold)
+        Me.Panel3.Controls.Add(Me.txtCostOfGoodsSold)
         Me.Panel3.Controls.Add(Me.txtIssueNo)
         Me.Panel3.Controls.Add(Me.Label29)
         Me.Panel3.Controls.Add(Me.txtCreated)
@@ -960,10 +894,101 @@ Partial Class frmPackingList
         Me.Panel3.Size = New System.Drawing.Size(423, 754)
         Me.Panel3.TabIndex = 97
         '
+        'txtPrinted
+        '
+        Me.txtPrinted.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
+        Me.txtPrinted.Location = New System.Drawing.Point(81, 152)
+        Me.txtPrinted.Name = "txtPrinted"
+        Me.txtPrinted.ReadOnly = True
+        Me.txtPrinted.Size = New System.Drawing.Size(327, 27)
+        Me.txtPrinted.TabIndex = 112
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(22, 158)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(53, 17)
+        Me.Label34.TabIndex = 111
+        Me.Label34.Text = "Printed"
+        '
+        'txtCash
+        '
+        Me.txtCash.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
+        Me.txtCash.Location = New System.Drawing.Point(228, 627)
+        Me.txtCash.Name = "txtCash"
+        Me.txtCash.Size = New System.Drawing.Size(181, 27)
+        Me.txtCash.TabIndex = 110
+        Me.txtCash.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(180, 628)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(40, 17)
+        Me.Label33.TabIndex = 109
+        Me.Label33.Text = "Cash"
+        '
+        'txtCompleted
+        '
+        Me.txtCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
+        Me.txtCompleted.Location = New System.Drawing.Point(81, 218)
+        Me.txtCompleted.Name = "txtCompleted"
+        Me.txtCompleted.ReadOnly = True
+        Me.txtCompleted.Size = New System.Drawing.Size(327, 27)
+        Me.txtCompleted.TabIndex = 108
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(3, 224)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(75, 17)
+        Me.Label32.TabIndex = 107
+        Me.Label32.Text = "Completed"
+        '
+        'txtIssued
+        '
+        Me.txtIssued.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
+        Me.txtIssued.Location = New System.Drawing.Point(81, 185)
+        Me.txtIssued.Name = "txtIssued"
+        Me.txtIssued.ReadOnly = True
+        Me.txtIssued.Size = New System.Drawing.Size(327, 27)
+        Me.txtIssued.TabIndex = 106
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Location = New System.Drawing.Point(26, 191)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(49, 17)
+        Me.Label31.TabIndex = 105
+        Me.Label31.Text = "Issued"
+        '
+        'txtApproved
+        '
+        Me.txtApproved.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
+        Me.txtApproved.Location = New System.Drawing.Point(81, 116)
+        Me.txtApproved.Name = "txtApproved"
+        Me.txtApproved.ReadOnly = True
+        Me.txtApproved.Size = New System.Drawing.Size(327, 27)
+        Me.txtApproved.TabIndex = 104
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(9, 122)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(69, 17)
+        Me.Label30.TabIndex = 103
+        Me.Label30.Text = "Approved"
+        '
         'Label27
         '
+        Me.Label27.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(436, 248)
+        Me.Label27.Location = New System.Drawing.Point(1485, 256)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(302, 17)
         Me.Label27.TabIndex = 100
@@ -1142,95 +1167,82 @@ Partial Class frmPackingList
         Me.btnBack.TabIndex = 92
         Me.btnBack.UseVisualStyleBackColor = True
         '
-        'txtApproved
+        'Column8
         '
-        Me.txtApproved.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtApproved.Location = New System.Drawing.Point(81, 116)
-        Me.txtApproved.Name = "txtApproved"
-        Me.txtApproved.ReadOnly = True
-        Me.txtApproved.Size = New System.Drawing.Size(327, 27)
-        Me.txtApproved.TabIndex = 104
+        Me.Column8.FillWeight = 61.77913!
+        Me.Column8.HeaderText = "Code"
+        Me.Column8.Name = "Column8"
+        Me.Column8.ReadOnly = True
         '
-        'Label30
+        'Column9
         '
-        Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(9, 122)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(69, 17)
-        Me.Label30.TabIndex = 103
-        Me.Label30.Text = "Approved"
+        Me.Column9.FillWeight = 233.4812!
+        Me.Column9.HeaderText = "Description"
+        Me.Column9.Name = "Column9"
+        Me.Column9.ReadOnly = True
         '
-        'txtIssued
+        'Column10
         '
-        Me.txtIssued.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtIssued.Location = New System.Drawing.Point(81, 185)
-        Me.txtIssued.Name = "txtIssued"
-        Me.txtIssued.ReadOnly = True
-        Me.txtIssued.Size = New System.Drawing.Size(327, 27)
-        Me.txtIssued.TabIndex = 106
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column10.DefaultCellStyle = DataGridViewCellStyle2
+        Me.Column10.FillWeight = 89.8288!
+        Me.Column10.HeaderText = "Price"
+        Me.Column10.Name = "Column10"
+        Me.Column10.ReadOnly = True
         '
-        'Label31
+        'Column2
         '
-        Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(26, 191)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(49, 17)
-        Me.Label31.TabIndex = 105
-        Me.Label31.Text = "Issued"
+        Me.Column2.HeaderText = "Returns"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
         '
-        'txtCompleted
+        'Column3
         '
-        Me.txtCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtCompleted.Location = New System.Drawing.Point(81, 218)
-        Me.txtCompleted.Name = "txtCompleted"
-        Me.txtCompleted.ReadOnly = True
-        Me.txtCompleted.Size = New System.Drawing.Size(327, 27)
-        Me.txtCompleted.TabIndex = 108
+        Me.Column3.HeaderText = "Issued"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
         '
-        'Label32
+        'Column11
         '
-        Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(3, 224)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(75, 17)
-        Me.Label32.TabIndex = 107
-        Me.Label32.Text = "Completed"
+        Me.Column11.FillWeight = 85.86243!
+        Me.Column11.HeaderText = "Total Packed"
+        Me.Column11.Name = "Column11"
+        Me.Column11.ReadOnly = True
         '
-        'txtCash
+        'Column13
         '
-        Me.txtCash.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtCash.Location = New System.Drawing.Point(228, 627)
-        Me.txtCash.Name = "txtCash"
-        Me.txtCash.Size = New System.Drawing.Size(181, 27)
-        Me.txtCash.TabIndex = 110
-        Me.txtCash.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.Column13.FillWeight = 76.53453!
+        Me.Column13.HeaderText = "Qty Sold"
+        Me.Column13.Name = "Column13"
+        Me.Column13.ReadOnly = True
         '
-        'Label33
+        'Column12
         '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(180, 628)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(40, 17)
-        Me.Label33.TabIndex = 109
-        Me.Label33.Text = "Cash"
+        Me.Column12.FillWeight = 81.44789!
+        Me.Column12.HeaderText = "Qty Returned"
+        Me.Column12.Name = "Column12"
+        Me.Column12.ReadOnly = True
         '
-        'txtPrinted
+        'Column14
         '
-        Me.txtPrinted.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtPrinted.Location = New System.Drawing.Point(81, 152)
-        Me.txtPrinted.Name = "txtPrinted"
-        Me.txtPrinted.ReadOnly = True
-        Me.txtPrinted.Size = New System.Drawing.Size(327, 27)
-        Me.txtPrinted.TabIndex = 112
+        Me.Column14.FillWeight = 71.06599!
+        Me.Column14.HeaderText = "Qty Damaged"
+        Me.Column14.Name = "Column14"
+        Me.Column14.ReadOnly = True
         '
-        'Label34
+        'Column1
         '
-        Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(22, 158)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(53, 17)
-        Me.Label34.TabIndex = 111
-        Me.Label34.Text = "Printed"
+        Me.Column1.HeaderText = "id"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Visible = False
+        '
+        'Column4
+        '
+        Me.Column4.HeaderText = "CPrice"
+        Me.Column4.Name = "Column4"
+        Me.Column4.ReadOnly = True
+        Me.Column4.Visible = False
         '
         'frmPackingList
         '
@@ -1294,7 +1306,7 @@ Partial Class frmPackingList
     Friend WithEvents txtBarCode As TextBox
     Friend WithEvents Label13 As Label
     Friend WithEvents Label16 As Label
-    Friend WithEvents txtItemCode As TextBox
+    Friend WithEvents txtCode As TextBox
     Friend WithEvents txtStockSize As TextBox
     Friend WithEvents txtPrice As TextBox
     Friend WithEvents Label15 As Label
@@ -1309,7 +1321,7 @@ Partial Class frmPackingList
     Friend WithEvents Label20 As Label
     Friend WithEvents txtQtyReturned As TextBox
     Friend WithEvents Label19 As Label
-    Friend WithEvents txtTotalIssued As TextBox
+    Friend WithEvents txtPacked As TextBox
     Friend WithEvents txtId As TextBox
     Friend WithEvents txtCreated As TextBox
     Friend WithEvents Panel3 As Panel
@@ -1321,7 +1333,7 @@ Partial Class frmPackingList
     Friend WithEvents Label24 As Label
     Friend WithEvents txtReturns As TextBox
     Friend WithEvents Label23 As Label
-    Friend WithEvents txtPacked As TextBox
+    Friend WithEvents txtIssuedQty As TextBox
     Friend WithEvents Label26 As Label
     Friend WithEvents txtTotalPreviousReturns As TextBox
     Friend WithEvents Label25 As Label
@@ -1332,18 +1344,7 @@ Partial Class frmPackingList
     Friend WithEvents btnChange As Button
     Friend WithEvents Label28 As Label
     Friend WithEvents txtCPrice As TextBox
-    Friend WithEvents Column8 As DataGridViewTextBoxColumn
-    Friend WithEvents Column9 As DataGridViewTextBoxColumn
-    Friend WithEvents Column10 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As DataGridViewTextBoxColumn
-    Friend WithEvents Column11 As DataGridViewTextBoxColumn
-    Friend WithEvents Column13 As DataGridViewTextBoxColumn
-    Friend WithEvents Column12 As DataGridViewTextBoxColumn
-    Friend WithEvents Column14 As DataGridViewTextBoxColumn
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column4 As DataGridViewTextBoxColumn
-    Friend WithEvents txtAmountSold As TextBox
+    Friend WithEvents txtCostOfGoodsSold As TextBox
     Friend WithEvents Label29 As Label
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents btnNew As ToolStripButton
@@ -1377,4 +1378,16 @@ Partial Class frmPackingList
     Friend WithEvents Label33 As Label
     Friend WithEvents txtPrinted As TextBox
     Friend WithEvents Label34 As Label
+    Friend WithEvents txtDetailId As TextBox
+    Friend WithEvents Column8 As DataGridViewTextBoxColumn
+    Friend WithEvents Column9 As DataGridViewTextBoxColumn
+    Friend WithEvents Column10 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column11 As DataGridViewTextBoxColumn
+    Friend WithEvents Column13 As DataGridViewTextBoxColumn
+    Friend WithEvents Column12 As DataGridViewTextBoxColumn
+    Friend WithEvents Column14 As DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column4 As DataGridViewTextBoxColumn
 End Class

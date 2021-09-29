@@ -44,7 +44,7 @@ public class Personnel {
 	private String email;
 	private String status;
 	@Column(unique = true)
-    private String alias;
+    private String name;
 	
 	@ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = false)
     @JoinColumn(name = "registration_day_id", nullable = false , updatable = true)
@@ -156,13 +156,13 @@ public class Personnel {
 		this.regNo = regNo;
 	}
 
-	public String getAlias() {
-		return alias;
+	public String getName() {
+		return name;
 	}
 
-	public void setAlias(String alias) {
-		this.alias = alias;
+	public void setName(String name) {
+		this.name = name;
 	}
-	
+
 	
 }

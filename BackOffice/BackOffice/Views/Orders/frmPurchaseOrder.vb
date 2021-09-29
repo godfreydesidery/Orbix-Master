@@ -635,10 +635,8 @@ Public Class frmPurchaseOrder
         txtSupplierCode.Text = ""
         cmbSupplier.SelectedItem = Nothing
         cmbSupplier.Text = ""
-        '    dateIssueDate.Value = Nothing
         cmbValidityPeriod.Text = ""
         txtOrderStatus.Text = ""
-        '      dateValidUntil.Value = Nothing
         txtSupplierCode.ReadOnly = True
         cmbSupplier.Enabled = False
 
@@ -1235,4 +1233,5 @@ Public Class frmPurchaseOrder
         End Try
         refreshLPOList()
     End Sub
+
 End Class

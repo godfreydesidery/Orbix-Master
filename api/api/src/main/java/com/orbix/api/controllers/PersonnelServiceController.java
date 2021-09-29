@@ -79,7 +79,7 @@ public class PersonnelServiceController {
     	
     	String regNo = "PN-"+Formater.formatFive(serial);
     	personnel.setRegNo(regNo);
-    	personnel.setAlias(personnel.getLastName()+", "+personnel.getFirstName()+" "+personnel.getSecondName()+" ("+personnel.getRollNo()+")");
+    	personnel.setName(personnel.getLastName()+", "+personnel.getFirstName()+" "+personnel.getSecondName()+" ("+personnel.getRollNo()+")");
     	
     	return personnelRepository.saveAndFlush(personnel);
     }
@@ -111,7 +111,7 @@ public class PersonnelServiceController {
 		personnel_.setAddress(personnel.getAddress());
 		personnel_.setEmail(personnel.getEmail());
 		personnel_.setStatus(personnel.getStatus());
-		personnel_.setAlias(personnel.getLastName()+", "+personnel.getFirstName()+" "+personnel.getSecondName()+" ("+personnel.getRollNo()+")");
+		personnel_.setName(personnel.getLastName()+", "+personnel.getFirstName()+" "+personnel.getSecondName()+" ("+personnel.getRollNo()+")");
 		
     	personnelRepository.saveAndFlush(personnel_);
     	

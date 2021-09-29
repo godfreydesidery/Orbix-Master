@@ -23,13 +23,22 @@ Partial Class frmPurchaseOrder
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtSupplierCode = New System.Windows.Forms.TextBox()
         Me.dtgrdItemList = New System.Windows.Forms.DataGridView()
+        Me.Column13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtOrderNo = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -87,15 +96,6 @@ Partial Class frmPurchaseOrder
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btnBack = New System.Windows.Forms.Button()
-        Me.Column13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dtgrdItemList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -159,6 +159,74 @@ Partial Class frmPurchaseOrder
         Me.dtgrdItemList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.dtgrdItemList.Size = New System.Drawing.Size(1072, 335)
         Me.dtgrdItemList.TabIndex = 16
+        '
+        'Column13
+        '
+        Me.Column13.HeaderText = "Bar Code"
+        Me.Column13.Name = "Column13"
+        Me.Column13.ReadOnly = True
+        Me.Column13.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Column13.Visible = False
+        '
+        'Column7
+        '
+        Me.Column7.FillWeight = 83.45177!
+        Me.Column7.HeaderText = "Item Code"
+        Me.Column7.Name = "Column7"
+        Me.Column7.ReadOnly = True
+        '
+        'Column8
+        '
+        Me.Column8.FillWeight = 182.7411!
+        Me.Column8.HeaderText = "Description"
+        Me.Column8.Name = "Column8"
+        Me.Column8.ReadOnly = True
+        '
+        'Column10
+        '
+        Me.Column10.FillWeight = 83.45177!
+        Me.Column10.HeaderText = "Pack Size"
+        Me.Column10.Name = "Column10"
+        Me.Column10.ReadOnly = True
+        '
+        'Column9
+        '
+        Me.Column9.FillWeight = 83.45177!
+        Me.Column9.HeaderText = "Quantity"
+        Me.Column9.Name = "Column9"
+        Me.Column9.ReadOnly = True
+        '
+        'Column11
+        '
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column11.DefaultCellStyle = DataGridViewCellStyle1
+        Me.Column11.FillWeight = 83.45177!
+        Me.Column11.HeaderText = "Cost Price@"
+        Me.Column11.Name = "Column11"
+        Me.Column11.ReadOnly = True
+        '
+        'Column2
+        '
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column2.DefaultCellStyle = DataGridViewCellStyle2
+        Me.Column2.HeaderText = "Total Cost"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        '
+        'Column12
+        '
+        Me.Column12.FillWeight = 83.45177!
+        Me.Column12.HeaderText = "Current Stock"
+        Me.Column12.Name = "Column12"
+        Me.Column12.ReadOnly = True
+        Me.Column12.Visible = False
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "Column1"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Visible = False
         '
         'txtOrderNo
         '
@@ -694,74 +762,6 @@ Partial Class frmPurchaseOrder
         Me.btnBack.Size = New System.Drawing.Size(100, 40)
         Me.btnBack.TabIndex = 10
         Me.btnBack.UseVisualStyleBackColor = False
-        '
-        'Column13
-        '
-        Me.Column13.HeaderText = "Bar Code"
-        Me.Column13.Name = "Column13"
-        Me.Column13.ReadOnly = True
-        Me.Column13.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Column13.Visible = False
-        '
-        'Column7
-        '
-        Me.Column7.FillWeight = 83.45177!
-        Me.Column7.HeaderText = "Item Code"
-        Me.Column7.Name = "Column7"
-        Me.Column7.ReadOnly = True
-        '
-        'Column8
-        '
-        Me.Column8.FillWeight = 182.7411!
-        Me.Column8.HeaderText = "Description"
-        Me.Column8.Name = "Column8"
-        Me.Column8.ReadOnly = True
-        '
-        'Column10
-        '
-        Me.Column10.FillWeight = 83.45177!
-        Me.Column10.HeaderText = "Pack Size"
-        Me.Column10.Name = "Column10"
-        Me.Column10.ReadOnly = True
-        '
-        'Column9
-        '
-        Me.Column9.FillWeight = 83.45177!
-        Me.Column9.HeaderText = "Quantity"
-        Me.Column9.Name = "Column9"
-        Me.Column9.ReadOnly = True
-        '
-        'Column11
-        '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column11.DefaultCellStyle = DataGridViewCellStyle1
-        Me.Column11.FillWeight = 83.45177!
-        Me.Column11.HeaderText = "Cost Price@"
-        Me.Column11.Name = "Column11"
-        Me.Column11.ReadOnly = True
-        '
-        'Column2
-        '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column2.DefaultCellStyle = DataGridViewCellStyle2
-        Me.Column2.HeaderText = "Total Cost"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        '
-        'Column12
-        '
-        Me.Column12.FillWeight = 83.45177!
-        Me.Column12.HeaderText = "Current Stock"
-        Me.Column12.Name = "Column12"
-        Me.Column12.ReadOnly = True
-        Me.Column12.Visible = False
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = "Column1"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        Me.Column1.Visible = False
         '
         'frmPurchaseOrder
         '

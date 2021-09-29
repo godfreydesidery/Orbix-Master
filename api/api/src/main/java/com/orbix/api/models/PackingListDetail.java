@@ -31,7 +31,8 @@ public class PackingListDetail {
 	@NotBlank
     private String code;	
 	private String description;
-	private double price;
+	private double costPriceVatIncl;
+	private double sellingPriceVatIncl;
 	private double previousReturns;
 	private double issued;
 	private double totalPacked;
@@ -77,14 +78,6 @@ public class PackingListDetail {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
 	}
 
 	public double getPreviousReturns() {
@@ -144,4 +137,21 @@ public class PackingListDetail {
 		this.totalPacked = totalPacked;
 	}
 
+	public double getCostPriceVatIncl() {
+		return costPriceVatIncl;
+	}
+
+	public void setCostPriceVatIncl(double costPriceVatIncl) {
+		this.costPriceVatIncl = costPriceVatIncl;
+	}
+
+	public double getSellingPriceVatIncl() {
+		return sellingPriceVatIncl;
+	}
+
+	public void setSellingPriceVatIncl(double sellingPriceVatIncl) {
+		this.sellingPriceVatIncl = sellingPriceVatIncl;
+	}
+
+	
 }

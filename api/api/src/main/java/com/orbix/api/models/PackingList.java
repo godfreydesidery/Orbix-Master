@@ -44,7 +44,10 @@ public class PackingList {
 	private double issued;
 	
 	private double discount;
+	private double sales;
+	private double damages;
 	private double expenses;
+	private double costOfGoodsSold;
 	private double bankDeposit;
 	private double cash;
 	private double sample;
@@ -326,6 +329,29 @@ public class PackingList {
 		this.packingListDetails = packingListDetails;
 	}
 
-	
+	public double getSales() {
+		return sales;
+	}
+
+	public void setSales(double sales) {
+		this.sales = sales;
+	}
+
+	public double getDamages() {
+		return damages;
+	}
+
+	public void setDamages(double damages) {
+		this.damages = damages;
+	}
+
+	public double getCostOfGoodsSold() {
+		return costOfGoodsSold;
+	}
+
+	public void setCostOfGoodsSold(double costOfGoodsSold) {
+		this.costOfGoodsSold = costOfGoodsSold;
+	}
+
 	
 }

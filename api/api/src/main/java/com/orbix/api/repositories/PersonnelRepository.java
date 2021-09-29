@@ -22,9 +22,9 @@ public interface PersonnelRepository extends JpaRepository<Personnel, Long> {
 	Personnel findByRollNo(String rollNo);
 
 	/**
-	 * @param alias
+	 * @param name
 	 * @return
 	 */
-	Personnel findByAlias(String alias);
+	Personnel findByName(String name);
 
 }
