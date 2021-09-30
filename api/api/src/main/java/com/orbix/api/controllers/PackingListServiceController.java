@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.orbix.api.accessories.Formater;
+import com.orbix.api.exceptions.InvalidEntryException;
 import com.orbix.api.exceptions.InvalidOperationException;
 import com.orbix.api.exceptions.MissingInformationException;
 import com.orbix.api.exceptions.NotFoundException;
@@ -227,23 +228,100 @@ public class PackingListServiceController {
 	@Transactional
     @RequestMapping(method = RequestMethod.PUT, value = "/packing_lists/complete_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean completePackingList(
+    		@RequestBody PackingList packingList, 
     		@RequestParam(name = "id") Long packingListId, 
     		@RequestHeader("user_id") Long userId) {
-		Optional<PackingList> packingList = packingListRepository.findById(packingListId);
-		if(!packingList.isPresent()) {
+		Optional<PackingList> packingList_ = packingListRepository.findById(packingListId);
+		if(!packingList_.isPresent()) {
 			throw new NotFoundException("Packing List not found");
 		}
 		User user = userRepository.findById(userId)
     			.orElseThrow(() -> new NotFoundException("User not found")); 	
     	Day day = dayRepository.getCurrentBussinessDay();
-		if(packingList.get().getStatus().equals("PRINTED")) {
-			packingList.get().setStatus("COMPLETED");
-			packingList.get().setCompletedByUser(user);
-			packingList.get().setCompletedDay(day);
-			packingListRepository.save(packingList.get());
+    	
+    	double previousReturns = 0;
+		double totalIssued = 0;
+		double totalPacked = 0;
+		double totalSales = 0;
+		double totalReturned = 0;
+		double totalDamages = 0;
+		double costOfGoodsSold = 0;
+		
+		double totalDiscounts = packingList.getDiscount();
+		double totalExpenses = packingList.getExpenses();		
+		double bankDeposit = packingList.getBankDeposit();
+		double cash = packingList.getCash();
+		double deficit = packingList.getDeficit();
+		
+    	List <PackingListDetail> details = packingListDetailRepository.findByPackingList(packingList_.get());
+    	
+    	for(PackingListDetail detail : details) {
+    		if(detail.getPreviousReturns() < 0) {
+    			throw new InvalidOperationException("Invalid returns value, negative value not allowed");
+    		}
+    		if(detail.getIssued() < 0) {
+    			throw new InvalidOperationException("Invalid packed value, negative value not allowed");
+    		}
+    		if(detail.getTotalPacked() < 0) {
+    			throw new InvalidOperationException("Invalid packed value, negative value not allowed");
+    		}
+    		if(!(detail.getTotalPacked() == detail.getPreviousReturns() + detail.getIssued())) {
+    			throw new InvalidOperationException("Invalid values, previous returns and issued should be equal to total packed");
+    		}
+    		if(detail.getSold() < 0) {
+    			throw new InvalidOperationException("Invalid sold value, negative value not allowed");
+    		}
+    		if(detail.getReturned() < 0) {
+    			throw new InvalidOperationException("Invalid return value, negative value not allowed");
+    		}
+    		if(detail.getDamaged() < 0) {
+    			throw new InvalidOperationException("Invalid damaged value, negative value not allowed");
+    		}
+    		if(!(detail.getTotalPacked() == detail.getSold() + detail.getDamaged() + detail.getReturned())) {
+    			throw new InvalidOperationException("Invalid values, sold returned and damaged quantities should be equal to total packed");
+    		}
+    		
+    		previousReturns = previousReturns + detail.getSellingPriceVatIncl() * detail.getPreviousReturns();
+    		totalIssued = totalIssued + detail.getSellingPriceVatIncl() * detail.getIssued();
+    		totalPacked = totalPacked + detail.getSellingPriceVatIncl() * detail.getTotalPacked();
+    		totalSales = totalSales + detail.getSellingPriceVatIncl() * detail.getSold();
+    		totalReturned = totalReturned + detail.getSellingPriceVatIncl() * detail.getReturned();
+    		totalDamages = totalDamages + detail.getSellingPriceVatIncl() * detail.getDamaged();
+    		costOfGoodsSold = costOfGoodsSold + detail.getCostPriceVatIncl() * detail.getSold();
+    	}
+    	
+    	
+    	
+		if(packingList_.get().getStatus().equals("PRINTED")) {
+			packingList_.get().setStatus("COMPLETED");
+			packingList_.get().setCompletedByUser(user);
+			packingList_.get().setCompletedDay(day);
 			
+			if(bankDeposit < 0) {
+				throw new InvalidEntryException("Negative value in bank deposit is not allowed");
+			}
+			if(cash < 0) {
+				throw new InvalidEntryException("Negative value in cash is not allowed");
+			}
+			if(totalDiscounts < 0) {
+				throw new InvalidEntryException("Negative value in discount is not allowed");
+			}
+			if(totalExpenses < 0) {
+				throw new InvalidEntryException("Negative value in expenses is not allowed");
+			}
+			if(deficit < 0) {
+				throw new InvalidEntryException("Negative value in deficit is not allowed");
+			}	
+		
+			if(!(totalSales == bankDeposit + cash + totalDiscounts + totalExpenses + deficit)) {
+				throw new InvalidEntryException("Amounts do not tally");
+			}
+			packingList_.get().setPacked(totalPacked);
+			packingList_.get().setSales(totalSales);
+			packingList_.get().setDamages(totalDamages);
+			packingList_.get().setCostOfGoodsSold(costOfGoodsSold);
 			
-			List <PackingListDetail> details = packingListDetailRepository.findByPackingList(packingList.get());
+			packingListRepository.save(packingList_.get());
 			
 			for(PackingListDetail detail : details) {
 				/**
@@ -251,6 +329,7 @@ public class PackingListServiceController {
 				 * Create stock card
 				 * Register sale
 				 * Register damage
+				 * Register debt
 				 */
 				
 				Product product;
@@ -272,17 +351,18 @@ public class PackingListServiceController {
 		    		stockCard.setQtyIn(detail.getReturned());
 		    		stockCard.setQtyOut(0);
 		    		stockCard.setBalance(product.getStock());
-		    		stockCard.setReference("Returned from PL# "+packingList.get().getNo());
+		    		stockCard.setReference("Returned from PL# "+packingList_.get().getNo());
 		    		stockCardRepository.saveAndFlush(stockCard);
 	    		}
 	    		
 	    		if(detail.getDamaged() > 0) {
+	    			totalDamages = detail.getDamaged() * detail.getCostPriceVatIncl();
 	    			damagedProduct = new DamagedProduct();
 	    			damagedProduct.setCode(detail.getCode());
 	    			damagedProduct.setDescription(detail.getDescription());
 	    			damagedProduct.setPrice(detail.getSellingPriceVatIncl());
 	    			damagedProduct.setQty(detail.getDamaged());
-	    			damagedProduct.setSummary("Damaged in PL# "+packingList.get().getNo());
+	    			damagedProduct.setSummary("Damaged in PL# "+packingList_.get().getNo());
 	    			damagedProductRepository.saveAndFlush(damagedProduct);
 	    		}
 	    		
@@ -290,7 +370,7 @@ public class PackingListServiceController {
 			
 			return true;
 		}else {
-			throw new InvalidOperationException("Could not print, Only approved packing list can be printed");
+			throw new InvalidOperationException("Could not print, Only printed packing list can be completed");
 		}    	
 	}
 	
@@ -324,7 +404,7 @@ public class PackingListServiceController {
 			packingListRepository.save(packingList);
 			return true;
 		}else {
-			throw new InvalidOperationException("Could not archive, Only completed and debt free Packing List can be canceled");
+			throw new InvalidOperationException("Could not archive, Only completed and debt free Packing List can be archived");
 		}        	
 	}
 	

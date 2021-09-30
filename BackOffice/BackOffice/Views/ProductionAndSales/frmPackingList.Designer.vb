@@ -24,8 +24,8 @@ Partial Class frmPackingList
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPackingList))
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPackingList))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtIssueNo = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -37,7 +37,7 @@ Partial Class frmPackingList
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.txtTotalAmountIssued = New System.Windows.Forms.TextBox()
+        Me.txtTotalPacked = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.txtTotalReturns = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -53,7 +53,7 @@ Partial Class frmPackingList
         Me.Label26 = New System.Windows.Forms.Label()
         Me.txtTotalPreviousReturns = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
-        Me.txtTotalAmountPacked = New System.Windows.Forms.TextBox()
+        Me.txtTotalIssued = New System.Windows.Forms.TextBox()
         Me.btnDeficit = New System.Windows.Forms.Button()
         Me.txtTotalSales = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
@@ -61,6 +61,17 @@ Partial Class frmPackingList
         Me.Label11 = New System.Windows.Forms.Label()
         Me.txtTotalDamages = New System.Windows.Forms.TextBox()
         Me.dtgrdItemList = New System.Windows.Forms.DataGridView()
+        Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.txtDetailId = New System.Windows.Forms.TextBox()
         Me.Label28 = New System.Windows.Forms.Label()
@@ -130,17 +141,6 @@ Partial Class frmPackingList
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnPrintReport = New System.Windows.Forms.ToolStripButton()
         Me.btnBack = New System.Windows.Forms.Button()
-        Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dtgrdPackingLists, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtgrdItemList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
@@ -252,24 +252,24 @@ Partial Class frmPackingList
         Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
         Me.DataGridViewTextBoxColumn3.ReadOnly = True
         '
-        'txtTotalAmountIssued
+        'txtTotalPacked
         '
-        Me.txtTotalAmountIssued.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtTotalAmountIssued.Location = New System.Drawing.Point(228, 362)
-        Me.txtTotalAmountIssued.Name = "txtTotalAmountIssued"
-        Me.txtTotalAmountIssued.ReadOnly = True
-        Me.txtTotalAmountIssued.Size = New System.Drawing.Size(181, 27)
-        Me.txtTotalAmountIssued.TabIndex = 73
-        Me.txtTotalAmountIssued.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalPacked.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
+        Me.txtTotalPacked.Location = New System.Drawing.Point(228, 362)
+        Me.txtTotalPacked.Name = "txtTotalPacked"
+        Me.txtTotalPacked.ReadOnly = True
+        Me.txtTotalPacked.Size = New System.Drawing.Size(181, 27)
+        Me.txtTotalPacked.TabIndex = 73
+        Me.txtTotalPacked.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(119, 369)
+        Me.Label5.Location = New System.Drawing.Point(131, 368)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(101, 17)
+        Me.Label5.Size = New System.Drawing.Size(91, 17)
         Me.Label5.TabIndex = 72
-        Me.Label5.Text = "Amount Issued"
+        Me.Label5.Text = "Total Packed"
         '
         'txtTotalReturns
         '
@@ -394,21 +394,21 @@ Partial Class frmPackingList
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(129, 336)
+        Me.Label25.Location = New System.Drawing.Point(171, 335)
         Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(91, 17)
+        Me.Label25.Size = New System.Drawing.Size(49, 17)
         Me.Label25.TabIndex = 93
-        Me.Label25.Text = "Total Packed"
+        Me.Label25.Text = "Issued"
         '
-        'txtTotalAmountPacked
+        'txtTotalIssued
         '
-        Me.txtTotalAmountPacked.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtTotalAmountPacked.Location = New System.Drawing.Point(228, 329)
-        Me.txtTotalAmountPacked.Name = "txtTotalAmountPacked"
-        Me.txtTotalAmountPacked.ReadOnly = True
-        Me.txtTotalAmountPacked.Size = New System.Drawing.Size(181, 27)
-        Me.txtTotalAmountPacked.TabIndex = 94
-        Me.txtTotalAmountPacked.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtTotalIssued.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
+        Me.txtTotalIssued.Location = New System.Drawing.Point(228, 329)
+        Me.txtTotalIssued.Name = "txtTotalIssued"
+        Me.txtTotalIssued.ReadOnly = True
+        Me.txtTotalIssued.Size = New System.Drawing.Size(181, 27)
+        Me.txtTotalIssued.TabIndex = 94
+        Me.txtTotalIssued.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'btnDeficit
         '
@@ -484,6 +484,83 @@ Partial Class frmPackingList
         Me.dtgrdItemList.RowTemplate.Height = 24
         Me.dtgrdItemList.Size = New System.Drawing.Size(1348, 528)
         Me.dtgrdItemList.TabIndex = 90
+        '
+        'Column8
+        '
+        Me.Column8.FillWeight = 61.77913!
+        Me.Column8.HeaderText = "Code"
+        Me.Column8.Name = "Column8"
+        Me.Column8.ReadOnly = True
+        '
+        'Column9
+        '
+        Me.Column9.FillWeight = 233.4812!
+        Me.Column9.HeaderText = "Description"
+        Me.Column9.Name = "Column9"
+        Me.Column9.ReadOnly = True
+        '
+        'Column10
+        '
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column10.DefaultCellStyle = DataGridViewCellStyle2
+        Me.Column10.FillWeight = 89.8288!
+        Me.Column10.HeaderText = "Price"
+        Me.Column10.Name = "Column10"
+        Me.Column10.ReadOnly = True
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "Returns"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "Issued"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        '
+        'Column11
+        '
+        Me.Column11.FillWeight = 85.86243!
+        Me.Column11.HeaderText = "Total Packed"
+        Me.Column11.Name = "Column11"
+        Me.Column11.ReadOnly = True
+        '
+        'Column13
+        '
+        Me.Column13.FillWeight = 76.53453!
+        Me.Column13.HeaderText = "Qty Sold"
+        Me.Column13.Name = "Column13"
+        Me.Column13.ReadOnly = True
+        '
+        'Column12
+        '
+        Me.Column12.FillWeight = 81.44789!
+        Me.Column12.HeaderText = "Qty Returned"
+        Me.Column12.Name = "Column12"
+        Me.Column12.ReadOnly = True
+        '
+        'Column14
+        '
+        Me.Column14.FillWeight = 71.06599!
+        Me.Column14.HeaderText = "Qty Damaged"
+        Me.Column14.Name = "Column14"
+        Me.Column14.ReadOnly = True
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "id"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Visible = False
+        '
+        'Column4
+        '
+        Me.Column4.HeaderText = "CPrice"
+        Me.Column4.Name = "Column4"
+        Me.Column4.ReadOnly = True
+        Me.Column4.Visible = False
         '
         'Panel2
         '
@@ -870,7 +947,7 @@ Partial Class frmPackingList
         Me.Panel3.Controls.Add(Me.Label6)
         Me.Panel3.Controls.Add(Me.Label25)
         Me.Panel3.Controls.Add(Me.txtId)
-        Me.Panel3.Controls.Add(Me.txtTotalAmountPacked)
+        Me.Panel3.Controls.Add(Me.txtTotalIssued)
         Me.Panel3.Controls.Add(Me.Label2)
         Me.Panel3.Controls.Add(Me.cmbSalesPersons)
         Me.Panel3.Controls.Add(Me.txtTotalSales)
@@ -886,7 +963,7 @@ Partial Class frmPackingList
         Me.Panel3.Controls.Add(Me.txtTotalDiscounts)
         Me.Panel3.Controls.Add(Me.Label10)
         Me.Panel3.Controls.Add(Me.txtTotalReturns)
-        Me.Panel3.Controls.Add(Me.txtTotalAmountIssued)
+        Me.Panel3.Controls.Add(Me.txtTotalPacked)
         Me.Panel3.Controls.Add(Me.Label9)
         Me.Panel3.Controls.Add(Me.txtTotalExpenses)
         Me.Panel3.Location = New System.Drawing.Point(10, 50)
@@ -1167,83 +1244,6 @@ Partial Class frmPackingList
         Me.btnBack.TabIndex = 92
         Me.btnBack.UseVisualStyleBackColor = True
         '
-        'Column8
-        '
-        Me.Column8.FillWeight = 61.77913!
-        Me.Column8.HeaderText = "Code"
-        Me.Column8.Name = "Column8"
-        Me.Column8.ReadOnly = True
-        '
-        'Column9
-        '
-        Me.Column9.FillWeight = 233.4812!
-        Me.Column9.HeaderText = "Description"
-        Me.Column9.Name = "Column9"
-        Me.Column9.ReadOnly = True
-        '
-        'Column10
-        '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column10.DefaultCellStyle = DataGridViewCellStyle2
-        Me.Column10.FillWeight = 89.8288!
-        Me.Column10.HeaderText = "Price"
-        Me.Column10.Name = "Column10"
-        Me.Column10.ReadOnly = True
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "Returns"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        '
-        'Column3
-        '
-        Me.Column3.HeaderText = "Issued"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        '
-        'Column11
-        '
-        Me.Column11.FillWeight = 85.86243!
-        Me.Column11.HeaderText = "Total Packed"
-        Me.Column11.Name = "Column11"
-        Me.Column11.ReadOnly = True
-        '
-        'Column13
-        '
-        Me.Column13.FillWeight = 76.53453!
-        Me.Column13.HeaderText = "Qty Sold"
-        Me.Column13.Name = "Column13"
-        Me.Column13.ReadOnly = True
-        '
-        'Column12
-        '
-        Me.Column12.FillWeight = 81.44789!
-        Me.Column12.HeaderText = "Qty Returned"
-        Me.Column12.Name = "Column12"
-        Me.Column12.ReadOnly = True
-        '
-        'Column14
-        '
-        Me.Column14.FillWeight = 71.06599!
-        Me.Column14.HeaderText = "Qty Damaged"
-        Me.Column14.Name = "Column14"
-        Me.Column14.ReadOnly = True
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = "id"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        Me.Column1.Visible = False
-        '
-        'Column4
-        '
-        Me.Column4.HeaderText = "CPrice"
-        Me.Column4.Name = "Column4"
-        Me.Column4.ReadOnly = True
-        Me.Column4.Visible = False
-        '
         'frmPackingList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1283,7 +1283,7 @@ Partial Class frmPackingList
     Friend WithEvents txtStatus As TextBox
     Friend WithEvents btnSearch As Button
     Friend WithEvents dtgrdPackingLists As DataGridView
-    Friend WithEvents txtTotalAmountIssued As TextBox
+    Friend WithEvents txtTotalPacked As TextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents txtTotalReturns As TextBox
     Friend WithEvents Label6 As Label
@@ -1337,7 +1337,7 @@ Partial Class frmPackingList
     Friend WithEvents Label26 As Label
     Friend WithEvents txtTotalPreviousReturns As TextBox
     Friend WithEvents Label25 As Label
-    Friend WithEvents txtTotalAmountPacked As TextBox
+    Friend WithEvents txtTotalIssued As TextBox
     Friend WithEvents Label27 As Label
     Friend WithEvents cntxtMenu As ContextMenuStrip
     Friend WithEvents mnRemove As ToolStripMenuItem

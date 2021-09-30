@@ -447,10 +447,10 @@ Public Class frmPackingList
             paragraph.AddFormattedText("Returns:" + LCurrency.displayValue(txtTotalPreviousReturns.Text))
             paragraph.Format.Font.Size = 8
             paragraph = section.AddParagraph()
-            paragraph.AddFormattedText("Packed:" + LCurrency.displayValue(txtTotalAmountPacked.Text))
+            paragraph.AddFormattedText("Packed:" + LCurrency.displayValue(txtTotalIssued.Text))
             paragraph.Format.Font.Size = 8
             paragraph = section.AddParagraph()
-            paragraph.AddFormattedText("Total Issued:" + LCurrency.displayValue(txtTotalAmountIssued.Text))
+            paragraph.AddFormattedText("Total Issued:" + LCurrency.displayValue(txtTotalPacked.Text))
             paragraph.Format.Font.Size = 8
 
         End If
@@ -481,7 +481,7 @@ Public Class frmPackingList
             row3.Borders.Color = Colors.Gray
             row3.Cells(0).AddParagraph("Total Issued")
             row3.Cells(0).Format.Alignment = ParagraphAlignment.Left
-            row3.Cells(1).AddParagraph(LCurrency.displayValue(txtTotalAmountIssued.Text))
+            row3.Cells(1).AddParagraph(LCurrency.displayValue(txtTotalPacked.Text))
             row3.Cells(1).Format.Alignment = ParagraphAlignment.Right
 
             table3.SetEdge(0, 0, 2, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
@@ -679,7 +679,7 @@ Public Class frmPackingList
             txtStatus.Text = packingList.status
 
             cmbSalesPersons.Text = packingList.salesPerson.personnel.name
-            txtTotalAmountIssued.Text = LCurrency.displayValue(0)
+            txtTotalPacked.Text = LCurrency.displayValue(0)
             txtTotalReturns.Text = LCurrency.displayValue(0)
             txtTotalDamages.Text = LCurrency.displayValue(0)
             txtTotalDiscounts.Text = LCurrency.displayValue(0)
@@ -874,8 +874,8 @@ Public Class frmPackingList
         txtCPrice.Text = ""
 
         txtTotalPreviousReturns.Text = ""
-        txtTotalAmountPacked.Text = ""
-        txtTotalAmountIssued.Text = ""
+        txtTotalIssued.Text = ""
+        txtTotalPacked.Text = ""
         txtTotalSales.Text = ""
         txtTotalReturns.Text = ""
         txtTotalDiscounts.Text = ""
@@ -1019,8 +1019,8 @@ Public Class frmPackingList
         Next
 
         txtTotalPreviousReturns.Text = LCurrency.displayValue(totalPreviousReturns.ToString)
-        txtTotalAmountPacked.Text = LCurrency.displayValue(totalPacked.ToString)
-        txtTotalAmountIssued.Text = LCurrency.displayValue(amountIssued.ToString)
+        txtTotalIssued.Text = LCurrency.displayValue(amountIssued.ToString)
+        txtTotalPacked.Text = LCurrency.displayValue(totalPacked.ToString)
         txtTotalSales.Text = LCurrency.displayValue(totalSales.ToString)
         txtTotalReturns.Text = LCurrency.displayValue(totalreturned.ToString)
         txtTotalDamages.Text = LCurrency.displayValue(totalDamaged.ToString)
@@ -1465,8 +1465,8 @@ Public Class frmPackingList
                 txtCompleted.Text = ""
                 txtStatus.Text = packingList.status
                 txtTotalPreviousReturns.Text = packingList.returns
-                txtTotalAmountPacked.Text = packingList.packed
-                txtTotalAmountIssued.Text = packingList.issued
+                txtTotalIssued.Text = packingList.packed
+                txtTotalPacked.Text = packingList.issued
                 txtTotalSales.Text = packingList.sales
                 txtTotalReturns.Text = packingList.returns
                 txtTotalDamages.Text = packingList.damages
@@ -1677,7 +1677,7 @@ Public Class frmPackingList
         packingList.id = txtId.Text
         packingList.no = txtIssueNo.Text
         packingList.salesPerson.personnel.name = cmbSalesPersons.Text
-        packingList.issued = Val(LCurrency.getValue(txtTotalAmountIssued.Text))
+        packingList.issued = Val(LCurrency.getValue(txtTotalPacked.Text))
         packingList.returns = Val(LCurrency.getValue(txtTotalReturns.Text))
         packingList.damages = Val(LCurrency.getValue(txtTotalDamages.Text))
         packingList.discount = Val(LCurrency.getValue(txtTotalDiscounts.Text))
@@ -1720,8 +1720,8 @@ Public Class frmPackingList
         txtCPrice.Text = ""
 
         txtTotalPreviousReturns.Text = ""
-        txtTotalAmountPacked.Text = ""
-        txtTotalAmountIssued.Text = ""
+        txtTotalIssued.Text = ""
+        txtTotalPacked.Text = ""
         txtTotalSales.Text = ""
         txtTotalReturns.Text = ""
         txtTotalDiscounts.Text = ""
@@ -1911,34 +1911,36 @@ Public Class frmPackingList
 
 
 
-        txtTotalAmountIssued.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalAmountIssued.Text))), 2, MidpointRounding.AwayFromZero).ToString)
+        txtTotalPacked.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalPacked.Text))), 2, MidpointRounding.AwayFromZero).ToString)
         txtTotalReturns.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalReturns.Text))), 2, MidpointRounding.AwayFromZero).ToString)
         txtTotalDamages.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalDamages.Text))), 2, MidpointRounding.AwayFromZero).ToString)
         txtTotalDiscounts.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalDiscounts.Text))), 2, MidpointRounding.AwayFromZero).ToString)
         txtTotalExpenses.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalExpenses.Text))), 2, MidpointRounding.AwayFromZero).ToString)
         txtTotalBankDeposit.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalBankDeposit.Text))), 2, MidpointRounding.AwayFromZero).ToString)
+        txtCash.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtCash.Text))), 2, MidpointRounding.AwayFromZero).ToString)
         txtDebt.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtDebt.Text))), 2, MidpointRounding.AwayFromZero).ToString)
         txtTotalSales.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalSales.Text))), 2, MidpointRounding.AwayFromZero).ToString)
         txtCostOfGoodsSold.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtCostOfGoodsSold.Text))), 2, MidpointRounding.AwayFromZero).ToString)
 
-        Dim amountIssued As Double = Val(LCurrency.getValue(txtTotalAmountIssued.Text))
+        Dim amountIssued As Double = Val(LCurrency.getValue(txtTotalPacked.Text))
         Dim sales As Double = Val(LCurrency.getValue(txtTotalSales.Text))
         Dim returns As Double = Val(LCurrency.getValue(txtTotalReturns.Text))
         Dim damages As Double = Val(LCurrency.getValue(txtTotalDamages.Text))
         Dim discounts As Double = Val(LCurrency.getValue(txtTotalDiscounts.Text))
         Dim expenditures As Double = Val(LCurrency.getValue(txtTotalExpenses.Text))
-        Dim bankCash As Double = Val(LCurrency.getValue(txtTotalBankDeposit.Text))
+        Dim bankDeposit As Double = Val(LCurrency.getValue(txtTotalBankDeposit.Text))
+        Dim cash As Double = Val(LCurrency.getValue(txtCash.Text))
         Dim debt As Double = Val(LCurrency.getValue(txtDebt.Text))
         Dim costOfGoods As Double = Val(LCurrency.getValue(txtCostOfGoodsSold.Text))
 
 
         'validate entries
-        If discounts < 0 Or expenditures < 0 Or bankCash < 0 Or debt < 0 Then
+        If discounts < 0 Or expenditures < 0 Or bankDeposit < 0 Or cash < 0 Or debt < 0 Then
             MsgBox("Operation failed, negative amounts are not allowed", vbOKOnly + vbExclamation, "Error: Invalid operation")
             Exit Sub
         End If
 
-        If ((amountIssued - (returns + damages + discounts + expenditures + bankCash + debt) <> 0)) Then
+        If ((amountIssued - (returns + damages + discounts + expenditures + bankDeposit + cash + debt) <> 0)) Then
             MsgBox("Operation failed, Amounts do not tally", vbOKOnly + vbExclamation, "Error: Invalid entries")
             Exit Sub
         End If
@@ -1952,13 +1954,14 @@ Public Class frmPackingList
         packingList.id = txtId.Text
         packingList.no = txtIssueNo.Text
         packingList.salesPerson.personnel.name = cmbSalesPersons.Text
-        packingList.issued = Val(LCurrency.getValue(txtTotalAmountIssued.Text))
+        packingList.issued = Val(LCurrency.getValue(txtTotalPacked.Text))
         packingList.returns = Val(LCurrency.getValue(txtTotalReturns.Text))
         packingList.damages = Val(LCurrency.getValue(txtTotalDamages.Text))
         packingList.discount = Val(LCurrency.getValue(txtTotalDiscounts.Text))
         packingList.expenses = Val(LCurrency.getValue(txtTotalExpenses.Text))
         packingList.bankDeposit = Val(LCurrency.getValue(txtTotalBankDeposit.Text))
         packingList.cash = Val(LCurrency.getValue(txtCash.Text))
+        packingList.deficit = Val(LCurrency.getValue(txtDebt.Text))
         packingList.costOfGoodsSold = Val(LCurrency.getValue(txtCostOfGoodsSold.Text))
 
         Dim res As Integer = MsgBox("Complete transaction? Returned products will be returned to stock and sales will be registered to sales", vbYesNoCancel + vbQuestion, "Complete transaction")
@@ -2094,15 +2097,16 @@ Public Class frmPackingList
             Exit Sub
         End If
 
-        Dim amountIssued As Double = Val(LCurrency.getValue(txtTotalAmountIssued.Text))
+        Dim amountIssued As Double = Val(LCurrency.getValue(txtTotalPacked.Text))
         Dim sales As Double = Val(LCurrency.getValue(txtTotalSales.Text))
         Dim returns As Double = Val(LCurrency.getValue(txtTotalReturns.Text))
         Dim damages As Double = Val(LCurrency.getValue(txtTotalDamages.Text))
         Dim discounts As Double = Val(LCurrency.getValue(txtTotalDiscounts.Text))
         Dim expenditures As Double = Val(LCurrency.getValue(txtTotalExpenses.Text))
-        Dim bankCash As Double = Val(LCurrency.getValue(txtTotalBankDeposit.Text))
+        Dim bankDeposit As Double = Val(LCurrency.getValue(txtTotalBankDeposit.Text))
+        Dim cash As Double = Val(LCurrency.getValue(txtCash.Text))
 
-        Dim debt As Double = sales - (discounts + expenditures + bankCash)
+        Dim debt As Double = sales - (discounts + expenditures + bankDeposit + cash)
 
         If debt < 0 Then
             MsgBox("Invalid deficit amount, deficit less than zero")
