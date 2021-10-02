@@ -3,9 +3,13 @@
  */
 package com.orbix.api.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.orbix.api.models.Lpo;
 import com.orbix.api.models.Personnel;
 
 /**
@@ -26,5 +30,5 @@ public interface PersonnelRepository extends JpaRepository<Personnel, Long> {
 	 * @return
 	 */
 	Personnel findByName(String name);
-
+	
 }

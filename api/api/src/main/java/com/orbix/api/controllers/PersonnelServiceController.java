@@ -4,6 +4,8 @@
 package com.orbix.api.controllers;
 
 import java.util.List;
+import java.util.Vector;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,18 @@ public class PersonnelServiceController {
     		@RequestHeader("user_id") Long userId,
     		@RequestParam("roll_no") String rollNo) {
         return personnelRepository.findByRollNo(rollNo);
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value="/personnels/get_sales_persons", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<Personnel>  getPersonnelBySalesPersons(
+    		@RequestHeader("user_id") Long userId) {
+		List<SalesPerson> salesPersons = salesPersonRepository.findAll();
+		List<Personnel> personnels = new Vector<Personnel>();
+		for(SalesPerson salesPerson : salesPersons) {
+			personnels.add(salesPerson.getPersonnel());
+		}
+		
+        return personnels;
     }
 	
 	@RequestMapping(method = RequestMethod.POST, value="/personnels/new", produces=MediaType.APPLICATION_JSON_VALUE)

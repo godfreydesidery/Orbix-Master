@@ -679,14 +679,15 @@ Public Class frmPackingList
             txtStatus.Text = packingList.status
 
             cmbSalesPersons.Text = packingList.salesPerson.personnel.name
-            txtTotalPacked.Text = LCurrency.displayValue(0)
-            txtTotalReturns.Text = LCurrency.displayValue(0)
-            txtTotalDamages.Text = LCurrency.displayValue(0)
-            txtTotalDiscounts.Text = LCurrency.displayValue(0)
-            txtTotalExpenses.Text = LCurrency.displayValue(0)
-            txtTotalBankDeposit.Text = LCurrency.displayValue(0)
-            txtDebt.Text = LCurrency.displayValue(0)
-            txtCostOfGoodsSold.Text = LCurrency.displayValue(0)
+            txtTotalPacked.Text = LCurrency.displayValue(packingList.packed)
+            txtTotalReturns.Text = LCurrency.displayValue(packingList.returns)
+            txtTotalDamages.Text = LCurrency.displayValue(packingList.damages)
+            txtTotalDiscounts.Text = LCurrency.displayValue(packingList.discount)
+            txtTotalExpenses.Text = LCurrency.displayValue(packingList.expenses)
+            txtTotalBankDeposit.Text = LCurrency.displayValue(packingList.bankDeposit)
+            txtCash.Text = LCurrency.displayValue(packingList.cash)
+            txtDebt.Text = LCurrency.displayValue(packingList.deficit)
+            txtCostOfGoodsSold.Text = LCurrency.displayValue(packingList.costOfGoodsSold)
 
             If txtId.Text = "" Then
                 btnSave.Enabled = False
@@ -721,6 +722,7 @@ Public Class frmPackingList
                 txtTotalDiscounts.ReadOnly = True
                 txtTotalExpenses.ReadOnly = True
                 txtTotalBankDeposit.ReadOnly = True
+                txtCash.ReadOnly = True
                 txtDebt.ReadOnly = True
             End If
 
@@ -741,6 +743,7 @@ Public Class frmPackingList
                 txtTotalDiscounts.ReadOnly = True
                 txtTotalExpenses.ReadOnly = True
                 txtTotalBankDeposit.ReadOnly = True
+                txtCash.ReadOnly = True
                 txtDebt.ReadOnly = True
             End If
             If status = "PRINTED" Then
@@ -760,6 +763,7 @@ Public Class frmPackingList
                 txtTotalDiscounts.ReadOnly = False
                 txtTotalExpenses.ReadOnly = False
                 txtTotalBankDeposit.ReadOnly = False
+                txtCash.ReadOnly = False
                 txtDebt.ReadOnly = False
             End If
             If status = "COMPLETED" Then
@@ -779,6 +783,7 @@ Public Class frmPackingList
                 txtTotalDiscounts.ReadOnly = True
                 txtTotalExpenses.ReadOnly = True
                 txtTotalBankDeposit.ReadOnly = True
+                txtCash.ReadOnly = True
                 txtDebt.ReadOnly = True
             End If
             If status = "CANCELED" Then
@@ -798,6 +803,7 @@ Public Class frmPackingList
                 txtTotalDiscounts.ReadOnly = True
                 txtTotalExpenses.ReadOnly = True
                 txtTotalBankDeposit.ReadOnly = True
+                txtCash.ReadOnly = True
                 txtDebt.ReadOnly = True
             End If
             If status = "ARCHIVED" Then
@@ -816,6 +822,7 @@ Public Class frmPackingList
                 txtTotalDiscounts.ReadOnly = True
                 txtTotalExpenses.ReadOnly = True
                 txtTotalBankDeposit.ReadOnly = True
+                txtCash.ReadOnly = True
                 txtDebt.ReadOnly = True
             End If
 
@@ -858,6 +865,10 @@ Public Class frmPackingList
         txtId.Text = ""
         txtIssueNo.Text = ""
         txtCreated.Text = ""
+        txtApproved.Text = ""
+        txtIssued.Text = ""
+        txtPrinted.Text = ""
+        txtCompleted.Text = ""
         cmbSalesPersons.SelectedItem = Nothing
         txtStatus.Text = "PENDING"
 
@@ -882,6 +893,7 @@ Public Class frmPackingList
         txtTotalExpenses.Text = ""
         txtTotalDamages.Text = ""
         txtTotalBankDeposit.Text = ""
+        txtCash.Text = ""
         txtDebt.Text = ""
         txtCostOfGoodsSold.Text = ""
 
@@ -903,6 +915,7 @@ Public Class frmPackingList
         txtTotalDiscounts.ReadOnly = True
         txtTotalExpenses.ReadOnly = True
         txtTotalBankDeposit.ReadOnly = True
+        txtCash.ReadOnly = True
         txtDebt.ReadOnly = True
 
 
@@ -933,6 +946,10 @@ Public Class frmPackingList
             txtIssueNo.ReadOnly = False
             txtIssueNo.Text = ""
             txtCreated.Text = ""
+            txtApproved.Text = ""
+            txtIssued.Text = ""
+            txtPrinted.Text = ""
+            txtCompleted.Text = ""
             cmbSalesPersons.SelectedItem = Nothing
             txtStatus.Text = ""
         Else
@@ -1457,6 +1474,7 @@ Public Class frmPackingList
                 response = Web.post(packingList, "packing_lists/new")
                 packingList = JsonConvert.DeserializeObject(Of PackingList)(response.ToString)
                 txtId.Text = packingList.id
+                txtIssueNo.Text = packingList.no
                 cmbSalesPersons.Text = packingList.salesPerson.personnel.name
                 txtCreated.Text = packingList.createdDay.bussinessDate + " " + packingList.createdByUser.lastName + ", " + packingList.createdByUser.firstName
                 txtApproved.Text = ""
@@ -1703,6 +1721,10 @@ Public Class frmPackingList
         txtId.Text = ""
         txtIssueNo.Text = ""
         txtCreated.Text = ""
+        txtApproved.Text = ""
+        txtIssued.Text = ""
+        txtPrinted.Text = ""
+        txtCompleted.Text = ""
         cmbSalesPersons.SelectedItem = Nothing
         txtStatus.Text = ""
 
@@ -1728,6 +1750,7 @@ Public Class frmPackingList
         txtTotalExpenses.Text = ""
         txtTotalDamages.Text = ""
         txtTotalBankDeposit.Text = ""
+        txtCash.Text = ""
         txtDebt.Text = ""
         txtCostOfGoodsSold.Text = ""
 
@@ -1741,12 +1764,17 @@ Public Class frmPackingList
         txtTotalDiscounts.ReadOnly = True
         txtTotalExpenses.ReadOnly = True
         txtTotalBankDeposit.ReadOnly = True
+        txtCash.ReadOnly = True
         txtDebt.ReadOnly = True
         txtPrice.ReadOnly = True
         txtBarCode.ReadOnly = True
         txtCode.ReadOnly = True
         cmbDescription.Enabled = False
         txtCreated.Text = ""
+        txtApproved.Text = ""
+        txtIssued.Text = ""
+        txtPrinted.Text = ""
+        txtCompleted.Text = ""
         txtStatus.Text = ""
 
         'unlock
@@ -1800,7 +1828,7 @@ Public Class frmPackingList
                 End Try
             End If
         ElseIf status = "PENDING" Then
-            res = MsgBox("Print pending document: " + txtIssueNo.Text + " ? ", vbYesNo + vbQuestion, "Print?")
+            res = MsgBox("Print pending document: " + txtIssueNo.Text + " ? This document is pending for approval.", vbYesNo + vbQuestion, "Print?")
         Else
             res = MsgBox("Re-Print document: " + txtIssueNo.Text + " ? ", vbYesNo + vbQuestion, "Print?")
         End If
@@ -1814,6 +1842,9 @@ Public Class frmPackingList
         End Try
 
         txtStatus.Text = status
+
+        searchPackingList(txtIssueNo.Text)
+        refreshPackingLists()
 
         If res = DialogResult.Yes Then
 
@@ -1909,8 +1940,6 @@ Public Class frmPackingList
             Exit Sub
         End If
 
-
-
         txtTotalPacked.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalPacked.Text))), 2, MidpointRounding.AwayFromZero).ToString)
         txtTotalReturns.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalReturns.Text))), 2, MidpointRounding.AwayFromZero).ToString)
         txtTotalDamages.Text = LCurrency.displayValue(Math.Round((Val(LCurrency.getValue(txtTotalDamages.Text))), 2, MidpointRounding.AwayFromZero).ToString)
@@ -1933,7 +1962,6 @@ Public Class frmPackingList
         Dim debt As Double = Val(LCurrency.getValue(txtDebt.Text))
         Dim costOfGoods As Double = Val(LCurrency.getValue(txtCostOfGoodsSold.Text))
 
-
         'validate entries
         If discounts < 0 Or expenditures < 0 Or bankDeposit < 0 Or cash < 0 Or debt < 0 Then
             MsgBox("Operation failed, negative amounts are not allowed", vbOKOnly + vbExclamation, "Error: Invalid operation")
@@ -1946,7 +1974,7 @@ Public Class frmPackingList
         End If
 
         If ((amountIssued - (sales + returns + damages) <> 0)) Then
-            MsgBox("Can not update, unsold items must be returned or registered as damaged", vbOKOnly + vbExclamation, "Error: Invalid entries")
+            MsgBox("Can not update, unsold products must be returned or registered as damaged", vbOKOnly + vbExclamation, "Error: Invalid entries")
             Exit Sub
         End If
 
@@ -2004,7 +2032,13 @@ Public Class frmPackingList
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = packingList.createdDay.bussinessDate
+                If Not IsNothing(packingList.issuedDay) Then
+                    dtgrdCell.Value = packingList.issuedDay.bussinessDate.ToString("yyyy-MM-dd")
+                ElseIf Not IsNothing(packingList.createdDay) Then
+                    dtgrdCell.Value = packingList.createdDay.bussinessDate.ToString("yyyy-MM-dd")
+                Else
+                    dtgrdCell.Value = ""
+                End If
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
@@ -2129,6 +2163,12 @@ Public Class frmPackingList
     Private Sub txtTotalBankCash_TextChanged(sender As Object, e As EventArgs) Handles txtTotalBankDeposit.TextChanged
         If Not IsNumeric(LCurrency.getValue(txtTotalBankDeposit.Text)) Or txtTotalBankDeposit.Text.Contains("-") Or Val(LCurrency.getValue(txtTotalBankDeposit.Text)) < 0 Then
             txtTotalBankDeposit.Text = ""
+        End If
+    End Sub
+
+    Private Sub txtCash_TextChanged(sender As Object, e As EventArgs) Handles txtCash.TextChanged
+        If Not IsNumeric(LCurrency.getValue(txtCash.Text)) Or txtCash.Text.Contains("-") Or Val(LCurrency.getValue(txtCash.Text)) < 0 Then
+            txtCash.Text = ""
         End If
     End Sub
 

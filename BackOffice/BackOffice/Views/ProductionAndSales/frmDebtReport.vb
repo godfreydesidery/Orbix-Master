@@ -1,8 +1,8 @@
-﻿Imports Devart.Data.MySql
-Imports Microsoft.Office.Interop
+﻿Imports Microsoft.Office.Interop
 Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
 
 Public Class frmDebtReport
     Private Sub defineStyles(doc As Document)
@@ -126,7 +126,7 @@ Public Class frmDebtReport
         titleColumn.Format.Alignment = ParagraphAlignment.Left
         Dim titleRow As Tables.Row
         Dim documentTitle As New Paragraph
-        documentTitle.AddText("Debt Report")
+        documentTitle.AddText("Debt Tracking Report")
         documentTitle.Format.Alignment = ParagraphAlignment.Left
         documentTitle.Format.Font.Size = 10
         documentTitle.Format.Font.Color = Colors.Black
@@ -178,7 +178,6 @@ Public Class frmDebtReport
         column = table.AddColumn("2.0cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
-
         column = table.AddColumn("2.2cm")
         column.Format.Alignment = ParagraphAlignment.Left
 
@@ -191,7 +190,7 @@ Public Class frmDebtReport
         row = table.AddRow()
         row.Format.Font.Bold = True
         row.HeadingFormat = True
-        row.Format.Font.Size = 8
+        row.Format.Font.Size = 9
         row.Format.Alignment = ParagraphAlignment.Center
         row.Format.Font.Bold = True
         row.Borders.Color = Colors.LightGray
@@ -206,8 +205,6 @@ Public Class frmDebtReport
 
         Dim totalAmount As Double = 0
 
-
-
         For i As Integer = 0 To dtgrdList.RowCount - 1
             Dim _date As String = dtgrdList.Item(0, i).Value.ToString
             Dim amount As String = dtgrdList.Item(1, i).Value.ToString
@@ -216,7 +213,7 @@ Public Class frmDebtReport
             row = table.AddRow()
             row.Format.Font.Bold = False
             row.HeadingFormat = False
-            row.Format.Font.Size = 8
+            row.Format.Font.Size = 9
             row.Height = "5mm"
             row.Format.Alignment = ParagraphAlignment.Center
             row.Borders.Color = Colors.LightGray
@@ -232,7 +229,7 @@ Public Class frmDebtReport
         row = table.AddRow()
         row.Format.Font.Bold = True
         row.HeadingFormat = False
-        row.Format.Font.Size = 8
+        row.Format.Font.Size = 9
         row.Height = "5mm"
         row.Format.Alignment = ParagraphAlignment.Center
         row.Borders.Color = Colors.LightGray
@@ -245,7 +242,6 @@ Public Class frmDebtReport
         table.SetEdge(0, 0, 3, 1, Edge.Box, BorderStyle.Single, 0.75, Color.Empty)
     End Sub
 
-
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btnGenerate.Click
         generate()
     End Sub
@@ -256,91 +252,47 @@ Public Class frmDebtReport
         Cursor = Cursors.WaitCursor
         dtgrdList.Rows.Clear()
 
-        Dim totalSales As Double = 0
-        Dim totalVat As Double = 0
-        Dim totalProfit As Double = 0
-
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim query As String = ""
 
-            query = "SELECT
-                        `issue_no`,
-                        `issue_date`, 
-                        `status`,
-                        `debt`
-                    FROM 
-                        `packing_list` 
-                    WHERE 
-                        (`status`='COMPLETED' OR `status`='ARCHIVED')AND `issue_date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' AND `debt` > '0'
-                    ORDER BY 
-                        `issue_no`"
-
-
-
-
-            If cmbSalesPersons.Text <> "" Then
-                Dim salesPersonId As String = (New PackingList).getSalesPersonId(cmbSalesPersons.Text)
-
-                query = "SELECT
-                        `issue_no`,
-                        `issue_date`, 
-                        `status`,
-                        `debt`
-                    FROM 
-                        `packing_list` 
-                    WHERE 
-                       (`status`='COMPLETED' OR `status`='ARCHIVED')AND `issue_date` BETWEEN '" + dateStart.Text + "' AND '" + dateEnd.Text + "' AND `sales_person_id`='" + salesPersonId + "' AND `debt` > '0'
-                    ORDER BY 
-                        `issue_no`"
+            Dim response As Object = New Object
+            If cmbSalesPersons.Text = "" Then
+                response = Web.get_("debts/get_debt_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&name=")
+            Else
+                response = Web.get_("debts/get_debt_report?from_date=" + dateStart.Text + "&to_date=" + dateEnd.Text + "&name=" + cmbSalesPersons.Text)
             End If
 
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
+            Dim details As List(Of DebtTrackerReport) = JsonConvert.DeserializeObject(Of List(Of DebtTrackerReport))(response.ToString)
 
             Dim total As Double = 0
 
-            While reader.Read
-                Dim _date As String = reader.GetString("issue_date")
-                Dim amount As String = reader.GetString("debt")
-
-                total = total + Val(amount)
-
-                Dim reference As String = "Issue No: " + reader.GetString("issue_no")
-                If cmbSalesPersons.Text <> "" Then
-                    reference = reference + " S/M : " + cmbSalesPersons.Text
-                End If
-
-                totalSales = totalSales + Val(amount)
+            For Each detail In details
+                total = total + Val(detail.amount)
 
                 Dim dtgrdRow As New DataGridViewRow
                 Dim dtgrdCell As DataGridViewCell
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = _date
+                dtgrdCell.Value = detail.date.ToString("yyyy-MM-dd")
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = LCurrency.displayValue(amount)
+                dtgrdCell.Value = LCurrency.displayValue(detail.amount)
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = reference
+                dtgrdCell.Value = detail.reference
                 dtgrdRow.Cells.Add(dtgrdCell)
 
                 dtgrdList.Rows.Add(dtgrdRow)
-            End While
-
-            conn.Close()
+            Next
             txtTotal.Text = LCurrency.displayValue(total.ToString)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
+
         Cursor = Cursors.Arrow
+
+        dtgrdList.ClearSelection()
 
         Return vbNull
     End Function
@@ -348,30 +300,19 @@ Public Class frmDebtReport
         Me.Dispose()
     End Sub
     Private Sub loadSalesPersons()
-        Dim conn As New MySqlConnection(Database.conString)
+        cmbSalesPersons.Items.Clear()
+        cmbSalesPersons.Items.Add("")
         Try
-            Dim suppcommand As New MySqlCommand()
-            Dim supplierQuery As String = "SELECT
-                                                `id`,
-                                                `full_name`
-                                            FROM
-                                                `sales_persons`"
-            conn.Open()
-            suppcommand.CommandText = supplierQuery
-            suppcommand.Connection = conn
-            suppcommand.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = suppcommand.ExecuteReader
-            cmbSalesPersons.Items.Clear()
-            cmbSalesPersons.Items.Add("")
-            If reader.HasRows Then
-                While reader.Read
-                    cmbSalesPersons.Items.Add(reader.GetString("full_name"))
-                End While
-            End If
-            conn.Close()
-        Catch ex As Devart.Data.MySql.MySqlException
-            ErrorMessage.dbConnectionError()
-            Exit Sub
+            Dim response As Object = New Object
+            response = Web.get_("personnels/get_sales_persons")
+            Dim details As List(Of Personnel) = JsonConvert.DeserializeObject(Of List(Of Personnel))(response.ToString)
+
+            For Each detail In details
+                cmbSalesPersons.Items.Add(detail.name)
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
         End Try
     End Sub
 

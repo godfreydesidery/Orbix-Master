@@ -65,6 +65,12 @@ public class Sale {
 	@JsonIgnoreProperties("receiptDetail")
     private Receipt receipt;
 	
+	@OneToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "packing_list_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+	//@JsonIgnoreProperties("packingListDetail")
+    private PackingList packingList;
+	
 	@ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = true)
     @JoinColumn(name = "day_id", nullable = true , updatable = true)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
@@ -118,6 +124,14 @@ public class Sale {
 
 	public void setDay(Day day) {
 		this.day = day;
+	}
+
+	public PackingList getPackingList() {
+		return packingList;
+	}
+
+	public void setPackingList(PackingList packingList) {
+		this.packingList = packingList;
 	}
 
 	

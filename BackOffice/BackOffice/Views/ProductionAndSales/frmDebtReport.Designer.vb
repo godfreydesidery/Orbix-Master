@@ -22,7 +22,7 @@ Partial Class frmDebtReport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txtTotal = New System.Windows.Forms.TextBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -76,31 +76,31 @@ Partial Class frmDebtReport
         Me.Panel1.Controls.Add(Me.dateEnd)
         Me.Panel1.Location = New System.Drawing.Point(10, 50)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(341, 90)
+        Me.Panel1.Size = New System.Drawing.Size(371, 90)
         Me.Panel1.TabIndex = 82
         '
         'cmbSalesPersons
         '
         Me.cmbSalesPersons.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbSalesPersons.FormattingEnabled = True
-        Me.cmbSalesPersons.Location = New System.Drawing.Point(87, 48)
+        Me.cmbSalesPersons.Location = New System.Drawing.Point(83, 48)
         Me.cmbSalesPersons.Name = "cmbSalesPersons"
-        Me.cmbSalesPersons.Size = New System.Drawing.Size(245, 24)
+        Me.cmbSalesPersons.Size = New System.Drawing.Size(281, 24)
         Me.cmbSalesPersons.TabIndex = 52
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(3, 48)
+        Me.Label7.Location = New System.Drawing.Point(3, 51)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(78, 17)
+        Me.Label7.Size = New System.Drawing.Size(74, 17)
         Me.Label7.TabIndex = 51
-        Me.Label7.Text = "S/M Officer"
+        Me.Label7.Text = "SM Officer"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(3, 8)
+        Me.Label1.Location = New System.Drawing.Point(37, 8)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(40, 17)
         Me.Label1.TabIndex = 45
@@ -110,7 +110,7 @@ Partial Class frmDebtReport
         '
         Me.dateStart.CustomFormat = "yyyy-MM-dd"
         Me.dateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dateStart.Location = New System.Drawing.Point(49, 8)
+        Me.dateStart.Location = New System.Drawing.Point(83, 8)
         Me.dateStart.Name = "dateStart"
         Me.dateStart.Size = New System.Drawing.Size(120, 22)
         Me.dateStart.TabIndex = 47
@@ -118,7 +118,7 @@ Partial Class frmDebtReport
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(175, 8)
+        Me.Label2.Location = New System.Drawing.Point(213, 8)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(25, 17)
         Me.Label2.TabIndex = 46
@@ -128,7 +128,7 @@ Partial Class frmDebtReport
         '
         Me.dateEnd.CustomFormat = "yyyy-MM-dd"
         Me.dateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dateEnd.Location = New System.Drawing.Point(212, 8)
+        Me.dateEnd.Location = New System.Drawing.Point(244, 8)
         Me.dateEnd.Name = "dateEnd"
         Me.dateEnd.Size = New System.Drawing.Size(120, 22)
         Me.dateEnd.TabIndex = 48
@@ -157,8 +157,8 @@ Partial Class frmDebtReport
         '
         'Column1
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column1.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column1.DefaultCellStyle = DataGridViewCellStyle1
         Me.Column1.FillWeight = 72.14659!
         Me.Column1.HeaderText = "Amount"
         Me.Column1.Name = "Column1"
@@ -185,7 +185,7 @@ Partial Class frmDebtReport
         '
         'btnGenerate
         '
-        Me.btnGenerate.Location = New System.Drawing.Point(357, 106)
+        Me.btnGenerate.Location = New System.Drawing.Point(394, 106)
         Me.btnGenerate.Name = "btnGenerate"
         Me.btnGenerate.Size = New System.Drawing.Size(104, 34)
         Me.btnGenerate.TabIndex = 79

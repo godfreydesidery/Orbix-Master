@@ -33,18 +33,26 @@ import com.orbix.api.exceptions.MissingInformationException;
 import com.orbix.api.exceptions.NotFoundException;
 import com.orbix.api.models.DamagedProduct;
 import com.orbix.api.models.Day;
+import com.orbix.api.models.Debt;
+import com.orbix.api.models.DebtPayment;
 import com.orbix.api.models.PackingList;
 import com.orbix.api.models.PackingListDetail;
 import com.orbix.api.models.Product;
+import com.orbix.api.models.Sale;
+import com.orbix.api.models.SaleDetail;
 import com.orbix.api.models.SalesPerson;
 import com.orbix.api.models.StockCard;
 import com.orbix.api.models.User;
 import com.orbix.api.repositories.DamagedProductRepository;
 import com.orbix.api.repositories.DayRepository;
+import com.orbix.api.repositories.DebtPaymentRepository;
+import com.orbix.api.repositories.DebtRepository;
 import com.orbix.api.repositories.PackingListDetailRepository;
 import com.orbix.api.repositories.PackingListRepository;
 import com.orbix.api.repositories.PersonnelRepository;
 import com.orbix.api.repositories.ProductRepository;
+import com.orbix.api.repositories.SaleDetailRepository;
+import com.orbix.api.repositories.SaleRepository;
 import com.orbix.api.repositories.SalesPersonRepository;
 import com.orbix.api.repositories.StockCardRepository;
 import com.orbix.api.repositories.UserRepository;
@@ -66,6 +74,10 @@ public class PackingListServiceController {
 	@Autowired
     DayRepository dayRepository;
 	@Autowired
+    SaleRepository saleRepository;
+	@Autowired
+    SaleDetailRepository saleDetailRepository;
+	@Autowired
     PersonnelRepository personnelRepository;
 	@Autowired
     SalesPersonRepository salesPersonRepository;
@@ -75,6 +87,10 @@ public class PackingListServiceController {
     StockCardRepository stockCardRepository;
 	@Autowired
     DamagedProductRepository damagedProductRepository;
+	@Autowired
+    DebtRepository debtRepository;
+	@Autowired
+    DebtPaymentRepository debtPaymentRepository;
 	
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/packing_lists", produces=MediaType.APPLICATION_JSON_VALUE)
@@ -182,8 +198,10 @@ public class PackingListServiceController {
     	Day day = dayRepository.getCurrentBussinessDay();
 		if(packingList.get().getStatus().equals("APPROVED")) {
 			packingList.get().setStatus("PRINTED");
-			packingList.get().setApprovedByUser(user);
-			packingList.get().setApprovedDay(day);
+			packingList.get().setPrintedByUser(user);
+			packingList.get().setPrintedDay(day);
+			packingList.get().setIssuedByUser(user);
+			packingList.get().setIssuedDay(day);
 			packingListRepository.save(packingList.get());
 			
 			
@@ -253,6 +271,8 @@ public class PackingListServiceController {
 		double cash = packingList.getCash();
 		double deficit = packingList.getDeficit();
 		
+		
+		
     	List <PackingListDetail> details = packingListDetailRepository.findByPackingList(packingList_.get());
     	
     	for(PackingListDetail detail : details) {
@@ -290,8 +310,6 @@ public class PackingListServiceController {
     		costOfGoodsSold = costOfGoodsSold + detail.getCostPriceVatIncl() * detail.getSold();
     	}
     	
-    	
-    	
 		if(packingList_.get().getStatus().equals("PRINTED")) {
 			packingList_.get().setStatus("COMPLETED");
 			packingList_.get().setCompletedByUser(user);
@@ -321,8 +339,27 @@ public class PackingListServiceController {
 			packingList_.get().setDamages(totalDamages);
 			packingList_.get().setCostOfGoodsSold(costOfGoodsSold);
 			
+			packingList_.get().setSales(totalSales);
+			packingList_.get().setBankDeposit(bankDeposit);
+			packingList_.get().setCash(cash);
+			packingList_.get().setDiscount(totalDiscounts);
+			packingList_.get().setExpenses(totalExpenses);
+			packingList_.get().setDeficit(deficit);
+			
 			packingListRepository.save(packingList_.get());
 			
+			if(deficit > 0) {
+				Debt debt = new Debt();
+				debt.setDebtDay(day);
+				debt.setAmount(deficit);
+				debt.setReference("Deficit in PL# "+ packingList_.get().getNo());
+				debt.setSalesPerson(packingList_.get().getSalesPerson());
+				debt.setPackingList(packingList_.get());
+				debtRepository.saveAndFlush(debt);
+			}
+			
+			Sale sale = new Sale();
+			int touchSale = 0;
 			for(PackingListDetail detail : details) {
 				/**
 				 * Return returned to stock
@@ -335,6 +372,33 @@ public class PackingListServiceController {
 				Product product;
 	    		StockCard stockCard;
 	    		DamagedProduct damagedProduct;
+	    		
+	    		
+	    		if(detail.getSold() > 0) {
+	    			touchSale = touchSale + 1;
+	    		}
+	    		
+	    		if(touchSale == 1) {
+	    	    	sale.setPackingList(packingList_.get());
+	    	    	sale.setDay(dayRepository.getCurrentBussinessDay());
+	    	    	sale.setSaleBy(user);
+	    	    	saleRepository.saveAndFlush(sale);  
+	    		}
+	    		
+	    		if(detail.getSold() > 0) {
+	    			SaleDetail saleDetail = new SaleDetail();
+	        		saleDetail.setSale(sale);
+	        		saleDetail.setCode(detail.getCode());
+	        		saleDetail.setDescription(detail.getDescription());
+	        		saleDetail.setQty(detail.getSold());
+	        		saleDetail.setCostPriceVatIncl(detail.getCostPriceVatIncl());
+	        		saleDetail.setCostPriceVatExcl(0);
+	        		saleDetail.setSellingPriceVatIncl(detail.getSellingPriceVatIncl());
+	        		saleDetail.setSellingPriceVatExcl(0);
+	        		saleDetail.setDiscount(0);
+	        		saleDetailRepository.saveAndFlush(saleDetail);
+	    		}
+	    		
 	    		if(detail.getReturned() > 0) {	 
 	    			product = productRepository.findByCode(detail.getCode()).get();
 	    			product.setStock(product.getStock() + detail.getReturned());
@@ -356,12 +420,12 @@ public class PackingListServiceController {
 	    		}
 	    		
 	    		if(detail.getDamaged() > 0) {
-	    			totalDamages = detail.getDamaged() * detail.getCostPriceVatIncl();
 	    			damagedProduct = new DamagedProduct();
 	    			damagedProduct.setCode(detail.getCode());
 	    			damagedProduct.setDescription(detail.getDescription());
 	    			damagedProduct.setPrice(detail.getSellingPriceVatIncl());
 	    			damagedProduct.setQty(detail.getDamaged());
+	    			damagedProduct.setDamageDay(day);
 	    			damagedProduct.setSummary("Damaged in PL# "+packingList_.get().getNo());
 	    			damagedProductRepository.saveAndFlush(damagedProduct);
 	    		}
@@ -581,4 +645,65 @@ public class PackingListServiceController {
     	return new ResponseEntity<>("Packing List detail deleted successifully.", HttpStatus.OK);  	 	
     }
 	
+	@Transactional
+    @RequestMapping(method = RequestMethod.PUT, value = "/packing_lists/pay_debt_by_no", produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean payDebt(
+    		@RequestParam(name = "no") String issueNo, 
+    		@RequestBody DebtPayment debtPayment, 
+    		@RequestHeader("user_id") Long userId) {
+		
+		User user = userRepository.findById(userId)
+    			.orElseThrow(() -> new NotFoundException("User not found")); 	
+    	Day day = dayRepository.getCurrentBussinessDay();
+		
+    	PackingList packingList = packingListRepository.findByNo(issueNo)
+    			.orElseThrow(() -> new NotFoundException("Packing List not found"));
+		
+		if(packingList.getStatus().equals("COMPLETED") && packingList.getDeficit() > 0) {
+			if(debtPayment.getInitialAmount() <= 0) {
+				throw new InvalidOperationException("Invalid entry, Initial amount must not be negative");
+			}
+			if(debtPayment.getBankDeposit() < 0) {
+				throw new InvalidOperationException("Invalid entry, Bank deposit amount must not be negative");
+			}
+			if(debtPayment.getCashPayment() < 0) {
+				throw new InvalidOperationException("Invalid entry, Cash deposit amount must not be negative");
+			}
+			if(debtPayment.getBankDeposit() + debtPayment.getCashPayment() > debtPayment.getInitialAmount()) {
+				throw new InvalidOperationException("Invalid entry, payment must not exceed initial amount");
+			}
+			if(debtPayment.getInitialAmount() != packingList.getDeficit()) {
+				throw new InvalidOperationException("Invalid entry, initial amount should be equal to deficit");
+			}
+			
+			Debt debt = debtRepository.findByPackingList(packingList)
+	    			.orElseThrow(() -> new NotFoundException("Debt not found"));
+			
+			if(debtPayment.getInitialAmount() > 0) {
+				if(debtPayment.getBankDeposit() > 0 || debtPayment.getCashPayment() > 0) {
+					debt.setAmount(debt.getAmount() - (debtPayment.getBankDeposit() + debtPayment.getCashPayment()));
+					debtRepository.saveAndFlush(debt);
+					packingList.setDeficit(packingList.getDeficit() - (debtPayment.getBankDeposit() + debtPayment.getCashPayment()));
+					packingList.setBankDeposit(packingList.getBankDeposit() + debtPayment.getBankDeposit());
+					packingList.setCash(packingList.getCash() + debtPayment.getCashPayment());
+					packingListRepository.saveAndFlush(packingList);
+					
+					DebtPayment payment = new DebtPayment();
+					payment.setReceivingDay(day);
+					payment.setReceivingUser(user);
+					payment.setDebt(debt);
+					payment.setInitialAmount(debtPayment.getInitialAmount());
+					payment.setBankDeposit(debtPayment.getBankDeposit());
+					payment.setCashPayment(debtPayment.getCashPayment());
+					payment.setTotalPaid(debtPayment.getBankDeposit() + debtPayment.getCashPayment());
+					payment.setAmountRemaining(debtPayment.getInitialAmount() - (debtPayment.getBankDeposit() + debtPayment.getCashPayment()));
+					debtPaymentRepository.saveAndFlush(payment);
+					return true;
+				}					
+			}			
+			return false;
+		}else {
+			throw new InvalidOperationException("Could not receive debt, packing list has no debt");
+		}        	
+	}	
 }

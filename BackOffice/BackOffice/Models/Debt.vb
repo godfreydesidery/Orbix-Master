@@ -1,6 +1,18 @@
 ﻿Imports Devart.Data.MySql
 
 Public Class Debt
+
+    Public Property id As String
+    Public Property amount As Double
+    Public Property reference As String
+    Public Property debtDay As Day = New Day
+    Public Property salesPerson As SalesPerson = New SalesPerson
+    Public Property packingList As PackingList = New PackingList
+
+
+
+
+
     Public Function registerPayment(_date As String, issueNo As String, initialBalance As Double, amount As Double, currentBalance As Double, salesPersonId As String, userId As String, remarks As String)
         Dim success As Boolean = False
         Try

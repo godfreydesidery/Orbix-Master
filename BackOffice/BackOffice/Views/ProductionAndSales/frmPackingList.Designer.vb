@@ -23,8 +23,8 @@ Partial Class frmPackingList
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPackingList))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtIssueNo = New System.Windows.Forms.TextBox()
@@ -170,7 +170,7 @@ Partial Class frmPackingList
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(20, 87)
+        Me.Label2.Location = New System.Drawing.Point(19, 585)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(58, 17)
         Me.Label2.TabIndex = 2
@@ -179,7 +179,7 @@ Partial Class frmPackingList
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(5, 53)
+        Me.Label3.Location = New System.Drawing.Point(5, 88)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(74, 17)
         Me.Label3.TabIndex = 3
@@ -188,7 +188,7 @@ Partial Class frmPackingList
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(28, 258)
+        Me.Label4.Location = New System.Drawing.Point(27, 53)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(48, 17)
         Me.Label4.TabIndex = 4
@@ -197,7 +197,7 @@ Partial Class frmPackingList
         'txtStatus
         '
         Me.txtStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtStatus.Location = New System.Drawing.Point(81, 252)
+        Me.txtStatus.Location = New System.Drawing.Point(82, 49)
         Me.txtStatus.Name = "txtStatus"
         Me.txtStatus.ReadOnly = True
         Me.txtStatus.Size = New System.Drawing.Size(327, 27)
@@ -225,14 +225,14 @@ Partial Class frmPackingList
         Me.dtgrdPackingLists.Name = "dtgrdPackingLists"
         Me.dtgrdPackingLists.ReadOnly = True
         Me.dtgrdPackingLists.RowTemplate.Height = 24
-        Me.dtgrdPackingLists.Size = New System.Drawing.Size(547, 172)
+        Me.dtgrdPackingLists.Size = New System.Drawing.Size(547, 200)
         Me.dtgrdPackingLists.TabIndex = 67
         '
         'DataGridViewTextBoxColumn1
         '
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
-        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Black
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle11
         Me.DataGridViewTextBoxColumn1.FillWeight = 42.63959!
         Me.DataGridViewTextBoxColumn1.HeaderText = "Issue No"
         Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
@@ -255,7 +255,7 @@ Partial Class frmPackingList
         'txtTotalPacked
         '
         Me.txtTotalPacked.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtTotalPacked.Location = New System.Drawing.Point(228, 362)
+        Me.txtTotalPacked.Location = New System.Drawing.Point(228, 199)
         Me.txtTotalPacked.Name = "txtTotalPacked"
         Me.txtTotalPacked.ReadOnly = True
         Me.txtTotalPacked.Size = New System.Drawing.Size(181, 27)
@@ -265,7 +265,7 @@ Partial Class frmPackingList
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(131, 368)
+        Me.Label5.Location = New System.Drawing.Point(131, 205)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(91, 17)
         Me.Label5.TabIndex = 72
@@ -274,7 +274,7 @@ Partial Class frmPackingList
         'txtTotalReturns
         '
         Me.txtTotalReturns.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtTotalReturns.Location = New System.Drawing.Point(228, 428)
+        Me.txtTotalReturns.Location = New System.Drawing.Point(228, 265)
         Me.txtTotalReturns.Name = "txtTotalReturns"
         Me.txtTotalReturns.ReadOnly = True
         Me.txtTotalReturns.Size = New System.Drawing.Size(181, 27)
@@ -284,7 +284,7 @@ Partial Class frmPackingList
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(129, 601)
+        Me.Label6.Location = New System.Drawing.Point(129, 438)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(92, 17)
         Me.Label6.TabIndex = 74
@@ -293,7 +293,7 @@ Partial Class frmPackingList
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(126, 435)
+        Me.Label7.Location = New System.Drawing.Point(126, 272)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(94, 17)
         Me.Label7.TabIndex = 76
@@ -302,7 +302,7 @@ Partial Class frmPackingList
         'txtTotalDiscounts
         '
         Me.txtTotalDiscounts.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtTotalDiscounts.Location = New System.Drawing.Point(228, 495)
+        Me.txtTotalDiscounts.Location = New System.Drawing.Point(228, 332)
         Me.txtTotalDiscounts.Name = "txtTotalDiscounts"
         Me.txtTotalDiscounts.Size = New System.Drawing.Size(181, 27)
         Me.txtTotalDiscounts.TabIndex = 79
@@ -311,7 +311,7 @@ Partial Class frmPackingList
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(116, 502)
+        Me.Label8.Location = New System.Drawing.Point(116, 339)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(106, 17)
         Me.Label8.TabIndex = 78
@@ -320,7 +320,7 @@ Partial Class frmPackingList
         'txtTotalExpenses
         '
         Me.txtTotalExpenses.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtTotalExpenses.Location = New System.Drawing.Point(228, 528)
+        Me.txtTotalExpenses.Location = New System.Drawing.Point(228, 365)
         Me.txtTotalExpenses.Name = "txtTotalExpenses"
         Me.txtTotalExpenses.Size = New System.Drawing.Size(181, 27)
         Me.txtTotalExpenses.TabIndex = 81
@@ -329,7 +329,7 @@ Partial Class frmPackingList
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(116, 468)
+        Me.Label9.Location = New System.Drawing.Point(116, 305)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(104, 17)
         Me.Label9.TabIndex = 80
@@ -338,7 +338,7 @@ Partial Class frmPackingList
         'txtTotalBankDeposit
         '
         Me.txtTotalBankDeposit.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtTotalBankDeposit.Location = New System.Drawing.Point(228, 594)
+        Me.txtTotalBankDeposit.Location = New System.Drawing.Point(228, 431)
         Me.txtTotalBankDeposit.Name = "txtTotalBankDeposit"
         Me.txtTotalBankDeposit.Size = New System.Drawing.Size(181, 27)
         Me.txtTotalBankDeposit.TabIndex = 83
@@ -347,7 +347,7 @@ Partial Class frmPackingList
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(97, 529)
+        Me.Label10.Location = New System.Drawing.Point(97, 366)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(125, 17)
         Me.Label10.TabIndex = 82
@@ -356,7 +356,7 @@ Partial Class frmPackingList
         'txtCostOfGoodsSold
         '
         Me.txtCostOfGoodsSold.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtCostOfGoodsSold.Location = New System.Drawing.Point(228, 561)
+        Me.txtCostOfGoodsSold.Location = New System.Drawing.Point(228, 398)
         Me.txtCostOfGoodsSold.Name = "txtCostOfGoodsSold"
         Me.txtCostOfGoodsSold.ReadOnly = True
         Me.txtCostOfGoodsSold.Size = New System.Drawing.Size(181, 27)
@@ -366,7 +366,7 @@ Partial Class frmPackingList
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(57, 568)
+        Me.Label29.Location = New System.Drawing.Point(57, 405)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(165, 17)
         Me.Label29.TabIndex = 101
@@ -375,7 +375,7 @@ Partial Class frmPackingList
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(131, 302)
+        Me.Label26.Location = New System.Drawing.Point(131, 139)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(91, 17)
         Me.Label26.TabIndex = 95
@@ -384,7 +384,7 @@ Partial Class frmPackingList
         'txtTotalPreviousReturns
         '
         Me.txtTotalPreviousReturns.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtTotalPreviousReturns.Location = New System.Drawing.Point(228, 296)
+        Me.txtTotalPreviousReturns.Location = New System.Drawing.Point(228, 133)
         Me.txtTotalPreviousReturns.Name = "txtTotalPreviousReturns"
         Me.txtTotalPreviousReturns.ReadOnly = True
         Me.txtTotalPreviousReturns.Size = New System.Drawing.Size(181, 27)
@@ -394,7 +394,7 @@ Partial Class frmPackingList
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(171, 335)
+        Me.Label25.Location = New System.Drawing.Point(171, 172)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(49, 17)
         Me.Label25.TabIndex = 93
@@ -403,7 +403,7 @@ Partial Class frmPackingList
         'txtTotalIssued
         '
         Me.txtTotalIssued.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtTotalIssued.Location = New System.Drawing.Point(228, 329)
+        Me.txtTotalIssued.Location = New System.Drawing.Point(228, 166)
         Me.txtTotalIssued.Name = "txtTotalIssued"
         Me.txtTotalIssued.ReadOnly = True
         Me.txtTotalIssued.Size = New System.Drawing.Size(181, 27)
@@ -412,7 +412,7 @@ Partial Class frmPackingList
         '
         'btnDeficit
         '
-        Me.btnDeficit.Location = New System.Drawing.Point(228, 693)
+        Me.btnDeficit.Location = New System.Drawing.Point(228, 530)
         Me.btnDeficit.Name = "btnDeficit"
         Me.btnDeficit.Size = New System.Drawing.Size(181, 35)
         Me.btnDeficit.TabIndex = 92
@@ -422,7 +422,7 @@ Partial Class frmPackingList
         'txtTotalSales
         '
         Me.txtTotalSales.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtTotalSales.Location = New System.Drawing.Point(228, 395)
+        Me.txtTotalSales.Location = New System.Drawing.Point(228, 232)
         Me.txtTotalSales.Name = "txtTotalSales"
         Me.txtTotalSales.ReadOnly = True
         Me.txtTotalSales.Size = New System.Drawing.Size(181, 27)
@@ -432,7 +432,7 @@ Partial Class frmPackingList
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(141, 402)
+        Me.Label14.Location = New System.Drawing.Point(141, 239)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(79, 17)
         Me.Label14.TabIndex = 91
@@ -441,7 +441,7 @@ Partial Class frmPackingList
         'txtDebt
         '
         Me.txtDebt.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtDebt.Location = New System.Drawing.Point(228, 660)
+        Me.txtDebt.Location = New System.Drawing.Point(228, 497)
         Me.txtDebt.Name = "txtDebt"
         Me.txtDebt.Size = New System.Drawing.Size(181, 27)
         Me.txtDebt.TabIndex = 85
@@ -450,7 +450,7 @@ Partial Class frmPackingList
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(131, 661)
+        Me.Label11.Location = New System.Drawing.Point(131, 498)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(91, 17)
         Me.Label11.TabIndex = 84
@@ -459,7 +459,7 @@ Partial Class frmPackingList
         'txtTotalDamages
         '
         Me.txtTotalDamages.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtTotalDamages.Location = New System.Drawing.Point(228, 461)
+        Me.txtTotalDamages.Location = New System.Drawing.Point(228, 298)
         Me.txtTotalDamages.Name = "txtTotalDamages"
         Me.txtTotalDamages.ReadOnly = True
         Me.txtTotalDamages.Size = New System.Drawing.Size(181, 27)
@@ -501,8 +501,8 @@ Partial Class frmPackingList
         '
         'Column10
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column10.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column10.DefaultCellStyle = DataGridViewCellStyle12
         Me.Column10.FillWeight = 89.8288!
         Me.Column10.HeaderText = "Price"
         Me.Column10.Name = "Column10"
@@ -896,14 +896,14 @@ Partial Class frmPackingList
         Me.cmbSalesPersons.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cmbSalesPersons.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
         Me.cmbSalesPersons.FormattingEnabled = True
-        Me.cmbSalesPersons.Location = New System.Drawing.Point(82, 48)
+        Me.cmbSalesPersons.Location = New System.Drawing.Point(82, 83)
         Me.cmbSalesPersons.Name = "cmbSalesPersons"
         Me.cmbSalesPersons.Size = New System.Drawing.Size(327, 28)
         Me.cmbSalesPersons.TabIndex = 94
         '
         'txtId
         '
-        Me.txtId.Location = New System.Drawing.Point(51, 29)
+        Me.txtId.Location = New System.Drawing.Point(0, -2)
         Me.txtId.Name = "txtId"
         Me.txtId.Size = New System.Drawing.Size(21, 22)
         Me.txtId.TabIndex = 95
@@ -912,7 +912,7 @@ Partial Class frmPackingList
         'txtCreated
         '
         Me.txtCreated.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtCreated.Location = New System.Drawing.Point(82, 83)
+        Me.txtCreated.Location = New System.Drawing.Point(81, 581)
         Me.txtCreated.Name = "txtCreated"
         Me.txtCreated.ReadOnly = True
         Me.txtCreated.Size = New System.Drawing.Size(327, 27)
@@ -924,37 +924,37 @@ Partial Class frmPackingList
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel3.Controls.Add(Me.txtPrinted)
-        Me.Panel3.Controls.Add(Me.Label34)
         Me.Panel3.Controls.Add(Me.txtCash)
+        Me.Panel3.Controls.Add(Me.Label34)
         Me.Panel3.Controls.Add(Me.Label33)
-        Me.Panel3.Controls.Add(Me.txtCompleted)
-        Me.Panel3.Controls.Add(Me.Label32)
-        Me.Panel3.Controls.Add(Me.txtIssued)
-        Me.Panel3.Controls.Add(Me.Label31)
-        Me.Panel3.Controls.Add(Me.txtApproved)
-        Me.Panel3.Controls.Add(Me.Label30)
+        Me.Panel3.Controls.Add(Me.txtStatus)
+        Me.Panel3.Controls.Add(Me.Label4)
         Me.Panel3.Controls.Add(Me.txtCostOfGoodsSold)
         Me.Panel3.Controls.Add(Me.txtIssueNo)
+        Me.Panel3.Controls.Add(Me.txtCompleted)
         Me.Panel3.Controls.Add(Me.Label29)
-        Me.Panel3.Controls.Add(Me.txtCreated)
         Me.Panel3.Controls.Add(Me.btnDeficit)
+        Me.Panel3.Controls.Add(Me.Label32)
         Me.Panel3.Controls.Add(Me.Label26)
         Me.Panel3.Controls.Add(Me.txtDebt)
+        Me.Panel3.Controls.Add(Me.txtIssued)
         Me.Panel3.Controls.Add(Me.Label1)
         Me.Panel3.Controls.Add(Me.Label11)
+        Me.Panel3.Controls.Add(Me.Label31)
         Me.Panel3.Controls.Add(Me.txtTotalPreviousReturns)
         Me.Panel3.Controls.Add(Me.txtTotalBankDeposit)
+        Me.Panel3.Controls.Add(Me.txtCreated)
+        Me.Panel3.Controls.Add(Me.Label2)
         Me.Panel3.Controls.Add(Me.Label6)
+        Me.Panel3.Controls.Add(Me.txtApproved)
         Me.Panel3.Controls.Add(Me.Label25)
+        Me.Panel3.Controls.Add(Me.Label30)
         Me.Panel3.Controls.Add(Me.txtId)
         Me.Panel3.Controls.Add(Me.txtTotalIssued)
-        Me.Panel3.Controls.Add(Me.Label2)
         Me.Panel3.Controls.Add(Me.cmbSalesPersons)
         Me.Panel3.Controls.Add(Me.txtTotalSales)
         Me.Panel3.Controls.Add(Me.Label3)
         Me.Panel3.Controls.Add(Me.Label14)
-        Me.Panel3.Controls.Add(Me.Label4)
-        Me.Panel3.Controls.Add(Me.txtStatus)
         Me.Panel3.Controls.Add(Me.btnSearch)
         Me.Panel3.Controls.Add(Me.txtTotalDamages)
         Me.Panel3.Controls.Add(Me.Label8)
@@ -968,13 +968,13 @@ Partial Class frmPackingList
         Me.Panel3.Controls.Add(Me.txtTotalExpenses)
         Me.Panel3.Location = New System.Drawing.Point(10, 50)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(423, 754)
+        Me.Panel3.Size = New System.Drawing.Size(423, 777)
         Me.Panel3.TabIndex = 97
         '
         'txtPrinted
         '
         Me.txtPrinted.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtPrinted.Location = New System.Drawing.Point(81, 152)
+        Me.txtPrinted.Location = New System.Drawing.Point(80, 650)
         Me.txtPrinted.Name = "txtPrinted"
         Me.txtPrinted.ReadOnly = True
         Me.txtPrinted.Size = New System.Drawing.Size(327, 27)
@@ -983,7 +983,7 @@ Partial Class frmPackingList
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(22, 158)
+        Me.Label34.Location = New System.Drawing.Point(21, 656)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(53, 17)
         Me.Label34.TabIndex = 111
@@ -992,7 +992,7 @@ Partial Class frmPackingList
         'txtCash
         '
         Me.txtCash.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtCash.Location = New System.Drawing.Point(228, 627)
+        Me.txtCash.Location = New System.Drawing.Point(228, 464)
         Me.txtCash.Name = "txtCash"
         Me.txtCash.Size = New System.Drawing.Size(181, 27)
         Me.txtCash.TabIndex = 110
@@ -1001,7 +1001,7 @@ Partial Class frmPackingList
         'Label33
         '
         Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(180, 628)
+        Me.Label33.Location = New System.Drawing.Point(180, 465)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(40, 17)
         Me.Label33.TabIndex = 109
@@ -1010,7 +1010,7 @@ Partial Class frmPackingList
         'txtCompleted
         '
         Me.txtCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtCompleted.Location = New System.Drawing.Point(81, 218)
+        Me.txtCompleted.Location = New System.Drawing.Point(80, 716)
         Me.txtCompleted.Name = "txtCompleted"
         Me.txtCompleted.ReadOnly = True
         Me.txtCompleted.Size = New System.Drawing.Size(327, 27)
@@ -1019,7 +1019,7 @@ Partial Class frmPackingList
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(3, 224)
+        Me.Label32.Location = New System.Drawing.Point(2, 722)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(75, 17)
         Me.Label32.TabIndex = 107
@@ -1028,7 +1028,7 @@ Partial Class frmPackingList
         'txtIssued
         '
         Me.txtIssued.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtIssued.Location = New System.Drawing.Point(81, 185)
+        Me.txtIssued.Location = New System.Drawing.Point(80, 683)
         Me.txtIssued.Name = "txtIssued"
         Me.txtIssued.ReadOnly = True
         Me.txtIssued.Size = New System.Drawing.Size(327, 27)
@@ -1037,7 +1037,7 @@ Partial Class frmPackingList
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(26, 191)
+        Me.Label31.Location = New System.Drawing.Point(25, 689)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(49, 17)
         Me.Label31.TabIndex = 105
@@ -1046,7 +1046,7 @@ Partial Class frmPackingList
         'txtApproved
         '
         Me.txtApproved.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!)
-        Me.txtApproved.Location = New System.Drawing.Point(81, 116)
+        Me.txtApproved.Location = New System.Drawing.Point(80, 614)
         Me.txtApproved.Name = "txtApproved"
         Me.txtApproved.ReadOnly = True
         Me.txtApproved.Size = New System.Drawing.Size(327, 27)
@@ -1055,7 +1055,7 @@ Partial Class frmPackingList
         'Label30
         '
         Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(9, 122)
+        Me.Label30.Location = New System.Drawing.Point(8, 620)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(69, 17)
         Me.Label30.TabIndex = 103

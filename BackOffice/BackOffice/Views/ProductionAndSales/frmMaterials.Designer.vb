@@ -340,7 +340,7 @@ Partial Class frmMaterials
         Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Button1.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
         Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Button1.Location = New System.Drawing.Point(1312, 677)
+        Me.Button1.Location = New System.Drawing.Point(1312, 666)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(100, 40)
         Me.Button1.TabIndex = 70
