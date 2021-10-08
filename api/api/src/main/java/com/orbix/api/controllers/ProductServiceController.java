@@ -5,8 +5,11 @@ package com.orbix.api.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.validation.Valid;
 
@@ -27,23 +30,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.orbix.api.accessories.Formater;
+import com.orbix.api.exceptions.InvalidEntryException;
+import com.orbix.api.exceptions.InvalidOperationException;
 import com.orbix.api.exceptions.NotFoundException;
 import com.orbix.api.models.Clas;
+import com.orbix.api.models.DamagedProduct;
+import com.orbix.api.models.Day;
+import com.orbix.api.models.Debt;
 import com.orbix.api.models.Department;
+import com.orbix.api.models.Lpo;
+import com.orbix.api.models.PackingList;
+import com.orbix.api.models.PackingListDetail;
 import com.orbix.api.models.Product;
+import com.orbix.api.models.ProductConversion;
+import com.orbix.api.models.ProductConversionFinal;
+import com.orbix.api.models.ProductConversionInitial;
+import com.orbix.api.models.Sale;
+import com.orbix.api.models.SaleDetail;
+import com.orbix.api.models.StockCard;
 import com.orbix.api.models.SubClass;
 import com.orbix.api.models.Supplier;
+import com.orbix.api.models.User;
 import com.orbix.api.reports.NegativeStockReport;
 import com.orbix.api.reports.PriceChangeReport;
 import com.orbix.api.reports.ProductListingReport;
 import com.orbix.api.reports.SupplySalesReport;
 import com.orbix.api.reports.SupplyStockStatus;
 import com.orbix.api.repositories.ClassRepository;
+import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.DepartmentRepository;
 import com.orbix.api.repositories.PriceChangeRepository;
+import com.orbix.api.repositories.ProductConversionFinalRepository;
+import com.orbix.api.repositories.ProductConversionInitialRepository;
+import com.orbix.api.repositories.ProductConversionRepository;
 import com.orbix.api.repositories.ProductRepository;
+import com.orbix.api.repositories.StockCardRepository;
 import com.orbix.api.repositories.SubClassRepository;
 import com.orbix.api.repositories.SupplierRepository;
+import com.orbix.api.repositories.UserRepository;
 
 /**
  * @author GODFREY
@@ -56,6 +81,12 @@ public class ProductServiceController {
 	@Autowired
     ProductRepository productRepository;
 	@Autowired
+    ProductConversionRepository productConversionRepository;
+	@Autowired
+    ProductConversionInitialRepository productConversionInitialRepository;
+	@Autowired
+    ProductConversionFinalRepository productConversionFinalRepository;
+	@Autowired
     SupplierRepository supplierRepository;
 	@Autowired
 	DepartmentRepository departmentRepository;
@@ -65,6 +96,12 @@ public class ProductServiceController {
     SubClassRepository subClassRepository;
 	@Autowired
     PriceChangeRepository priceChangeRepository;
+	@Autowired
+    DayRepository dayRepository;
+	@Autowired
+    UserRepository userRepository;
+	@Autowired
+    StockCardRepository stockCardRepository;
 	
     /**
      * @param userId
@@ -107,7 +144,9 @@ public class ProductServiceController {
 	@RequestMapping(method = RequestMethod.POST, value="/products/new", produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @Transactional
-    public Product createProduct(@Valid @RequestBody Product product, @RequestHeader("user_id") Long userId) throws Exception {
+    public Product createProduct(
+    		@Valid @RequestBody Product product, 
+    		@RequestHeader("user_id") Long userId) throws Exception {
 		if(!product.getPrimarySupplier().getName().isEmpty()){
 			String supplierName = (product.getPrimarySupplier()).getName();
 			Optional<Supplier> supplier = supplierRepository.findByName(supplierName);
@@ -502,4 +541,307 @@ public class ProductServiceController {
 		return priceChangeRepository.getPriceChangeReport(fromDate, toDate);
     }
     
+    
+    @RequestMapping(method = RequestMethod.GET, value="/products/conversions", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List <ProductConversion> getAllProductConversions(
+    		@RequestHeader("user_id") Long userId) {
+        return productConversionRepository.findAll();
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/products/conversions/visible", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List<ProductConversion> getAllVisibleProductConversion(
+    		@RequestHeader("user_id") Long userId) {
+    	List<String> statuses = Stream.of("PENDING", "APPROVED", "PRINTED", "REPRINTED", "COMPLETED").collect(Collectors.toList());   	
+        return productConversionRepository.findAllByStatus(statuses);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/products/conversions/get_by_no", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public ProductConversion getProductConversionByNo(
+    		@RequestParam(name = "no") String no, 
+    		@RequestHeader("user_id") Long userId) {
+        return productConversionRepository.findByNo(no)
+                .orElseThrow(() -> new NotFoundException("Product conversion not found"));
+    }
+    
+    
+    @RequestMapping(method = RequestMethod.POST, value="/products/conversions/new", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public ProductConversion createProductConversion(
+    		@Valid @RequestBody ProductConversion productConversion, 
+    		@RequestHeader("user_id") Long userId) throws Exception {
+    	User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+    	
+    	ProductConversion conversion = new ProductConversion();
+    	
+    	String random = String.valueOf(Math.random()).replace(".", "") + String.valueOf(Math.random()).replace(".", "");
+    	conversion.setNo(random); 
+    	productConversionRepository.saveAndFlush(conversion);
+    	
+    	conversion.setStatus("PENDING");
+    	conversion.setReason(productConversion.getReason());
+    	
+    	String serial = conversion.getId().toString();
+    	
+    	String convNo = "CNV-"+Formater.formatNine(serial);
+    	conversion.setNo(convNo); 
+    	conversion.setCreatedDay(dayRepository.getCurrentBussinessDay());
+    	conversion.setCreatedByUser(user);
+    	productConversionRepository.saveAndFlush(conversion);  
+    	
+    	return conversion;
+    }
+    
+    
+    
+    @RequestMapping(method = RequestMethod.POST, value="/products/conversions/add_or_edit_initial", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public ProductConversionInitial createProductConversionInitial(
+    		@Valid @RequestBody ProductConversionInitial productConversionInitial, 
+    		@RequestHeader("user_id") Long userId) throws Exception {    	
+    	ProductConversion productConversion = productConversionRepository.findById(productConversionInitial.getProductConversion().getId())
+    			.orElseThrow(() -> new NotFoundException("Product Conversion not found"));
+    	Product product = productRepository.findByCode(productConversionInitial.getProduct().getCode())
+                .orElseThrow(() -> new NotFoundException("Product not found"));
+    	if(productConversionInitial.getQty() <= 0) {
+    		throw new InvalidEntryException("Negative quantity not allowed in product quantity");
+    	}
+    	
+    	Optional <ProductConversionInitial> c = productConversionInitialRepository.findByProductAndProductConversion(product, productConversion);
+    	ProductConversionInitial initial;
+    	if(c.isPresent()) {
+    		initial = c.get();
+    	}else {
+    		initial= new ProductConversionInitial();
+    		initial.setProduct(product);
+    		initial.setProductConversion(productConversion);
+    	}   
+    	initial.setPrice(product.getSellingPriceVatIncl());
+    	initial.setQty(productConversionInitial.getQty());
+    	
+    	return productConversionInitialRepository.saveAndFlush(initial);
+    	
+    }
+    
+    
+    @RequestMapping(method = RequestMethod.POST, value="/products/conversions/add_or_edit_final", produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @Transactional
+    public ProductConversionFinal createProductConversionFinal(
+    		@Valid @RequestBody ProductConversionFinal productConversionFinal, 
+    		@RequestHeader("user_id") Long userId) throws Exception {    	
+    	ProductConversion productConversion = productConversionRepository.findById(productConversionFinal.getProductConversion().getId())
+    			.orElseThrow(() -> new NotFoundException("Product Conversion not found"));
+    	Product product = productRepository.findByCode(productConversionFinal.getProduct().getCode())
+                .orElseThrow(() -> new NotFoundException("Product not found"));
+    	if(productConversionFinal.getQty() <= 0) {
+    		throw new InvalidEntryException("Negative quantity not allowed in product quantity");
+    	}
+    	
+    	Optional <ProductConversionFinal> c = productConversionFinalRepository.findByProductAndProductConversion(product, productConversion);
+    	ProductConversionFinal final_;
+    	if(c.isPresent()) {
+    		final_ = c.get();
+    	}else {
+    		final_= new ProductConversionFinal();
+    		final_.setProduct(product);
+    		final_.setProductConversion(productConversion);
+    	} 
+    	final_.setPrice(product.getSellingPriceVatIncl());
+    	final_.setQty(productConversionFinal.getQty());
+    	
+    	return productConversionFinalRepository.saveAndFlush(final_);
+    	
+    }
+    
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/products/conversions/get_status_by_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public String getProductConversionStatusById(
+    		@RequestParam(name = "id") Long id, 
+    		@RequestHeader("user_id") Long userId) {
+    	Optional<ProductConversion> productConversion = productConversionRepository.findById(id);
+    	if(productConversion.isPresent()) {
+    		return productConversion.get().getStatus();
+    	}else {
+    		return "";
+    	}       	
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/products/conversions/get_status_by_no", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public String getProductConversionStatusByNo(
+    		@RequestParam(name = "no") String no, 
+    		@RequestHeader("user_id") Long userId) {
+    	Optional<ProductConversion> productConversion = productConversionRepository.findByNo(no);
+    	if(productConversion.isPresent()) {
+    		return productConversion.get().getStatus();
+    	}else {
+    		return "";
+    	}       	
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value="/products/conversions/get_all_initial_by_conversion_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List <ProductConversionInitial> getAllProductConversionInitials(
+    		@RequestParam(name = "id") Long id, 
+    		@RequestHeader("user_id") Long userId) {
+    	Optional<ProductConversion> productConversion = productConversionRepository.findById(id);
+    	if(productConversion.isPresent()) {
+    		return productConversionInitialRepository.findAllByProductConversion(productConversion.get());
+    	}
+    	return null;
+        
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value="/products/conversions/get_all_final_by_conversion_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List <ProductConversionFinal> getAllProductConversionFinals(
+    		@RequestParam(name = "id") Long id, 
+    		@RequestHeader("user_id") Long userId) {
+    	Optional<ProductConversion> productConversion = productConversionRepository.findById(id);
+    	if(productConversion.isPresent()) {
+    		return productConversionFinalRepository.findAllByProductConversion(productConversion.get());
+    	}
+    	return null;
+        
+    }
+    
+    @Transactional
+    @RequestMapping(method = RequestMethod.PUT, value = "products/conversions/cancel_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean cancelConversion(
+    		@RequestParam(name = "id") Long conversionId, 
+    		@RequestHeader("user_id") Long userId) {
+    	ProductConversion productConversion = productConversionRepository.findById(conversionId)
+    			.orElseThrow(() -> new NotFoundException("Conversion not found"));
+		
+		if(productConversion.getStatus().equals("PENDING") || productConversion.getStatus().equals("APPROVED")) {
+			productConversion.setStatus("CANCELED");
+			productConversionRepository.save(productConversion);
+			return true;
+		}else {
+			throw new InvalidOperationException("Could not cancel, Only pending or approved conversions can be canceled");
+		}        	
+	}
+    
+    @Transactional
+    @RequestMapping(method = RequestMethod.PUT, value = "/products/conversions/approve_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean approveProductConversion(
+    		@RequestParam(name = "id") Long packingListId, 
+    		@RequestHeader("user_id") Long userId) {
+		Optional<ProductConversion> productConversion = productConversionRepository.findById(packingListId);
+		if(!productConversion.isPresent()) {
+			throw new NotFoundException("Conversion not found");
+		}
+		User user = userRepository.findById(userId)
+    			.orElseThrow(() -> new NotFoundException("User not found")); 	
+    	Day day = dayRepository.getCurrentBussinessDay();
+		if(productConversion.get().getStatus().equals("PENDING")) {
+			productConversion.get().setStatus("APPROVED");
+			productConversion.get().setApprovedByUser(user);
+			productConversion.get().setApprovedDay(day);
+			productConversionRepository.save(productConversion.get());
+			return true;
+		}else {
+			throw new InvalidOperationException("Could not approve, Only pending conversions can be approved");
+		}    	
+	}
+    
+    @Transactional
+    @RequestMapping(method = RequestMethod.PUT, value = "/products/conversions/complete_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean completeProductConversion(
+    		@RequestParam(name = "id") Long productConversionId, 
+    		@RequestHeader("user_id") Long userId) {
+		Optional<ProductConversion> productConversion_ = productConversionRepository.findById(productConversionId);
+		if(!productConversion_.isPresent()) {
+			throw new NotFoundException("Conversion not found");
+		}
+		User user = userRepository.findById(userId)
+    			.orElseThrow(() -> new NotFoundException("User not found")); 	
+    	Day day = dayRepository.getCurrentBussinessDay();
+    	
+    	
+		
+		//double totalInitial = productConversion.getInitialTotal();
+		//double totalFinal = productConversion.getFinalTotal();
+		
+    	List <ProductConversionInitial> initials = productConversionInitialRepository.findAllByProductConversion(productConversion_.get());
+    	List <ProductConversionFinal> finals = productConversionFinalRepository.findAllByProductConversion(productConversion_.get());
+    	
+    	
+    	
+		if(productConversion_.get().getStatus().equals("APPROVED")) {
+			productConversion_.get().setStatus("COMPLETED");
+			productConversion_.get().setCompletedByUser(user);
+			productConversion_.get().setCompletedDay(day);
+			
+			productConversionRepository.save(productConversion_.get());
+			
+			for(ProductConversionInitial initial : initials) {
+				/**
+				 * Return returned to stock
+				 * Create stock card
+				 */
+				
+				Product product;
+	    		StockCard stockCard;
+	    		if(initial.getQty() > 0) {	 
+	    			product = productRepository.findByCode(initial.getProduct().getCode()).get();
+	    			product.setStock(product.getStock() - initial.getQty());
+	    			productRepository.saveAndFlush(product);
+	    		}
+	    		
+	    		if(initial.getQty() > 0) {	    			
+		    		stockCard = new StockCard();
+		    		product = productRepository.findByCode(initial.getProduct().getCode()).get();
+		    		stockCard.setCode(initial.getProduct().getCode());
+		    		stockCard.setDescription(initial.getProduct().getDescription());
+		    		stockCard.setDay(dayRepository.getCurrentBussinessDay());
+		    		stockCard.setCreatedOn(new Date());
+		    		stockCard.setQtyIn(0);
+		    		stockCard.setQtyOut(initial.getQty());
+		    		stockCard.setBalance(product.getStock());
+		    		stockCard.setReference("Used in conversion# "+productConversion_.get().getNo());
+		    		stockCardRepository.saveAndFlush(stockCard);
+	    		}
+	    		
+	    		
+			}
+			
+			for(ProductConversionFinal final_ : finals) {
+				/**
+				 * Return returned to stock
+				 * Create stock card
+				 */
+				
+				Product product;
+	    		StockCard stockCard;
+	    		if(final_.getQty() > 0) {	 
+	    			product = productRepository.findByCode(final_.getProduct().getCode()).get();
+	    			product.setStock(product.getStock() - final_.getQty());
+	    			productRepository.saveAndFlush(product);
+	    		}
+	    		
+	    		if(final_.getQty() > 0) {	    			
+		    		stockCard = new StockCard();
+		    		product = productRepository.findByCode(final_.getProduct().getCode()).get();
+		    		stockCard.setCode(final_.getProduct().getCode());
+		    		stockCard.setDescription(final_.getProduct().getDescription());
+		    		stockCard.setDay(dayRepository.getCurrentBussinessDay());
+		    		stockCard.setCreatedOn(new Date());
+		    		stockCard.setQtyIn(0);
+		    		stockCard.setQtyOut(final_.getQty());
+		    		stockCard.setBalance(product.getStock());
+		    		stockCard.setReference("Produced in conversion# "+productConversion_.get().getNo());
+		    		stockCardRepository.saveAndFlush(stockCard);
+	    		}
+	    		
+			}
+			
+			return true;
+		}else {
+			throw new InvalidOperationException("Could not complete, Only approved conversions can be completed");
+		}    	
+	}
 }

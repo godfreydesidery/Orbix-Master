@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.orbix.api.models.Product;
+import com.orbix.api.models.ProductConversion;
+import com.orbix.api.models.ProductConversionInitial;
 import com.orbix.api.models.Supplier;
 import com.orbix.api.reports.NegativeStockReport;
 import com.orbix.api.reports.SupplyStockStatus;
@@ -67,5 +69,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 					nativeQuery = true					
 			)
 	List<NegativeStockReport> getNegativeStockReport();
+
 
 }

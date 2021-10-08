@@ -155,6 +155,9 @@
     <Compile Include="Models\HR\Personnel.vb" />
     <Compile Include="Models\HR\SalesPerson.vb" />
     <Compile Include="Models\PackingList\PackingListDetail.vb" />
+    <Compile Include="Models\ProductConversion.vb" />
+    <Compile Include="Models\ProductConversionFinal.vb" />
+    <Compile Include="Models\ProductConversionInitial.vb" />
     <Compile Include="Models\Reports\DailySalesReport.vb" />
     <Compile Include="Models\Reports\DebtTrackerReport.vb" />
     <Compile Include="Models\Reports\FastMovingItems.vb" />

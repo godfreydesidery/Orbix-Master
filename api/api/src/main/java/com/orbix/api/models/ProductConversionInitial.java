@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -25,7 +26,7 @@ public class ProductConversionInitial {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	
+		
 	private double price;
 	private double qty = 0;
 		
@@ -82,6 +83,5 @@ public class ProductConversionInitial {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-	
-	
+
 }

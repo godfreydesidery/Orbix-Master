@@ -26,17 +26,22 @@ Partial Class frmItemConversion
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmItemConversion))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.txtId = New System.Windows.Forms.TextBox()
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.txtStatus = New System.Windows.Forms.TextBox()
         Me.txtReason = New System.Windows.Forms.TextBox()
-        Me.txtConversionDate = New System.Windows.Forms.TextBox()
         Me.txtConversionNo = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.txtRawStockSize = New System.Windows.Forms.TextBox()
         Me.cmbRawDescription = New System.Windows.Forms.ComboBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.txtRawQty = New System.Windows.Forms.TextBox()
@@ -47,10 +52,11 @@ Partial Class frmItemConversion
         Me.txtRawBarCode = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.txtRawItemCode = New System.Windows.Forms.TextBox()
+        Me.txtRawCode = New System.Windows.Forms.TextBox()
         Me.txtRawPrice = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.txtEndStockSize = New System.Windows.Forms.TextBox()
         Me.cmbEndDescription = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.txtEndQty = New System.Windows.Forms.TextBox()
@@ -61,7 +67,7 @@ Partial Class frmItemConversion
         Me.txtEndBarcode = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.txtEndItemCode = New System.Windows.Forms.TextBox()
+        Me.txtEndCode = New System.Windows.Forms.TextBox()
         Me.txtEndPrice = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -84,19 +90,26 @@ Partial Class frmItemConversion
         Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btnBack = New System.Windows.Forms.Button()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnNew = New System.Windows.Forms.ToolStripButton()
         Me.btnEdit = New System.Windows.Forms.ToolStripButton()
         Me.btnClear = New System.Windows.Forms.ToolStripButton()
         Me.btnSave = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnCancel = New System.Windows.Forms.ToolStripButton()
         Me.btnApprove = New System.Windows.Forms.ToolStripButton()
         Me.btnPrint = New System.Windows.Forms.ToolStripButton()
         Me.btnComplete = New System.Windows.Forms.ToolStripButton()
         Me.btnArchive = New System.Windows.Forms.ToolStripButton()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.txtCreated = New System.Windows.Forms.TextBox()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.txtApproved = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtCompleted = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -104,78 +117,133 @@ Partial Class frmItemConversion
         CType(Me.dtgrdEndItems, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtgrdConversionList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
+        Me.Panel6.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.Label21)
+        Me.Panel1.Controls.Add(Me.TextBox3)
+        Me.Panel1.Controls.Add(Me.TextBox2)
+        Me.Panel1.Controls.Add(Me.Label17)
+        Me.Panel1.Controls.Add(Me.TextBox1)
+        Me.Panel1.Controls.Add(Me.Label9)
         Me.Panel1.Controls.Add(Me.txtId)
         Me.Panel1.Controls.Add(Me.btnSearch)
         Me.Panel1.Controls.Add(Me.txtStatus)
         Me.Panel1.Controls.Add(Me.txtReason)
-        Me.Panel1.Controls.Add(Me.txtConversionDate)
         Me.Panel1.Controls.Add(Me.txtConversionNo)
         Me.Panel1.Controls.Add(Me.Label4)
         Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Location = New System.Drawing.Point(10, 50)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(575, 164)
+        Me.Panel1.Size = New System.Drawing.Size(423, 595)
         Me.Panel1.TabIndex = 0
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(132, 231)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(97, 17)
+        Me.Label21.TabIndex = 117
+        Me.Label21.Text = "Change Value"
+        '
+        'TextBox3
+        '
+        Me.TextBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox3.Location = New System.Drawing.Point(235, 227)
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.ReadOnly = True
+        Me.TextBox3.Size = New System.Drawing.Size(177, 27)
+        Me.TextBox3.TabIndex = 116
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox2.Location = New System.Drawing.Point(236, 192)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.ReadOnly = True
+        Me.TextBox2.Size = New System.Drawing.Size(177, 27)
+        Me.TextBox2.TabIndex = 115
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(152, 198)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(78, 17)
+        Me.Label17.TabIndex = 114
+        Me.Label17.Text = "Final Value"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox1.Location = New System.Drawing.Point(236, 159)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ReadOnly = True
+        Me.TextBox1.Size = New System.Drawing.Size(176, 27)
+        Me.TextBox1.TabIndex = 113
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(150, 163)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(80, 17)
+        Me.Label9.TabIndex = 112
+        Me.Label9.Text = "Initial Value"
         '
         'txtId
         '
         Me.txtId.Location = New System.Drawing.Point(3, 4)
         Me.txtId.MaxLength = 50
         Me.txtId.Name = "txtId"
-        Me.txtId.Size = New System.Drawing.Size(34, 22)
+        Me.txtId.Size = New System.Drawing.Size(10, 22)
         Me.txtId.TabIndex = 111
         Me.txtId.Visible = False
         '
         'btnSearch
         '
-        Me.btnSearch.Location = New System.Drawing.Point(356, 4)
+        Me.btnSearch.Location = New System.Drawing.Point(312, 10)
         Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(120, 54)
+        Me.btnSearch.Size = New System.Drawing.Size(100, 35)
         Me.btnSearch.TabIndex = 52
         Me.btnSearch.Text = "Search"
         Me.btnSearch.UseVisualStyleBackColor = True
         '
         'txtStatus
         '
-        Me.txtStatus.Location = New System.Drawing.Point(164, 102)
+        Me.txtStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtStatus.Location = New System.Drawing.Point(86, 105)
         Me.txtStatus.Name = "txtStatus"
         Me.txtStatus.ReadOnly = True
-        Me.txtStatus.Size = New System.Drawing.Size(186, 22)
+        Me.txtStatus.Size = New System.Drawing.Size(326, 27)
         Me.txtStatus.TabIndex = 7
         '
         'txtReason
         '
-        Me.txtReason.Location = New System.Drawing.Point(164, 68)
+        Me.txtReason.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtReason.Location = New System.Drawing.Point(85, 50)
+        Me.txtReason.Multiline = True
         Me.txtReason.Name = "txtReason"
-        Me.txtReason.Size = New System.Drawing.Size(404, 22)
+        Me.txtReason.Size = New System.Drawing.Size(327, 49)
         Me.txtReason.TabIndex = 6
-        '
-        'txtConversionDate
-        '
-        Me.txtConversionDate.Location = New System.Drawing.Point(164, 34)
-        Me.txtConversionDate.Name = "txtConversionDate"
-        Me.txtConversionDate.ReadOnly = True
-        Me.txtConversionDate.Size = New System.Drawing.Size(186, 22)
-        Me.txtConversionDate.TabIndex = 5
         '
         'txtConversionNo
         '
-        Me.txtConversionNo.Location = New System.Drawing.Point(164, 4)
+        Me.txtConversionNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtConversionNo.Location = New System.Drawing.Point(85, 10)
         Me.txtConversionNo.Name = "txtConversionNo"
-        Me.txtConversionNo.Size = New System.Drawing.Size(186, 22)
+        Me.txtConversionNo.Size = New System.Drawing.Size(222, 27)
         Me.txtConversionNo.TabIndex = 4
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(110, 102)
+        Me.Label4.Location = New System.Drawing.Point(31, 105)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(48, 17)
         Me.Label4.TabIndex = 3
@@ -184,33 +252,25 @@ Partial Class frmItemConversion
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(5, 68)
+        Me.Label3.Location = New System.Drawing.Point(25, 50)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(153, 17)
+        Me.Label3.Size = New System.Drawing.Size(57, 17)
         Me.Label3.TabIndex = 2
-        Me.Label3.Text = "Reason for Conversion"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(45, 34)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(113, 17)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Conversion Date"
+        Me.Label3.Text = "Reason"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(57, 1)
+        Me.Label1.Location = New System.Drawing.Point(20, 10)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(101, 17)
+        Me.Label1.Size = New System.Drawing.Size(62, 17)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Conversion No"
+        Me.Label1.Text = "Conv No"
         '
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel2.Controls.Add(Me.txtRawStockSize)
         Me.Panel2.Controls.Add(Me.cmbRawDescription)
         Me.Panel2.Controls.Add(Me.Label19)
         Me.Panel2.Controls.Add(Me.txtRawQty)
@@ -221,18 +281,28 @@ Partial Class frmItemConversion
         Me.Panel2.Controls.Add(Me.txtRawBarCode)
         Me.Panel2.Controls.Add(Me.Label13)
         Me.Panel2.Controls.Add(Me.Label16)
-        Me.Panel2.Controls.Add(Me.txtRawItemCode)
+        Me.Panel2.Controls.Add(Me.txtRawCode)
         Me.Panel2.Controls.Add(Me.txtRawPrice)
         Me.Panel2.Controls.Add(Me.Label18)
-        Me.Panel2.Location = New System.Drawing.Point(10, 262)
+        Me.Panel2.Location = New System.Drawing.Point(439, 215)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(495, 164)
+        Me.Panel2.Size = New System.Drawing.Size(660, 155)
         Me.Panel2.TabIndex = 94
+        '
+        'txtRawStockSize
+        '
+        Me.txtRawStockSize.Location = New System.Drawing.Point(517, 62)
+        Me.txtRawStockSize.MaxLength = 50
+        Me.txtRawStockSize.Name = "txtRawStockSize"
+        Me.txtRawStockSize.ReadOnly = True
+        Me.txtRawStockSize.Size = New System.Drawing.Size(115, 22)
+        Me.txtRawStockSize.TabIndex = 100
+        Me.txtRawStockSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'cmbRawDescription
         '
         Me.cmbRawDescription.FormattingEnabled = True
-        Me.cmbRawDescription.Location = New System.Drawing.Point(118, 68)
+        Me.cmbRawDescription.Location = New System.Drawing.Point(117, 63)
         Me.cmbRawDescription.Name = "cmbRawDescription"
         Me.cmbRawDescription.Size = New System.Drawing.Size(366, 24)
         Me.cmbRawDescription.TabIndex = 99
@@ -240,7 +310,7 @@ Partial Class frmItemConversion
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(81, 129)
+        Me.Label19.Location = New System.Drawing.Point(81, 121)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(30, 17)
         Me.Label19.TabIndex = 55
@@ -248,7 +318,7 @@ Partial Class frmItemConversion
         '
         'txtRawQty
         '
-        Me.txtRawQty.Location = New System.Drawing.Point(117, 126)
+        Me.txtRawQty.Location = New System.Drawing.Point(117, 121)
         Me.txtRawQty.MaxLength = 50
         Me.txtRawQty.Name = "txtRawQty"
         Me.txtRawQty.Size = New System.Drawing.Size(115, 22)
@@ -259,7 +329,7 @@ Partial Class frmItemConversion
         Me.btnRawAdd.Enabled = False
         Me.btnRawAdd.Location = New System.Drawing.Point(238, 98)
         Me.btnRawAdd.Name = "btnRawAdd"
-        Me.btnRawAdd.Size = New System.Drawing.Size(120, 50)
+        Me.btnRawAdd.Size = New System.Drawing.Size(120, 35)
         Me.btnRawAdd.TabIndex = 53
         Me.btnRawAdd.Text = "Add/Update"
         Me.btnRawAdd.UseVisualStyleBackColor = True
@@ -268,7 +338,7 @@ Partial Class frmItemConversion
         '
         Me.btnRawReset.Location = New System.Drawing.Point(364, 98)
         Me.btnRawReset.Name = "btnRawReset"
-        Me.btnRawReset.Size = New System.Drawing.Size(120, 47)
+        Me.btnRawReset.Size = New System.Drawing.Size(100, 35)
         Me.btnRawReset.TabIndex = 54
         Me.btnRawReset.Text = "Reset"
         Me.btnRawReset.UseVisualStyleBackColor = True
@@ -277,7 +347,7 @@ Partial Class frmItemConversion
         '
         Me.btnRawSearchItem.Location = New System.Drawing.Point(238, 4)
         Me.btnRawSearchItem.Name = "btnRawSearchItem"
-        Me.btnRawSearchItem.Size = New System.Drawing.Size(120, 54)
+        Me.btnRawSearchItem.Size = New System.Drawing.Size(100, 35)
         Me.btnRawSearchItem.TabIndex = 51
         Me.btnRawSearchItem.Text = "Search"
         Me.btnRawSearchItem.UseVisualStyleBackColor = True
@@ -302,7 +372,7 @@ Partial Class frmItemConversion
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(32, 68)
+        Me.Label13.Location = New System.Drawing.Point(32, 63)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(79, 17)
         Me.Label13.TabIndex = 38
@@ -317,17 +387,17 @@ Partial Class frmItemConversion
         Me.Label16.TabIndex = 49
         Me.Label16.Text = "Barcode"
         '
-        'txtRawItemCode
+        'txtRawCode
         '
-        Me.txtRawItemCode.Location = New System.Drawing.Point(117, 35)
-        Me.txtRawItemCode.MaxLength = 50
-        Me.txtRawItemCode.Name = "txtRawItemCode"
-        Me.txtRawItemCode.Size = New System.Drawing.Size(115, 22)
-        Me.txtRawItemCode.TabIndex = 39
+        Me.txtRawCode.Location = New System.Drawing.Point(117, 35)
+        Me.txtRawCode.MaxLength = 50
+        Me.txtRawCode.Name = "txtRawCode"
+        Me.txtRawCode.Size = New System.Drawing.Size(115, 22)
+        Me.txtRawCode.TabIndex = 39
         '
         'txtRawPrice
         '
-        Me.txtRawPrice.Location = New System.Drawing.Point(118, 98)
+        Me.txtRawPrice.Location = New System.Drawing.Point(117, 93)
         Me.txtRawPrice.MaxLength = 50
         Me.txtRawPrice.Name = "txtRawPrice"
         Me.txtRawPrice.ReadOnly = True
@@ -338,7 +408,7 @@ Partial Class frmItemConversion
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(71, 98)
+        Me.Label18.Location = New System.Drawing.Point(71, 93)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(40, 17)
         Me.Label18.TabIndex = 45
@@ -348,6 +418,7 @@ Partial Class frmItemConversion
         '
         Me.Panel3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel3.Controls.Add(Me.txtEndStockSize)
         Me.Panel3.Controls.Add(Me.cmbEndDescription)
         Me.Panel3.Controls.Add(Me.Label5)
         Me.Panel3.Controls.Add(Me.txtEndQty)
@@ -358,13 +429,23 @@ Partial Class frmItemConversion
         Me.Panel3.Controls.Add(Me.txtEndBarcode)
         Me.Panel3.Controls.Add(Me.Label7)
         Me.Panel3.Controls.Add(Me.Label8)
-        Me.Panel3.Controls.Add(Me.txtEndItemCode)
+        Me.Panel3.Controls.Add(Me.txtEndCode)
         Me.Panel3.Controls.Add(Me.txtEndPrice)
         Me.Panel3.Controls.Add(Me.Label10)
-        Me.Panel3.Location = New System.Drawing.Point(898, 201)
+        Me.Panel3.Location = New System.Drawing.Point(1121, 215)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(494, 164)
+        Me.Panel3.Size = New System.Drawing.Size(660, 155)
         Me.Panel3.TabIndex = 95
+        '
+        'txtEndStockSize
+        '
+        Me.txtEndStockSize.Location = New System.Drawing.Point(519, 60)
+        Me.txtEndStockSize.MaxLength = 50
+        Me.txtEndStockSize.Name = "txtEndStockSize"
+        Me.txtEndStockSize.ReadOnly = True
+        Me.txtEndStockSize.Size = New System.Drawing.Size(115, 22)
+        Me.txtEndStockSize.TabIndex = 101
+        Me.txtEndStockSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'cmbEndDescription
         '
@@ -396,7 +477,7 @@ Partial Class frmItemConversion
         Me.btnEndAdd.Enabled = False
         Me.btnEndAdd.Location = New System.Drawing.Point(238, 95)
         Me.btnEndAdd.Name = "btnEndAdd"
-        Me.btnEndAdd.Size = New System.Drawing.Size(120, 51)
+        Me.btnEndAdd.Size = New System.Drawing.Size(120, 35)
         Me.btnEndAdd.TabIndex = 53
         Me.btnEndAdd.Text = "Add/Update"
         Me.btnEndAdd.UseVisualStyleBackColor = True
@@ -405,7 +486,7 @@ Partial Class frmItemConversion
         '
         Me.btnEndReset.Location = New System.Drawing.Point(364, 95)
         Me.btnEndReset.Name = "btnEndReset"
-        Me.btnEndReset.Size = New System.Drawing.Size(120, 50)
+        Me.btnEndReset.Size = New System.Drawing.Size(100, 35)
         Me.btnEndReset.TabIndex = 54
         Me.btnEndReset.Text = "Reset"
         Me.btnEndReset.UseVisualStyleBackColor = True
@@ -414,7 +495,7 @@ Partial Class frmItemConversion
         '
         Me.btnEndSearchItem.Location = New System.Drawing.Point(238, 4)
         Me.btnEndSearchItem.Name = "btnEndSearchItem"
-        Me.btnEndSearchItem.Size = New System.Drawing.Size(120, 54)
+        Me.btnEndSearchItem.Size = New System.Drawing.Size(100, 35)
         Me.btnEndSearchItem.TabIndex = 51
         Me.btnEndSearchItem.Text = "Search"
         Me.btnEndSearchItem.UseVisualStyleBackColor = True
@@ -454,13 +535,13 @@ Partial Class frmItemConversion
         Me.Label8.TabIndex = 49
         Me.Label8.Text = "Barcode"
         '
-        'txtEndItemCode
+        'txtEndCode
         '
-        Me.txtEndItemCode.Location = New System.Drawing.Point(117, 35)
-        Me.txtEndItemCode.MaxLength = 50
-        Me.txtEndItemCode.Name = "txtEndItemCode"
-        Me.txtEndItemCode.Size = New System.Drawing.Size(115, 22)
-        Me.txtEndItemCode.TabIndex = 39
+        Me.txtEndCode.Location = New System.Drawing.Point(117, 35)
+        Me.txtEndCode.MaxLength = 50
+        Me.txtEndCode.Name = "txtEndCode"
+        Me.txtEndCode.Size = New System.Drawing.Size(115, 22)
+        Me.txtEndCode.TabIndex = 39
         '
         'txtEndPrice
         '
@@ -484,21 +565,21 @@ Partial Class frmItemConversion
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(11, 238)
+        Me.Label11.Location = New System.Drawing.Point(436, 195)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(173, 17)
+        Me.Label11.Size = New System.Drawing.Size(136, 17)
         Me.Label11.TabIndex = 96
-        Me.Label11.Text = "Select products to convert"
+        Me.Label11.Text = "Select initial Product"
         '
         'Label14
         '
         Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(895, 181)
+        Me.Label14.Location = New System.Drawing.Point(1118, 195)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(134, 17)
+        Me.Label14.Size = New System.Drawing.Size(129, 17)
         Me.Label14.TabIndex = 97
-        Me.Label14.Text = "Select end products"
+        Me.Label14.Text = "Select final product"
         '
         'dtgrdItemsToConvert
         '
@@ -508,11 +589,11 @@ Partial Class frmItemConversion
         Me.dtgrdItemsToConvert.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dtgrdItemsToConvert.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgrdItemsToConvert.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4})
-        Me.dtgrdItemsToConvert.Location = New System.Drawing.Point(10, 449)
+        Me.dtgrdItemsToConvert.Location = New System.Drawing.Point(439, 402)
         Me.dtgrdItemsToConvert.Name = "dtgrdItemsToConvert"
         Me.dtgrdItemsToConvert.ReadOnly = True
         Me.dtgrdItemsToConvert.RowTemplate.Height = 24
-        Me.dtgrdItemsToConvert.Size = New System.Drawing.Size(884, 196)
+        Me.dtgrdItemsToConvert.Size = New System.Drawing.Size(660, 243)
         Me.dtgrdItemsToConvert.TabIndex = 98
         '
         'Column1
@@ -549,11 +630,11 @@ Partial Class frmItemConversion
         Me.dtgrdEndItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dtgrdEndItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgrdEndItems.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4})
-        Me.dtgrdEndItems.Location = New System.Drawing.Point(898, 397)
+        Me.dtgrdEndItems.Location = New System.Drawing.Point(1121, 402)
         Me.dtgrdEndItems.Name = "dtgrdEndItems"
         Me.dtgrdEndItems.ReadOnly = True
         Me.dtgrdEndItems.RowTemplate.Height = 24
-        Me.dtgrdEndItems.Size = New System.Drawing.Size(883, 248)
+        Me.dtgrdEndItems.Size = New System.Drawing.Size(660, 243)
         Me.dtgrdEndItems.TabIndex = 99
         '
         'DataGridViewTextBoxColumn1
@@ -585,21 +666,21 @@ Partial Class frmItemConversion
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(11, 429)
+        Me.Label15.Location = New System.Drawing.Point(439, 382)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(131, 17)
+        Me.Label15.Size = New System.Drawing.Size(100, 17)
         Me.Label15.TabIndex = 100
-        Me.Label15.Text = "Products to convert"
+        Me.Label15.Text = "Initial Products"
         '
         'Label20
         '
         Me.Label20.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(898, 377)
+        Me.Label20.Location = New System.Drawing.Point(1118, 382)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(208, 17)
+        Me.Label20.Size = New System.Drawing.Size(98, 17)
         Me.Label20.TabIndex = 101
-        Me.Label20.Text = "End products (after conversion)"
+        Me.Label20.Text = "Final Products"
         '
         'dtgrdConversionList
         '
@@ -608,11 +689,11 @@ Partial Class frmItemConversion
         Me.dtgrdConversionList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dtgrdConversionList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgrdConversionList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7})
-        Me.dtgrdConversionList.Location = New System.Drawing.Point(1168, 50)
+        Me.dtgrdConversionList.Location = New System.Drawing.Point(1121, 50)
         Me.dtgrdConversionList.Name = "dtgrdConversionList"
         Me.dtgrdConversionList.ReadOnly = True
         Me.dtgrdConversionList.RowTemplate.Height = 24
-        Me.dtgrdConversionList.Size = New System.Drawing.Size(613, 146)
+        Me.dtgrdConversionList.Size = New System.Drawing.Size(660, 142)
         Me.dtgrdConversionList.TabIndex = 106
         '
         'DataGridViewTextBoxColumn5
@@ -654,26 +735,6 @@ Partial Class frmItemConversion
         Me.ToolStrip1.TabIndex = 113
         Me.ToolStrip1.Text = "ToolStrip1"
         '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 27)
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 27)
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 27)
-        '
-        'ToolStripSeparator4
-        '
-        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 27)
-        '
         'btnNew
         '
         Me.btnNew.Image = Global.BackOffice.My.Resources.Resources.new_file
@@ -709,6 +770,26 @@ Partial Class frmItemConversion
         Me.btnSave.Size = New System.Drawing.Size(64, 24)
         Me.btnSave.Text = "Save"
         Me.btnSave.ToolTipText = "Save details of a new or existing document"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 27)
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 27)
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 27)
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 27)
         '
         'btnCancel
         '
@@ -754,11 +835,81 @@ Partial Class frmItemConversion
         Me.btnArchive.Text = "Archive"
         Me.btnArchive.ToolTipText = "Sends a completed document to archives for future references"
         '
+        'Panel6
+        '
+        Me.Panel6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel6.Controls.Add(Me.txtCreated)
+        Me.Panel6.Controls.Add(Me.Label30)
+        Me.Panel6.Controls.Add(Me.txtApproved)
+        Me.Panel6.Controls.Add(Me.Label2)
+        Me.Panel6.Controls.Add(Me.txtCompleted)
+        Me.Panel6.Controls.Add(Me.Label32)
+        Me.Panel6.Location = New System.Drawing.Point(10, 546)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(423, 99)
+        Me.Panel6.TabIndex = 112
+        '
+        'txtCreated
+        '
+        Me.txtCreated.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCreated.Location = New System.Drawing.Point(85, 8)
+        Me.txtCreated.Name = "txtCreated"
+        Me.txtCreated.ReadOnly = True
+        Me.txtCreated.Size = New System.Drawing.Size(327, 24)
+        Me.txtCreated.TabIndex = 96
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(13, 39)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(69, 17)
+        Me.Label30.TabIndex = 103
+        Me.Label30.Text = "Approved"
+        '
+        'txtApproved
+        '
+        Me.txtApproved.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtApproved.Location = New System.Drawing.Point(85, 36)
+        Me.txtApproved.Name = "txtApproved"
+        Me.txtApproved.ReadOnly = True
+        Me.txtApproved.Size = New System.Drawing.Size(327, 24)
+        Me.txtApproved.TabIndex = 104
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(24, 13)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(58, 17)
+        Me.Label2.TabIndex = 2
+        Me.Label2.Text = "Created"
+        '
+        'txtCompleted
+        '
+        Me.txtCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCompleted.Location = New System.Drawing.Point(85, 66)
+        Me.txtCompleted.Name = "txtCompleted"
+        Me.txtCompleted.ReadOnly = True
+        Me.txtCompleted.Size = New System.Drawing.Size(327, 24)
+        Me.txtCompleted.TabIndex = 108
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(7, 66)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(75, 17)
+        Me.Label32.TabIndex = 107
+        Me.Label32.Text = "Completed"
+        '
         'frmItemConversion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1789, 703)
+        Me.Controls.Add(Me.Panel6)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.dtgrdConversionList)
@@ -787,6 +938,8 @@ Partial Class frmItemConversion
         CType(Me.dtgrdConversionList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
+        Me.Panel6.ResumeLayout(False)
+        Me.Panel6.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -795,11 +948,9 @@ Partial Class frmItemConversion
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents txtStatus As TextBox
     Friend WithEvents txtReason As TextBox
-    Friend WithEvents txtConversionDate As TextBox
     Friend WithEvents txtConversionNo As TextBox
     Friend WithEvents Panel2 As Panel
     Friend WithEvents cmbRawDescription As ComboBox
@@ -812,7 +963,7 @@ Partial Class frmItemConversion
     Friend WithEvents txtRawBarCode As TextBox
     Friend WithEvents Label13 As Label
     Friend WithEvents Label16 As Label
-    Friend WithEvents txtRawItemCode As TextBox
+    Friend WithEvents txtRawCode As TextBox
     Friend WithEvents txtRawPrice As TextBox
     Friend WithEvents Label18 As Label
     Friend WithEvents Panel3 As Panel
@@ -826,7 +977,7 @@ Partial Class frmItemConversion
     Friend WithEvents txtEndBarcode As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label
-    Friend WithEvents txtEndItemCode As TextBox
+    Friend WithEvents txtEndCode As TextBox
     Friend WithEvents txtEndPrice As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents Label11 As Label
@@ -864,4 +1015,19 @@ Partial Class frmItemConversion
     Friend WithEvents btnPrint As ToolStripButton
     Friend WithEvents btnArchive As ToolStripButton
     Friend WithEvents btnComplete As ToolStripButton
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents txtCreated As TextBox
+    Friend WithEvents Label30 As Label
+    Friend WithEvents txtApproved As TextBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents txtCompleted As TextBox
+    Friend WithEvents Label32 As Label
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents Label17 As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label21 As Label
+    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents txtRawStockSize As TextBox
+    Friend WithEvents txtEndStockSize As TextBox
 End Class

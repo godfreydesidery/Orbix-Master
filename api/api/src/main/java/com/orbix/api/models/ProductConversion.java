@@ -39,6 +39,8 @@ public class ProductConversion {
     private String status;
     private String reason;
     private String comments;
+    private double initialTotal;
+    private double finalTotal;
     
     @ManyToOne(targetEntity = Day.class, fetch = FetchType.EAGER,  optional = true)
     @JoinColumn(name = "created_day_id", nullable = true , updatable = true)
@@ -178,6 +180,38 @@ public class ProductConversion {
 
 	public void setCompletedByUser(User completedByUser) {
 		this.completedByUser = completedByUser;
+	}
+
+	public double getInitialTotal() {
+		return initialTotal;
+	}
+
+	public void setInitialTotal(double initialTotal) {
+		this.initialTotal = initialTotal;
+	}
+
+	public double getFinalTotal() {
+		return finalTotal;
+	}
+
+	public void setFinalTotal(double finalTotal) {
+		this.finalTotal = finalTotal;
+	}
+
+	public List<ProductConversionInitial> getProductConversionInitial() {
+		return productConversionInitial;
+	}
+
+	public void setProductConversionInitial(List<ProductConversionInitial> productConversionInitial) {
+		this.productConversionInitial = productConversionInitial;
+	}
+
+	public List<ProductConversionFinal> getProductConversionFinal() {
+		return productConversionFinal;
+	}
+
+	public void setProductConversionFinal(List<ProductConversionFinal> productConversionFinal) {
+		this.productConversionFinal = productConversionFinal;
 	}
     
     
