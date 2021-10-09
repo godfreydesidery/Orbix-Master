@@ -30,7 +30,15 @@ Partial Class frmSalesPersons
         Me.btnSave = New System.Windows.Forms.ToolStripButton()
         Me.btnBack = New System.Windows.Forms.Button()
         Me.dtgrdList = New System.Windows.Forms.DataGridView()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txtCreditLimit = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtInvoiceLimit = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.chkActive = New System.Windows.Forms.CheckBox()
         Me.txtId = New System.Windows.Forms.TextBox()
         Me.btnSearch = New System.Windows.Forms.Button()
@@ -40,17 +48,13 @@ Partial Class frmSalesPersons
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.txtInvoiceLimit = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtCreditLimit = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Panel3 = New System.Windows.Forms.Panel()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.dtgrdList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
@@ -141,138 +145,6 @@ Partial Class frmSalesPersons
         Me.dtgrdList.Size = New System.Drawing.Size(1077, 559)
         Me.dtgrdList.TabIndex = 82
         '
-        'Panel1
-        '
-        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel1.Controls.Add(Me.txtCreditLimit)
-        Me.Panel1.Controls.Add(Me.Label4)
-        Me.Panel1.Controls.Add(Me.txtInvoiceLimit)
-        Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Controls.Add(Me.chkActive)
-        Me.Panel1.Controls.Add(Me.txtId)
-        Me.Panel1.Controls.Add(Me.btnSearch)
-        Me.Panel1.Controls.Add(Me.txtContact)
-        Me.Panel1.Controls.Add(Me.txtNameAndRollNo)
-        Me.Panel1.Controls.Add(Me.txtRollNo)
-        Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Controls.Add(Me.Label2)
-        Me.Panel1.Controls.Add(Me.Label5)
-        Me.Panel1.Location = New System.Drawing.Point(10, 39)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(376, 193)
-        Me.Panel1.TabIndex = 81
-        '
-        'chkActive
-        '
-        Me.chkActive.AutoSize = True
-        Me.chkActive.Location = New System.Drawing.Point(94, 99)
-        Me.chkActive.Name = "chkActive"
-        Me.chkActive.Size = New System.Drawing.Size(68, 21)
-        Me.chkActive.TabIndex = 46
-        Me.chkActive.Text = "Active"
-        Me.chkActive.UseVisualStyleBackColor = True
-        '
-        'txtId
-        '
-        Me.txtId.Location = New System.Drawing.Point(3, 4)
-        Me.txtId.Name = "txtId"
-        Me.txtId.Size = New System.Drawing.Size(16, 22)
-        Me.txtId.TabIndex = 19
-        Me.txtId.Visible = False
-        '
-        'btnSearch
-        '
-        Me.btnSearch.Location = New System.Drawing.Point(269, 4)
-        Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(100, 35)
-        Me.btnSearch.TabIndex = 16
-        Me.btnSearch.Text = "&Search"
-        Me.btnSearch.UseVisualStyleBackColor = True
-        '
-        'txtContact
-        '
-        Me.txtContact.Location = New System.Drawing.Point(94, 71)
-        Me.txtContact.Name = "txtContact"
-        Me.txtContact.ReadOnly = True
-        Me.txtContact.Size = New System.Drawing.Size(275, 22)
-        Me.txtContact.TabIndex = 12
-        '
-        'txtNameAndRollNo
-        '
-        Me.txtNameAndRollNo.Location = New System.Drawing.Point(94, 43)
-        Me.txtNameAndRollNo.Name = "txtNameAndRollNo"
-        Me.txtNameAndRollNo.ReadOnly = True
-        Me.txtNameAndRollNo.Size = New System.Drawing.Size(275, 22)
-        Me.txtNameAndRollNo.TabIndex = 9
-        '
-        'txtRollNo
-        '
-        Me.txtRollNo.Location = New System.Drawing.Point(94, 4)
-        Me.txtRollNo.Name = "txtRollNo"
-        Me.txtRollNo.Size = New System.Drawing.Size(113, 22)
-        Me.txtRollNo.TabIndex = 8
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(34, 7)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(54, 17)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Roll No"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(16, 43)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(72, 17)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Name&&No"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(25, 71)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(63, 17)
-        Me.Label5.TabIndex = 4
-        Me.Label5.Text = "Contacts"
-        '
-        'txtInvoiceLimit
-        '
-        Me.txtInvoiceLimit.Location = New System.Drawing.Point(94, 126)
-        Me.txtInvoiceLimit.Name = "txtInvoiceLimit"
-        Me.txtInvoiceLimit.Size = New System.Drawing.Size(182, 22)
-        Me.txtInvoiceLimit.TabIndex = 48
-        Me.txtInvoiceLimit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(3, 129)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(85, 17)
-        Me.Label3.TabIndex = 47
-        Me.Label3.Text = "Invoice Limit"
-        '
-        'txtCreditLimit
-        '
-        Me.txtCreditLimit.Location = New System.Drawing.Point(94, 157)
-        Me.txtCreditLimit.Name = "txtCreditLimit"
-        Me.txtCreditLimit.Size = New System.Drawing.Size(182, 22)
-        Me.txtCreditLimit.TabIndex = 50
-        Me.txtCreditLimit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(10, 157)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(78, 17)
-        Me.Label4.TabIndex = 49
-        Me.Label4.Text = "Credit Limit"
-        '
         'Column2
         '
         Me.Column2.FillWeight = 69.06461!
@@ -301,11 +173,168 @@ Partial Class frmSalesPersons
         Me.Column1.ReadOnly = True
         Me.Column1.Visible = False
         '
+        'Panel1
+        '
+        Me.Panel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.Panel3)
+        Me.Panel1.Location = New System.Drawing.Point(10, 39)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(376, 559)
+        Me.Panel1.TabIndex = 81
+        '
+        'txtCreditLimit
+        '
+        Me.txtCreditLimit.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCreditLimit.Location = New System.Drawing.Point(189, 34)
+        Me.txtCreditLimit.Name = "txtCreditLimit"
+        Me.txtCreditLimit.Size = New System.Drawing.Size(180, 27)
+        Me.txtCreditLimit.TabIndex = 50
+        Me.txtCreditLimit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(105, 34)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(78, 17)
+        Me.Label4.TabIndex = 49
+        Me.Label4.Text = "Credit Limit"
+        '
+        'txtInvoiceLimit
+        '
+        Me.txtInvoiceLimit.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtInvoiceLimit.Location = New System.Drawing.Point(189, 3)
+        Me.txtInvoiceLimit.Name = "txtInvoiceLimit"
+        Me.txtInvoiceLimit.Size = New System.Drawing.Size(180, 27)
+        Me.txtInvoiceLimit.TabIndex = 48
+        Me.txtInvoiceLimit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(98, 6)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(85, 17)
+        Me.Label3.TabIndex = 47
+        Me.Label3.Text = "Invoice Limit"
+        '
+        'chkActive
+        '
+        Me.chkActive.AutoSize = True
+        Me.chkActive.Location = New System.Drawing.Point(94, 112)
+        Me.chkActive.Name = "chkActive"
+        Me.chkActive.Size = New System.Drawing.Size(68, 21)
+        Me.chkActive.TabIndex = 46
+        Me.chkActive.Text = "Active"
+        Me.chkActive.UseVisualStyleBackColor = True
+        '
+        'txtId
+        '
+        Me.txtId.Location = New System.Drawing.Point(3, 3)
+        Me.txtId.Name = "txtId"
+        Me.txtId.Size = New System.Drawing.Size(16, 22)
+        Me.txtId.TabIndex = 19
+        Me.txtId.Visible = False
+        '
+        'btnSearch
+        '
+        Me.btnSearch.Location = New System.Drawing.Point(269, 3)
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(100, 35)
+        Me.btnSearch.TabIndex = 16
+        Me.btnSearch.Text = "&Search"
+        Me.btnSearch.UseVisualStyleBackColor = True
+        '
+        'txtContact
+        '
+        Me.txtContact.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtContact.Location = New System.Drawing.Point(94, 75)
+        Me.txtContact.Name = "txtContact"
+        Me.txtContact.ReadOnly = True
+        Me.txtContact.Size = New System.Drawing.Size(275, 27)
+        Me.txtContact.TabIndex = 12
+        '
+        'txtNameAndRollNo
+        '
+        Me.txtNameAndRollNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtNameAndRollNo.Location = New System.Drawing.Point(94, 42)
+        Me.txtNameAndRollNo.Name = "txtNameAndRollNo"
+        Me.txtNameAndRollNo.ReadOnly = True
+        Me.txtNameAndRollNo.Size = New System.Drawing.Size(275, 27)
+        Me.txtNameAndRollNo.TabIndex = 9
+        '
+        'txtRollNo
+        '
+        Me.txtRollNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRollNo.Location = New System.Drawing.Point(94, 6)
+        Me.txtRollNo.Name = "txtRollNo"
+        Me.txtRollNo.Size = New System.Drawing.Size(169, 27)
+        Me.txtRollNo.TabIndex = 8
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(34, 6)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(54, 17)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Roll No"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(16, 42)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(72, 17)
+        Me.Label2.TabIndex = 1
+        Me.Label2.Text = "Name&&No"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(25, 81)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(63, 17)
+        Me.Label5.TabIndex = 4
+        Me.Label5.Text = "Contacts"
+        '
+        'Panel2
+        '
+        Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel2.Controls.Add(Me.txtRollNo)
+        Me.Panel2.Controls.Add(Me.Label5)
+        Me.Panel2.Controls.Add(Me.Label2)
+        Me.Panel2.Controls.Add(Me.Label1)
+        Me.Panel2.Controls.Add(Me.txtNameAndRollNo)
+        Me.Panel2.Controls.Add(Me.chkActive)
+        Me.Panel2.Controls.Add(Me.txtContact)
+        Me.Panel2.Controls.Add(Me.txtId)
+        Me.Panel2.Controls.Add(Me.btnSearch)
+        Me.Panel2.Location = New System.Drawing.Point(10, 39)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(376, 138)
+        Me.Panel2.TabIndex = 51
+        '
+        'Panel3
+        '
+        Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel3.Controls.Add(Me.txtInvoiceLimit)
+        Me.Panel3.Controls.Add(Me.txtCreditLimit)
+        Me.Panel3.Controls.Add(Me.Label3)
+        Me.Panel3.Controls.Add(Me.Label4)
+        Me.Panel3.Location = New System.Drawing.Point(-2, 139)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(376, 71)
+        Me.Panel3.TabIndex = 51
+        '
         'frmSalesPersons
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1481, 656)
+        Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.dtgrdList)
@@ -318,7 +347,10 @@ Partial Class frmSalesPersons
         Me.ToolStrip1.PerformLayout()
         CType(Me.dtgrdList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -350,4 +382,6 @@ Partial Class frmSalesPersons
     Friend WithEvents Column7 As DataGridViewTextBoxColumn
     Friend WithEvents Column6 As DataGridViewTextBoxColumn
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents Panel3 As Panel
 End Class

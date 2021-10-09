@@ -30,9 +30,7 @@ Partial Class frmMaterialCategory
         Me.cmbCategoryName = New System.Windows.Forms.ComboBox()
         Me.txtId = New System.Windows.Forms.TextBox()
         Me.btnSearch = New System.Windows.Forms.Button()
-        Me.txtStatus = New System.Windows.Forms.TextBox()
         Me.txtCategoryNo = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
@@ -44,6 +42,7 @@ Partial Class frmMaterialCategory
         Me.btnBlock = New System.Windows.Forms.ToolStripButton()
         Me.btnUnblock = New System.Windows.Forms.ToolStripButton()
         Me.btnBack = New System.Windows.Forms.Button()
+        Me.chkActive = New System.Windows.Forms.CheckBox()
         CType(Me.dtgrdList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
@@ -57,11 +56,11 @@ Partial Class frmMaterialCategory
         Me.dtgrdList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.dtgrdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgrdList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3})
-        Me.dtgrdList.Location = New System.Drawing.Point(392, 50)
+        Me.dtgrdList.Location = New System.Drawing.Point(376, 50)
         Me.dtgrdList.Name = "dtgrdList"
         Me.dtgrdList.ReadOnly = True
         Me.dtgrdList.RowTemplate.Height = 24
-        Me.dtgrdList.Size = New System.Drawing.Size(502, 352)
+        Me.dtgrdList.Size = New System.Drawing.Size(518, 352)
         Me.dtgrdList.TabIndex = 72
         '
         'Column1
@@ -86,34 +85,36 @@ Partial Class frmMaterialCategory
         '
         'Panel1
         '
+        Me.Panel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.chkActive)
         Me.Panel1.Controls.Add(Me.cmbCategoryName)
         Me.Panel1.Controls.Add(Me.txtId)
         Me.Panel1.Controls.Add(Me.btnSearch)
-        Me.Panel1.Controls.Add(Me.txtStatus)
         Me.Panel1.Controls.Add(Me.txtCategoryNo)
-        Me.Panel1.Controls.Add(Me.Label8)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Location = New System.Drawing.Point(10, 50)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(374, 125)
+        Me.Panel1.Size = New System.Drawing.Size(360, 352)
         Me.Panel1.TabIndex = 71
         '
         'cmbCategoryName
         '
         Me.cmbCategoryName.AllowDrop = True
+        Me.cmbCategoryName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbCategoryName.FormattingEnabled = True
-        Me.cmbCategoryName.Location = New System.Drawing.Point(109, 59)
+        Me.cmbCategoryName.Location = New System.Drawing.Point(96, 44)
         Me.cmbCategoryName.Name = "cmbCategoryName"
-        Me.cmbCategoryName.Size = New System.Drawing.Size(253, 24)
+        Me.cmbCategoryName.Size = New System.Drawing.Size(253, 28)
         Me.cmbCategoryName.TabIndex = 107
         '
         'txtId
         '
-        Me.txtId.Location = New System.Drawing.Point(-2, -2)
+        Me.txtId.Location = New System.Drawing.Point(20, 30)
         Me.txtId.Name = "txtId"
-        Me.txtId.Size = New System.Drawing.Size(41, 22)
+        Me.txtId.Size = New System.Drawing.Size(19, 22)
         Me.txtId.TabIndex = 19
         Me.txtId.Visible = False
         '
@@ -122,41 +123,25 @@ Partial Class frmMaterialCategory
         Me.btnSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.btnSearch.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!)
         Me.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnSearch.Location = New System.Drawing.Point(262, 10)
+        Me.btnSearch.Location = New System.Drawing.Point(249, 3)
         Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(100, 43)
+        Me.btnSearch.Size = New System.Drawing.Size(100, 35)
         Me.btnSearch.TabIndex = 16
         Me.btnSearch.Text = "Search"
         Me.btnSearch.UseVisualStyleBackColor = True
         '
-        'txtStatus
-        '
-        Me.txtStatus.Location = New System.Drawing.Point(109, 89)
-        Me.txtStatus.Name = "txtStatus"
-        Me.txtStatus.ReadOnly = True
-        Me.txtStatus.Size = New System.Drawing.Size(147, 22)
-        Me.txtStatus.TabIndex = 15
-        '
         'txtCategoryNo
         '
-        Me.txtCategoryNo.Location = New System.Drawing.Point(109, 10)
+        Me.txtCategoryNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCategoryNo.Location = New System.Drawing.Point(96, 10)
         Me.txtCategoryNo.Name = "txtCategoryNo"
-        Me.txtCategoryNo.Size = New System.Drawing.Size(147, 22)
+        Me.txtCategoryNo.Size = New System.Drawing.Size(147, 27)
         Me.txtCategoryNo.TabIndex = 8
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(55, 92)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(48, 17)
-        Me.Label8.TabIndex = 7
-        Me.Label8.Text = "Status"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(22, 17)
+        Me.Label1.Location = New System.Drawing.Point(3, 10)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(87, 17)
         Me.Label1.TabIndex = 0
@@ -165,11 +150,11 @@ Partial Class frmMaterialCategory
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(3, 59)
+        Me.Label2.Location = New System.Drawing.Point(45, 44)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(106, 17)
+        Me.Label2.Size = New System.Drawing.Size(45, 17)
         Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Category Name"
+        Me.Label2.Text = "Name"
         '
         'ToolStrip1
         '
@@ -258,6 +243,16 @@ Partial Class frmMaterialCategory
         Me.btnBack.TabIndex = 73
         Me.btnBack.UseVisualStyleBackColor = True
         '
+        'chkActive
+        '
+        Me.chkActive.AutoSize = True
+        Me.chkActive.Location = New System.Drawing.Point(96, 78)
+        Me.chkActive.Name = "chkActive"
+        Me.chkActive.Size = New System.Drawing.Size(68, 21)
+        Me.chkActive.TabIndex = 108
+        Me.chkActive.Text = "Active"
+        Me.chkActive.UseVisualStyleBackColor = True
+        '
         'frmMaterialCategory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -290,9 +285,7 @@ Partial Class frmMaterialCategory
     Friend WithEvents cmbCategoryName As ComboBox
     Friend WithEvents txtId As TextBox
     Friend WithEvents btnSearch As Button
-    Friend WithEvents txtStatus As TextBox
     Friend WithEvents txtCategoryNo As TextBox
-    Friend WithEvents Label8 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
@@ -306,4 +299,5 @@ Partial Class frmMaterialCategory
     Friend WithEvents ToolStripButton5 As ToolStripButton
     Friend WithEvents btnUnblock As ToolStripButton
     Friend WithEvents btnBlock As ToolStripButton
+    Friend WithEvents chkActive As CheckBox
 End Class

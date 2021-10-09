@@ -2,15 +2,14 @@
 Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class frmMaterialCategory
-    Dim EDIT_MODE As String = ""
-    Private GL_USERNAME As String = ""
+
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         Me.Dispose()
     End Sub
-
-
 
     Private Function clear()
 
@@ -18,7 +17,6 @@ Public Class frmMaterialCategory
         txtCategoryNo.Text = ""
         cmbCategoryName.Text = ""
         cmbCategoryName.SelectedItem = Nothing
-        txtStatus.Text = ""
         btnBlock.Enabled = False
         btnUnblock.Enabled = False
         Return vbNull
@@ -37,63 +35,44 @@ Public Class frmMaterialCategory
     Private Sub frm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         clear()
 
-        Dim material As New Material
-        longList = material.getMaterials()
+        Dim category As New MaterialCategory
+        longList = category.getNames()
 
     End Sub
     Private Function refreshList()
-
-
         dtgrdList.Rows.Clear()
+
+        Dim categories As New List(Of MaterialCategory)
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
         Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            'create bar code
-            Dim codeQuery As String = "SELECT `id`, `category_no`, `category_name`, `status` FROM `material_categories`"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            Dim id As String = ""
-            Dim categoryNo As String = ""
-            Dim categoryName As String = ""
-            Dim status As String = ""
-
-
-
-            While reader.Read
-
-                id = reader.GetString("id")
-                categoryNo = reader.GetString("category_no")
-                categoryName = reader.GetString("category_name")
-                status = reader.GetString("status")
-
-
-
-                Dim dtgrdRow As New DataGridViewRow
-                Dim dtgrdCell As DataGridViewCell
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = categoryNo
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = categoryName
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-
-
-                dtgrdCell = New DataGridViewTextBoxCell()
-                dtgrdCell.Value = status
-                dtgrdRow.Cells.Add(dtgrdCell)
-
-                dtgrdList.Rows.Add(dtgrdRow)
-            End While
-            conn.Close()
+            response = Web.get_("materials/categories")
+            categories = JsonConvert.DeserializeObject(Of List(Of MaterialCategory))(response.ToString)
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            MsgBox(ex.Message)
+            Return vbNull
+            Exit Function
         End Try
+
+        For Each category In categories
+
+            Dim dtgrdRow As New DataGridViewRow
+            Dim dtgrdCell As DataGridViewCell
+
+            dtgrdCell = New DataGridViewTextBoxCell()
+            dtgrdCell.Value = category.no
+            dtgrdRow.Cells.Add(dtgrdCell)
+
+            dtgrdCell = New DataGridViewTextBoxCell()
+            dtgrdCell.Value = category.name
+            dtgrdRow.Cells.Add(dtgrdCell)
+
+            dtgrdCell = New DataGridViewTextBoxCell()
+            dtgrdCell.Value = category.status
+            dtgrdRow.Cells.Add(dtgrdCell)
+
+            dtgrdList.Rows.Add(dtgrdRow)
+        Next
 
         Return vbNull
     End Function
@@ -103,7 +82,6 @@ Public Class frmMaterialCategory
     End Sub
 
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
-        EDIT_MODE = "NEW"
         txtId.Text = ""
         btnEdit.Enabled = True
         '  btnDelete.Enabled = False
@@ -112,13 +90,12 @@ Public Class frmMaterialCategory
         clear()
         unlock()
         txtCategoryNo.ReadOnly = True
-        txtCategoryNo.Text = generateCategoryNo()
+        txtCategoryNo.Text = "NA"
     End Sub
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
 
         If cmbCategoryName.Text <> "" Then
-            EDIT_MODE = ""
             '  btnDelete.Enabled = True
             btnSave.Enabled = True
 
@@ -133,33 +110,29 @@ Public Class frmMaterialCategory
             txtCategoryNo.ReadOnly = False
         End If
     End Sub
-    'Dim username As String = ""
-    Private Function search() As Boolean
-        Dim found = False
-        If txtCategoryNo.Text <> "" Then
-            cmbCategoryName.SelectedItem = Nothing
-        End If
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim query As String = "SELECT `id`, `category_no`, `category_name`, `status` FROM `material_categories` WHERE `category_no`='" + txtCategoryNo.Text + "'"
-            If cmbCategoryName.Text <> "" Then
-                query = "SELECT `id`, `category_no`, `category_name`, `status` FROM `material_categories` WHERE `category_name`='" + cmbCategoryName.Text + "'"
-            End If
-            conn.Open()
-            command.CommandText = query
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                txtId.Text = reader.GetString("id")
-                txtCategoryNo.Text = reader.GetString("category_no")
-                cmbCategoryName.Text = reader.GetString("category_name")
-                txtStatus.Text = reader.GetString("status")
 
+    Private Function search(no As String, name As String) As Boolean
+        Dim found = False
+
+        Dim category As New MaterialCategory
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
+
+        Try
+            If no <> "" Then
+                response = Web.get_("materials/categories/get_by_no?no=" + no)
+            Else
+                response = Web.get_("materials/categories/get_by_name?name=" + name)
+            End If
+            category = JsonConvert.DeserializeObject(Of MaterialCategory)(response.ToString)
+
+            txtId.Text = category.id
+            txtCategoryNo.Text = category.no
+            cmbCategoryName.Text = category.name
+            If category.id <> "" Then
                 found = True
-                Exit While
-            End While
+            End If
+
             If found = True Then
                 lock()
                 btnEdit.Enabled = True
@@ -168,23 +141,21 @@ Public Class frmMaterialCategory
             Else
                 MsgBox("No matching record", vbOKOnly + vbCritical, "Error: Not found")
             End If
+
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
-        If txtStatus.Text = "" Then
-            btnBlock.Enabled = True
-        End If
         Return vbNull
     End Function
+
+
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         btnNew.Enabled = True
         btnEdit.Enabled = True
         '  btnDelete.Enabled = False
         btnSave.Enabled = False
-        search()
-
+        search(txtCategoryNo.Text, cmbCategoryName.Text)
     End Sub
-
 
     Dim longList As New List(Of String)
     Dim shortList As New List(Of String)
@@ -210,73 +181,56 @@ Public Class frmMaterialCategory
         If validateEntries() <> True Then
             Exit Sub
         End If
+        Dim response As Object
+        Dim category As MaterialCategory
 
-        If EDIT_MODE = "NEW" Then
-            'User.GL_STATUS = "ACTIVE"
+        If txtId.Text = "" Then
+            category = New MaterialCategory
+            category.no = "NA"
+            category.name = cmbCategoryName.Text
+            If chkActive.Checked = True Then
+                category.status = "ACTIVE"
+            Else
+                category.status = "INACTIVE"
+            End If
 
-            Dim added As Boolean = False
             Try
-                Dim conn As New MySqlConnection(Database.conString)
-                Dim command As New MySqlCommand()
-                Dim Query As String = "INSERT INTO `material_categories`(`category_no`, `category_name`, `status`) VALUES (@category_no,@category_name,@status)"
+                response = Web.post(category, "materials/categories/new")
+                category = JsonConvert.DeserializeObject(Of MaterialCategory)(response.ToString)
 
-                conn.Open()
-                command.CommandText = Query
-                command.Connection = conn
-                command.CommandType = CommandType.Text
-                command.Parameters.AddWithValue("@category_no", txtCategoryNo.Text)
-                command.Parameters.AddWithValue("@category_name", cmbCategoryName.Text)
-                command.Parameters.AddWithValue("@status", "ACTIVE")
+                txtId.Text = category.id
+                txtCategoryNo.Text = category.no
 
-                command.ExecuteNonQuery()
-                conn.Close()
-                added = True
-                lock()
-                btnEdit.Enabled = True
-                btnSave.Enabled = False
-                EDIT_MODE = ""
-
-                MsgBox("Save successiful")
-            Catch ex As MySqlException
-                added = False
-                MsgBox("Could not add Record. Duplicate entries ", vbOKOnly + vbCritical, "Error: Duplicate entry")
+                MsgBox("Created successifully", vbOKOnly + vbInformation, "Success")
             Catch ex As Exception
-                added = False
-                MsgBox(ex.Message + ex.GetType.ToString)
+                MsgBox(ex.Message)
             End Try
-
         Else
 
-            Dim edited As Boolean = False
-            Try
-                Dim conn As New MySqlConnection(Database.conString)
-                Dim command As New MySqlCommand()
-                Dim Query As String = "UPDATE `material_categories` SET `category_name`='" + cmbCategoryName.Text + "', `status`='" + txtStatus.Text + "' WHERE `category_no`='" + txtCategoryNo.Text + "'"
+            category = New MaterialCategory
+            category.id = txtId.Text
+            category.no = txtCategoryNo.Text
+            category.name = cmbCategoryName.Text
+            If chkActive.Checked = True Then
+                category.status = "ACTIVE"
+            Else
+                category.status = "INACTIVE"
+            End If
 
-                conn.Open()
-                command.CommandText = Query
-                command.Connection = conn
-                command.CommandType = CommandType.Text
-                command.ExecuteNonQuery()
-                conn.Close()
-                edited = True
-                lock()
-                btnEdit.Enabled = True
-                btnSave.Enabled = False
-                EDIT_MODE = ""
-                MsgBox("Edit successiful")
-            Catch ex As MySqlException
-                edited = False
-                MsgBox("Could not edit record. Duplicate or no entries ", vbOKOnly + vbCritical, "Error: Duplicate entry")
+            Try
+                response = Web.put(category, "materials/categories/edit_by_id?id=" + txtId.Text)
+                If response = True Then
+                    MsgBox("Updated successifully", vbOKOnly + vbInformation, "Success")
+                Else
+                    MsgBox("Update failed", vbOKOnly + vbInformation, "Failed")
+                End If
             Catch ex As Exception
-                edited = False
-                MsgBox(ex.Message + ex.GetType.ToString)
+                MsgBox(ex.ToString)
             End Try
 
         End If
         refreshList()
     End Sub
-
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs)
         Dim res As Integer = MsgBox("Are you sure you want to delete the selected category? The record will be completely removed from the system", vbYesNo + vbQuestion, "Delete Category?")
@@ -311,10 +265,9 @@ Public Class frmMaterialCategory
 
     Private Sub txtRollNo_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCategoryNo.KeyDown
         If Keys.Tab = Keys.Right Then
-            search()
+            search(txtCategoryNo.Text, "")
         End If
     End Sub
-
 
     Private Function validateEntries() As Boolean
         Dim valid As Boolean = True
@@ -348,149 +301,14 @@ Public Class frmMaterialCategory
 
         row = dtgrdList.CurrentRow.Index
         txtCategoryNo.Text = dtgrdList.Item(0, row).Value.ToString
-        search()
+        search(dtgrdList.Item(0, row).Value.ToString, "")
     End Sub
-
-    'Private Sub cmbStatus_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbStatus.SelectionChangeCommitted
-    'If txtID.Text <> "" And txtUsername.Text <> "" Then
-    '  Try
-    'Dim conn As New MySqlConnection(Database.conString)
-    'Dim command As New MySqlCommand()
-
-    'Dim codeQuery As String = "UPDATE `users` SET `status`='" + cmbStatus.Text + "' WHERE `id`='" + txtID.Text + "'"
-    '    conn.Open()
-    '   command.CommandText = codeQuery
-    '   command.Connection = conn
-    '   command.CommandType = CommandType.Text
-    '   command.ExecuteNonQuery()
-    '    conn.Close()
-    '  MsgBox("Status set to " + cmbStatus.Text + " ", vbOKOnly + vbInformation, "Status changed")
-    'Catch ex As Exception
-    'MsgBox(ex.Message)
-    'End Try
-
-    'End If
-    ' End Sub
-
-    'Private Sub cmbStatus_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmbStatus.SelectedIndexChanged
-
-    'End Sub
-
-    Private Sub frmMaterials_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
-
-    Public Function generateCategoryNo() As String
-        Dim no As String = ""
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim codeQuery As String = "SELECT `id` FROM `material_categories` ORDER BY `id` DESC LIMIT 1"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read
-                no = (Val(reader.GetString("id")) + 1).ToString
-                Exit While
-            End While
-            If no = "" Then
-                no = "1"
-            End If
-            conn.Close()
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-        Return no
-    End Function
-
-
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         Me.Dispose()
     End Sub
 
-    Private Sub btnBlock_Click(sender As Object, e As EventArgs) Handles btnBlock.Click
-        Dim res As Integer = MsgBox("Block Selected Category? A blocked category can not be used", vbYesNo + vbQuestion, "Block?")
-        If res = DialogResult.Yes Then
-            block(txtId.Text)
-            refreshList()
-            search()
-        End If
-    End Sub
-
-    Private Sub btnUnblock_Click(sender As Object, e As EventArgs) Handles btnUnblock.Click
-        Dim res As Integer = MsgBox("Unblock Selected category?", vbYesNo + vbQuestion, "Unblock?")
-        If res = DialogResult.Yes Then
-            unblock(txtId.Text)
-            refreshList()
-            search()
-        End If
-    End Sub
-
-    Public Function block(id As String) As Boolean
-        Dim success As Boolean = True
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim codeQuery As String = "UPDATE `material_categories` SET`status`='BLOCKED' WHERE `id`='" + id + "'"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            command.ExecuteNonQuery()
-            conn.Close()
-            success = True
-        Catch ex As Exception
-            success = False
-            MsgBox(ex.Message)
-        End Try
-        Return success
-    End Function
-    Public Function unblock(id As String) As Boolean
-        Dim success As Boolean = True
-        Try
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Dim codeQuery As String = "UPDATE `material_categories` SET`status`='ACTIVE' WHERE `id`='" + id + "'"
-            conn.Open()
-            command.CommandText = codeQuery
-            command.Connection = conn
-            command.CommandType = CommandType.Text
-            command.ExecuteNonQuery()
-            conn.Close()
-            success = True
-        Catch ex As Exception
-            success = False
-            MsgBox(ex.Message)
-        End Try
-        Return success
-    End Function
-
-    Private Sub txtStatus_TextChanged(sender As Object, e As EventArgs) Handles txtStatus.TextChanged
-        If txtStatus.Text = "ACTIVE" Then
-            btnBlock.Enabled = True
-            btnUnblock.Enabled = False
-        End If
-        If txtStatus.Text = "BLOCKED" Then
-            btnBlock.Enabled = False
-            btnUnblock.Enabled = True
-        End If
-    End Sub
-
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         clear()
-    End Sub
-    Private Sub _clear()
-
-    End Sub
-
-    Private Sub ToolStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ToolStrip1.ItemClicked
-
-    End Sub
-
-    Private Sub btnNew_Click_1(sender As Object, e As EventArgs) Handles btnNew.Click
-
     End Sub
 End Class

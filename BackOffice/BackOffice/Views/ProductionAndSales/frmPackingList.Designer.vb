@@ -23,8 +23,8 @@ Partial Class frmPackingList
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPackingList))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtIssueNo = New System.Windows.Forms.TextBox()
@@ -238,9 +238,9 @@ Partial Class frmPackingList
         '
         'DataGridViewTextBoxColumn1
         '
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black
-        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridViewTextBoxColumn1.FillWeight = 42.63959!
         Me.DataGridViewTextBoxColumn1.HeaderText = "Issue No"
         Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
@@ -509,8 +509,8 @@ Partial Class frmPackingList
         '
         'Column10
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column10.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column10.DefaultCellStyle = DataGridViewCellStyle2
         Me.Column10.FillWeight = 89.8288!
         Me.Column10.HeaderText = "Price"
         Me.Column10.Name = "Column10"
@@ -944,7 +944,7 @@ Partial Class frmPackingList
         Me.Panel3.Controls.Add(Me.btnSearch)
         Me.Panel3.Location = New System.Drawing.Point(10, 50)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(423, 777)
+        Me.Panel3.Size = New System.Drawing.Size(420, 777)
         Me.Panel3.TabIndex = 97
         '
         'txtPrinted
@@ -1236,7 +1236,7 @@ Partial Class frmPackingList
         Me.Panel1.Controls.Add(Me.txtDebt)
         Me.Panel1.Location = New System.Drawing.Point(10, 446)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(423, 208)
+        Me.Panel1.Size = New System.Drawing.Size(420, 208)
         Me.Panel1.TabIndex = 102
         '
         'Panel4
@@ -1250,7 +1250,7 @@ Partial Class frmPackingList
         Me.Panel4.Controls.Add(Me.Label14)
         Me.Panel4.Location = New System.Drawing.Point(10, 342)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(423, 103)
+        Me.Panel4.Size = New System.Drawing.Size(420, 103)
         Me.Panel4.TabIndex = 102
         '
         'Panel5
@@ -1264,7 +1264,7 @@ Partial Class frmPackingList
         Me.Panel5.Controls.Add(Me.Label26)
         Me.Panel5.Location = New System.Drawing.Point(10, 235)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(423, 106)
+        Me.Panel5.Size = New System.Drawing.Size(420, 106)
         Me.Panel5.TabIndex = 102
         '
         'Panel6
@@ -1283,7 +1283,7 @@ Partial Class frmPackingList
         Me.Panel6.Controls.Add(Me.Label32)
         Me.Panel6.Location = New System.Drawing.Point(10, 680)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(423, 147)
+        Me.Panel6.Size = New System.Drawing.Size(420, 147)
         Me.Panel6.TabIndex = 103
         '
         'frmPackingList

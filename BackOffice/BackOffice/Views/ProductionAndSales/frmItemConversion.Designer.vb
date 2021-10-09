@@ -22,8 +22,8 @@ Partial Class frmItemConversion
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmItemConversion))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label21 = New System.Windows.Forms.Label()
@@ -110,6 +110,10 @@ Partial Class frmItemConversion
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtCompleted = New System.Windows.Forms.TextBox()
         Me.Label32 = New System.Windows.Forms.Label()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -118,34 +122,25 @@ Partial Class frmItemConversion
         CType(Me.dtgrdConversionList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel6.SuspendLayout()
+        Me.Panel4.SuspendLayout()
+        Me.Panel5.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
         '
+        Me.Panel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel1.Controls.Add(Me.Label21)
-        Me.Panel1.Controls.Add(Me.TextBox3)
-        Me.Panel1.Controls.Add(Me.TextBox2)
-        Me.Panel1.Controls.Add(Me.Label17)
-        Me.Panel1.Controls.Add(Me.TextBox1)
-        Me.Panel1.Controls.Add(Me.Label9)
-        Me.Panel1.Controls.Add(Me.txtId)
-        Me.Panel1.Controls.Add(Me.btnSearch)
-        Me.Panel1.Controls.Add(Me.txtStatus)
-        Me.Panel1.Controls.Add(Me.txtReason)
-        Me.Panel1.Controls.Add(Me.txtConversionNo)
-        Me.Panel1.Controls.Add(Me.Label4)
-        Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Controls.Add(Me.Label1)
+        Me.Panel1.Controls.Add(Me.Panel5)
         Me.Panel1.Location = New System.Drawing.Point(10, 50)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(423, 595)
+        Me.Panel1.Size = New System.Drawing.Size(420, 595)
         Me.Panel1.TabIndex = 0
         '
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(132, 231)
+        Me.Label21.Location = New System.Drawing.Point(135, 63)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(97, 17)
         Me.Label21.TabIndex = 117
@@ -153,26 +148,26 @@ Partial Class frmItemConversion
         '
         'TextBox3
         '
-        Me.TextBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox3.Location = New System.Drawing.Point(235, 227)
+        Me.TextBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox3.Location = New System.Drawing.Point(235, 63)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.ReadOnly = True
-        Me.TextBox3.Size = New System.Drawing.Size(177, 27)
+        Me.TextBox3.Size = New System.Drawing.Size(177, 24)
         Me.TextBox3.TabIndex = 116
         '
         'TextBox2
         '
-        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(236, 192)
+        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox2.Location = New System.Drawing.Point(235, 33)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.ReadOnly = True
-        Me.TextBox2.Size = New System.Drawing.Size(177, 27)
+        Me.TextBox2.Size = New System.Drawing.Size(177, 24)
         Me.TextBox2.TabIndex = 115
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(152, 198)
+        Me.Label17.Location = New System.Drawing.Point(154, 36)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(78, 17)
         Me.Label17.TabIndex = 114
@@ -180,17 +175,17 @@ Partial Class frmItemConversion
         '
         'TextBox1
         '
-        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(236, 159)
+        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox1.Location = New System.Drawing.Point(236, 3)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(176, 27)
+        Me.TextBox1.Size = New System.Drawing.Size(176, 24)
         Me.TextBox1.TabIndex = 113
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(150, 163)
+        Me.Label9.Location = New System.Drawing.Point(154, 7)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(80, 17)
         Me.Label9.TabIndex = 112
@@ -198,7 +193,7 @@ Partial Class frmItemConversion
         '
         'txtId
         '
-        Me.txtId.Location = New System.Drawing.Point(3, 4)
+        Me.txtId.Location = New System.Drawing.Point(9, 0)
         Me.txtId.MaxLength = 50
         Me.txtId.Name = "txtId"
         Me.txtId.Size = New System.Drawing.Size(10, 22)
@@ -207,7 +202,7 @@ Partial Class frmItemConversion
         '
         'btnSearch
         '
-        Me.btnSearch.Location = New System.Drawing.Point(312, 10)
+        Me.btnSearch.Location = New System.Drawing.Point(314, 3)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(100, 35)
         Me.btnSearch.TabIndex = 52
@@ -217,7 +212,7 @@ Partial Class frmItemConversion
         'txtStatus
         '
         Me.txtStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStatus.Location = New System.Drawing.Point(86, 105)
+        Me.txtStatus.Location = New System.Drawing.Point(88, 101)
         Me.txtStatus.Name = "txtStatus"
         Me.txtStatus.ReadOnly = True
         Me.txtStatus.Size = New System.Drawing.Size(326, 27)
@@ -226,7 +221,7 @@ Partial Class frmItemConversion
         'txtReason
         '
         Me.txtReason.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtReason.Location = New System.Drawing.Point(85, 50)
+        Me.txtReason.Location = New System.Drawing.Point(87, 46)
         Me.txtReason.Multiline = True
         Me.txtReason.Name = "txtReason"
         Me.txtReason.Size = New System.Drawing.Size(327, 49)
@@ -235,7 +230,7 @@ Partial Class frmItemConversion
         'txtConversionNo
         '
         Me.txtConversionNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtConversionNo.Location = New System.Drawing.Point(85, 10)
+        Me.txtConversionNo.Location = New System.Drawing.Point(87, 6)
         Me.txtConversionNo.Name = "txtConversionNo"
         Me.txtConversionNo.Size = New System.Drawing.Size(222, 27)
         Me.txtConversionNo.TabIndex = 4
@@ -243,7 +238,7 @@ Partial Class frmItemConversion
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(31, 105)
+        Me.Label4.Location = New System.Drawing.Point(33, 101)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(48, 17)
         Me.Label4.TabIndex = 3
@@ -252,7 +247,7 @@ Partial Class frmItemConversion
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(25, 50)
+        Me.Label3.Location = New System.Drawing.Point(27, 46)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(57, 17)
         Me.Label3.TabIndex = 2
@@ -261,7 +256,7 @@ Partial Class frmItemConversion
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(20, 10)
+        Me.Label1.Location = New System.Drawing.Point(22, 6)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(62, 17)
         Me.Label1.TabIndex = 0
@@ -270,6 +265,7 @@ Partial Class frmItemConversion
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel2.Controls.Add(Me.Label22)
         Me.Panel2.Controls.Add(Me.txtRawStockSize)
         Me.Panel2.Controls.Add(Me.cmbRawDescription)
         Me.Panel2.Controls.Add(Me.Label19)
@@ -291,7 +287,7 @@ Partial Class frmItemConversion
         '
         'txtRawStockSize
         '
-        Me.txtRawStockSize.Location = New System.Drawing.Point(517, 62)
+        Me.txtRawStockSize.Location = New System.Drawing.Point(501, 63)
         Me.txtRawStockSize.MaxLength = 50
         Me.txtRawStockSize.Name = "txtRawStockSize"
         Me.txtRawStockSize.ReadOnly = True
@@ -418,6 +414,7 @@ Partial Class frmItemConversion
         '
         Me.Panel3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel3.Controls.Add(Me.Label23)
         Me.Panel3.Controls.Add(Me.txtEndStockSize)
         Me.Panel3.Controls.Add(Me.cmbEndDescription)
         Me.Panel3.Controls.Add(Me.Label5)
@@ -439,7 +436,7 @@ Partial Class frmItemConversion
         '
         'txtEndStockSize
         '
-        Me.txtEndStockSize.Location = New System.Drawing.Point(519, 60)
+        Me.txtEndStockSize.Location = New System.Drawing.Point(506, 63)
         Me.txtEndStockSize.MaxLength = 50
         Me.txtEndStockSize.Name = "txtEndStockSize"
         Me.txtEndStockSize.ReadOnly = True
@@ -616,8 +613,8 @@ Partial Class frmItemConversion
         '
         'Column4
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column4.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column4.DefaultCellStyle = DataGridViewCellStyle3
         Me.Column4.HeaderText = "Price"
         Me.Column4.Name = "Column4"
         Me.Column4.ReadOnly = True
@@ -657,8 +654,8 @@ Partial Class frmItemConversion
         '
         'DataGridViewTextBoxColumn4
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.DataGridViewTextBoxColumn4.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.DataGridViewTextBoxColumn4.DefaultCellStyle = DataGridViewCellStyle4
         Me.DataGridViewTextBoxColumn4.HeaderText = "Price"
         Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
         Me.DataGridViewTextBoxColumn4.ReadOnly = True
@@ -847,7 +844,7 @@ Partial Class frmItemConversion
         Me.Panel6.Controls.Add(Me.Label32)
         Me.Panel6.Location = New System.Drawing.Point(10, 546)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(423, 99)
+        Me.Panel6.Size = New System.Drawing.Size(420, 99)
         Me.Panel6.TabIndex = 112
         '
         'txtCreated
@@ -904,11 +901,60 @@ Partial Class frmItemConversion
         Me.Label32.TabIndex = 107
         Me.Label32.Text = "Completed"
         '
+        'Panel4
+        '
+        Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel4.Controls.Add(Me.txtReason)
+        Me.Panel4.Controls.Add(Me.Label1)
+        Me.Panel4.Controls.Add(Me.Label3)
+        Me.Panel4.Controls.Add(Me.Label4)
+        Me.Panel4.Controls.Add(Me.txtConversionNo)
+        Me.Panel4.Controls.Add(Me.txtStatus)
+        Me.Panel4.Controls.Add(Me.btnSearch)
+        Me.Panel4.Controls.Add(Me.txtId)
+        Me.Panel4.Location = New System.Drawing.Point(10, 50)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(420, 136)
+        Me.Panel4.TabIndex = 118
+        '
+        'Panel5
+        '
+        Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel5.Controls.Add(Me.TextBox1)
+        Me.Panel5.Controls.Add(Me.Label21)
+        Me.Panel5.Controls.Add(Me.Label9)
+        Me.Panel5.Controls.Add(Me.TextBox3)
+        Me.Panel5.Controls.Add(Me.Label17)
+        Me.Panel5.Controls.Add(Me.TextBox2)
+        Me.Panel5.Location = New System.Drawing.Point(-2, 134)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(424, 96)
+        Me.Panel5.TabIndex = 118
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(498, 43)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(74, 17)
+        Me.Label22.TabIndex = 101
+        Me.Label22.Text = "Stock Size"
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(503, 40)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(74, 17)
+        Me.Label23.TabIndex = 102
+        Me.Label23.Text = "Stock Size"
+        '
         'frmItemConversion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1789, 703)
+        Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Panel6)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.btnBack)
@@ -925,10 +971,9 @@ Partial Class frmItemConversion
         Me.Name = "frmItemConversion"
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Product Stock Conversion"
+        Me.Text = "Product Conversion"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.Panel3.ResumeLayout(False)
@@ -940,6 +985,10 @@ Partial Class frmItemConversion
         Me.ToolStrip1.PerformLayout()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel4.PerformLayout()
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel5.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1030,4 +1079,8 @@ Partial Class frmItemConversion
     Friend WithEvents TextBox3 As TextBox
     Friend WithEvents txtRawStockSize As TextBox
     Friend WithEvents txtEndStockSize As TextBox
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents Panel5 As Panel
+    Friend WithEvents Label22 As Label
+    Friend WithEvents Label23 As Label
 End Class

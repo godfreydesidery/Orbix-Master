@@ -45,7 +45,6 @@ Partial Class frmCustomProduction
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.btnReset = New System.Windows.Forms.Button()
-        Me.lblUom = New System.Windows.Forms.Label()
         Me.txtQty = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.dtgrdItemList = New System.Windows.Forms.DataGridView()
@@ -63,36 +62,43 @@ Partial Class frmCustomProduction
         Me.txtItemCode = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtId = New System.Windows.Forms.TextBox()
-        Me.txtDate = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btnAddUpdate = New System.Windows.Forms.Button()
         Me.btnNew = New System.Windows.Forms.ToolStripButton()
         Me.btnEdit = New System.Windows.Forms.ToolStripButton()
         Me.btnClear = New System.Windows.Forms.ToolStripButton()
         Me.btnSave = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.btnCancel = New System.Windows.Forms.ToolStripButton()
         Me.btnApprove = New System.Windows.Forms.ToolStripButton()
         Me.btnPrint = New System.Windows.Forms.ToolStripButton()
         Me.btnComplete = New System.Windows.Forms.ToolStripButton()
         Me.btnArchive = New System.Windows.Forms.ToolStripButton()
+        Me.btnAddUpdate = New System.Windows.Forms.Button()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.txtCreated = New System.Windows.Forms.TextBox()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.txtApproved = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.txtCompleted = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.lblUom = New System.Windows.Forms.Label()
         CType(Me.dtgrdProductionList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         CType(Me.dtgrdItemList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
+        Me.Panel6.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(4, 28)
+        Me.Label1.Location = New System.Drawing.Point(3, 12)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(98, 17)
         Me.Label1.TabIndex = 0
@@ -101,7 +107,7 @@ Partial Class frmCustomProduction
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(7, 73)
+        Me.Label2.Location = New System.Drawing.Point(7, 51)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(98, 17)
         Me.Label2.TabIndex = 1
@@ -110,7 +116,7 @@ Partial Class frmCustomProduction
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(30, 103)
+        Me.Label3.Location = New System.Drawing.Point(26, 84)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(75, 17)
         Me.Label3.TabIndex = 2
@@ -119,7 +125,7 @@ Partial Class frmCustomProduction
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(57, 157)
+        Me.Label4.Location = New System.Drawing.Point(53, 151)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(48, 17)
         Me.Label4.TabIndex = 3
@@ -127,39 +133,43 @@ Partial Class frmCustomProduction
         '
         'txtProductionNo
         '
-        Me.txtProductionNo.Location = New System.Drawing.Point(110, 25)
+        Me.txtProductionNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtProductionNo.Location = New System.Drawing.Point(107, 6)
         Me.txtProductionNo.Name = "txtProductionNo"
-        Me.txtProductionNo.Size = New System.Drawing.Size(138, 22)
+        Me.txtProductionNo.Size = New System.Drawing.Size(199, 27)
         Me.txtProductionNo.TabIndex = 4
         '
         'txtBatchSize
         '
-        Me.txtBatchSize.Location = New System.Drawing.Point(110, 98)
+        Me.txtBatchSize.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtBatchSize.Location = New System.Drawing.Point(107, 78)
         Me.txtBatchSize.Name = "txtBatchSize"
         Me.txtBatchSize.ReadOnly = True
-        Me.txtBatchSize.Size = New System.Drawing.Size(138, 22)
+        Me.txtBatchSize.Size = New System.Drawing.Size(305, 27)
         Me.txtBatchSize.TabIndex = 5
         '
         'txtProductName
         '
-        Me.txtProductName.Location = New System.Drawing.Point(110, 70)
+        Me.txtProductName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtProductName.Location = New System.Drawing.Point(107, 45)
         Me.txtProductName.Name = "txtProductName"
         Me.txtProductName.ReadOnly = True
-        Me.txtProductName.Size = New System.Drawing.Size(241, 22)
+        Me.txtProductName.Size = New System.Drawing.Size(305, 27)
         Me.txtProductName.TabIndex = 6
         '
         'txtStatus
         '
-        Me.txtStatus.Location = New System.Drawing.Point(110, 157)
+        Me.txtStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtStatus.Location = New System.Drawing.Point(107, 145)
         Me.txtStatus.Name = "txtStatus"
         Me.txtStatus.ReadOnly = True
-        Me.txtStatus.Size = New System.Drawing.Size(138, 22)
+        Me.txtStatus.Size = New System.Drawing.Size(305, 27)
         Me.txtStatus.TabIndex = 7
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(64, 130)
+        Me.Label5.Location = New System.Drawing.Point(61, 117)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(40, 17)
         Me.Label5.TabIndex = 8
@@ -168,18 +178,19 @@ Partial Class frmCustomProduction
         'cmbUom
         '
         Me.cmbUom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbUom.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbUom.FormattingEnabled = True
         Me.cmbUom.Items.AddRange(New Object() {"", "KG", "LTR", "PCS"})
-        Me.cmbUom.Location = New System.Drawing.Point(110, 127)
+        Me.cmbUom.Location = New System.Drawing.Point(107, 111)
         Me.cmbUom.Name = "cmbUom"
-        Me.cmbUom.Size = New System.Drawing.Size(138, 24)
+        Me.cmbUom.Size = New System.Drawing.Size(305, 28)
         Me.cmbUom.TabIndex = 9
         '
         'btnSearch
         '
-        Me.btnSearch.Location = New System.Drawing.Point(250, 24)
+        Me.btnSearch.Location = New System.Drawing.Point(312, 6)
         Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(101, 40)
+        Me.btnSearch.Size = New System.Drawing.Size(100, 35)
         Me.btnSearch.TabIndex = 10
         Me.btnSearch.Text = "Search"
         Me.btnSearch.UseVisualStyleBackColor = True
@@ -232,7 +243,7 @@ Partial Class frmCustomProduction
         Me.chklstMaterials.FormattingEnabled = True
         Me.chklstMaterials.Location = New System.Drawing.Point(10, 309)
         Me.chklstMaterials.Name = "chklstMaterials"
-        Me.chklstMaterials.Size = New System.Drawing.Size(490, 463)
+        Me.chklstMaterials.Size = New System.Drawing.Size(420, 310)
         Me.chklstMaterials.TabIndex = 15
         '
         'lstbxMaterials
@@ -241,15 +252,15 @@ Partial Class frmCustomProduction
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lstbxMaterials.FormattingEnabled = True
         Me.lstbxMaterials.ItemHeight = 16
-        Me.lstbxMaterials.Location = New System.Drawing.Point(506, 309)
+        Me.lstbxMaterials.Location = New System.Drawing.Point(544, 309)
         Me.lstbxMaterials.Name = "lstbxMaterials"
-        Me.lstbxMaterials.Size = New System.Drawing.Size(487, 468)
+        Me.lstbxMaterials.Size = New System.Drawing.Size(449, 308)
         Me.lstbxMaterials.TabIndex = 16
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(560, 286)
+        Me.Label7.Location = New System.Drawing.Point(541, 289)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(250, 17)
         Me.Label7.TabIndex = 17
@@ -261,9 +272,9 @@ Partial Class frmCustomProduction
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.lblUom)
         Me.Panel1.Controls.Add(Me.btnAdd)
         Me.Panel1.Controls.Add(Me.btnReset)
-        Me.Panel1.Controls.Add(Me.lblUom)
         Me.Panel1.Controls.Add(Me.txtQty)
         Me.Panel1.Controls.Add(Me.Label9)
         Me.Panel1.Controls.Add(Me.dtgrdItemList)
@@ -282,43 +293,35 @@ Partial Class frmCustomProduction
         'btnAdd
         '
         Me.btnAdd.Enabled = False
-        Me.btnAdd.Location = New System.Drawing.Point(251, 99)
+        Me.btnAdd.Location = New System.Drawing.Point(271, 107)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(120, 55)
+        Me.btnAdd.Size = New System.Drawing.Size(120, 35)
         Me.btnAdd.TabIndex = 111
         Me.btnAdd.Text = "Add/Update"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
         'btnReset
         '
-        Me.btnReset.Location = New System.Drawing.Point(377, 99)
+        Me.btnReset.Location = New System.Drawing.Point(398, 106)
         Me.btnReset.Name = "btnReset"
-        Me.btnReset.Size = New System.Drawing.Size(120, 55)
+        Me.btnReset.Size = New System.Drawing.Size(100, 35)
         Me.btnReset.TabIndex = 112
         Me.btnReset.Text = "Reset"
         Me.btnReset.UseVisualStyleBackColor = True
         '
-        'lblUom
-        '
-        Me.lblUom.AutoSize = True
-        Me.lblUom.Location = New System.Drawing.Point(210, 102)
-        Me.lblUom.Name = "lblUom"
-        Me.lblUom.Size = New System.Drawing.Size(35, 17)
-        Me.lblUom.TabIndex = 110
-        Me.lblUom.Text = "LTR"
-        '
         'txtQty
         '
-        Me.txtQty.Location = New System.Drawing.Point(89, 99)
+        Me.txtQty.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtQty.Location = New System.Drawing.Point(89, 110)
         Me.txtQty.MaxLength = 50
         Me.txtQty.Name = "txtQty"
-        Me.txtQty.Size = New System.Drawing.Size(115, 22)
+        Me.txtQty.Size = New System.Drawing.Size(115, 27)
         Me.txtQty.TabIndex = 109
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(53, 102)
+        Me.Label9.Location = New System.Drawing.Point(53, 116)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(30, 17)
         Me.Label9.TabIndex = 108
@@ -333,11 +336,11 @@ Partial Class frmCustomProduction
         Me.dtgrdItemList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dtgrdItemList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgrdItemList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.Column4, Me.Column5})
-        Me.dtgrdItemList.Location = New System.Drawing.Point(5, 176)
+        Me.dtgrdItemList.Location = New System.Drawing.Point(-2, 148)
         Me.dtgrdItemList.Name = "dtgrdItemList"
         Me.dtgrdItemList.ReadOnly = True
         Me.dtgrdItemList.RowTemplate.Height = 24
-        Me.dtgrdItemList.Size = New System.Drawing.Size(492, 236)
+        Me.dtgrdItemList.Size = New System.Drawing.Size(505, 269)
         Me.dtgrdItemList.TabIndex = 107
         '
         'DataGridViewTextBoxColumn1
@@ -373,17 +376,18 @@ Partial Class frmCustomProduction
         '
         'cmbDescription
         '
+        Me.cmbDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbDescription.FormattingEnabled = True
-        Me.cmbDescription.Location = New System.Drawing.Point(89, 69)
+        Me.cmbDescription.Location = New System.Drawing.Point(89, 73)
         Me.cmbDescription.Name = "cmbDescription"
-        Me.cmbDescription.Size = New System.Drawing.Size(408, 24)
+        Me.cmbDescription.Size = New System.Drawing.Size(408, 28)
         Me.cmbDescription.TabIndex = 106
         '
         'btnSearchItem
         '
         Me.btnSearchItem.Location = New System.Drawing.Point(210, 5)
         Me.btnSearchItem.Name = "btnSearchItem"
-        Me.btnSearchItem.Size = New System.Drawing.Size(120, 53)
+        Me.btnSearchItem.Size = New System.Drawing.Size(100, 35)
         Me.btnSearchItem.TabIndex = 105
         Me.btnSearchItem.Text = "Search"
         Me.btnSearchItem.UseVisualStyleBackColor = True
@@ -391,7 +395,7 @@ Partial Class frmCustomProduction
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(16, 38)
+        Me.Label12.Location = New System.Drawing.Point(12, 44)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(71, 17)
         Me.Label12.TabIndex = 100
@@ -399,16 +403,17 @@ Partial Class frmCustomProduction
         '
         'txtBarCode
         '
+        Me.txtBarCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtBarCode.Location = New System.Drawing.Point(89, 5)
         Me.txtBarCode.MaxLength = 50
         Me.txtBarCode.Name = "txtBarCode"
-        Me.txtBarCode.Size = New System.Drawing.Size(115, 22)
+        Me.txtBarCode.Size = New System.Drawing.Size(115, 27)
         Me.txtBarCode.TabIndex = 104
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(4, 72)
+        Me.Label13.Location = New System.Drawing.Point(4, 79)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(79, 17)
         Me.Label13.TabIndex = 101
@@ -425,10 +430,11 @@ Partial Class frmCustomProduction
         '
         'txtItemCode
         '
-        Me.txtItemCode.Location = New System.Drawing.Point(89, 36)
+        Me.txtItemCode.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtItemCode.Location = New System.Drawing.Point(89, 38)
         Me.txtItemCode.MaxLength = 50
         Me.txtItemCode.Name = "txtItemCode"
-        Me.txtItemCode.Size = New System.Drawing.Size(115, 22)
+        Me.txtItemCode.Size = New System.Drawing.Size(115, 27)
         Me.txtItemCode.TabIndex = 102
         '
         'Label8
@@ -442,28 +448,11 @@ Partial Class frmCustomProduction
         '
         'txtId
         '
-        Me.txtId.Location = New System.Drawing.Point(9, 48)
+        Me.txtId.Location = New System.Drawing.Point(3, 3)
         Me.txtId.Name = "txtId"
-        Me.txtId.Size = New System.Drawing.Size(40, 22)
+        Me.txtId.Size = New System.Drawing.Size(21, 22)
         Me.txtId.TabIndex = 28
         Me.txtId.Visible = False
-        '
-        'txtDate
-        '
-        Me.txtDate.Location = New System.Drawing.Point(110, 185)
-        Me.txtDate.Name = "txtDate"
-        Me.txtDate.ReadOnly = True
-        Me.txtDate.Size = New System.Drawing.Size(138, 22)
-        Me.txtDate.TabIndex = 29
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(67, 185)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(38, 17)
-        Me.Label10.TabIndex = 30
-        Me.Label10.Text = "Date"
         '
         'btnClose
         '
@@ -483,9 +472,7 @@ Partial Class frmCustomProduction
         Me.Panel2.Controls.Add(Me.Label1)
         Me.Panel2.Controls.Add(Me.Label2)
         Me.Panel2.Controls.Add(Me.Label3)
-        Me.Panel2.Controls.Add(Me.Label10)
         Me.Panel2.Controls.Add(Me.Label4)
-        Me.Panel2.Controls.Add(Me.txtDate)
         Me.Panel2.Controls.Add(Me.txtBatchSize)
         Me.Panel2.Controls.Add(Me.txtId)
         Me.Panel2.Controls.Add(Me.txtProductName)
@@ -495,7 +482,7 @@ Partial Class frmCustomProduction
         Me.Panel2.Controls.Add(Me.btnSearch)
         Me.Panel2.Location = New System.Drawing.Point(10, 50)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(363, 226)
+        Me.Panel2.Size = New System.Drawing.Size(420, 226)
         Me.Panel2.TabIndex = 34
         '
         'ToolStrip1
@@ -507,36 +494,6 @@ Partial Class frmCustomProduction
         Me.ToolStrip1.Size = New System.Drawing.Size(1510, 27)
         Me.ToolStrip1.TabIndex = 102
         Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 27)
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 27)
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 27)
-        '
-        'ToolStripSeparator4
-        '
-        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 27)
-        '
-        'btnAddUpdate
-        '
-        Me.btnAddUpdate.Enabled = False
-        Me.btnAddUpdate.Location = New System.Drawing.Point(379, 237)
-        Me.btnAddUpdate.Name = "btnAddUpdate"
-        Me.btnAddUpdate.Size = New System.Drawing.Size(121, 66)
-        Me.btnAddUpdate.TabIndex = 14
-        Me.btnAddUpdate.Text = "Add Selected Materials"
-        Me.btnAddUpdate.UseVisualStyleBackColor = True
         '
         'btnNew
         '
@@ -573,6 +530,26 @@ Partial Class frmCustomProduction
         Me.btnSave.Size = New System.Drawing.Size(64, 24)
         Me.btnSave.Text = "Save"
         Me.btnSave.ToolTipText = "Save details of a new or existing document"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 27)
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 27)
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 27)
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 27)
         '
         'btnCancel
         '
@@ -618,11 +595,100 @@ Partial Class frmCustomProduction
         Me.btnArchive.Text = "Archive"
         Me.btnArchive.ToolTipText = "Sends a completed document to archives for future references"
         '
+        'btnAddUpdate
+        '
+        Me.btnAddUpdate.Enabled = False
+        Me.btnAddUpdate.Location = New System.Drawing.Point(442, 309)
+        Me.btnAddUpdate.Name = "btnAddUpdate"
+        Me.btnAddUpdate.Size = New System.Drawing.Size(96, 143)
+        Me.btnAddUpdate.TabIndex = 14
+        Me.btnAddUpdate.Text = "Add Selected Materials"
+        Me.btnAddUpdate.UseVisualStyleBackColor = True
+        '
+        'Panel6
+        '
+        Me.Panel6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel6.Controls.Add(Me.txtCreated)
+        Me.Panel6.Controls.Add(Me.Label30)
+        Me.Panel6.Controls.Add(Me.txtApproved)
+        Me.Panel6.Controls.Add(Me.Label11)
+        Me.Panel6.Controls.Add(Me.txtCompleted)
+        Me.Panel6.Controls.Add(Me.Label32)
+        Me.Panel6.Location = New System.Drawing.Point(10, 629)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(420, 99)
+        Me.Panel6.TabIndex = 113
+        '
+        'txtCreated
+        '
+        Me.txtCreated.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCreated.Location = New System.Drawing.Point(85, 8)
+        Me.txtCreated.Name = "txtCreated"
+        Me.txtCreated.ReadOnly = True
+        Me.txtCreated.Size = New System.Drawing.Size(327, 24)
+        Me.txtCreated.TabIndex = 96
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(13, 39)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(69, 17)
+        Me.Label30.TabIndex = 103
+        Me.Label30.Text = "Approved"
+        '
+        'txtApproved
+        '
+        Me.txtApproved.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtApproved.Location = New System.Drawing.Point(85, 36)
+        Me.txtApproved.Name = "txtApproved"
+        Me.txtApproved.ReadOnly = True
+        Me.txtApproved.Size = New System.Drawing.Size(327, 24)
+        Me.txtApproved.TabIndex = 104
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(24, 13)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(58, 17)
+        Me.Label11.TabIndex = 2
+        Me.Label11.Text = "Created"
+        '
+        'txtCompleted
+        '
+        Me.txtCompleted.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCompleted.Location = New System.Drawing.Point(85, 66)
+        Me.txtCompleted.Name = "txtCompleted"
+        Me.txtCompleted.ReadOnly = True
+        Me.txtCompleted.Size = New System.Drawing.Size(327, 24)
+        Me.txtCompleted.TabIndex = 108
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(7, 66)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(75, 17)
+        Me.Label32.TabIndex = 107
+        Me.Label32.Text = "Completed"
+        '
+        'lblUom
+        '
+        Me.lblUom.AutoSize = True
+        Me.lblUom.Location = New System.Drawing.Point(210, 115)
+        Me.lblUom.Name = "lblUom"
+        Me.lblUom.Size = New System.Drawing.Size(30, 17)
+        Me.lblUom.TabIndex = 113
+        Me.lblUom.Text = "Def"
+        '
         'frmCustomProduction
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1510, 787)
+        Me.Controls.Add(Me.Panel6)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.btnClose)
@@ -647,6 +713,8 @@ Partial Class frmCustomProduction
         Me.Panel2.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
+        Me.Panel6.ResumeLayout(False)
+        Me.Panel6.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -683,10 +751,7 @@ Partial Class frmCustomProduction
     Friend WithEvents dtgrdItemList As DataGridView
     Friend WithEvents txtQty As TextBox
     Friend WithEvents Label9 As Label
-    Friend WithEvents lblUom As Label
     Friend WithEvents txtId As TextBox
-    Friend WithEvents txtDate As TextBox
-    Friend WithEvents Label10 As Label
     Friend WithEvents btnAdd As Button
     Friend WithEvents btnReset As Button
     Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
@@ -711,4 +776,12 @@ Partial Class frmCustomProduction
     Friend WithEvents btnArchive As ToolStripButton
     Friend WithEvents btnAddUpdate As Button
     Friend WithEvents btnComplete As ToolStripButton
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents txtCreated As TextBox
+    Friend WithEvents Label30 As Label
+    Friend WithEvents txtApproved As TextBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents txtCompleted As TextBox
+    Friend WithEvents Label32 As Label
+    Friend WithEvents lblUom As Label
 End Class

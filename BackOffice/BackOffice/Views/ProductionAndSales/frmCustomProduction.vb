@@ -2,6 +2,8 @@
 Imports MigraDoc.DocumentObjectModel
 Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class frmCustomProduction
     Dim ready As Boolean = True
@@ -151,7 +153,7 @@ Public Class frmCustomProduction
         paragraph.AddFormattedText("Production No: " + txtProductionNo.Text)
         paragraph.Format.Font.Size = 8
         paragraph = section.AddParagraph()
-        paragraph.AddFormattedText("Issue Date: " + txtDate.Text)
+        paragraph.AddFormattedText("Issue Date: " + txtCreated.Text.Substring(0, 10))
         paragraph.Format.Font.Size = 8
         paragraph = section.AddParagraph()
         paragraph.AddFormattedText("Product Name: " + txtProductName.Text)
@@ -434,46 +436,37 @@ Public Class frmCustomProduction
 
     End Sub
 
-
-
-
     Private Sub loadMaterials()
         chklstMaterials.Items.Clear()
         materials.Clear()
-        Dim conn As New MySqlConnection(Database.conString)
+
+        Dim materials_ As New List(Of Material)
+        Dim response As Object = New Object
+        Dim json As JObject = New JObject
         Try
-            Dim suppcommand As New MySqlCommand()
-            Dim supplierQuery As String = "SELECT `id`, `material_code`, `description`, `uom`, `qty`, `price`, `status` FROM `materials` WHERE `status`='ACTIVE' OR `status`=''"
-            conn.Open()
-            suppcommand.CommandText = supplierQuery
-            suppcommand.Connection = conn
-            suppcommand.CommandType = CommandType.Text
-            Dim reader As MySqlDataReader = suppcommand.ExecuteReader
-
-
-            If reader.HasRows Then
-                While reader.Read
-                    Dim material As New Material_
-                    material.id = reader.GetString("id")
-                    material.materialCode = reader.GetString("material_code")
-                    material.description = reader.GetString("description")
-                    material.uom = reader.GetString("uom")
-                    ' material.qty = Val(reader.GetString("qty"))
-                    material.price = Val(reader.GetString("price"))
-                    material.status = reader.GetString("status")
-                    material.summary = reader.GetString("description") + "  (" + reader.GetString("uom") + ")"
-                    materials.Add(material)
-                End While
-            End If
-            conn.Close()
-            Dim i As Integer
-            For i = 0 To materials.Count - 1
-                chklstMaterials.Items.Add(materials.Item(i).summary)
-            Next
-        Catch ex As Devart.Data.MySql.MySqlException
-            ErrorMessage.dbConnectionError()
+            response = Web.get_("materials")
+            materials_ = JsonConvert.DeserializeObject(Of List(Of Material))(response.ToString)
+        Catch ex As Exception
+            MsgBox(ex.Message)
             Exit Sub
         End Try
+
+        For Each m In materials_
+            Dim material As New Material_
+            material.id = m.id
+            material.materialCode = m.code
+            material.description = m.description
+            material.uom = m.standardUom
+            ' material.qty = Val(reader.GetString("qty"))
+            material.price = m.costPrice
+            material.status = m.status
+            material.summary = m.description + "  (" + m.standardUom + ")"
+            materials.Add(material)
+        Next
+        Dim i As Integer
+        For i = 0 To materials.Count - 1
+            chklstMaterials.Items.Add(materials.Item(i).summary)
+        Next
     End Sub
 
     Private Sub frmCustomProduction_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -481,8 +474,8 @@ Public Class frmCustomProduction
         refreshProductionList()
         loadMaterials()
 
-        Dim item As New Item
-        longList = item.getItems()
+        Dim product As New Product
+        longList = product.getDescriptions
     End Sub
 
     Private Sub btnAddUpdate_Click(sender As Object, e As EventArgs) Handles btnAddUpdate.Click
@@ -558,49 +551,40 @@ Public Class frmCustomProduction
             MsgBox("Unit of measure required", vbOKOnly + vbExclamation, "Error: Missing information")
             Return saved
         End If
-        If txtId.Text = "" Then
-            Dim conn As New MySqlConnection(Database.conString)
-            Dim command As New MySqlCommand()
-            Try
-                'add a new item
-                Dim Query As String = "INSERT INTO `productions`(`production_no`, `product_name`, `batch_size`, `uom`, `status`, `date`) VALUES (@production_no,@product_name,@batch_size,@uom,@status,@date)"
-                conn.Open()
-                command.CommandText = Query
-                command.Connection = conn
-                command.CommandType = CommandType.Text
-                command.Parameters.AddWithValue("@production_no", txtProductionNo.Text)
-                command.Parameters.AddWithValue("@product_name", txtProductName.Text)
-                command.Parameters.AddWithValue("@batch_size", txtBatchSize.Text)
-                command.Parameters.AddWithValue("@uom", cmbUom.Text)
-                command.Parameters.AddWithValue("@status", "PENDING")
-                command.Parameters.AddWithValue("@date", Day.DAY)
-                command.ExecuteNonQuery()
-                conn.Close()
-                txtId.Text = getProductionId(txtProductionNo.Text)
-                saved = True
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
-        Else
-            Try
-                Dim conn As New MySqlConnection(Database.conString)
-                Dim command As New MySqlCommand()
+        Try
+            If txtId.Text = "" Then
 
-                Dim Query As String = "UPDATE `productions` SET `product_name`=@product_name,`batch_size`=@batch_size,`uom`=@uom WHERE `id`='" + txtId.Text + "'"
-                conn.Open()
-                command.CommandText = Query
-                command.Connection = conn
-                command.CommandType = CommandType.Text
-                command.Parameters.AddWithValue("@product_name", txtProductName.Text)
-                command.Parameters.AddWithValue("@batch_size", txtBatchSize.Text)
-                command.Parameters.AddWithValue("@uom", cmbUom.Text)
-                command.ExecuteNonQuery()
-                conn.Close()
+                Dim customProduction As New CustomProduction
+                customProduction.no = "NA"
+                customProduction.productName = txtProductName.Text
+                customProduction.batchSize = txtBatchSize.Text
+                customProduction.uom = cmbUom.Text
+                customProduction.status = txtStatus.Text
 
-            Catch ex As Exception
-                MsgBox("Could not save record", vbCritical + vbOKOnly, "Error")
-            End Try
-        End If
+                Dim response As Object = New Object
+                response = Web.post(customProduction, "custom_productions/new")
+
+                '    searchPackingList(txtIssueNo.Text)
+
+
+            Else
+
+                Dim customProduction As New CustomProduction
+                customProduction.productName = txtProductName.Text
+                customProduction.batchSize = txtBatchSize.Text
+                customProduction.uom = cmbUom.Text
+                customProduction.status = txtStatus.Text
+
+                Dim response As Object = New Object
+                response = Web.put(customProduction, "custom_productions/edit_by_id")
+
+                '    searchPackingList(txtIssueNo.Text)
+
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
         Return saved
     End Function
 
@@ -744,7 +728,7 @@ Public Class frmCustomProduction
             If list.getProduction(txtProductionNo.Text) = True Then
                 txtId.Text = list.GL_ID
                 txtProductionNo.ReadOnly = True
-                txtDate.Text = list.GL_DATE
+                txtCreated.Text = list.GL_DATE
                 txtStatus.Text = list.GL_STATUS
                 txtProductName.Text = list.GL_PRODUCT_NAME
                 txtBatchSize.Text = list.GL_BATCH_SIZE
@@ -953,7 +937,7 @@ Public Class frmCustomProduction
         txtProductName.Text = ""
         txtStatus.Text = ""
         txtBatchSize.Text = ""
-        txtDate.Text = ""
+        txtCreated.Text = ""
         cmbUom.Text = ""
 
         btnAddUpdate.Enabled = True
@@ -1001,7 +985,7 @@ Public Class frmCustomProduction
         txtProductName.Text = ""
         txtStatus.Text = ""
         txtBatchSize.Text = ""
-        txtDate.Text = ""
+        txtCreated.Text = ""
         cmbUom.Text = ""
 
         txtBarCode.Text = ""
@@ -1018,6 +1002,10 @@ Public Class frmCustomProduction
 
     Private Sub refreshProductionList()
         dtgrdProductionList.Rows.Clear()
+
+
+
+
         Try
             Dim conn As New MySqlConnection(Database.conString)
             Dim command As New MySqlCommand()
@@ -1219,7 +1207,7 @@ Public Class frmCustomProduction
         refreshFinishedProductsList()
 
         clearFields()
-        unLockFields()
+        unlockFields()
 
     End Sub
 
@@ -1565,22 +1553,44 @@ Public Class frmCustomProduction
     End Function
 
     Private Sub btnProduction_Click(sender As Object, e As EventArgs) Handles btnApprove.Click
-        Dim status As String = (New Production).getStatus(txtId.Text)
-        If status = "PENDING" Then
-            Dim res As Integer = MsgBox("Approve production " + txtProductionNo.Text + " ?", vbYesNo + vbQuestion, "Approve production?")
+        Dim status As String
+        Try
+            status = Web.get_("products/conversions/get_status_by_id?id=" + txtId.Text)
+        Catch ex As Exception
+            status = ""
+        End Try
+        If Not status = "PENDING" Then
+            MsgBox("Could not approve, only pending documents can be approved", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            ' clearFields()
+            Exit Sub
+        End If
+
+        If 1 = 1 Then ' User.authorize("APPROVE PACKING LIST") = True Then
+            If txtProductionNo.Text = "" Then
+                MsgBox("Select a conversion to approve", vbOKOnly + vbExclamation, "Error: No selection")
+                Exit Sub
+            End If
+            Dim res As Integer = MsgBox("Approve cusutom production: " + txtProductionNo.Text + " ? Editing will be disabled after approval", vbYesNo + vbQuestion, "Approve document?")
             If res = DialogResult.Yes Then
-                approveProduction(txtProductionNo.Text)
 
-                status = (New Production).getStatus(txtId.Text)
-                txtStatus.Text = status
-                refreshFinishedProductsList()
-                refreshProductionList()
-
-                MsgBox("Approve success", vbOKOnly + vbInformation, "Success")
+                Dim approved As Boolean = False
+                Try
+                    approved = Web.put(vbNull, "custom_productions/approve_by_id?id=" + txtId.Text)
+                Catch ex As Exception
+                    approved = False
+                End Try
+                If approved = True Then
+                    MsgBox("Document Successively approved", vbOKOnly + vbInformation, "Operation successiful")
+                Else
+                    MsgBox("Could not approve document", vbOKOnly + vbExclamation, "Operation failed")
+                End If
+                ' (txtConversionNo.Text)
             End If
         Else
-            MsgBox("Could not approve, only pending documents can be approved", vbOKOnly + vbExclamation, "Error: Invalid operation")
+            MsgBox("Access denied!", vbOKOnly + vbExclamation)
         End If
+        refreshProductionList()
+
     End Sub
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click

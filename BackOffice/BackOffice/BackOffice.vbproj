@@ -154,10 +154,14 @@
     <Compile Include="Models\DebtPayment.vb" />
     <Compile Include="Models\HR\Personnel.vb" />
     <Compile Include="Models\HR\SalesPerson.vb" />
+    <Compile Include="Models\Masters\MaterialCategory.vb" />
     <Compile Include="Models\PackingList\PackingListDetail.vb" />
     <Compile Include="Models\ProductConversion.vb" />
     <Compile Include="Models\ProductConversionFinal.vb" />
     <Compile Include="Models\ProductConversionInitial.vb" />
+    <Compile Include="Models\Production\CustomProduction.vb" />
+    <Compile Include="Models\Production\CustomProductionMaterial.vb" />
+    <Compile Include="Models\Production\CustomProductionProduct.vb" />
     <Compile Include="Models\Reports\DailySalesReport.vb" />
     <Compile Include="Models\Reports\DebtTrackerReport.vb" />
     <Compile Include="Models\Reports\FastMovingItems.vb" />
@@ -203,7 +207,7 @@
     <Compile Include="Models\Order\LpoDetail.vb" />
     <Compile Include="Models\Order\Order.vb" />
     <Compile Include="Models\PackingList\PackingList.vb" />
-    <Compile Include="Models\Product.vb" />
+    <Compile Include="Models\Masters\Product.vb" />
     <Compile Include="Models\Production\ItemConversion.vb" />
     <Compile Include="Models\Production\Production.vb" />
     <Compile Include="Models\Rbc.vb" />

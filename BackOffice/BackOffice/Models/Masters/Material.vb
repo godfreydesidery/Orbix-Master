@@ -1,6 +1,46 @@
 ﻿Imports Devart.Data.MySql
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 Public Class Material
+
+    Public Property id As String
+    Public Property primaryBarcode As String
+    Public Property code As String
+    Public Property description As String
+    Public Property shortDescription As String
+    Public Property commonDescription As String
+    Public Property standardUom As String
+    Public Property packSize As Double
+    Public Property ingredients As String
+    Public Property costPrice As Double
+    Public Property stock As Double
+    Public Property minimumStock As Double
+    Public Property maximumStock As Double
+    Public Property defaultRequisitionLevel As Double
+    Public Property defaultRequisitionQty As Double
+    Public Property unitProductEquivalent As Double
+    Public Property status As String
+
+    Public Property materialCategory As MaterialCategory = New MaterialCategory
+
+
+    Public Function getDescriptions() As List(Of String)
+        'Returns a list of descriptions of all the products
+        Dim list As New List(Of String)
+        Try
+            Dim response As Object = New Object
+            Dim json As JObject = New JObject
+            response = Web.get_("materials/get_descriptions")
+            list = JsonConvert.DeserializeObject(Of List(Of String))(response.ToString)
+            Return list
+        Catch ex As Exception
+            Return list
+        End Try
+        Return list
+    End Function
+
+
     Public Function getDescription(materialCode As String) As String
         Dim descr As String = ""
         Try

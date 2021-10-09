@@ -36,27 +36,31 @@ Partial Class frmPersonnel
         Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.chkActive = New System.Windows.Forms.CheckBox()
-        Me.txtId = New System.Windows.Forms.TextBox()
-        Me.btnSearch = New System.Windows.Forms.Button()
         Me.txtEmail = New System.Windows.Forms.TextBox()
         Me.txtTelephone = New System.Windows.Forms.TextBox()
         Me.txtAddress = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtRegNo = New System.Windows.Forms.TextBox()
+        Me.txtId = New System.Windows.Forms.TextBox()
+        Me.btnSearch = New System.Windows.Forms.Button()
         Me.txtLastName = New System.Windows.Forms.TextBox()
         Me.txtSecondName = New System.Windows.Forms.TextBox()
         Me.txtFirstName = New System.Windows.Forms.TextBox()
         Me.txtRollNo = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.txtRegNo = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Panel3 = New System.Windows.Forms.Panel()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.dtgrdList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
@@ -140,11 +144,11 @@ Partial Class frmPersonnel
         Me.dtgrdList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.dtgrdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgrdList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column7, Me.Column6})
-        Me.dtgrdList.Location = New System.Drawing.Point(433, 40)
+        Me.dtgrdList.Location = New System.Drawing.Point(436, 40)
         Me.dtgrdList.Name = "dtgrdList"
         Me.dtgrdList.ReadOnly = True
         Me.dtgrdList.RowTemplate.Height = 24
-        Me.dtgrdList.Size = New System.Drawing.Size(920, 553)
+        Me.dtgrdList.Size = New System.Drawing.Size(917, 553)
         Me.dtgrdList.TabIndex = 78
         '
         'Column1
@@ -177,44 +181,94 @@ Partial Class frmPersonnel
         '
         'Panel1
         '
+        Me.Panel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel1.Controls.Add(Me.Label8)
-        Me.Panel1.Controls.Add(Me.txtRegNo)
-        Me.Panel1.Controls.Add(Me.chkActive)
-        Me.Panel1.Controls.Add(Me.txtId)
-        Me.Panel1.Controls.Add(Me.btnSearch)
-        Me.Panel1.Controls.Add(Me.txtEmail)
-        Me.Panel1.Controls.Add(Me.txtTelephone)
-        Me.Panel1.Controls.Add(Me.txtAddress)
-        Me.Panel1.Controls.Add(Me.txtLastName)
-        Me.Panel1.Controls.Add(Me.txtSecondName)
-        Me.Panel1.Controls.Add(Me.txtFirstName)
-        Me.Panel1.Controls.Add(Me.txtRollNo)
-        Me.Panel1.Controls.Add(Me.Label7)
-        Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Controls.Add(Me.Label2)
-        Me.Panel1.Controls.Add(Me.Label6)
-        Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Controls.Add(Me.Label5)
-        Me.Panel1.Controls.Add(Me.Label4)
+        Me.Panel1.Controls.Add(Me.Panel3)
         Me.Panel1.Location = New System.Drawing.Point(10, 40)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(417, 281)
+        Me.Panel1.Size = New System.Drawing.Size(420, 553)
         Me.Panel1.TabIndex = 77
         '
         'chkActive
         '
         Me.chkActive.AutoSize = True
-        Me.chkActive.Location = New System.Drawing.Point(125, 252)
+        Me.chkActive.Location = New System.Drawing.Point(129, 95)
         Me.chkActive.Name = "chkActive"
         Me.chkActive.Size = New System.Drawing.Size(68, 21)
         Me.chkActive.TabIndex = 46
         Me.chkActive.Text = "Active"
         Me.chkActive.UseVisualStyleBackColor = True
         '
+        'txtEmail
+        '
+        Me.txtEmail.Location = New System.Drawing.Point(129, 67)
+        Me.txtEmail.Name = "txtEmail"
+        Me.txtEmail.Size = New System.Drawing.Size(282, 22)
+        Me.txtEmail.TabIndex = 14
+        '
+        'txtTelephone
+        '
+        Me.txtTelephone.Location = New System.Drawing.Point(129, 37)
+        Me.txtTelephone.Name = "txtTelephone"
+        Me.txtTelephone.Size = New System.Drawing.Size(282, 22)
+        Me.txtTelephone.TabIndex = 13
+        '
+        'txtAddress
+        '
+        Me.txtAddress.Location = New System.Drawing.Point(129, 9)
+        Me.txtAddress.Name = "txtAddress"
+        Me.txtAddress.Size = New System.Drawing.Size(282, 22)
+        Me.txtAddress.TabIndex = 12
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(81, 70)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(42, 17)
+        Me.Label7.TabIndex = 6
+        Me.Label7.Text = "Email"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(50, 36)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(76, 17)
+        Me.Label6.TabIndex = 5
+        Me.Label6.Text = "Telephone"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(63, 9)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(60, 17)
+        Me.Label5.TabIndex = 4
+        Me.Label5.Text = "Address"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(67, 41)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(56, 17)
+        Me.Label8.TabIndex = 48
+        Me.Label8.Text = "Reg No"
+        '
+        'txtRegNo
+        '
+        Me.txtRegNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRegNo.Location = New System.Drawing.Point(127, 38)
+        Me.txtRegNo.Name = "txtRegNo"
+        Me.txtRegNo.ReadOnly = True
+        Me.txtRegNo.Size = New System.Drawing.Size(176, 27)
+        Me.txtRegNo.TabIndex = 47
+        '
         'txtId
         '
-        Me.txtId.Location = New System.Drawing.Point(3, 4)
+        Me.txtId.Location = New System.Drawing.Point(10, 17)
         Me.txtId.Name = "txtId"
         Me.txtId.Size = New System.Drawing.Size(41, 22)
         Me.txtId.TabIndex = 19
@@ -222,75 +276,49 @@ Partial Class frmPersonnel
         '
         'btnSearch
         '
-        Me.btnSearch.Location = New System.Drawing.Point(307, 10)
+        Me.btnSearch.Location = New System.Drawing.Point(309, 5)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(100, 35)
         Me.btnSearch.TabIndex = 16
         Me.btnSearch.Text = "&Search"
         Me.btnSearch.UseVisualStyleBackColor = True
         '
-        'txtEmail
-        '
-        Me.txtEmail.Location = New System.Drawing.Point(125, 224)
-        Me.txtEmail.Name = "txtEmail"
-        Me.txtEmail.Size = New System.Drawing.Size(282, 22)
-        Me.txtEmail.TabIndex = 14
-        '
-        'txtTelephone
-        '
-        Me.txtTelephone.Location = New System.Drawing.Point(125, 194)
-        Me.txtTelephone.Name = "txtTelephone"
-        Me.txtTelephone.Size = New System.Drawing.Size(282, 22)
-        Me.txtTelephone.TabIndex = 13
-        '
-        'txtAddress
-        '
-        Me.txtAddress.Location = New System.Drawing.Point(125, 166)
-        Me.txtAddress.Name = "txtAddress"
-        Me.txtAddress.Size = New System.Drawing.Size(282, 22)
-        Me.txtAddress.TabIndex = 12
-        '
         'txtLastName
         '
-        Me.txtLastName.Location = New System.Drawing.Point(125, 121)
+        Me.txtLastName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtLastName.Location = New System.Drawing.Point(127, 137)
         Me.txtLastName.Name = "txtLastName"
-        Me.txtLastName.Size = New System.Drawing.Size(282, 22)
+        Me.txtLastName.Size = New System.Drawing.Size(282, 27)
         Me.txtLastName.TabIndex = 11
         '
         'txtSecondName
         '
-        Me.txtSecondName.Location = New System.Drawing.Point(125, 93)
+        Me.txtSecondName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSecondName.Location = New System.Drawing.Point(127, 104)
         Me.txtSecondName.Name = "txtSecondName"
-        Me.txtSecondName.Size = New System.Drawing.Size(282, 22)
+        Me.txtSecondName.Size = New System.Drawing.Size(282, 27)
         Me.txtSecondName.TabIndex = 10
         '
         'txtFirstName
         '
-        Me.txtFirstName.Location = New System.Drawing.Point(125, 66)
+        Me.txtFirstName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtFirstName.Location = New System.Drawing.Point(127, 71)
         Me.txtFirstName.Name = "txtFirstName"
-        Me.txtFirstName.Size = New System.Drawing.Size(282, 22)
+        Me.txtFirstName.Size = New System.Drawing.Size(282, 27)
         Me.txtFirstName.TabIndex = 9
         '
         'txtRollNo
         '
-        Me.txtRollNo.Location = New System.Drawing.Point(125, 10)
+        Me.txtRollNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRollNo.Location = New System.Drawing.Point(127, 5)
         Me.txtRollNo.Name = "txtRollNo"
-        Me.txtRollNo.Size = New System.Drawing.Size(156, 22)
+        Me.txtRollNo.Size = New System.Drawing.Size(176, 27)
         Me.txtRollNo.TabIndex = 8
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(77, 227)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(42, 17)
-        Me.Label7.TabIndex = 6
-        Me.Label7.Text = "Email"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(65, 13)
+        Me.Label1.Location = New System.Drawing.Point(67, 8)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(54, 17)
         Me.Label1.TabIndex = 0
@@ -299,70 +327,71 @@ Partial Class frmPersonnel
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(43, 69)
+        Me.Label2.Location = New System.Drawing.Point(45, 77)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(76, 17)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "First Name"
         '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(46, 193)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(76, 17)
-        Me.Label6.TabIndex = 5
-        Me.Label6.Text = "Telephone"
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(22, 96)
+        Me.Label3.Location = New System.Drawing.Point(26, 104)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(97, 17)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Second Name"
         '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(59, 166)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(60, 17)
-        Me.Label5.TabIndex = 4
-        Me.Label5.Text = "Address"
-        '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(43, 119)
+        Me.Label4.Location = New System.Drawing.Point(47, 137)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(76, 17)
         Me.Label4.TabIndex = 3
         Me.Label4.Text = "Last Name"
         '
-        'txtRegNo
+        'Panel2
         '
-        Me.txtRegNo.Location = New System.Drawing.Point(125, 38)
-        Me.txtRegNo.Name = "txtRegNo"
-        Me.txtRegNo.ReadOnly = True
-        Me.txtRegNo.Size = New System.Drawing.Size(156, 22)
-        Me.txtRegNo.TabIndex = 47
+        Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel2.Controls.Add(Me.txtRollNo)
+        Me.Panel2.Controls.Add(Me.Label8)
+        Me.Panel2.Controls.Add(Me.Label4)
+        Me.Panel2.Controls.Add(Me.txtRegNo)
+        Me.Panel2.Controls.Add(Me.Label3)
+        Me.Panel2.Controls.Add(Me.Label2)
+        Me.Panel2.Controls.Add(Me.txtId)
+        Me.Panel2.Controls.Add(Me.Label1)
+        Me.Panel2.Controls.Add(Me.btnSearch)
+        Me.Panel2.Controls.Add(Me.txtFirstName)
+        Me.Panel2.Controls.Add(Me.txtSecondName)
+        Me.Panel2.Controls.Add(Me.txtLastName)
+        Me.Panel2.Location = New System.Drawing.Point(10, 40)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(420, 178)
+        Me.Panel2.TabIndex = 49
         '
-        'Label8
+        'Panel3
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(65, 38)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(56, 17)
-        Me.Label8.TabIndex = 48
-        Me.Label8.Text = "Reg No"
+        Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel3.Controls.Add(Me.txtAddress)
+        Me.Panel3.Controls.Add(Me.chkActive)
+        Me.Panel3.Controls.Add(Me.Label5)
+        Me.Panel3.Controls.Add(Me.txtEmail)
+        Me.Panel3.Controls.Add(Me.Label6)
+        Me.Panel3.Controls.Add(Me.txtTelephone)
+        Me.Panel3.Controls.Add(Me.Label7)
+        Me.Panel3.Location = New System.Drawing.Point(-2, 182)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(420, 121)
+        Me.Panel3.TabIndex = 47
         '
         'frmPersonnel
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1364, 651)
+        Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.dtgrdList)
@@ -375,7 +404,10 @@ Partial Class frmPersonnel
         Me.ToolStrip1.PerformLayout()
         CType(Me.dtgrdList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -413,4 +445,6 @@ Partial Class frmPersonnel
     Friend WithEvents chkActive As CheckBox
     Friend WithEvents Label8 As Label
     Friend WithEvents txtRegNo As TextBox
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents Panel3 As Panel
 End Class

@@ -43,12 +43,12 @@ public class Material {
 	private String status;
 	private double unitProductEquivalent = 0;
 	
-	@OneToOne(targetEntity = Till.class, fetch = FetchType.EAGER,  optional = true)
-    @JoinColumn(name = "product_id", nullable = true , updatable = true)
+	@OneToOne(targetEntity = MaterialCategory.class, fetch = FetchType.EAGER,  optional = true)
+    @JoinColumn(name = "material_category_id", nullable = true , updatable = true)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
 	@Autowired
 	@Embedded
-    private Product product;
+    private MaterialCategory materialCategory;
 	
 	public Long getId() {
 		return id;
@@ -152,12 +152,12 @@ public class Material {
 	public void setUnitProductEquivalent(double unitProductEquivalent) {
 		this.unitProductEquivalent = unitProductEquivalent;
 	}
-	public Product getProduct() {
-		return product;
+	public MaterialCategory getMaterialCategory() {
+		return materialCategory;
 	}
-	public void setProduct(Product product) {
-		this.product = product;
-	}	
+	public void setMaterialCategory(MaterialCategory materialCategory) {
+		this.materialCategory = materialCategory;
+	}
 	
 	
 }

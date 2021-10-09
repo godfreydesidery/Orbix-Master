@@ -37,8 +37,7 @@ public class CustomProduction {
 	@Column(unique = true)
     private String no;
 	@NotBlank
-	@Column(unique = true)
-    private String name;
+    private String productName;
 	private double batchSize;
 	private String uom;
     private String status;
@@ -111,12 +110,12 @@ public class CustomProduction {
 		this.no = no;
 	}
 
-	public String getName() {
-		return name;
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 	public double getBatchSize() {

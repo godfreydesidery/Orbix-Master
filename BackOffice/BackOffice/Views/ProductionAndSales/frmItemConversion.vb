@@ -9,9 +9,10 @@ Public Class frmItemConversion
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
 
         txtId.Text = ""
-        txtConversionNo.Text = ""
+        txtConversionNo.Text = "NA"
         txtCreated.Text = Day.DAY
         txtStatus.Text = "PENDING"
+        txtReason.Text = ""
 
         clearRawFields()
         clearEndFields()
@@ -21,8 +22,6 @@ Public Class frmItemConversion
 
         btnSave.Enabled = False
         btnApprove.Enabled = False
-
-        txtConversionNo.Text = (New ItemConversion).generateConversionNo()
 
         dtgrdItemsToConvert.Rows.Clear()
         dtgrdEndItems.Rows.Clear()
@@ -107,7 +106,6 @@ Public Class frmItemConversion
                     txtRawBarCode.ReadOnly = False
                     txtRawCode.ReadOnly = False
                     cmbRawDescription.Enabled = True
-                    txtRawQty.ReadOnly = False
 
                 End If
 
@@ -117,7 +115,6 @@ Public Class frmItemConversion
                     txtRawBarCode.ReadOnly = True
                     txtRawCode.ReadOnly = True
                     cmbRawDescription.Enabled = False
-                    txtRawQty.ReadOnly = True
 
                 End If
                 If status = "PRINTED" Then
@@ -126,7 +123,6 @@ Public Class frmItemConversion
                     txtRawBarCode.ReadOnly = True
                     txtRawCode.ReadOnly = True
                     cmbRawDescription.Enabled = False
-                    txtRawQty.ReadOnly = True
 
                 End If
                 If status = "COMPLETED" Then
@@ -135,7 +131,6 @@ Public Class frmItemConversion
                     txtRawBarCode.ReadOnly = True
                     txtRawCode.ReadOnly = True
                     cmbRawDescription.Enabled = False
-                    txtRawQty.ReadOnly = True
 
                 End If
                 If status = "CANCELED" Then
@@ -144,7 +139,6 @@ Public Class frmItemConversion
                     txtRawBarCode.ReadOnly = True
                     txtRawCode.ReadOnly = True
                     cmbRawDescription.Enabled = False
-                    txtRawQty.ReadOnly = True
 
                 End If
                 If status = "ARCHIVED" Then
@@ -153,7 +147,6 @@ Public Class frmItemConversion
                     txtRawBarCode.ReadOnly = True
                     txtRawCode.ReadOnly = True
                     cmbRawDescription.Enabled = False
-                    txtRawQty.ReadOnly = True
 
                 End If
 
@@ -561,8 +554,10 @@ Public Class frmItemConversion
                 txtRawBarCode.ReadOnly = False
                 txtRawCode.ReadOnly = False
                 cmbRawDescription.Enabled = True
-                txtRawQty.ReadOnly = False
 
+                txtEndBarcode.ReadOnly = False
+                txtEndCode.ReadOnly = False
+                cmbEndDescription.Enabled = True
             End If
 
             If status = "APPROVED" Then
@@ -571,8 +566,10 @@ Public Class frmItemConversion
                 txtRawBarCode.ReadOnly = True
                 txtRawCode.ReadOnly = True
                 cmbRawDescription.Enabled = False
-                txtRawQty.ReadOnly = True
 
+                txtEndBarcode.ReadOnly = True
+                txtEndCode.ReadOnly = True
+                cmbEndDescription.Enabled = False
             End If
             If status = "PRINTED" Then
                 txtConversionNo.ReadOnly = True
@@ -580,8 +577,10 @@ Public Class frmItemConversion
                 txtRawBarCode.ReadOnly = True
                 txtRawCode.ReadOnly = True
                 cmbRawDescription.Enabled = False
-                txtRawQty.ReadOnly = True
 
+                txtEndBarcode.ReadOnly = True
+                txtEndCode.ReadOnly = True
+                cmbEndDescription.Enabled = False
             End If
             If status = "COMPLETED" Then
                 txtConversionNo.ReadOnly = True
@@ -589,8 +588,10 @@ Public Class frmItemConversion
                 txtRawBarCode.ReadOnly = True
                 txtRawCode.ReadOnly = True
                 cmbRawDescription.Enabled = False
-                txtRawQty.ReadOnly = True
 
+                txtEndBarcode.ReadOnly = True
+                txtEndCode.ReadOnly = True
+                cmbEndDescription.Enabled = False
             End If
             If status = "CANCELED" Then
                 txtConversionNo.ReadOnly = True
@@ -598,7 +599,10 @@ Public Class frmItemConversion
                 txtRawBarCode.ReadOnly = True
                 txtRawCode.ReadOnly = True
                 cmbRawDescription.Enabled = False
-                txtRawQty.ReadOnly = True
+
+                txtEndBarcode.ReadOnly = True
+                txtEndCode.ReadOnly = True
+                cmbEndDescription.Enabled = False
 
             End If
             If status = "ARCHIVED" Then
@@ -607,8 +611,10 @@ Public Class frmItemConversion
                 txtRawBarCode.ReadOnly = True
                 txtRawCode.ReadOnly = True
                 cmbRawDescription.Enabled = False
-                txtRawQty.ReadOnly = True
 
+                txtEndBarcode.ReadOnly = True
+                txtEndCode.ReadOnly = True
+                cmbEndDescription.Enabled = False
             End If
 
         Catch ex As Exception
@@ -868,7 +874,6 @@ Public Class frmItemConversion
             cmbRawDescription.Enabled = False
 
             'unlock
-            txtRawQty.ReadOnly = False
 
             btnRawAdd.Enabled = True
         End If
@@ -879,7 +884,6 @@ Public Class frmItemConversion
             cmbRawDescription.Enabled = False
 
 
-            txtRawQty.ReadOnly = True
 
             btnRawAdd.Enabled = False
         End If
@@ -888,7 +892,6 @@ Public Class frmItemConversion
             txtRawBarCode.ReadOnly = True
             txtRawCode.ReadOnly = True
             cmbRawDescription.Enabled = False
-            txtRawQty.ReadOnly = True
 
             'unlock
 
@@ -899,7 +902,6 @@ Public Class frmItemConversion
             txtRawBarCode.ReadOnly = True
             txtRawCode.ReadOnly = True
             cmbRawDescription.Enabled = False
-            txtRawQty.ReadOnly = True
 
 
             btnRawAdd.Enabled = False
@@ -952,7 +954,6 @@ Public Class frmItemConversion
             cmbEndDescription.Enabled = False
 
             'unlock
-            txtEndQty.ReadOnly = False
 
             btnEndAdd.Enabled = True
         End If
@@ -963,7 +964,6 @@ Public Class frmItemConversion
             cmbEndDescription.Enabled = False
 
 
-            txtEndQty.ReadOnly = True
 
             btnEndAdd.Enabled = False
         End If
@@ -972,7 +972,6 @@ Public Class frmItemConversion
             txtEndBarcode.ReadOnly = True
             txtEndCode.ReadOnly = True
             cmbEndDescription.Enabled = False
-            txtEndQty.ReadOnly = True
 
             'unlock
 
@@ -983,7 +982,6 @@ Public Class frmItemConversion
             txtEndBarcode.ReadOnly = True
             txtEndCode.ReadOnly = True
             cmbEndDescription.Enabled = False
-            txtEndQty.ReadOnly = True
 
 
             btnEndAdd.Enabled = False
@@ -1209,8 +1207,7 @@ Public Class frmItemConversion
                 Else
                     MsgBox("Could not approve document", vbOKOnly + vbExclamation, "Operation failed")
                 End If
-                refreshConversionList()
-
+                searchConversion(txtConversionNo.Text)
             End If
         Else
             MsgBox("Access denied!", vbOKOnly + vbExclamation)
@@ -1219,7 +1216,12 @@ Public Class frmItemConversion
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-        Dim status As String = (New ItemConversion).getStatus(txtConversionNo.Text)
+        Dim status As String
+        Try
+            status = Web.get_("products/conversions/get_status_by_id?id=" + txtId.Text)
+        Catch ex As Exception
+            status = ""
+        End Try
         If status = "PENDING" Or status = "APPROVED" Then
             'continue
         Else
@@ -1235,15 +1237,19 @@ Public Class frmItemConversion
             Dim res As Integer = MsgBox("Cancel conversion: " + txtConversionNo.Text + " ? Conversion document can not be used after canceling", vbYesNo + vbQuestion, "Cancel document?")
             If res = DialogResult.Yes Then
 
-                Dim conversion As ItemConversion = New ItemConversion
-                If conversion.cancelConversion(txtConversionNo.Text) = True Then
-                    MsgBox("Cancel Success", vbOKOnly + vbInformation, "Success")
+                Dim approved As Boolean = False
+                Try
+                    approved = Web.put(vbNull, "products/conversions/cancel_by_id?id=" + txtId.Text)
+                Catch ex As Exception
+                    approved = False
+                End Try
+                If approved = True Then
+                    MsgBox("Document Successively canceled", vbOKOnly + vbInformation, "Operation successiful")
                 Else
-                    MsgBox("Cancel failed", vbOKOnly + vbExclamation, "Failed")
+                    MsgBox("Could not cancel document", vbOKOnly + vbExclamation, "Operation failed")
                 End If
-
+                searchConversion(txtConversionNo.Text)
             End If
-            txtStatus.Text = (New ItemConversion).getStatus(txtConversionNo.Text)
         Else
             MsgBox("Access denied!", vbOKOnly + vbExclamation, "Error: Access denied")
         End If
@@ -1272,14 +1278,19 @@ Public Class frmItemConversion
             Dim res As Integer = MsgBox("Archive conversion document: " + txtConversionNo.Text + " ? Document will be sent to archives for future references", vbYesNo + vbQuestion, "Archive document?")
             If res = DialogResult.Yes Then
 
-                Dim conversion As ItemConversion = New ItemConversion
-                If conversion.archiveConversion(txtConversionNo.Text) = True Then
-                    MsgBox("Archive Success", vbOKOnly + vbInformation, "Success")
+                Dim approved As Boolean = False
+                Try
+                    approved = Web.put(vbNull, "products/conversions/archive_by_id?id=" + txtId.Text)
+                Catch ex As Exception
+                    approved = False
+                End Try
+                If approved = True Then
+                    MsgBox("Document Successively archived", vbOKOnly + vbInformation, "Operation successiful")
                 Else
-                    MsgBox("Archive failed", vbOKOnly + vbExclamation, "Failure")
+                    MsgBox("Could not archive document", vbOKOnly + vbExclamation, "Operation failed")
                 End If
+                searchConversion(txtConversionNo.Text)
             End If
-            txtStatus.Text = (New ItemConversion).getStatus(txtConversionNo.Text)
         Else
             MsgBox("Access denied!", vbOKOnly + vbExclamation)
         End If
@@ -1320,7 +1331,6 @@ Public Class frmItemConversion
                     MsgBox("Could not complete document", vbOKOnly + vbExclamation, "Operation failed")
                 End If
                 searchConversion(txtConversionNo.Text)
-
             End If
         Else
             MsgBox("Access denied!", vbOKOnly + vbExclamation)

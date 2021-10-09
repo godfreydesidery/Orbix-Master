@@ -108,7 +108,8 @@ public class ProductServiceController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET, value="/products", produces=MediaType.APPLICATION_JSON_VALUE)
-    public List <Product> getAllProducts(@RequestHeader("user_id") Long userId) {
+    public List <Product> getAllProducts(
+    		@RequestHeader("user_id") Long userId) {
         return productRepository.findAll();
     }
 	
@@ -819,7 +820,7 @@ public class ProductServiceController {
 	    		StockCard stockCard;
 	    		if(final_.getQty() > 0) {	 
 	    			product = productRepository.findByCode(final_.getProduct().getCode()).get();
-	    			product.setStock(product.getStock() - final_.getQty());
+	    			product.setStock(product.getStock() + final_.getQty());
 	    			productRepository.saveAndFlush(product);
 	    		}
 	    		

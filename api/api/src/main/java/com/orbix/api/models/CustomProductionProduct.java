@@ -28,6 +28,12 @@ public class CustomProductionProduct {
     private Long id;	
 	private double qty = 0;
 	
+	private double costPriceVatIncl = 0;
+	private double costPriceVatExcl = 0;
+	private double sellingPriceVatIncl = 0;
+	private double sellingPriceVatExcl = 0;
+	
+	
 	@ManyToOne(targetEntity = CustomProduction.class, fetch = FetchType.EAGER,  optional = false)
     @JoinColumn(name = "custom_production_id", nullable = false , updatable = true)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
@@ -72,6 +78,38 @@ public class CustomProductionProduct {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public double getCostPriceVatIncl() {
+		return costPriceVatIncl;
+	}
+
+	public void setCostPriceVatIncl(double costPriceVatIncl) {
+		this.costPriceVatIncl = costPriceVatIncl;
+	}
+
+	public double getCostPriceVatExcl() {
+		return costPriceVatExcl;
+	}
+
+	public void setCostPriceVatExcl(double costPriceVatExcl) {
+		this.costPriceVatExcl = costPriceVatExcl;
+	}
+
+	public double getSellingPriceVatIncl() {
+		return sellingPriceVatIncl;
+	}
+
+	public void setSellingPriceVatIncl(double sellingPriceVatIncl) {
+		this.sellingPriceVatIncl = sellingPriceVatIncl;
+	}
+
+	public double getSellingPriceVatExcl() {
+		return sellingPriceVatExcl;
+	}
+
+	public void setSellingPriceVatExcl(double sellingPriceVatExcl) {
+		this.sellingPriceVatExcl = sellingPriceVatExcl;
 	}
 	
 	
