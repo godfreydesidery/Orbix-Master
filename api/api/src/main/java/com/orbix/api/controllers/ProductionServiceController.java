@@ -29,11 +29,15 @@ import com.orbix.api.exceptions.InvalidOperationException;
 import com.orbix.api.exceptions.MissingInformationException;
 import com.orbix.api.exceptions.NotFoundException;
 import com.orbix.api.models.CustomProduction;
+import com.orbix.api.models.CustomProductionMaterial;
 import com.orbix.api.models.Day;
 import com.orbix.api.models.Material;
 import com.orbix.api.models.PackingList;
+import com.orbix.api.models.ProductConversion;
+import com.orbix.api.models.ProductConversionInitial;
 import com.orbix.api.models.SalesPerson;
 import com.orbix.api.models.User;
+import com.orbix.api.repositories.CustomProductionMaterialRepository;
 import com.orbix.api.repositories.CustomProductionRepository;
 import com.orbix.api.repositories.DayRepository;
 import com.orbix.api.repositories.UserRepository;
@@ -48,6 +52,8 @@ import com.orbix.api.repositories.UserRepository;
 public class ProductionServiceController {
 	@Autowired
 	CustomProductionRepository customProductionRepository;
+	@Autowired
+	CustomProductionMaterialRepository customProductionMaterialRepository;
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
@@ -145,5 +151,42 @@ public class ProductionServiceController {
 			throw new InvalidOperationException("Could not approve, Only pending custom productions can be approved");
 		}    	
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/custom_productions/get_status_by_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public String getStatusById(
+    		@RequestParam(name = "id") Long id, 
+    		@RequestHeader("user_id") Long userId) {
+    	Optional<CustomProduction> customProduction = customProductionRepository.findById(id);
+    	if(customProduction.isPresent()) {
+    		return customProduction.get().getStatus();
+    	}else {
+    		return "";
+    	}       	
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/custom_productions/get_status_by_no", produces=MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public String getStatusByNo(
+    		@RequestParam(name = "no") String no, 
+    		@RequestHeader("user_id") Long userId) {
+    	Optional<CustomProduction> customProduction = customProductionRepository.findByNo(no);
+    	if(customProduction.isPresent()) {
+    		return customProduction.get().getStatus();
+    	}else {
+    		return "";
+    	}       	
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value="/custom_productions/get_materials_by_production_id", produces=MediaType.APPLICATION_JSON_VALUE)
+    public List <CustomProductionMaterial> getProductionMaterials(
+    		@RequestParam(name = "id") Long id, 
+    		@RequestHeader("user_id") Long userId) {
+    	Optional<CustomProduction> customProduction = customProductionRepository.findById(id);
+    	if(customProduction.isPresent()) {
+    		return customProductionMaterialRepository.findAllByCustomProduction(customProduction.get());
+    	}
+    	return null;        
+    }
 	
 }
