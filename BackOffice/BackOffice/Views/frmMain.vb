@@ -643,4 +643,12 @@ Public Class frmMain
     Private Sub SalesPersonsManagementToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalesPersonsManagementToolStripMenuItem.Click
         frmSalesPersons.ShowDialog()
     End Sub
+
+    Private Sub ToolStripMenuItem26_Click_1(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub BiometricEnrolmentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BiometricEnrolmentToolStripMenuItem.Click
+
+    End Sub
 End Class

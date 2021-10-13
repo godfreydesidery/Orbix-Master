@@ -135,18 +135,94 @@ Partial Class frmMain
         Me.pctLogo = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripContainer1 = New System.Windows.Forms.ToolStripContainer()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.HomeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem26 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ProductInquiryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SuppliersToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CompanyProfileToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CorporateCustomersToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MassManagementToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuStrip3 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem27 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LocalPurchaseOrderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuStrip4 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem28 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReportsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BOReportsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DailySalesReportToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ZHistoryToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CashierVarianceToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CreditNoteReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CreditCardSalesToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GiftVoucherSalesToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReturnedBottlesToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ProductListingReportToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SupplySalesReportToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StockCardReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SupplierStockStatusToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FastMovingItemsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SlowMovingItemsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NegativeStockReportToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PrintedLPOToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PendingLPOToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GRNReportToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PriceChangeReportToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuStrip5 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem29 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GoodsReceivedNoteGRNToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReturnByCustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CustomerCreditNotesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SupplierCreditNoteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AllocationsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReceiptsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.QuotationsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReturnToVendorToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SalesLedgeToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SalesJournalToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuStrip6 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuStrip7 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem31 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuStrip8 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem32 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PersonnelEnrolmentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SalesPersonEnrolmentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UserEnrolmentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TillAdministrationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BiometricEnrolmentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TillPositionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AccessControlToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EndOfDayToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CustomDatingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.pctLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ToolStripContainer1.ContentPanel.SuspendLayout()
+        Me.ToolStripContainer1.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
+        Me.MenuStrip2.SuspendLayout()
+        Me.MenuStrip3.SuspendLayout()
+        Me.MenuStrip4.SuspendLayout()
+        Me.MenuStrip5.SuspendLayout()
+        Me.MenuStrip6.SuspendLayout()
+        Me.MenuStrip7.SuspendLayout()
+        Me.MenuStrip8.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip
         '
         Me.MenuStrip.BackColor = System.Drawing.Color.Gainsboro
         Me.MenuStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileMenu})
+        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileMenu, Me.EditToolStripMenuItem, Me.HelpToolStripMenuItem})
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.Name = "MenuStrip"
         Me.MenuStrip.Padding = New System.Windows.Forms.Padding(8, 2, 0, 2)
@@ -165,22 +241,22 @@ Partial Class frmMain
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(105, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(178, 6)
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(105, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(178, 6)
         '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(105, 6)
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(178, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(108, 26)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
         Me.ExitToolStripMenuItem.Text = "E&xit"
         '
         'StatusStrip
@@ -222,6 +298,7 @@ Partial Class frmMain
         Me.ToolStrip1.Size = New System.Drawing.Size(1780, 31)
         Me.ToolStrip1.TabIndex = 13
         Me.ToolStrip1.Text = "ToolStrip1"
+        Me.ToolStrip1.Visible = False
         '
         'ToolStripDropDownButton3
         '
@@ -928,7 +1005,7 @@ Partial Class frmMain
         '
         Me.dtCustomDate.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dtCustomDate.Location = New System.Drawing.Point(752, 89)
+        Me.dtCustomDate.Location = New System.Drawing.Point(755, 131)
         Me.dtCustomDate.Name = "dtCustomDate"
         Me.dtCustomDate.Size = New System.Drawing.Size(278, 22)
         Me.dtCustomDate.TabIndex = 18
@@ -939,7 +1016,7 @@ Partial Class frmMain
         Me.btnUpdate.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.btnUpdate.Location = New System.Drawing.Point(752, 117)
+        Me.btnUpdate.Location = New System.Drawing.Point(755, 159)
         Me.btnUpdate.Name = "btnUpdate"
         Me.btnUpdate.Size = New System.Drawing.Size(278, 51)
         Me.btnUpdate.TabIndex = 19
@@ -952,7 +1029,7 @@ Partial Class frmMain
         Me.lblCustomDate.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCustomDate.AutoSize = True
         Me.lblCustomDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCustomDate.Location = New System.Drawing.Point(12, 174)
+        Me.lblCustomDate.Location = New System.Drawing.Point(595, 227)
         Me.lblCustomDate.Name = "lblCustomDate"
         Me.lblCustomDate.Size = New System.Drawing.Size(92, 29)
         Me.lblCustomDate.TabIndex = 20
@@ -964,7 +1041,7 @@ Partial Class frmMain
         Me.lblCustDate.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCustDate.AutoSize = True
-        Me.lblCustDate.Location = New System.Drawing.Point(749, 69)
+        Me.lblCustDate.Location = New System.Drawing.Point(752, 111)
         Me.lblCustDate.Name = "lblCustDate"
         Me.lblCustDate.Size = New System.Drawing.Size(89, 17)
         Me.lblCustDate.TabIndex = 21
@@ -973,13 +1050,11 @@ Partial Class frmMain
         '
         'pctLogo
         '
-        Me.pctLogo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pctLogo.BackColor = System.Drawing.Color.Silver
-        Me.pctLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.pctLogo.Location = New System.Drawing.Point(809, 174)
+        Me.pctLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.pctLogo.Location = New System.Drawing.Point(9, 43)
         Me.pctLogo.Name = "pctLogo"
-        Me.pctLogo.Size = New System.Drawing.Size(175, 161)
+        Me.pctLogo.Size = New System.Drawing.Size(59, 53)
         Me.pctLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pctLogo.TabIndex = 16
         Me.pctLogo.TabStop = False
@@ -989,11 +1064,11 @@ Partial Class frmMain
         Me.PictureBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox2.BackColor = System.Drawing.Color.Silver
-        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(4, 62)
+        Me.PictureBox2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.PictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PictureBox2.Location = New System.Drawing.Point(283, 102)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(1772, 519)
+        Me.PictureBox2.Size = New System.Drawing.Size(1493, 479)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PictureBox2.TabIndex = 11
         Me.PictureBox2.TabStop = False
@@ -1008,12 +1083,567 @@ Partial Class frmMain
         Me.ToolStripButton1.Size = New System.Drawing.Size(103, 28)
         Me.ToolStripButton1.Text = "&Masters"
         '
+        'ToolStripContainer1
+        '
+        '
+        'ToolStripContainer1.ContentPanel
+        '
+        Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.MenuStrip8)
+        Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.MenuStrip7)
+        Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.MenuStrip6)
+        Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.MenuStrip5)
+        Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.MenuStrip4)
+        Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.MenuStrip3)
+        Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.MenuStrip2)
+        Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.MenuStrip1)
+        Me.ToolStripContainer1.ContentPanel.Size = New System.Drawing.Size(255, 479)
+        Me.ToolStripContainer1.Location = New System.Drawing.Point(0, 102)
+        Me.ToolStripContainer1.Name = "ToolStripContainer1"
+        Me.ToolStripContainer1.Size = New System.Drawing.Size(280, 479)
+        Me.ToolStripContainer1.TabIndex = 22
+        Me.ToolStripContainer1.Text = "ToolStripContainer1"
+        '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.BackColor = System.Drawing.Color.Transparent
+        Me.MenuStrip1.Dock = System.Windows.Forms.DockStyle.None
+        Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HomeToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(9, 2)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(85, 36)
+        Me.MenuStrip1.TabIndex = 0
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'HomeToolStripMenuItem
+        '
+        Me.HomeToolStripMenuItem.BackColor = System.Drawing.Color.Transparent
+        Me.HomeToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.HomeToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.HomeToolStripMenuItem.Name = "HomeToolStripMenuItem"
+        Me.HomeToolStripMenuItem.Size = New System.Drawing.Size(77, 32)
+        Me.HomeToolStripMenuItem.Text = "Home"
+        '
+        'MenuStrip2
+        '
+        Me.MenuStrip2.BackColor = System.Drawing.Color.Transparent
+        Me.MenuStrip2.Dock = System.Windows.Forms.DockStyle.None
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem26})
+        Me.MenuStrip2.Location = New System.Drawing.Point(9, 38)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(215, 36)
+        Me.MenuStrip2.TabIndex = 1
+        Me.MenuStrip2.Text = "MenuStrip2"
+        '
+        'ToolStripMenuItem26
+        '
+        Me.ToolStripMenuItem26.BackColor = System.Drawing.Color.Transparent
+        Me.ToolStripMenuItem26.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MasToolStripMenuItem, Me.ProductInquiryToolStripMenuItem, Me.SuppliersToolStripMenuItem1, Me.CompanyProfileToolStripMenuItem1, Me.CorporateCustomersToolStripMenuItem1, Me.MassManagementToolStripMenuItem1})
+        Me.ToolStripMenuItem26.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripMenuItem26.ForeColor = System.Drawing.Color.Navy
+        Me.ToolStripMenuItem26.Name = "ToolStripMenuItem26"
+        Me.ToolStripMenuItem26.Size = New System.Drawing.Size(92, 32)
+        Me.ToolStripMenuItem26.Text = "Masters"
+        '
+        'MasToolStripMenuItem
+        '
+        Me.MasToolStripMenuItem.BackColor = System.Drawing.Color.Transparent
+        Me.MasToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MasToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.MasToolStripMenuItem.Name = "MasToolStripMenuItem"
+        Me.MasToolStripMenuItem.Size = New System.Drawing.Size(251, 28)
+        Me.MasToolStripMenuItem.Text = "Product Master"
+        '
+        'ProductInquiryToolStripMenuItem
+        '
+        Me.ProductInquiryToolStripMenuItem.BackColor = System.Drawing.Color.Transparent
+        Me.ProductInquiryToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ProductInquiryToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.ProductInquiryToolStripMenuItem.Name = "ProductInquiryToolStripMenuItem"
+        Me.ProductInquiryToolStripMenuItem.Size = New System.Drawing.Size(251, 28)
+        Me.ProductInquiryToolStripMenuItem.Text = "Product Inquiry"
+        '
+        'SuppliersToolStripMenuItem1
+        '
+        Me.SuppliersToolStripMenuItem1.BackColor = System.Drawing.Color.Transparent
+        Me.SuppliersToolStripMenuItem1.Font = New System.Drawing.Font("Segoe UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SuppliersToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.SuppliersToolStripMenuItem1.Name = "SuppliersToolStripMenuItem1"
+        Me.SuppliersToolStripMenuItem1.Size = New System.Drawing.Size(251, 28)
+        Me.SuppliersToolStripMenuItem1.Text = "Suppliers"
+        '
+        'CompanyProfileToolStripMenuItem1
+        '
+        Me.CompanyProfileToolStripMenuItem1.BackColor = System.Drawing.Color.Transparent
+        Me.CompanyProfileToolStripMenuItem1.Font = New System.Drawing.Font("Segoe UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CompanyProfileToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.CompanyProfileToolStripMenuItem1.Name = "CompanyProfileToolStripMenuItem1"
+        Me.CompanyProfileToolStripMenuItem1.Size = New System.Drawing.Size(251, 28)
+        Me.CompanyProfileToolStripMenuItem1.Text = "Company Profile"
+        '
+        'CorporateCustomersToolStripMenuItem1
+        '
+        Me.CorporateCustomersToolStripMenuItem1.BackColor = System.Drawing.Color.Transparent
+        Me.CorporateCustomersToolStripMenuItem1.Font = New System.Drawing.Font("Segoe UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CorporateCustomersToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.CorporateCustomersToolStripMenuItem1.Name = "CorporateCustomersToolStripMenuItem1"
+        Me.CorporateCustomersToolStripMenuItem1.Size = New System.Drawing.Size(251, 28)
+        Me.CorporateCustomersToolStripMenuItem1.Text = "Corporate Customers"
+        '
+        'MassManagementToolStripMenuItem1
+        '
+        Me.MassManagementToolStripMenuItem1.BackColor = System.Drawing.Color.Transparent
+        Me.MassManagementToolStripMenuItem1.Font = New System.Drawing.Font("Segoe UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MassManagementToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.MassManagementToolStripMenuItem1.Name = "MassManagementToolStripMenuItem1"
+        Me.MassManagementToolStripMenuItem1.Size = New System.Drawing.Size(251, 28)
+        Me.MassManagementToolStripMenuItem1.Text = "Mass Management"
+        '
+        'MenuStrip3
+        '
+        Me.MenuStrip3.BackColor = System.Drawing.Color.Transparent
+        Me.MenuStrip3.Dock = System.Windows.Forms.DockStyle.None
+        Me.MenuStrip3.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem27})
+        Me.MenuStrip3.Location = New System.Drawing.Point(9, 74)
+        Me.MenuStrip3.Name = "MenuStrip3"
+        Me.MenuStrip3.Size = New System.Drawing.Size(91, 36)
+        Me.MenuStrip3.TabIndex = 2
+        Me.MenuStrip3.Text = "MenuStrip3"
+        '
+        'ToolStripMenuItem27
+        '
+        Me.ToolStripMenuItem27.BackColor = System.Drawing.Color.Transparent
+        Me.ToolStripMenuItem27.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LocalPurchaseOrderToolStripMenuItem})
+        Me.ToolStripMenuItem27.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripMenuItem27.ForeColor = System.Drawing.Color.Navy
+        Me.ToolStripMenuItem27.Name = "ToolStripMenuItem27"
+        Me.ToolStripMenuItem27.Size = New System.Drawing.Size(83, 32)
+        Me.ToolStripMenuItem27.Text = "Orders"
+        '
+        'LocalPurchaseOrderToolStripMenuItem
+        '
+        Me.LocalPurchaseOrderToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.LocalPurchaseOrderToolStripMenuItem.Name = "LocalPurchaseOrderToolStripMenuItem"
+        Me.LocalPurchaseOrderToolStripMenuItem.Size = New System.Drawing.Size(273, 32)
+        Me.LocalPurchaseOrderToolStripMenuItem.Text = "Local Purchase Order"
+        '
+        'MenuStrip4
+        '
+        Me.MenuStrip4.BackColor = System.Drawing.Color.Transparent
+        Me.MenuStrip4.Dock = System.Windows.Forms.DockStyle.None
+        Me.MenuStrip4.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip4.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem28})
+        Me.MenuStrip4.Location = New System.Drawing.Point(9, 110)
+        Me.MenuStrip4.Name = "MenuStrip4"
+        Me.MenuStrip4.Size = New System.Drawing.Size(99, 36)
+        Me.MenuStrip4.TabIndex = 3
+        Me.MenuStrip4.Text = "MenuStrip4"
+        '
+        'ToolStripMenuItem28
+        '
+        Me.ToolStripMenuItem28.BackColor = System.Drawing.Color.Transparent
+        Me.ToolStripMenuItem28.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ReportsToolStripMenuItem, Me.BOReportsToolStripMenuItem})
+        Me.ToolStripMenuItem28.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripMenuItem28.ForeColor = System.Drawing.Color.Navy
+        Me.ToolStripMenuItem28.Name = "ToolStripMenuItem28"
+        Me.ToolStripMenuItem28.Size = New System.Drawing.Size(91, 32)
+        Me.ToolStripMenuItem28.Text = "Reports"
+        '
+        'ReportsToolStripMenuItem
+        '
+        Me.ReportsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DailySalesReportToolStripMenuItem1, Me.ZHistoryToolStripMenuItem1, Me.CashierVarianceToolStripMenuItem1, Me.CreditNoteReportToolStripMenuItem, Me.CreditCardSalesToolStripMenuItem1, Me.GiftVoucherSalesToolStripMenuItem1, Me.ReturnedBottlesToolStripMenuItem1, Me.ProductListingReportToolStripMenuItem1})
+        Me.ReportsToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.ReportsToolStripMenuItem.Name = "ReportsToolStripMenuItem"
+        Me.ReportsToolStripMenuItem.Size = New System.Drawing.Size(188, 32)
+        Me.ReportsToolStripMenuItem.Text = "FO Reports"
+        '
+        'BOReportsToolStripMenuItem
+        '
+        Me.BOReportsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SupplySalesReportToolStripMenuItem1, Me.StockCardReportToolStripMenuItem, Me.SupplierStockStatusToolStripMenuItem1, Me.FastMovingItemsToolStripMenuItem1, Me.SlowMovingItemsToolStripMenuItem1, Me.NegativeStockReportToolStripMenuItem1, Me.PrintedLPOToolStripMenuItem1, Me.PendingLPOToolStripMenuItem1, Me.GRNReportToolStripMenuItem1, Me.PriceChangeReportToolStripMenuItem1})
+        Me.BOReportsToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.BOReportsToolStripMenuItem.Name = "BOReportsToolStripMenuItem"
+        Me.BOReportsToolStripMenuItem.Size = New System.Drawing.Size(188, 32)
+        Me.BOReportsToolStripMenuItem.Text = "BO Reports"
+        '
+        'DailySalesReportToolStripMenuItem1
+        '
+        Me.DailySalesReportToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.DailySalesReportToolStripMenuItem1.Name = "DailySalesReportToolStripMenuItem1"
+        Me.DailySalesReportToolStripMenuItem1.Size = New System.Drawing.Size(285, 32)
+        Me.DailySalesReportToolStripMenuItem1.Text = "Daily Sales Report"
+        '
+        'ZHistoryToolStripMenuItem1
+        '
+        Me.ZHistoryToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.ZHistoryToolStripMenuItem1.Name = "ZHistoryToolStripMenuItem1"
+        Me.ZHistoryToolStripMenuItem1.Size = New System.Drawing.Size(285, 32)
+        Me.ZHistoryToolStripMenuItem1.Text = "Z History"
+        '
+        'CashierVarianceToolStripMenuItem1
+        '
+        Me.CashierVarianceToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.CashierVarianceToolStripMenuItem1.Name = "CashierVarianceToolStripMenuItem1"
+        Me.CashierVarianceToolStripMenuItem1.Size = New System.Drawing.Size(285, 32)
+        Me.CashierVarianceToolStripMenuItem1.Text = "Cashier Variance"
+        '
+        'CreditNoteReportToolStripMenuItem
+        '
+        Me.CreditNoteReportToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.CreditNoteReportToolStripMenuItem.Name = "CreditNoteReportToolStripMenuItem"
+        Me.CreditNoteReportToolStripMenuItem.Size = New System.Drawing.Size(285, 32)
+        Me.CreditNoteReportToolStripMenuItem.Text = "Credit Note Report"
+        '
+        'CreditCardSalesToolStripMenuItem1
+        '
+        Me.CreditCardSalesToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.CreditCardSalesToolStripMenuItem1.Name = "CreditCardSalesToolStripMenuItem1"
+        Me.CreditCardSalesToolStripMenuItem1.Size = New System.Drawing.Size(285, 32)
+        Me.CreditCardSalesToolStripMenuItem1.Text = "Credit Card Sales"
+        '
+        'GiftVoucherSalesToolStripMenuItem1
+        '
+        Me.GiftVoucherSalesToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.GiftVoucherSalesToolStripMenuItem1.Name = "GiftVoucherSalesToolStripMenuItem1"
+        Me.GiftVoucherSalesToolStripMenuItem1.Size = New System.Drawing.Size(285, 32)
+        Me.GiftVoucherSalesToolStripMenuItem1.Text = "Gift Voucher Sales"
+        '
+        'ReturnedBottlesToolStripMenuItem1
+        '
+        Me.ReturnedBottlesToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.ReturnedBottlesToolStripMenuItem1.Name = "ReturnedBottlesToolStripMenuItem1"
+        Me.ReturnedBottlesToolStripMenuItem1.Size = New System.Drawing.Size(285, 32)
+        Me.ReturnedBottlesToolStripMenuItem1.Text = "Returned Bottles"
+        '
+        'ProductListingReportToolStripMenuItem1
+        '
+        Me.ProductListingReportToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.ProductListingReportToolStripMenuItem1.Name = "ProductListingReportToolStripMenuItem1"
+        Me.ProductListingReportToolStripMenuItem1.Size = New System.Drawing.Size(285, 32)
+        Me.ProductListingReportToolStripMenuItem1.Text = "Product Listing Report"
+        '
+        'SupplySalesReportToolStripMenuItem1
+        '
+        Me.SupplySalesReportToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.SupplySalesReportToolStripMenuItem1.Name = "SupplySalesReportToolStripMenuItem1"
+        Me.SupplySalesReportToolStripMenuItem1.Size = New System.Drawing.Size(286, 32)
+        Me.SupplySalesReportToolStripMenuItem1.Text = "Supply Sales Report"
+        '
+        'StockCardReportToolStripMenuItem
+        '
+        Me.StockCardReportToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.StockCardReportToolStripMenuItem.Name = "StockCardReportToolStripMenuItem"
+        Me.StockCardReportToolStripMenuItem.Size = New System.Drawing.Size(286, 32)
+        Me.StockCardReportToolStripMenuItem.Text = "Stock Card Report"
+        '
+        'SupplierStockStatusToolStripMenuItem1
+        '
+        Me.SupplierStockStatusToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.SupplierStockStatusToolStripMenuItem1.Name = "SupplierStockStatusToolStripMenuItem1"
+        Me.SupplierStockStatusToolStripMenuItem1.Size = New System.Drawing.Size(286, 32)
+        Me.SupplierStockStatusToolStripMenuItem1.Text = "Supplier Stock Status"
+        '
+        'FastMovingItemsToolStripMenuItem1
+        '
+        Me.FastMovingItemsToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.FastMovingItemsToolStripMenuItem1.Name = "FastMovingItemsToolStripMenuItem1"
+        Me.FastMovingItemsToolStripMenuItem1.Size = New System.Drawing.Size(286, 32)
+        Me.FastMovingItemsToolStripMenuItem1.Text = "Fast Moving Items"
+        '
+        'SlowMovingItemsToolStripMenuItem1
+        '
+        Me.SlowMovingItemsToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.SlowMovingItemsToolStripMenuItem1.Name = "SlowMovingItemsToolStripMenuItem1"
+        Me.SlowMovingItemsToolStripMenuItem1.Size = New System.Drawing.Size(286, 32)
+        Me.SlowMovingItemsToolStripMenuItem1.Text = "Slow Moving Items"
+        '
+        'NegativeStockReportToolStripMenuItem1
+        '
+        Me.NegativeStockReportToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.NegativeStockReportToolStripMenuItem1.Name = "NegativeStockReportToolStripMenuItem1"
+        Me.NegativeStockReportToolStripMenuItem1.Size = New System.Drawing.Size(286, 32)
+        Me.NegativeStockReportToolStripMenuItem1.Text = "Negative Stock Report"
+        '
+        'PrintedLPOToolStripMenuItem1
+        '
+        Me.PrintedLPOToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.PrintedLPOToolStripMenuItem1.Name = "PrintedLPOToolStripMenuItem1"
+        Me.PrintedLPOToolStripMenuItem1.Size = New System.Drawing.Size(286, 32)
+        Me.PrintedLPOToolStripMenuItem1.Text = "Printed LPO"
+        '
+        'PendingLPOToolStripMenuItem1
+        '
+        Me.PendingLPOToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.PendingLPOToolStripMenuItem1.Name = "PendingLPOToolStripMenuItem1"
+        Me.PendingLPOToolStripMenuItem1.Size = New System.Drawing.Size(286, 32)
+        Me.PendingLPOToolStripMenuItem1.Text = "Pending LPO"
+        '
+        'GRNReportToolStripMenuItem1
+        '
+        Me.GRNReportToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.GRNReportToolStripMenuItem1.Name = "GRNReportToolStripMenuItem1"
+        Me.GRNReportToolStripMenuItem1.Size = New System.Drawing.Size(286, 32)
+        Me.GRNReportToolStripMenuItem1.Text = "GRN Report"
+        '
+        'PriceChangeReportToolStripMenuItem1
+        '
+        Me.PriceChangeReportToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.PriceChangeReportToolStripMenuItem1.Name = "PriceChangeReportToolStripMenuItem1"
+        Me.PriceChangeReportToolStripMenuItem1.Size = New System.Drawing.Size(286, 32)
+        Me.PriceChangeReportToolStripMenuItem1.Text = "Price Change Report"
+        '
+        'MenuStrip5
+        '
+        Me.MenuStrip5.BackColor = System.Drawing.Color.Transparent
+        Me.MenuStrip5.Dock = System.Windows.Forms.DockStyle.None
+        Me.MenuStrip5.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip5.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem29})
+        Me.MenuStrip5.Location = New System.Drawing.Point(9, 146)
+        Me.MenuStrip5.Name = "MenuStrip5"
+        Me.MenuStrip5.Size = New System.Drawing.Size(138, 36)
+        Me.MenuStrip5.TabIndex = 4
+        Me.MenuStrip5.Text = "MenuStrip5"
+        '
+        'ToolStripMenuItem29
+        '
+        Me.ToolStripMenuItem29.BackColor = System.Drawing.Color.Transparent
+        Me.ToolStripMenuItem29.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GoodsReceivedNoteGRNToolStripMenuItem, Me.ReturnByCustomerToolStripMenuItem, Me.CustomerCreditNotesToolStripMenuItem, Me.SupplierCreditNoteToolStripMenuItem, Me.AllocationsToolStripMenuItem1, Me.ReceiptsToolStripMenuItem1, Me.QuotationsToolStripMenuItem1, Me.ReturnToVendorToolStripMenuItem1, Me.SalesLedgeToolStripMenuItem1, Me.SalesJournalToolStripMenuItem1})
+        Me.ToolStripMenuItem29.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripMenuItem29.ForeColor = System.Drawing.Color.Navy
+        Me.ToolStripMenuItem29.Name = "ToolStripMenuItem29"
+        Me.ToolStripMenuItem29.Size = New System.Drawing.Size(130, 32)
+        Me.ToolStripMenuItem29.Text = "Transactions"
+        '
+        'GoodsReceivedNoteGRNToolStripMenuItem
+        '
+        Me.GoodsReceivedNoteGRNToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.GoodsReceivedNoteGRNToolStripMenuItem.Name = "GoodsReceivedNoteGRNToolStripMenuItem"
+        Me.GoodsReceivedNoteGRNToolStripMenuItem.Size = New System.Drawing.Size(332, 32)
+        Me.GoodsReceivedNoteGRNToolStripMenuItem.Text = "Goods Received Note(GRN)"
+        '
+        'ReturnByCustomerToolStripMenuItem
+        '
+        Me.ReturnByCustomerToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.ReturnByCustomerToolStripMenuItem.Name = "ReturnByCustomerToolStripMenuItem"
+        Me.ReturnByCustomerToolStripMenuItem.Size = New System.Drawing.Size(332, 32)
+        Me.ReturnByCustomerToolStripMenuItem.Text = "Return By Customer"
+        '
+        'CustomerCreditNotesToolStripMenuItem
+        '
+        Me.CustomerCreditNotesToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.CustomerCreditNotesToolStripMenuItem.Name = "CustomerCreditNotesToolStripMenuItem"
+        Me.CustomerCreditNotesToolStripMenuItem.Size = New System.Drawing.Size(332, 32)
+        Me.CustomerCreditNotesToolStripMenuItem.Text = "Customer Credit Note"
+        '
+        'SupplierCreditNoteToolStripMenuItem
+        '
+        Me.SupplierCreditNoteToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.SupplierCreditNoteToolStripMenuItem.Name = "SupplierCreditNoteToolStripMenuItem"
+        Me.SupplierCreditNoteToolStripMenuItem.Size = New System.Drawing.Size(332, 32)
+        Me.SupplierCreditNoteToolStripMenuItem.Text = "Supplier Credit Note"
+        '
+        'AllocationsToolStripMenuItem1
+        '
+        Me.AllocationsToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.AllocationsToolStripMenuItem1.Name = "AllocationsToolStripMenuItem1"
+        Me.AllocationsToolStripMenuItem1.Size = New System.Drawing.Size(332, 32)
+        Me.AllocationsToolStripMenuItem1.Text = "Allocations"
+        '
+        'ReceiptsToolStripMenuItem1
+        '
+        Me.ReceiptsToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.ReceiptsToolStripMenuItem1.Name = "ReceiptsToolStripMenuItem1"
+        Me.ReceiptsToolStripMenuItem1.Size = New System.Drawing.Size(332, 32)
+        Me.ReceiptsToolStripMenuItem1.Text = "Receipts"
+        '
+        'QuotationsToolStripMenuItem1
+        '
+        Me.QuotationsToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.QuotationsToolStripMenuItem1.Name = "QuotationsToolStripMenuItem1"
+        Me.QuotationsToolStripMenuItem1.Size = New System.Drawing.Size(332, 32)
+        Me.QuotationsToolStripMenuItem1.Text = "Quotations"
+        '
+        'ReturnToVendorToolStripMenuItem1
+        '
+        Me.ReturnToVendorToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.ReturnToVendorToolStripMenuItem1.Name = "ReturnToVendorToolStripMenuItem1"
+        Me.ReturnToVendorToolStripMenuItem1.Size = New System.Drawing.Size(332, 32)
+        Me.ReturnToVendorToolStripMenuItem1.Text = "Return to Vendor"
+        '
+        'SalesLedgeToolStripMenuItem1
+        '
+        Me.SalesLedgeToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.SalesLedgeToolStripMenuItem1.Name = "SalesLedgeToolStripMenuItem1"
+        Me.SalesLedgeToolStripMenuItem1.Size = New System.Drawing.Size(332, 32)
+        Me.SalesLedgeToolStripMenuItem1.Text = "Sales Ledge"
+        '
+        'SalesJournalToolStripMenuItem1
+        '
+        Me.SalesJournalToolStripMenuItem1.ForeColor = System.Drawing.Color.Navy
+        Me.SalesJournalToolStripMenuItem1.Name = "SalesJournalToolStripMenuItem1"
+        Me.SalesJournalToolStripMenuItem1.Size = New System.Drawing.Size(332, 32)
+        Me.SalesJournalToolStripMenuItem1.Text = "Sales Journal"
+        '
+        'MenuStrip6
+        '
+        Me.MenuStrip6.BackColor = System.Drawing.Color.Transparent
+        Me.MenuStrip6.Dock = System.Windows.Forms.DockStyle.None
+        Me.MenuStrip6.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip6.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
+        Me.MenuStrip6.Location = New System.Drawing.Point(9, 182)
+        Me.MenuStrip6.Name = "MenuStrip6"
+        Me.MenuStrip6.Size = New System.Drawing.Size(179, 36)
+        Me.MenuStrip6.TabIndex = 5
+        Me.MenuStrip6.Text = "MenuStrip6"
+        '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.BackColor = System.Drawing.Color.Transparent
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UserEnrolmentToolStripMenuItem, Me.TillAdministrationToolStripMenuItem, Me.BiometricEnrolmentToolStripMenuItem, Me.TillPositionToolStripMenuItem, Me.AccessControlToolStripMenuItem})
+        Me.ToolStripMenuItem30.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripMenuItem30.ForeColor = System.Drawing.Color.Navy
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(171, 32)
+        Me.ToolStripMenuItem30.Text = "Admin Functions"
+        '
+        'MenuStrip7
+        '
+        Me.MenuStrip7.BackColor = System.Drawing.Color.Transparent
+        Me.MenuStrip7.Dock = System.Windows.Forms.DockStyle.None
+        Me.MenuStrip7.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip7.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem31})
+        Me.MenuStrip7.Location = New System.Drawing.Point(9, 218)
+        Me.MenuStrip7.Name = "MenuStrip7"
+        Me.MenuStrip7.Size = New System.Drawing.Size(147, 36)
+        Me.MenuStrip7.TabIndex = 6
+        Me.MenuStrip7.Text = "MenuStrip7"
+        '
+        'ToolStripMenuItem31
+        '
+        Me.ToolStripMenuItem31.BackColor = System.Drawing.Color.Transparent
+        Me.ToolStripMenuItem31.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PersonnelEnrolmentToolStripMenuItem, Me.SalesPersonEnrolmentToolStripMenuItem})
+        Me.ToolStripMenuItem31.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripMenuItem31.ForeColor = System.Drawing.Color.Navy
+        Me.ToolStripMenuItem31.Name = "ToolStripMenuItem31"
+        Me.ToolStripMenuItem31.Size = New System.Drawing.Size(139, 32)
+        Me.ToolStripMenuItem31.Text = "HR Functions"
+        '
+        'MenuStrip8
+        '
+        Me.MenuStrip8.BackColor = System.Drawing.Color.Transparent
+        Me.MenuStrip8.Dock = System.Windows.Forms.DockStyle.None
+        Me.MenuStrip8.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip8.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem32})
+        Me.MenuStrip8.Location = New System.Drawing.Point(9, 254)
+        Me.MenuStrip8.Name = "MenuStrip8"
+        Me.MenuStrip8.Size = New System.Drawing.Size(168, 36)
+        Me.MenuStrip8.TabIndex = 7
+        Me.MenuStrip8.Text = "MenuStrip8"
+        '
+        'ToolStripMenuItem32
+        '
+        Me.ToolStripMenuItem32.BackColor = System.Drawing.Color.Transparent
+        Me.ToolStripMenuItem32.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EndOfDayToolStripMenuItem, Me.CustomDatingToolStripMenuItem})
+        Me.ToolStripMenuItem32.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripMenuItem32.ForeColor = System.Drawing.Color.Navy
+        Me.ToolStripMenuItem32.Name = "ToolStripMenuItem32"
+        Me.ToolStripMenuItem32.Size = New System.Drawing.Size(160, 32)
+        Me.ToolStripMenuItem32.Text = "Day Operations"
+        '
+        'PersonnelEnrolmentToolStripMenuItem
+        '
+        Me.PersonnelEnrolmentToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.PersonnelEnrolmentToolStripMenuItem.Name = "PersonnelEnrolmentToolStripMenuItem"
+        Me.PersonnelEnrolmentToolStripMenuItem.Size = New System.Drawing.Size(292, 32)
+        Me.PersonnelEnrolmentToolStripMenuItem.Text = "Personnel Enrolment"
+        '
+        'SalesPersonEnrolmentToolStripMenuItem
+        '
+        Me.SalesPersonEnrolmentToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.SalesPersonEnrolmentToolStripMenuItem.Name = "SalesPersonEnrolmentToolStripMenuItem"
+        Me.SalesPersonEnrolmentToolStripMenuItem.Size = New System.Drawing.Size(292, 32)
+        Me.SalesPersonEnrolmentToolStripMenuItem.Text = "Sales Person Enrolment"
+        '
+        'UserEnrolmentToolStripMenuItem
+        '
+        Me.UserEnrolmentToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.UserEnrolmentToolStripMenuItem.Name = "UserEnrolmentToolStripMenuItem"
+        Me.UserEnrolmentToolStripMenuItem.Size = New System.Drawing.Size(268, 32)
+        Me.UserEnrolmentToolStripMenuItem.Text = "User Enrolment"
+        '
+        'TillAdministrationToolStripMenuItem
+        '
+        Me.TillAdministrationToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.TillAdministrationToolStripMenuItem.Name = "TillAdministrationToolStripMenuItem"
+        Me.TillAdministrationToolStripMenuItem.Size = New System.Drawing.Size(268, 32)
+        Me.TillAdministrationToolStripMenuItem.Text = "Till Administration"
+        '
+        'BiometricEnrolmentToolStripMenuItem
+        '
+        Me.BiometricEnrolmentToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.BiometricEnrolmentToolStripMenuItem.Name = "BiometricEnrolmentToolStripMenuItem"
+        Me.BiometricEnrolmentToolStripMenuItem.Size = New System.Drawing.Size(268, 32)
+        Me.BiometricEnrolmentToolStripMenuItem.Text = "Biometric Enrolment"
+        '
+        'TillPositionToolStripMenuItem
+        '
+        Me.TillPositionToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.TillPositionToolStripMenuItem.Name = "TillPositionToolStripMenuItem"
+        Me.TillPositionToolStripMenuItem.Size = New System.Drawing.Size(268, 32)
+        Me.TillPositionToolStripMenuItem.Text = "Till Position"
+        '
+        'AccessControlToolStripMenuItem
+        '
+        Me.AccessControlToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.AccessControlToolStripMenuItem.Name = "AccessControlToolStripMenuItem"
+        Me.AccessControlToolStripMenuItem.Size = New System.Drawing.Size(268, 32)
+        Me.AccessControlToolStripMenuItem.Text = "Access Control"
+        '
+        'EndOfDayToolStripMenuItem
+        '
+        Me.EndOfDayToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.EndOfDayToolStripMenuItem.Name = "EndOfDayToolStripMenuItem"
+        Me.EndOfDayToolStripMenuItem.Size = New System.Drawing.Size(221, 32)
+        Me.EndOfDayToolStripMenuItem.Text = "End of Day"
+        '
+        'CustomDatingToolStripMenuItem
+        '
+        Me.CustomDatingToolStripMenuItem.ForeColor = System.Drawing.Color.Navy
+        Me.CustomDatingToolStripMenuItem.Name = "CustomDatingToolStripMenuItem"
+        Me.CustomDatingToolStripMenuItem.Size = New System.Drawing.Size(221, 32)
+        Me.CustomDatingToolStripMenuItem.Text = "Custom Dating"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(75, 43)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(205, 25)
+        Me.Label1.TabIndex = 23
+        Me.Label1.Text = "Bumaco Enterprises"
+        '
+        'EditToolStripMenuItem
+        '
+        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(47, 24)
+        Me.EditToolStripMenuItem.Text = "&Edit"
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(53, 24)
+        Me.HelpToolStripMenuItem.Text = "Help"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DarkGray
         Me.ClientSize = New System.Drawing.Size(1780, 609)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.ToolStripContainer1)
         Me.Controls.Add(Me.lblCustDate)
         Me.Controls.Add(Me.lblCustomDate)
         Me.Controls.Add(Me.btnUpdate)
@@ -1040,6 +1670,26 @@ Partial Class frmMain
         Me.ToolStrip1.PerformLayout()
         CType(Me.pctLogo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ToolStripContainer1.ContentPanel.ResumeLayout(False)
+        Me.ToolStripContainer1.ContentPanel.PerformLayout()
+        Me.ToolStripContainer1.ResumeLayout(False)
+        Me.ToolStripContainer1.PerformLayout()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
+        Me.MenuStrip3.ResumeLayout(False)
+        Me.MenuStrip3.PerformLayout()
+        Me.MenuStrip4.ResumeLayout(False)
+        Me.MenuStrip4.PerformLayout()
+        Me.MenuStrip5.ResumeLayout(False)
+        Me.MenuStrip5.PerformLayout()
+        Me.MenuStrip6.ResumeLayout(False)
+        Me.MenuStrip6.PerformLayout()
+        Me.MenuStrip7.ResumeLayout(False)
+        Me.MenuStrip7.PerformLayout()
+        Me.MenuStrip8.ResumeLayout(False)
+        Me.MenuStrip8.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1154,4 +1804,70 @@ Partial Class frmMain
     Friend WithEvents ToolStripButton2 As ToolStripButton
     Friend WithEvents SalesPersonsManagementToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator10 As ToolStripSeparator
+    Friend WithEvents ToolStripContainer1 As ToolStripContainer
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents HomeToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MenuStrip2 As MenuStrip
+    Friend WithEvents ToolStripMenuItem26 As ToolStripMenuItem
+    Friend WithEvents MasToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ProductInquiryToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SuppliersToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents CompanyProfileToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents CorporateCustomersToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents MassManagementToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents MenuStrip4 As MenuStrip
+    Friend WithEvents ToolStripMenuItem28 As ToolStripMenuItem
+    Friend WithEvents ReportsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DailySalesReportToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents ZHistoryToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents CashierVarianceToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents CreditNoteReportToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents CreditCardSalesToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents GiftVoucherSalesToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents ReturnedBottlesToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents ProductListingReportToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents BOReportsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MenuStrip3 As MenuStrip
+    Friend WithEvents ToolStripMenuItem27 As ToolStripMenuItem
+    Friend WithEvents LocalPurchaseOrderToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SupplySalesReportToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents StockCardReportToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SupplierStockStatusToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents FastMovingItemsToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents SlowMovingItemsToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents NegativeStockReportToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents PrintedLPOToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents PendingLPOToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents GRNReportToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents PriceChangeReportToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents MenuStrip5 As MenuStrip
+    Friend WithEvents ToolStripMenuItem29 As ToolStripMenuItem
+    Friend WithEvents GoodsReceivedNoteGRNToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ReturnByCustomerToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents CustomerCreditNotesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SupplierCreditNoteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AllocationsToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents ReceiptsToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents QuotationsToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents ReturnToVendorToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents SalesLedgeToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents SalesJournalToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents MenuStrip8 As MenuStrip
+    Friend WithEvents ToolStripMenuItem32 As ToolStripMenuItem
+    Friend WithEvents MenuStrip7 As MenuStrip
+    Friend WithEvents ToolStripMenuItem31 As ToolStripMenuItem
+    Friend WithEvents MenuStrip6 As MenuStrip
+    Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents PersonnelEnrolmentToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SalesPersonEnrolmentToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents UserEnrolmentToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TillAdministrationToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BiometricEnrolmentToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TillPositionToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AccessControlToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EndOfDayToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents CustomDatingToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Label1 As Label
+    Friend WithEvents EditToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
 End Class
