@@ -651,4 +651,28 @@ Public Class frmMain
     Private Sub BiometricEnrolmentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BiometricEnrolmentToolStripMenuItem.Click
 
     End Sub
+
+    Private Sub MasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MasToolStripMenuItem.Click
+        Dim f As New frmProductMaster With {.TopLevel = False, .AutoSize = False}
+        pnlBody.Controls.Add(f)
+        f.Show()
+    End Sub
+
+    Private Sub ProductInquiryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProductInquiryToolStripMenuItem.Click
+        Dim f As New frmProductInquiry With {.TopLevel = False, .AutoSize = False}
+        pnlBody.Controls.Add(f)
+        f.Show()
+    End Sub
+
+    Private Sub SuppliersToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SuppliersToolStripMenuItem1.Click
+        Dim f As New frmSuppliers With {.TopLevel = False, .AutoSize = False}
+        pnlBody.Controls.Add(f)
+        f.Show()
+    End Sub
+
+    Private Sub CompanyProfileToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles CompanyProfileToolStripMenuItem1.Click
+        Dim f As New frmCompany With {.TopLevel = False, .AutoSize = False}
+        pnlBody.Controls.Add(f)
+        f.Show()
+    End Sub
 End Class
