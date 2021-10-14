@@ -877,4 +877,19 @@ Public Class frmMain
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
+
+
+
+
+
+
+    Private Sub hideSubMenu()
+        pnlMastersMenu.Visible = False
+        pnlOrdersMenu.Visible = False
+    End Sub
+
+
+
+
+
 End Class

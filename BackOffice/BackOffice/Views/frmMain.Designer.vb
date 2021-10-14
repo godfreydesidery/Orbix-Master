@@ -217,6 +217,53 @@ Partial Class frmMain
         Me.HomeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlBody = New System.Windows.Forms.Panel()
         Me.txtCompanyName = New System.Windows.Forms.TextBox()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.pnlSideMenu = New System.Windows.Forms.Panel()
+        Me.btnDashboard = New System.Windows.Forms.Button()
+        Me.btnMasters = New System.Windows.Forms.Button()
+        Me.pnlMastersMenu = New System.Windows.Forms.Panel()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.btnOrders = New System.Windows.Forms.Button()
+        Me.pnlOrdersMenu = New System.Windows.Forms.Panel()
+        Me.Button11 = New System.Windows.Forms.Button()
+        Me.btnReports = New System.Windows.Forms.Button()
+        Me.pnlReportMenu = New System.Windows.Forms.Panel()
+        Me.Button13 = New System.Windows.Forms.Button()
+        Me.Button14 = New System.Windows.Forms.Button()
+        Me.Button15 = New System.Windows.Forms.Button()
+        Me.Button16 = New System.Windows.Forms.Button()
+        Me.Button17 = New System.Windows.Forms.Button()
+        Me.Button18 = New System.Windows.Forms.Button()
+        Me.Button19 = New System.Windows.Forms.Button()
+        Me.Button20 = New System.Windows.Forms.Button()
+        Me.Button21 = New System.Windows.Forms.Button()
+        Me.Button7 = New System.Windows.Forms.Button()
+        Me.Button8 = New System.Windows.Forms.Button()
+        Me.Button9 = New System.Windows.Forms.Button()
+        Me.Button10 = New System.Windows.Forms.Button()
+        Me.Button22 = New System.Windows.Forms.Button()
+        Me.Button23 = New System.Windows.Forms.Button()
+        Me.Button24 = New System.Windows.Forms.Button()
+        Me.Button25 = New System.Windows.Forms.Button()
+        Me.Button26 = New System.Windows.Forms.Button()
+        Me.Button27 = New System.Windows.Forms.Button()
+        Me.Button28 = New System.Windows.Forms.Button()
+        Me.Button29 = New System.Windows.Forms.Button()
+        Me.Button30 = New System.Windows.Forms.Button()
+        Me.Button31 = New System.Windows.Forms.Button()
+        Me.Button32 = New System.Windows.Forms.Button()
+        Me.Button33 = New System.Windows.Forms.Button()
+        Me.Button34 = New System.Windows.Forms.Button()
+        Me.Button35 = New System.Windows.Forms.Button()
+        Me.Button36 = New System.Windows.Forms.Button()
+        Me.Button37 = New System.Windows.Forms.Button()
+        Me.Button38 = New System.Windows.Forms.Button()
+        Me.Button39 = New System.Windows.Forms.Button()
+        Me.Button40 = New System.Windows.Forms.Button()
         Me.MenuStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
@@ -232,6 +279,11 @@ Partial Class frmMain
         Me.MenuStrip2.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.pnlBody.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.pnlSideMenu.SuspendLayout()
+        Me.pnlMastersMenu.SuspendLayout()
+        Me.pnlOrdersMenu.SuspendLayout()
+        Me.pnlReportMenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip
@@ -292,7 +344,7 @@ Partial Class frmMain
         Me.StatusStrip.BackColor = System.Drawing.Color.Gainsboro
         Me.StatusStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.tstrpAlias, Me.tsrpDateTime})
-        Me.StatusStrip.Location = New System.Drawing.Point(0, 584)
+        Me.StatusStrip.Location = New System.Drawing.Point(0, 833)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
         Me.StatusStrip.Size = New System.Drawing.Size(1780, 25)
@@ -1035,7 +1087,7 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtCustomDate.Location = New System.Drawing.Point(464, 27)
         Me.dtCustomDate.Name = "dtCustomDate"
-        Me.dtCustomDate.Size = New System.Drawing.Size(334, 22)
+        Me.dtCustomDate.Size = New System.Drawing.Size(108, 22)
         Me.dtCustomDate.TabIndex = 18
         Me.dtCustomDate.Visible = False
         '
@@ -1046,7 +1098,7 @@ Partial Class frmMain
         Me.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btnUpdate.Location = New System.Drawing.Point(464, 55)
         Me.btnUpdate.Name = "btnUpdate"
-        Me.btnUpdate.Size = New System.Drawing.Size(334, 51)
+        Me.btnUpdate.Size = New System.Drawing.Size(108, 51)
         Me.btnUpdate.TabIndex = 19
         Me.btnUpdate.Text = "Update"
         Me.btnUpdate.UseVisualStyleBackColor = True
@@ -1057,7 +1109,7 @@ Partial Class frmMain
         Me.lblCustomDate.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCustomDate.AutoSize = True
         Me.lblCustomDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCustomDate.Location = New System.Drawing.Point(304, 123)
+        Me.lblCustomDate.Location = New System.Drawing.Point(394, 234)
         Me.lblCustomDate.Name = "lblCustomDate"
         Me.lblCustomDate.Size = New System.Drawing.Size(92, 29)
         Me.lblCustomDate.TabIndex = 20
@@ -1080,9 +1132,9 @@ Partial Class frmMain
         '
         Me.pctLogo.BackColor = System.Drawing.Color.Silver
         Me.pctLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.pctLogo.Location = New System.Drawing.Point(63, 40)
+        Me.pctLogo.Location = New System.Drawing.Point(4, 3)
         Me.pctLogo.Name = "pctLogo"
-        Me.pctLogo.Size = New System.Drawing.Size(58, 51)
+        Me.pctLogo.Size = New System.Drawing.Size(65, 58)
         Me.pctLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pctLogo.TabIndex = 16
         Me.pctLogo.TabStop = False
@@ -1111,7 +1163,7 @@ Partial Class frmMain
         Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.MenuStrip2)
         Me.ToolStripContainer1.ContentPanel.Controls.Add(Me.MenuStrip1)
         Me.ToolStripContainer1.ContentPanel.Size = New System.Drawing.Size(211, 430)
-        Me.ToolStripContainer1.Location = New System.Drawing.Point(0, 151)
+        Me.ToolStripContainer1.Location = New System.Drawing.Point(852, 27)
         Me.ToolStripContainer1.Name = "ToolStripContainer1"
         Me.ToolStripContainer1.Size = New System.Drawing.Size(211, 430)
         Me.ToolStripContainer1.TabIndex = 22
@@ -1387,7 +1439,7 @@ Partial Class frmMain
         Me.MenuStrip4.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem28})
         Me.MenuStrip4.Location = New System.Drawing.Point(9, 110)
         Me.MenuStrip4.Name = "MenuStrip4"
-        Me.MenuStrip4.Size = New System.Drawing.Size(214, 36)
+        Me.MenuStrip4.Size = New System.Drawing.Size(99, 36)
         Me.MenuStrip4.TabIndex = 3
         Me.MenuStrip4.Text = "MenuStrip4"
         '
@@ -1770,11 +1822,12 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlBody.Controls.Add(Me.lblCustDate)
         Me.pnlBody.Controls.Add(Me.lblCustomDate)
+        Me.pnlBody.Controls.Add(Me.ToolStripContainer1)
         Me.pnlBody.Controls.Add(Me.btnUpdate)
         Me.pnlBody.Controls.Add(Me.dtCustomDate)
-        Me.pnlBody.Location = New System.Drawing.Point(217, 104)
+        Me.pnlBody.Location = New System.Drawing.Point(443, 178)
         Me.pnlBody.Name = "pnlBody"
-        Me.pnlBody.Size = New System.Drawing.Size(1563, 477)
+        Me.pnlBody.Size = New System.Drawing.Size(1337, 652)
         Me.pnlBody.TabIndex = 24
         '
         'txtCompanyName
@@ -1783,7 +1836,7 @@ Partial Class frmMain
         Me.txtCompanyName.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtCompanyName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCompanyName.ForeColor = System.Drawing.Color.Teal
-        Me.txtCompanyName.Location = New System.Drawing.Point(0, 100)
+        Me.txtCompanyName.Location = New System.Drawing.Point(477, 109)
         Me.txtCompanyName.Multiline = True
         Me.txtCompanyName.Name = "txtCompanyName"
         Me.txtCompanyName.ReadOnly = True
@@ -1792,16 +1845,737 @@ Partial Class frmMain
         Me.txtCompanyName.Text = "Bumaco Enterprises Limited"
         Me.txtCompanyName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.pctLogo)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel2.Location = New System.Drawing.Point(0, 28)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(1780, 68)
+        Me.Panel2.TabIndex = 29
+        '
+        'pnlSideMenu
+        '
+        Me.pnlSideMenu.AutoScroll = True
+        Me.pnlSideMenu.BackColor = System.Drawing.Color.FromArgb(CType(CType(11, Byte), Integer), CType(CType(7, Byte), Integer), CType(CType(17, Byte), Integer))
+        Me.pnlSideMenu.Controls.Add(Me.Button18)
+        Me.pnlSideMenu.Controls.Add(Me.pnlReportMenu)
+        Me.pnlSideMenu.Controls.Add(Me.btnReports)
+        Me.pnlSideMenu.Controls.Add(Me.pnlOrdersMenu)
+        Me.pnlSideMenu.Controls.Add(Me.btnOrders)
+        Me.pnlSideMenu.Controls.Add(Me.pnlMastersMenu)
+        Me.pnlSideMenu.Controls.Add(Me.btnMasters)
+        Me.pnlSideMenu.Controls.Add(Me.btnDashboard)
+        Me.pnlSideMenu.Dock = System.Windows.Forms.DockStyle.Left
+        Me.pnlSideMenu.Location = New System.Drawing.Point(0, 96)
+        Me.pnlSideMenu.Name = "pnlSideMenu"
+        Me.pnlSideMenu.Size = New System.Drawing.Size(300, 737)
+        Me.pnlSideMenu.TabIndex = 30
+        '
+        'btnDashboard
+        '
+        Me.btnDashboard.Dock = System.Windows.Forms.DockStyle.Top
+        Me.btnDashboard.FlatAppearance.BorderSize = 0
+        Me.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnDashboard.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.btnDashboard.Location = New System.Drawing.Point(0, 0)
+        Me.btnDashboard.Name = "btnDashboard"
+        Me.btnDashboard.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
+        Me.btnDashboard.Size = New System.Drawing.Size(279, 40)
+        Me.btnDashboard.TabIndex = 0
+        Me.btnDashboard.Text = "&Dashboard"
+        Me.btnDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnDashboard.UseVisualStyleBackColor = True
+        '
+        'btnMasters
+        '
+        Me.btnMasters.Dock = System.Windows.Forms.DockStyle.Top
+        Me.btnMasters.FlatAppearance.BorderSize = 0
+        Me.btnMasters.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnMasters.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.btnMasters.Location = New System.Drawing.Point(0, 40)
+        Me.btnMasters.Name = "btnMasters"
+        Me.btnMasters.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
+        Me.btnMasters.Size = New System.Drawing.Size(279, 40)
+        Me.btnMasters.TabIndex = 2
+        Me.btnMasters.Text = "&Masters"
+        Me.btnMasters.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnMasters.UseVisualStyleBackColor = True
+        '
+        'pnlMastersMenu
+        '
+        Me.pnlMastersMenu.BackColor = System.Drawing.Color.FromArgb(CType(CType(5, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(39, Byte), Integer))
+        Me.pnlMastersMenu.Controls.Add(Me.Button21)
+        Me.pnlMastersMenu.Controls.Add(Me.Button20)
+        Me.pnlMastersMenu.Controls.Add(Me.Button19)
+        Me.pnlMastersMenu.Controls.Add(Me.Button5)
+        Me.pnlMastersMenu.Controls.Add(Me.Button4)
+        Me.pnlMastersMenu.Controls.Add(Me.Button3)
+        Me.pnlMastersMenu.Controls.Add(Me.Button2)
+        Me.pnlMastersMenu.Controls.Add(Me.Button1)
+        Me.pnlMastersMenu.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pnlMastersMenu.Location = New System.Drawing.Point(0, 80)
+        Me.pnlMastersMenu.Name = "pnlMastersMenu"
+        Me.pnlMastersMenu.Size = New System.Drawing.Size(279, 342)
+        Me.pnlMastersMenu.TabIndex = 3
+        '
+        'Button1
+        '
+        Me.Button1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button1.FlatAppearance.BorderSize = 0
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button1.Location = New System.Drawing.Point(0, 0)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button1.Size = New System.Drawing.Size(279, 40)
+        Me.Button1.TabIndex = 0
+        Me.Button1.Text = "Product Master"
+        Me.Button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button2.FlatAppearance.BorderSize = 0
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button2.Location = New System.Drawing.Point(0, 40)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button2.Size = New System.Drawing.Size(279, 40)
+        Me.Button2.TabIndex = 1
+        Me.Button2.Text = "Product Inquiry"
+        Me.Button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button3.FlatAppearance.BorderSize = 0
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button3.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button3.Location = New System.Drawing.Point(0, 80)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button3.Size = New System.Drawing.Size(279, 40)
+        Me.Button3.TabIndex = 2
+        Me.Button3.Text = "Suppliers"
+        Me.Button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button4
+        '
+        Me.Button4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button4.FlatAppearance.BorderSize = 0
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button4.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button4.Location = New System.Drawing.Point(0, 120)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button4.Size = New System.Drawing.Size(279, 40)
+        Me.Button4.TabIndex = 3
+        Me.Button4.Text = "Company Profile"
+        Me.Button4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'Button5
+        '
+        Me.Button5.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button5.FlatAppearance.BorderSize = 0
+        Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button5.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button5.Location = New System.Drawing.Point(0, 160)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button5.Size = New System.Drawing.Size(279, 40)
+        Me.Button5.TabIndex = 4
+        Me.Button5.Text = "Corporate Customers"
+        Me.Button5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'btnOrders
+        '
+        Me.btnOrders.Dock = System.Windows.Forms.DockStyle.Top
+        Me.btnOrders.FlatAppearance.BorderSize = 0
+        Me.btnOrders.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnOrders.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.btnOrders.Location = New System.Drawing.Point(0, 422)
+        Me.btnOrders.Name = "btnOrders"
+        Me.btnOrders.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
+        Me.btnOrders.Size = New System.Drawing.Size(279, 40)
+        Me.btnOrders.TabIndex = 4
+        Me.btnOrders.Text = "&Orders"
+        Me.btnOrders.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnOrders.UseVisualStyleBackColor = True
+        '
+        'pnlOrdersMenu
+        '
+        Me.pnlOrdersMenu.BackColor = System.Drawing.Color.FromArgb(CType(CType(5, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(39, Byte), Integer))
+        Me.pnlOrdersMenu.Controls.Add(Me.Button11)
+        Me.pnlOrdersMenu.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pnlOrdersMenu.Location = New System.Drawing.Point(0, 462)
+        Me.pnlOrdersMenu.Name = "pnlOrdersMenu"
+        Me.pnlOrdersMenu.Size = New System.Drawing.Size(279, 57)
+        Me.pnlOrdersMenu.TabIndex = 5
+        '
+        'Button11
+        '
+        Me.Button11.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button11.FlatAppearance.BorderSize = 0
+        Me.Button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button11.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button11.Location = New System.Drawing.Point(0, 0)
+        Me.Button11.Name = "Button11"
+        Me.Button11.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button11.Size = New System.Drawing.Size(279, 40)
+        Me.Button11.TabIndex = 0
+        Me.Button11.Text = "Local Purchase Order"
+        Me.Button11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button11.UseVisualStyleBackColor = True
+        '
+        'btnReports
+        '
+        Me.btnReports.Dock = System.Windows.Forms.DockStyle.Top
+        Me.btnReports.FlatAppearance.BorderSize = 0
+        Me.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnReports.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.btnReports.Location = New System.Drawing.Point(0, 519)
+        Me.btnReports.Name = "btnReports"
+        Me.btnReports.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
+        Me.btnReports.Size = New System.Drawing.Size(279, 40)
+        Me.btnReports.TabIndex = 6
+        Me.btnReports.Text = "&Reports"
+        Me.btnReports.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnReports.UseVisualStyleBackColor = True
+        '
+        'pnlReportMenu
+        '
+        Me.pnlReportMenu.BackColor = System.Drawing.Color.FromArgb(CType(CType(5, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(39, Byte), Integer))
+        Me.pnlReportMenu.Controls.Add(Me.Button40)
+        Me.pnlReportMenu.Controls.Add(Me.Button39)
+        Me.pnlReportMenu.Controls.Add(Me.Button38)
+        Me.pnlReportMenu.Controls.Add(Me.Button37)
+        Me.pnlReportMenu.Controls.Add(Me.Button36)
+        Me.pnlReportMenu.Controls.Add(Me.Button35)
+        Me.pnlReportMenu.Controls.Add(Me.Button34)
+        Me.pnlReportMenu.Controls.Add(Me.Button33)
+        Me.pnlReportMenu.Controls.Add(Me.Button32)
+        Me.pnlReportMenu.Controls.Add(Me.Button31)
+        Me.pnlReportMenu.Controls.Add(Me.Button30)
+        Me.pnlReportMenu.Controls.Add(Me.Button29)
+        Me.pnlReportMenu.Controls.Add(Me.Button28)
+        Me.pnlReportMenu.Controls.Add(Me.Button27)
+        Me.pnlReportMenu.Controls.Add(Me.Button26)
+        Me.pnlReportMenu.Controls.Add(Me.Button25)
+        Me.pnlReportMenu.Controls.Add(Me.Button24)
+        Me.pnlReportMenu.Controls.Add(Me.Button23)
+        Me.pnlReportMenu.Controls.Add(Me.Button22)
+        Me.pnlReportMenu.Controls.Add(Me.Button10)
+        Me.pnlReportMenu.Controls.Add(Me.Button9)
+        Me.pnlReportMenu.Controls.Add(Me.Button8)
+        Me.pnlReportMenu.Controls.Add(Me.Button7)
+        Me.pnlReportMenu.Controls.Add(Me.Button13)
+        Me.pnlReportMenu.Controls.Add(Me.Button14)
+        Me.pnlReportMenu.Controls.Add(Me.Button15)
+        Me.pnlReportMenu.Controls.Add(Me.Button16)
+        Me.pnlReportMenu.Controls.Add(Me.Button17)
+        Me.pnlReportMenu.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pnlReportMenu.Location = New System.Drawing.Point(0, 559)
+        Me.pnlReportMenu.Name = "pnlReportMenu"
+        Me.pnlReportMenu.Size = New System.Drawing.Size(279, 1011)
+        Me.pnlReportMenu.TabIndex = 7
+        '
+        'Button13
+        '
+        Me.Button13.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button13.FlatAppearance.BorderSize = 0
+        Me.Button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button13.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button13.Location = New System.Drawing.Point(0, 140)
+        Me.Button13.Name = "Button13"
+        Me.Button13.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button13.Size = New System.Drawing.Size(279, 35)
+        Me.Button13.TabIndex = 4
+        Me.Button13.Text = "Credit Card Sales"
+        Me.Button13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button13.UseVisualStyleBackColor = True
+        '
+        'Button14
+        '
+        Me.Button14.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button14.FlatAppearance.BorderSize = 0
+        Me.Button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button14.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button14.Location = New System.Drawing.Point(0, 105)
+        Me.Button14.Name = "Button14"
+        Me.Button14.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button14.Size = New System.Drawing.Size(279, 35)
+        Me.Button14.TabIndex = 3
+        Me.Button14.Text = "Credit Note Report"
+        Me.Button14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button14.UseVisualStyleBackColor = True
+        '
+        'Button15
+        '
+        Me.Button15.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button15.FlatAppearance.BorderSize = 0
+        Me.Button15.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button15.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button15.Location = New System.Drawing.Point(0, 70)
+        Me.Button15.Name = "Button15"
+        Me.Button15.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button15.Size = New System.Drawing.Size(279, 35)
+        Me.Button15.TabIndex = 2
+        Me.Button15.Text = "Cashier Variance"
+        Me.Button15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button15.UseVisualStyleBackColor = True
+        '
+        'Button16
+        '
+        Me.Button16.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button16.FlatAppearance.BorderSize = 0
+        Me.Button16.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button16.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button16.Location = New System.Drawing.Point(0, 35)
+        Me.Button16.Name = "Button16"
+        Me.Button16.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button16.Size = New System.Drawing.Size(279, 35)
+        Me.Button16.TabIndex = 1
+        Me.Button16.Text = "Z History"
+        Me.Button16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button16.UseVisualStyleBackColor = True
+        '
+        'Button17
+        '
+        Me.Button17.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button17.FlatAppearance.BorderSize = 0
+        Me.Button17.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button17.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button17.Location = New System.Drawing.Point(0, 0)
+        Me.Button17.Name = "Button17"
+        Me.Button17.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button17.Size = New System.Drawing.Size(279, 35)
+        Me.Button17.TabIndex = 0
+        Me.Button17.Text = "Daily Sales Report"
+        Me.Button17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button17.UseVisualStyleBackColor = True
+        '
+        'Button18
+        '
+        Me.Button18.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button18.FlatAppearance.BorderSize = 0
+        Me.Button18.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button18.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button18.Location = New System.Drawing.Point(0, 1570)
+        Me.Button18.Name = "Button18"
+        Me.Button18.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
+        Me.Button18.Size = New System.Drawing.Size(279, 40)
+        Me.Button18.TabIndex = 8
+        Me.Button18.Text = "&Masters"
+        Me.Button18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button18.UseVisualStyleBackColor = True
+        '
+        'Button19
+        '
+        Me.Button19.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button19.FlatAppearance.BorderSize = 0
+        Me.Button19.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button19.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button19.Location = New System.Drawing.Point(0, 200)
+        Me.Button19.Name = "Button19"
+        Me.Button19.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button19.Size = New System.Drawing.Size(279, 40)
+        Me.Button19.TabIndex = 5
+        Me.Button19.Text = "Mass Management"
+        Me.Button19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button19.UseVisualStyleBackColor = True
+        '
+        'Button20
+        '
+        Me.Button20.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button20.FlatAppearance.BorderSize = 0
+        Me.Button20.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button20.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button20.Location = New System.Drawing.Point(0, 240)
+        Me.Button20.Name = "Button20"
+        Me.Button20.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button20.Size = New System.Drawing.Size(279, 40)
+        Me.Button20.TabIndex = 6
+        Me.Button20.Text = "Material Categories"
+        Me.Button20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button20.UseVisualStyleBackColor = True
+        '
+        'Button21
+        '
+        Me.Button21.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button21.FlatAppearance.BorderSize = 0
+        Me.Button21.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button21.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button21.Location = New System.Drawing.Point(0, 280)
+        Me.Button21.Name = "Button21"
+        Me.Button21.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button21.Size = New System.Drawing.Size(279, 40)
+        Me.Button21.TabIndex = 7
+        Me.Button21.Text = "Materials"
+        Me.Button21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button21.UseVisualStyleBackColor = True
+        '
+        'Button7
+        '
+        Me.Button7.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button7.FlatAppearance.BorderSize = 0
+        Me.Button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button7.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button7.Location = New System.Drawing.Point(0, 175)
+        Me.Button7.Name = "Button7"
+        Me.Button7.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button7.Size = New System.Drawing.Size(279, 35)
+        Me.Button7.TabIndex = 5
+        Me.Button7.Text = "Gift Voucher Sales"
+        Me.Button7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button7.UseVisualStyleBackColor = True
+        '
+        'Button8
+        '
+        Me.Button8.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button8.FlatAppearance.BorderSize = 0
+        Me.Button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button8.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button8.Location = New System.Drawing.Point(0, 210)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button8.Size = New System.Drawing.Size(279, 35)
+        Me.Button8.TabIndex = 6
+        Me.Button8.Text = "Returned Bottles"
+        Me.Button8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button8.UseVisualStyleBackColor = True
+        '
+        'Button9
+        '
+        Me.Button9.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button9.FlatAppearance.BorderSize = 0
+        Me.Button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button9.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button9.Location = New System.Drawing.Point(0, 245)
+        Me.Button9.Name = "Button9"
+        Me.Button9.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button9.Size = New System.Drawing.Size(279, 35)
+        Me.Button9.TabIndex = 7
+        Me.Button9.Text = "Product Listing Report"
+        Me.Button9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button9.UseVisualStyleBackColor = True
+        '
+        'Button10
+        '
+        Me.Button10.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button10.FlatAppearance.BorderSize = 0
+        Me.Button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button10.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button10.Location = New System.Drawing.Point(0, 280)
+        Me.Button10.Name = "Button10"
+        Me.Button10.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button10.Size = New System.Drawing.Size(279, 35)
+        Me.Button10.TabIndex = 8
+        Me.Button10.Text = "Petty Cash Report"
+        Me.Button10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button10.UseVisualStyleBackColor = True
+        '
+        'Button22
+        '
+        Me.Button22.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button22.FlatAppearance.BorderSize = 0
+        Me.Button22.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button22.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button22.Location = New System.Drawing.Point(0, 315)
+        Me.Button22.Name = "Button22"
+        Me.Button22.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button22.Size = New System.Drawing.Size(279, 35)
+        Me.Button22.TabIndex = 9
+        Me.Button22.Text = "Supply Sales Report"
+        Me.Button22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button22.UseVisualStyleBackColor = True
+        '
+        'Button23
+        '
+        Me.Button23.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button23.FlatAppearance.BorderSize = 0
+        Me.Button23.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button23.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button23.Location = New System.Drawing.Point(0, 350)
+        Me.Button23.Name = "Button23"
+        Me.Button23.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button23.Size = New System.Drawing.Size(279, 35)
+        Me.Button23.TabIndex = 10
+        Me.Button23.Text = "Stock Card Report"
+        Me.Button23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button23.UseVisualStyleBackColor = True
+        '
+        'Button24
+        '
+        Me.Button24.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button24.FlatAppearance.BorderSize = 0
+        Me.Button24.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button24.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button24.Location = New System.Drawing.Point(0, 385)
+        Me.Button24.Name = "Button24"
+        Me.Button24.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button24.Size = New System.Drawing.Size(279, 35)
+        Me.Button24.TabIndex = 11
+        Me.Button24.Text = "Supplier Stock Status"
+        Me.Button24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button24.UseVisualStyleBackColor = True
+        '
+        'Button25
+        '
+        Me.Button25.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button25.FlatAppearance.BorderSize = 0
+        Me.Button25.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button25.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button25.Location = New System.Drawing.Point(0, 420)
+        Me.Button25.Name = "Button25"
+        Me.Button25.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button25.Size = New System.Drawing.Size(279, 35)
+        Me.Button25.TabIndex = 12
+        Me.Button25.Text = "Fast Moving Products"
+        Me.Button25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button25.UseVisualStyleBackColor = True
+        '
+        'Button26
+        '
+        Me.Button26.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button26.FlatAppearance.BorderSize = 0
+        Me.Button26.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button26.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button26.Location = New System.Drawing.Point(0, 455)
+        Me.Button26.Name = "Button26"
+        Me.Button26.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button26.Size = New System.Drawing.Size(279, 35)
+        Me.Button26.TabIndex = 13
+        Me.Button26.Text = "Slow Moving Products"
+        Me.Button26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button26.UseVisualStyleBackColor = True
+        '
+        'Button27
+        '
+        Me.Button27.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button27.FlatAppearance.BorderSize = 0
+        Me.Button27.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button27.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button27.Location = New System.Drawing.Point(0, 490)
+        Me.Button27.Name = "Button27"
+        Me.Button27.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button27.Size = New System.Drawing.Size(279, 35)
+        Me.Button27.TabIndex = 14
+        Me.Button27.Text = "Negative Stock Report"
+        Me.Button27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button27.UseVisualStyleBackColor = True
+        '
+        'Button28
+        '
+        Me.Button28.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button28.FlatAppearance.BorderSize = 0
+        Me.Button28.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button28.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button28.Location = New System.Drawing.Point(0, 525)
+        Me.Button28.Name = "Button28"
+        Me.Button28.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button28.Size = New System.Drawing.Size(279, 35)
+        Me.Button28.TabIndex = 15
+        Me.Button28.Text = "Printed LPO"
+        Me.Button28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button28.UseVisualStyleBackColor = True
+        '
+        'Button29
+        '
+        Me.Button29.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button29.FlatAppearance.BorderSize = 0
+        Me.Button29.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button29.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button29.Location = New System.Drawing.Point(0, 560)
+        Me.Button29.Name = "Button29"
+        Me.Button29.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button29.Size = New System.Drawing.Size(279, 35)
+        Me.Button29.TabIndex = 16
+        Me.Button29.Text = "Pending LPO"
+        Me.Button29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button29.UseVisualStyleBackColor = True
+        '
+        'Button30
+        '
+        Me.Button30.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button30.FlatAppearance.BorderSize = 0
+        Me.Button30.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button30.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button30.Location = New System.Drawing.Point(0, 595)
+        Me.Button30.Name = "Button30"
+        Me.Button30.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button30.Size = New System.Drawing.Size(279, 35)
+        Me.Button30.TabIndex = 17
+        Me.Button30.Text = "GRN Report"
+        Me.Button30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button30.UseVisualStyleBackColor = True
+        '
+        'Button31
+        '
+        Me.Button31.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button31.FlatAppearance.BorderSize = 0
+        Me.Button31.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button31.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button31.Location = New System.Drawing.Point(0, 630)
+        Me.Button31.Name = "Button31"
+        Me.Button31.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button31.Size = New System.Drawing.Size(279, 35)
+        Me.Button31.TabIndex = 18
+        Me.Button31.Text = "Price Change Report"
+        Me.Button31.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button31.UseVisualStyleBackColor = True
+        '
+        'Button32
+        '
+        Me.Button32.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button32.FlatAppearance.BorderSize = 0
+        Me.Button32.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button32.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button32.Location = New System.Drawing.Point(0, 665)
+        Me.Button32.Name = "Button32"
+        Me.Button32.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button32.Size = New System.Drawing.Size(279, 35)
+        Me.Button32.TabIndex = 19
+        Me.Button32.Text = "Supply Sales Report"
+        Me.Button32.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button32.UseVisualStyleBackColor = True
+        '
+        'Button33
+        '
+        Me.Button33.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button33.FlatAppearance.BorderSize = 0
+        Me.Button33.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button33.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button33.Location = New System.Drawing.Point(0, 700)
+        Me.Button33.Name = "Button33"
+        Me.Button33.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button33.Size = New System.Drawing.Size(279, 35)
+        Me.Button33.TabIndex = 20
+        Me.Button33.Text = "Debt Tracking Report"
+        Me.Button33.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button33.UseVisualStyleBackColor = True
+        '
+        'Button34
+        '
+        Me.Button34.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button34.FlatAppearance.BorderSize = 0
+        Me.Button34.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button34.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button34.Location = New System.Drawing.Point(0, 735)
+        Me.Button34.Name = "Button34"
+        Me.Button34.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button34.Size = New System.Drawing.Size(279, 35)
+        Me.Button34.TabIndex = 21
+        Me.Button34.Text = "Debt Payment History Report"
+        Me.Button34.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button34.UseVisualStyleBackColor = True
+        '
+        'Button35
+        '
+        Me.Button35.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button35.FlatAppearance.BorderSize = 0
+        Me.Button35.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button35.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button35.Location = New System.Drawing.Point(0, 770)
+        Me.Button35.Name = "Button35"
+        Me.Button35.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button35.Size = New System.Drawing.Size(279, 35)
+        Me.Button35.TabIndex = 22
+        Me.Button35.Text = "Product Damaged Report"
+        Me.Button35.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button35.UseVisualStyleBackColor = True
+        '
+        'Button36
+        '
+        Me.Button36.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button36.FlatAppearance.BorderSize = 0
+        Me.Button36.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button36.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button36.Location = New System.Drawing.Point(0, 805)
+        Me.Button36.Name = "Button36"
+        Me.Button36.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button36.Size = New System.Drawing.Size(279, 35)
+        Me.Button36.TabIndex = 23
+        Me.Button36.Text = "Daily Production Report Report"
+        Me.Button36.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button36.UseVisualStyleBackColor = True
+        '
+        'Button37
+        '
+        Me.Button37.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button37.FlatAppearance.BorderSize = 0
+        Me.Button37.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button37.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button37.Location = New System.Drawing.Point(0, 840)
+        Me.Button37.Name = "Button37"
+        Me.Button37.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button37.Size = New System.Drawing.Size(279, 35)
+        Me.Button37.TabIndex = 24
+        Me.Button37.Text = "Material vs Production Report"
+        Me.Button37.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button37.UseVisualStyleBackColor = True
+        '
+        'Button38
+        '
+        Me.Button38.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button38.FlatAppearance.BorderSize = 0
+        Me.Button38.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button38.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button38.Location = New System.Drawing.Point(0, 875)
+        Me.Button38.Name = "Button38"
+        Me.Button38.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button38.Size = New System.Drawing.Size(279, 35)
+        Me.Button38.TabIndex = 25
+        Me.Button38.Text = "Material Usage Report"
+        Me.Button38.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button38.UseVisualStyleBackColor = True
+        '
+        'Button39
+        '
+        Me.Button39.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button39.FlatAppearance.BorderSize = 0
+        Me.Button39.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button39.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button39.Location = New System.Drawing.Point(0, 910)
+        Me.Button39.Name = "Button39"
+        Me.Button39.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button39.Size = New System.Drawing.Size(279, 35)
+        Me.Button39.TabIndex = 26
+        Me.Button39.Text = "Material Stock Status"
+        Me.Button39.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button39.UseVisualStyleBackColor = True
+        '
+        'Button40
+        '
+        Me.Button40.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Button40.FlatAppearance.BorderSize = 0
+        Me.Button40.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button40.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Button40.Location = New System.Drawing.Point(0, 945)
+        Me.Button40.Name = "Button40"
+        Me.Button40.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
+        Me.Button40.Size = New System.Drawing.Size(279, 35)
+        Me.Button40.TabIndex = 27
+        Me.Button40.Text = "Material Stock Cards"
+        Me.Button40.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button40.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DarkGray
-        Me.ClientSize = New System.Drawing.Size(1780, 609)
+        Me.ClientSize = New System.Drawing.Size(1780, 858)
+        Me.Controls.Add(Me.pnlSideMenu)
+        Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.txtCompanyName)
         Me.Controls.Add(Me.pnlBody)
-        Me.Controls.Add(Me.ToolStripContainer1)
-        Me.Controls.Add(Me.pctLogo)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MenuStrip)
         Me.Controls.Add(Me.StatusStrip)
@@ -1843,6 +2617,11 @@ Partial Class frmMain
         Me.MenuStrip1.PerformLayout()
         Me.pnlBody.ResumeLayout(False)
         Me.pnlBody.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.pnlSideMenu.ResumeLayout(False)
+        Me.pnlMastersMenu.ResumeLayout(False)
+        Me.pnlOrdersMenu.ResumeLayout(False)
+        Me.pnlReportMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2039,4 +2818,51 @@ Partial Class frmMain
     Friend WithEvents MaterialsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents pnlBody As Panel
     Friend WithEvents txtCompanyName As TextBox
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents pnlSideMenu As Panel
+    Friend WithEvents btnDashboard As Button
+    Friend WithEvents btnMasters As Button
+    Friend WithEvents pnlMastersMenu As Panel
+    Friend WithEvents Button5 As Button
+    Friend WithEvents Button4 As Button
+    Friend WithEvents Button3 As Button
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Button1 As Button
+    Friend WithEvents pnlOrdersMenu As Panel
+    Friend WithEvents Button11 As Button
+    Friend WithEvents btnOrders As Button
+    Friend WithEvents Button18 As Button
+    Friend WithEvents pnlReportMenu As Panel
+    Friend WithEvents Button13 As Button
+    Friend WithEvents Button14 As Button
+    Friend WithEvents Button15 As Button
+    Friend WithEvents Button16 As Button
+    Friend WithEvents Button17 As Button
+    Friend WithEvents btnReports As Button
+    Friend WithEvents Button21 As Button
+    Friend WithEvents Button20 As Button
+    Friend WithEvents Button19 As Button
+    Friend WithEvents Button22 As Button
+    Friend WithEvents Button10 As Button
+    Friend WithEvents Button9 As Button
+    Friend WithEvents Button8 As Button
+    Friend WithEvents Button7 As Button
+    Friend WithEvents Button27 As Button
+    Friend WithEvents Button26 As Button
+    Friend WithEvents Button25 As Button
+    Friend WithEvents Button24 As Button
+    Friend WithEvents Button23 As Button
+    Friend WithEvents Button31 As Button
+    Friend WithEvents Button30 As Button
+    Friend WithEvents Button29 As Button
+    Friend WithEvents Button28 As Button
+    Friend WithEvents Button38 As Button
+    Friend WithEvents Button37 As Button
+    Friend WithEvents Button36 As Button
+    Friend WithEvents Button35 As Button
+    Friend WithEvents Button34 As Button
+    Friend WithEvents Button33 As Button
+    Friend WithEvents Button32 As Button
+    Friend WithEvents Button40 As Button
+    Friend WithEvents Button39 As Button
 End Class
