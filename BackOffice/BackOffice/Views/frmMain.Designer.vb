@@ -1099,9 +1099,10 @@ Partial Class frmMain
         Me.pnlBody.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.pnlBody.Location = New System.Drawing.Point(306, 110)
+        Me.pnlBody.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlBody.Location = New System.Drawing.Point(301, 104)
         Me.pnlBody.Name = "pnlBody"
-        Me.pnlBody.Size = New System.Drawing.Size(1504, 827)
+        Me.pnlBody.Size = New System.Drawing.Size(1601, 839)
         Me.pnlBody.TabIndex = 24
         '
         'txtCompanyName

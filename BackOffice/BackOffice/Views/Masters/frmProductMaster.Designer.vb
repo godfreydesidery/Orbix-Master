@@ -729,7 +729,6 @@ Partial Class frmProductMaster
         Me.Name = "frmProductMaster"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Product Master"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
