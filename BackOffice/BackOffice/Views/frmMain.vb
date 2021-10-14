@@ -644,235 +644,235 @@ Public Class frmMain
         frmSalesPersons.ShowDialog()
     End Sub
 
-    Private Sub MasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MasToolStripMenuItem.Click
+    Private Sub MasToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim f As New frmProductMaster With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub ProductInquiryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProductInquiryToolStripMenuItem.Click
+    Private Sub ProductInquiryToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim f As New frmProductInquiry With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub SuppliersToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SuppliersToolStripMenuItem1.Click
+    Private Sub SuppliersToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmSuppliers With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub CompanyProfileToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles CompanyProfileToolStripMenuItem1.Click
+    Private Sub CompanyProfileToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmCompany With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub MassManagementToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles MassManagementToolStripMenuItem1.Click
+    Private Sub MassManagementToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmMassManager With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub CorporateCustomersToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles CorporateCustomersToolStripMenuItem1.Click
+    Private Sub CorporateCustomersToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmCorporateCustomers With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub MaterialCategoriesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MaterialCategoriesToolStripMenuItem.Click
+    Private Sub MaterialCategoriesToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim f As New frmMaterialCategory With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub MaterialsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MaterialsToolStripMenuItem.Click
+    Private Sub MaterialsToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim f As New frmMaterials With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub LocalPurchaseOrderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LocalPurchaseOrderToolStripMenuItem.Click
+    Private Sub LocalPurchaseOrderToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim f As New frmPurchaseOrder With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub DailySalesReportToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DailySalesReportToolStripMenuItem1.Click
+    Private Sub DailySalesReportToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmDailySalesReport With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub ZHistoryToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ZHistoryToolStripMenuItem1.Click
+    Private Sub ZHistoryToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmZHistory With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub CashierVarianceToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles CashierVarianceToolStripMenuItem1.Click
+    Private Sub CashierVarianceToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmCashierVariance With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub CreditNoteReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CreditNoteReportToolStripMenuItem.Click
+    Private Sub CreditNoteReportToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim f As New frmCreditNoteReport With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub CreditCardSalesToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles CreditCardSalesToolStripMenuItem1.Click
+    Private Sub CreditCardSalesToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmCreditCardSales With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub GiftVoucherSalesToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles GiftVoucherSalesToolStripMenuItem1.Click
+    Private Sub GiftVoucherSalesToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmGiftVoucherSales With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub ProductListingReportToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ProductListingReportToolStripMenuItem1.Click
+    Private Sub ProductListingReportToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmProductListingReport With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub SupplySalesReportToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SupplySalesReportToolStripMenuItem1.Click
+    Private Sub SupplySalesReportToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmSupplySalesReport With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub StockCardReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StockCardReportToolStripMenuItem.Click
+    Private Sub StockCardReportToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim f As New frmStockCardReports With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub PackingListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PackingListToolStripMenuItem.Click
+    Private Sub PackingListToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim f As New frmPackingList With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub SupplierStockStatusToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SupplierStockStatusToolStripMenuItem1.Click
+    Private Sub SupplierStockStatusToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmSupplierStockStatus With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub FastMovingItemsToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles FastMovingItemsToolStripMenuItem1.Click
+    Private Sub FastMovingItemsToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmFastMovingItems With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub SlowMovingItemsToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SlowMovingItemsToolStripMenuItem1.Click
+    Private Sub SlowMovingItemsToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmSlowMovingItems With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub NegativeStockReportToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles NegativeStockReportToolStripMenuItem1.Click
+    Private Sub NegativeStockReportToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmNegativeStockReports With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub PrintedLPOToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles PrintedLPOToolStripMenuItem1.Click
+    Private Sub PrintedLPOToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmPrintedLPO With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub PendingLPOToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles PendingLPOToolStripMenuItem1.Click
+    Private Sub PendingLPOToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmPendingLPO With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub GRNReportToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles GRNReportToolStripMenuItem1.Click
+    Private Sub GRNReportToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmGrnReport2 With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub PriceChangeReportToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles PriceChangeReportToolStripMenuItem1.Click
+    Private Sub PriceChangeReportToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmPriceChange With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub DamagesReportToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DamagesReportToolStripMenuItem1.Click
+    Private Sub DamagesReportToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmDamagesReport With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub DebtTrackingReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DebtTrackingReportToolStripMenuItem.Click
+    Private Sub DebtTrackingReportToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim f As New frmDebtReport With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub DebtPaymentHistoryReportToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DebtPaymentHistoryReportToolStripMenuItem1.Click
+    Private Sub DebtPaymentHistoryReportToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmDebtPaymentHistory With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub DailyProductionReportToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DailyProductionReportToolStripMenuItem1.Click
+    Private Sub DailyProductionReportToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmProductionReport With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub MaterialVsProductionReportToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles MaterialVsProductionReportToolStripMenuItem1.Click
+    Private Sub MaterialVsProductionReportToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmMaterialVsProduction With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub MaterialUsageReportToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles MaterialUsageReportToolStripMenuItem1.Click
+    Private Sub MaterialUsageReportToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmMaterialUsageReport With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub MaterialStockStatusReportToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles MaterialStockStatusReportToolStripMenuItem1.Click
+    Private Sub MaterialStockStatusReportToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmMaterialStockStatus With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub MaterialStockCardReportToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles MaterialStockCardReportToolStripMenuItem1.Click
+    Private Sub MaterialStockCardReportToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim f As New frmMaterialStockCard With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub UserEnrolmentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UserEnrolmentToolStripMenuItem.Click
+    Private Sub UserEnrolmentToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim f As New frmUserEnrolment With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub TillAdministrationToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TillAdministrationToolStripMenuItem.Click
+    Private Sub TillAdministrationToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim f As New frmTillAdministration With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub TillPositionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TillPositionToolStripMenuItem.Click
+    Private Sub TillPositionToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim f As New frmTillPosition With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
     End Sub
 
-    Private Sub AccessControlToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AccessControlToolStripMenuItem.Click
+    Private Sub AccessControlToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim f As New frmAccessControl With {.TopLevel = False, .AutoSize = False}
         pnlBody.Controls.Add(f)
         f.Show()
@@ -880,16 +880,86 @@ Public Class frmMain
 
 
 
-
-
-
     Private Sub hideSubMenu()
         pnlMastersMenu.Visible = False
         pnlOrdersMenu.Visible = False
+        pnlReportMenu.Visible = False
+        pnlTransactionsMenu.Visible = False
+        pnlAdminFunctions.Visible = False
+        pnlHRFunctions.Visible = False
+        pnlDayOperations.Visible = False
     End Sub
 
+    Private Sub showSubMenu(subMenu As Panel)
+        If subMenu.Visible = False Then
+            hideSubMenu()
+            subMenu.Visible = True
+        Else
+            subMenu.Visible = False
+        End If
+    End Sub
 
+    Private Sub btnMasters_Click(sender As Object, e As EventArgs) Handles btnMasters.Click
+        showSubMenu(pnlMastersMenu)
+    End Sub
 
+    Private Sub btnOrders_Click(sender As Object, e As EventArgs) Handles btnOrders.Click
+        showSubMenu(pnlOrdersMenu)
+    End Sub
 
+    Private Sub btnReports_Click(sender As Object, e As EventArgs) Handles btnReports.Click
+        showSubMenu(pnlReportMenu)
+    End Sub
 
+    Private Sub btnTransactions_Click(sender As Object, e As EventArgs) Handles btnTransactions.Click
+        showSubMenu(pnlTransactionsMenu)
+    End Sub
+
+    Private Sub btnAdminFunctions_Click(sender As Object, e As EventArgs) Handles btnAdminFunctions.Click
+        showSubMenu(pnlAdminFunctions)
+    End Sub
+
+    Private Sub btnHRFunctions_Click(sender As Object, e As EventArgs) Handles btnHRFunctions.Click
+        showSubMenu(pnlHRFunctions)
+    End Sub
+
+    Private Sub btnDayOperations_Click(sender As Object, e As EventArgs) Handles btnDayOperations.Click
+        showSubMenu(pnlDayOperations)
+    End Sub
+
+    Private Sub btnProductMaster_Click(sender As Object, e As EventArgs) Handles btnProductMaster.Click
+        Dim f As New frmProductMaster With {.TopLevel = False, .AutoSize = False}
+        pnlBody.Controls.Add(f)
+        f.Show()
+    End Sub
+
+    Private Sub btnProductInquiry_Click(sender As Object, e As EventArgs) Handles btnProductInquiry.Click
+        Dim f As New frmProductInquiry With {.TopLevel = False, .AutoSize = False}
+        pnlBody.Controls.Add(f)
+        f.Show()
+    End Sub
+
+    Private Sub btnSuppliers_Click(sender As Object, e As EventArgs) Handles btnSuppliers.Click
+        Dim f As New frmSuppliers With {.TopLevel = False, .AutoSize = False}
+        pnlBody.Controls.Add(f)
+        f.Show()
+    End Sub
+
+    Private Sub btnCompanyProfile_Click(sender As Object, e As EventArgs) Handles btnCompanyProfile.Click
+        Dim f As New frmCompany With {.TopLevel = False, .AutoSize = False}
+        pnlBody.Controls.Add(f)
+        f.Show()
+    End Sub
+
+    Private Sub btnCorporateCustomers_Click(sender As Object, e As EventArgs) Handles btnCorporateCustomers.Click
+        Dim f As New frmCorporateCustomers With {.TopLevel = False, .AutoSize = False}
+        pnlBody.Controls.Add(f)
+        f.Show()
+    End Sub
+
+    Private Sub btnMassManagement_Click(sender As Object, e As EventArgs) Handles btnMassManagement.Click
+        Dim f As New frmMassManager With {.TopLevel = False, .AutoSize = False}
+        pnlBody.Controls.Add(f)
+        f.Show()
+    End Sub
 End Class
