@@ -32,7 +32,6 @@ Partial Class frmMain
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tstrpAlias = New System.Windows.Forms.ToolStripStatusLabel()
@@ -137,8 +136,10 @@ Partial Class frmMain
         Me.pctLogo = New System.Windows.Forms.PictureBox()
         Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.pnlBody = New System.Windows.Forms.Panel()
-        Me.txtCompanyName = New System.Windows.Forms.TextBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.pnlSideMenu = New System.Windows.Forms.Panel()
         Me.pnlDayOperations = New System.Windows.Forms.Panel()
         Me.btnCustomDating = New System.Windows.Forms.Button()
@@ -216,6 +217,7 @@ Partial Class frmMain
         Me.btnProductMaster = New System.Windows.Forms.Button()
         Me.btnMasters = New System.Windows.Forms.Button()
         Me.btnDashboard = New System.Windows.Forms.Button()
+        Me.ToolStripMenuItem27 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
@@ -233,9 +235,9 @@ Partial Class frmMain
         '
         'MenuStrip
         '
-        Me.MenuStrip.BackColor = System.Drawing.Color.Gainsboro
+        Me.MenuStrip.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.MenuStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileMenu, Me.EditToolStripMenuItem, Me.HelpToolStripMenuItem})
+        Me.MenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileMenu, Me.EditToolStripMenuItem, Me.ToolStripMenuItem27})
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.Name = "MenuStrip"
         Me.MenuStrip.Padding = New System.Windows.Forms.Padding(9, 2, 0, 2)
@@ -246,6 +248,7 @@ Partial Class frmMain
         'FileMenu
         '
         Me.FileMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator3, Me.ToolStripSeparator4, Me.ToolStripSeparator5, Me.ExitToolStripMenuItem})
+        Me.FileMenu.ForeColor = System.Drawing.Color.Black
         Me.FileMenu.ImageTransparentColor = System.Drawing.SystemColors.ActiveBorder
         Me.FileMenu.Name = "FileMenu"
         Me.FileMenu.Size = New System.Drawing.Size(44, 24)
@@ -254,35 +257,30 @@ Partial Class frmMain
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(105, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(178, 6)
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(105, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(178, 6)
         '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(105, 6)
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(178, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(108, 26)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
         Me.ExitToolStripMenuItem.Text = "E&xit"
         '
         'EditToolStripMenuItem
         '
+        Me.EditToolStripMenuItem.ForeColor = System.Drawing.Color.Black
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
         Me.EditToolStripMenuItem.Size = New System.Drawing.Size(47, 24)
         Me.EditToolStripMenuItem.Text = "&Edit"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(53, 24)
-        Me.HelpToolStripMenuItem.Text = "Help"
         '
         'StatusStrip
         '
@@ -1028,22 +1026,18 @@ Partial Class frmMain
         '
         'dtCustomDate
         '
-        Me.dtCustomDate.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dtCustomDate.Location = New System.Drawing.Point(429, 6)
+        Me.dtCustomDate.Location = New System.Drawing.Point(305, 38)
         Me.dtCustomDate.Name = "dtCustomDate"
-        Me.dtCustomDate.Size = New System.Drawing.Size(121, 24)
+        Me.dtCustomDate.Size = New System.Drawing.Size(270, 24)
         Me.dtCustomDate.TabIndex = 18
         Me.dtCustomDate.Visible = False
         '
         'btnUpdate
         '
-        Me.btnUpdate.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.btnUpdate.Location = New System.Drawing.Point(568, 6)
+        Me.btnUpdate.Location = New System.Drawing.Point(581, 29)
         Me.btnUpdate.Name = "btnUpdate"
-        Me.btnUpdate.Size = New System.Drawing.Size(122, 38)
+        Me.btnUpdate.Size = New System.Drawing.Size(122, 35)
         Me.btnUpdate.TabIndex = 19
         Me.btnUpdate.Text = "Update"
         Me.btnUpdate.UseVisualStyleBackColor = True
@@ -1051,12 +1045,12 @@ Partial Class frmMain
         '
         'lblCustomDate
         '
-        Me.lblCustomDate.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCustomDate.AutoSize = True
-        Me.lblCustomDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCustomDate.Location = New System.Drawing.Point(696, 8)
+        Me.lblCustomDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCustomDate.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.lblCustomDate.Location = New System.Drawing.Point(407, 9)
         Me.lblCustomDate.Name = "lblCustomDate"
-        Me.lblCustomDate.Size = New System.Drawing.Size(92, 29)
+        Me.lblCustomDate.Size = New System.Drawing.Size(57, 18)
         Me.lblCustomDate.TabIndex = 20
         Me.lblCustomDate.Text = "Label1"
         Me.lblCustomDate.Visible = False
@@ -1066,7 +1060,8 @@ Partial Class frmMain
         Me.lblCustDate.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCustDate.AutoSize = True
-        Me.lblCustDate.Location = New System.Drawing.Point(318, 6)
+        Me.lblCustDate.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.lblCustDate.Location = New System.Drawing.Point(305, 8)
         Me.lblCustDate.Name = "lblCustDate"
         Me.lblCustDate.Size = New System.Drawing.Size(96, 18)
         Me.lblCustDate.TabIndex = 21
@@ -1075,11 +1070,11 @@ Partial Class frmMain
         '
         'pctLogo
         '
-        Me.pctLogo.BackColor = System.Drawing.Color.Silver
+        Me.pctLogo.BackColor = System.Drawing.Color.Transparent
         Me.pctLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.pctLogo.Location = New System.Drawing.Point(12, 10)
+        Me.pctLogo.Location = New System.Drawing.Point(12, 8)
         Me.pctLogo.Name = "pctLogo"
-        Me.pctLogo.Size = New System.Drawing.Size(57, 46)
+        Me.pctLogo.Size = New System.Drawing.Size(66, 62)
         Me.pctLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pctLogo.TabIndex = 16
         Me.pctLogo.TabStop = False
@@ -1099,40 +1094,74 @@ Partial Class frmMain
         Me.pnlBody.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlBody.BackColor = System.Drawing.Color.WhiteSmoke
         Me.pnlBody.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.pnlBody.Location = New System.Drawing.Point(301, 104)
+        Me.pnlBody.Location = New System.Drawing.Point(251, 98)
         Me.pnlBody.Name = "pnlBody"
-        Me.pnlBody.Size = New System.Drawing.Size(1601, 839)
+        Me.pnlBody.Padding = New System.Windows.Forms.Padding(5)
+        Me.pnlBody.Size = New System.Drawing.Size(1659, 842)
         Me.pnlBody.TabIndex = 24
-        '
-        'txtCompanyName
-        '
-        Me.txtCompanyName.BackColor = System.Drawing.Color.DarkGray
-        Me.txtCompanyName.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtCompanyName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCompanyName.ForeColor = System.Drawing.Color.Teal
-        Me.txtCompanyName.Location = New System.Drawing.Point(75, 10)
-        Me.txtCompanyName.Multiline = True
-        Me.txtCompanyName.Name = "txtCompanyName"
-        Me.txtCompanyName.ReadOnly = True
-        Me.txtCompanyName.Size = New System.Drawing.Size(216, 53)
-        Me.txtCompanyName.TabIndex = 25
-        Me.txtCompanyName.Text = "Bumaco Enterprises Limited"
-        Me.txtCompanyName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Panel2
         '
+        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(39, Byte), Integer))
+        Me.Panel2.Controls.Add(Me.Button3)
+        Me.Panel2.Controls.Add(Me.Button2)
         Me.Panel2.Controls.Add(Me.lblCustomDate)
+        Me.Panel2.Controls.Add(Me.dtCustomDate)
+        Me.Panel2.Controls.Add(Me.btnUpdate)
+        Me.Panel2.Controls.Add(Me.Button1)
         Me.Panel2.Controls.Add(Me.lblCustDate)
         Me.Panel2.Controls.Add(Me.pctLogo)
-        Me.Panel2.Controls.Add(Me.btnUpdate)
-        Me.Panel2.Controls.Add(Me.txtCompanyName)
-        Me.Panel2.Controls.Add(Me.dtCustomDate)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Location = New System.Drawing.Point(0, 28)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1910, 76)
         Me.Panel2.TabIndex = 29
+        '
+        'Button3
+        '
+        Me.Button3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button3.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button3.FlatAppearance.BorderSize = 0
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(173, Byte), Integer), CType(CType(172, Byte), Integer), CType(CType(189, Byte), Integer))
+        Me.Button3.Location = New System.Drawing.Point(1808, 44)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(90, 26)
+        Me.Button3.TabIndex = 24
+        Me.Button3.Text = "Log Out"
+        Me.Button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button2.FlatAppearance.BorderSize = 0
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(173, Byte), Integer), CType(CType(172, Byte), Integer), CType(CType(189, Byte), Integer))
+        Me.Button2.Location = New System.Drawing.Point(1405, 43)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(397, 26)
+        Me.Button2.TabIndex = 23
+        Me.Button2.Text = "Logged User: Godfrey Shirima"
+        Me.Button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.FlatAppearance.BorderSize = 0
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(173, Byte), Integer), CType(CType(172, Byte), Integer), CType(CType(189, Byte), Integer))
+        Me.Button1.Location = New System.Drawing.Point(84, 9)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(215, 60)
+        Me.Button1.TabIndex = 22
+        Me.Button1.Text = "Bumaco General Traders Limited"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'pnlSideMenu
         '
@@ -1156,7 +1185,7 @@ Partial Class frmMain
         Me.pnlSideMenu.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlSideMenu.Location = New System.Drawing.Point(0, 104)
         Me.pnlSideMenu.Name = "pnlSideMenu"
-        Me.pnlSideMenu.Size = New System.Drawing.Size(300, 836)
+        Me.pnlSideMenu.Size = New System.Drawing.Size(253, 836)
         Me.pnlSideMenu.TabIndex = 30
         '
         'pnlDayOperations
@@ -1167,7 +1196,7 @@ Partial Class frmMain
         Me.pnlDayOperations.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlDayOperations.Location = New System.Drawing.Point(0, 2580)
         Me.pnlDayOperations.Name = "pnlDayOperations"
-        Me.pnlDayOperations.Size = New System.Drawing.Size(279, 91)
+        Me.pnlDayOperations.Size = New System.Drawing.Size(232, 91)
         Me.pnlDayOperations.TabIndex = 15
         Me.pnlDayOperations.Visible = False
         '
@@ -1182,7 +1211,7 @@ Partial Class frmMain
         Me.btnCustomDating.Location = New System.Drawing.Point(0, 35)
         Me.btnCustomDating.Name = "btnCustomDating"
         Me.btnCustomDating.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnCustomDating.Size = New System.Drawing.Size(279, 35)
+        Me.btnCustomDating.Size = New System.Drawing.Size(232, 35)
         Me.btnCustomDating.TabIndex = 1
         Me.btnCustomDating.Text = "Custom Dating"
         Me.btnCustomDating.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1199,7 +1228,7 @@ Partial Class frmMain
         Me.btnEndOfDay.Location = New System.Drawing.Point(0, 0)
         Me.btnEndOfDay.Name = "btnEndOfDay"
         Me.btnEndOfDay.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnEndOfDay.Size = New System.Drawing.Size(279, 35)
+        Me.btnEndOfDay.Size = New System.Drawing.Size(232, 35)
         Me.btnEndOfDay.TabIndex = 0
         Me.btnEndOfDay.Text = "End of Day"
         Me.btnEndOfDay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1216,7 +1245,7 @@ Partial Class frmMain
         Me.btnDayOperations.Location = New System.Drawing.Point(0, 2535)
         Me.btnDayOperations.Name = "btnDayOperations"
         Me.btnDayOperations.Padding = New System.Windows.Forms.Padding(11, 0, 0, 0)
-        Me.btnDayOperations.Size = New System.Drawing.Size(279, 45)
+        Me.btnDayOperations.Size = New System.Drawing.Size(232, 45)
         Me.btnDayOperations.TabIndex = 14
         Me.btnDayOperations.Text = "&Day Operations"
         Me.btnDayOperations.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1230,7 +1259,7 @@ Partial Class frmMain
         Me.pnlHRFunctions.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlHRFunctions.Location = New System.Drawing.Point(0, 2416)
         Me.pnlHRFunctions.Name = "pnlHRFunctions"
-        Me.pnlHRFunctions.Size = New System.Drawing.Size(279, 119)
+        Me.pnlHRFunctions.Size = New System.Drawing.Size(232, 119)
         Me.pnlHRFunctions.TabIndex = 13
         Me.pnlHRFunctions.Visible = False
         '
@@ -1245,7 +1274,7 @@ Partial Class frmMain
         Me.btnSalesPersonEnrolment.Location = New System.Drawing.Point(0, 35)
         Me.btnSalesPersonEnrolment.Name = "btnSalesPersonEnrolment"
         Me.btnSalesPersonEnrolment.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnSalesPersonEnrolment.Size = New System.Drawing.Size(279, 35)
+        Me.btnSalesPersonEnrolment.Size = New System.Drawing.Size(232, 35)
         Me.btnSalesPersonEnrolment.TabIndex = 1
         Me.btnSalesPersonEnrolment.Text = "Sales person Enrolment"
         Me.btnSalesPersonEnrolment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1262,7 +1291,7 @@ Partial Class frmMain
         Me.btnPersonelEnrolment.Location = New System.Drawing.Point(0, 0)
         Me.btnPersonelEnrolment.Name = "btnPersonelEnrolment"
         Me.btnPersonelEnrolment.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnPersonelEnrolment.Size = New System.Drawing.Size(279, 35)
+        Me.btnPersonelEnrolment.Size = New System.Drawing.Size(232, 35)
         Me.btnPersonelEnrolment.TabIndex = 0
         Me.btnPersonelEnrolment.Text = "Personenel Enrolment"
         Me.btnPersonelEnrolment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1279,7 +1308,7 @@ Partial Class frmMain
         Me.btnHRFunctions.Location = New System.Drawing.Point(0, 2371)
         Me.btnHRFunctions.Name = "btnHRFunctions"
         Me.btnHRFunctions.Padding = New System.Windows.Forms.Padding(11, 0, 0, 0)
-        Me.btnHRFunctions.Size = New System.Drawing.Size(279, 45)
+        Me.btnHRFunctions.Size = New System.Drawing.Size(232, 45)
         Me.btnHRFunctions.TabIndex = 12
         Me.btnHRFunctions.Text = "&HR Functions"
         Me.btnHRFunctions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1296,7 +1325,7 @@ Partial Class frmMain
         Me.pnlAdminFunctions.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlAdminFunctions.Location = New System.Drawing.Point(0, 2171)
         Me.pnlAdminFunctions.Name = "pnlAdminFunctions"
-        Me.pnlAdminFunctions.Size = New System.Drawing.Size(279, 200)
+        Me.pnlAdminFunctions.Size = New System.Drawing.Size(232, 200)
         Me.pnlAdminFunctions.TabIndex = 11
         Me.pnlAdminFunctions.Visible = False
         '
@@ -1311,7 +1340,7 @@ Partial Class frmMain
         Me.btnAccessControl.Location = New System.Drawing.Point(0, 140)
         Me.btnAccessControl.Name = "btnAccessControl"
         Me.btnAccessControl.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnAccessControl.Size = New System.Drawing.Size(279, 35)
+        Me.btnAccessControl.Size = New System.Drawing.Size(232, 35)
         Me.btnAccessControl.TabIndex = 4
         Me.btnAccessControl.Text = "Access Control"
         Me.btnAccessControl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1328,7 +1357,7 @@ Partial Class frmMain
         Me.btnTillPosition.Location = New System.Drawing.Point(0, 105)
         Me.btnTillPosition.Name = "btnTillPosition"
         Me.btnTillPosition.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnTillPosition.Size = New System.Drawing.Size(279, 35)
+        Me.btnTillPosition.Size = New System.Drawing.Size(232, 35)
         Me.btnTillPosition.TabIndex = 3
         Me.btnTillPosition.Text = "Till Position"
         Me.btnTillPosition.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1345,7 +1374,7 @@ Partial Class frmMain
         Me.btnBiometricEnrolment.Location = New System.Drawing.Point(0, 70)
         Me.btnBiometricEnrolment.Name = "btnBiometricEnrolment"
         Me.btnBiometricEnrolment.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnBiometricEnrolment.Size = New System.Drawing.Size(279, 35)
+        Me.btnBiometricEnrolment.Size = New System.Drawing.Size(232, 35)
         Me.btnBiometricEnrolment.TabIndex = 2
         Me.btnBiometricEnrolment.Text = "Biometric Enrolment"
         Me.btnBiometricEnrolment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1362,7 +1391,7 @@ Partial Class frmMain
         Me.btnTillAdministration.Location = New System.Drawing.Point(0, 35)
         Me.btnTillAdministration.Name = "btnTillAdministration"
         Me.btnTillAdministration.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnTillAdministration.Size = New System.Drawing.Size(279, 35)
+        Me.btnTillAdministration.Size = New System.Drawing.Size(232, 35)
         Me.btnTillAdministration.TabIndex = 1
         Me.btnTillAdministration.Text = "Till Administration"
         Me.btnTillAdministration.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1379,7 +1408,7 @@ Partial Class frmMain
         Me.btnUserEnrolment.Location = New System.Drawing.Point(0, 0)
         Me.btnUserEnrolment.Name = "btnUserEnrolment"
         Me.btnUserEnrolment.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnUserEnrolment.Size = New System.Drawing.Size(279, 35)
+        Me.btnUserEnrolment.Size = New System.Drawing.Size(232, 35)
         Me.btnUserEnrolment.TabIndex = 0
         Me.btnUserEnrolment.Text = "User Enrolment"
         Me.btnUserEnrolment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1396,7 +1425,7 @@ Partial Class frmMain
         Me.btnAdminFunctions.Location = New System.Drawing.Point(0, 2126)
         Me.btnAdminFunctions.Name = "btnAdminFunctions"
         Me.btnAdminFunctions.Padding = New System.Windows.Forms.Padding(11, 0, 0, 0)
-        Me.btnAdminFunctions.Size = New System.Drawing.Size(279, 45)
+        Me.btnAdminFunctions.Size = New System.Drawing.Size(232, 45)
         Me.btnAdminFunctions.TabIndex = 10
         Me.btnAdminFunctions.Text = "&Admin Functions"
         Me.btnAdminFunctions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1423,7 +1452,7 @@ Partial Class frmMain
         Me.pnlTransactionsMenu.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlTransactionsMenu.Location = New System.Drawing.Point(0, 1578)
         Me.pnlTransactionsMenu.Name = "pnlTransactionsMenu"
-        Me.pnlTransactionsMenu.Size = New System.Drawing.Size(279, 548)
+        Me.pnlTransactionsMenu.Size = New System.Drawing.Size(232, 548)
         Me.pnlTransactionsMenu.TabIndex = 9
         Me.pnlTransactionsMenu.Visible = False
         '
@@ -1438,7 +1467,7 @@ Partial Class frmMain
         Me.btnSalesInvoice.Location = New System.Drawing.Point(0, 490)
         Me.btnSalesInvoice.Name = "btnSalesInvoice"
         Me.btnSalesInvoice.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnSalesInvoice.Size = New System.Drawing.Size(279, 39)
+        Me.btnSalesInvoice.Size = New System.Drawing.Size(232, 39)
         Me.btnSalesInvoice.TabIndex = 27
         Me.btnSalesInvoice.Text = "Sales Invoice"
         Me.btnSalesInvoice.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1455,7 +1484,7 @@ Partial Class frmMain
         Me.btnCustomerClaims.Location = New System.Drawing.Point(0, 455)
         Me.btnCustomerClaims.Name = "btnCustomerClaims"
         Me.btnCustomerClaims.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnCustomerClaims.Size = New System.Drawing.Size(279, 35)
+        Me.btnCustomerClaims.Size = New System.Drawing.Size(232, 35)
         Me.btnCustomerClaims.TabIndex = 13
         Me.btnCustomerClaims.Text = "Customer Claims"
         Me.btnCustomerClaims.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1472,7 +1501,7 @@ Partial Class frmMain
         Me.btnCustomProduction.Location = New System.Drawing.Point(0, 420)
         Me.btnCustomProduction.Name = "btnCustomProduction"
         Me.btnCustomProduction.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnCustomProduction.Size = New System.Drawing.Size(279, 35)
+        Me.btnCustomProduction.Size = New System.Drawing.Size(232, 35)
         Me.btnCustomProduction.TabIndex = 12
         Me.btnCustomProduction.Text = "Custom Production"
         Me.btnCustomProduction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1489,7 +1518,7 @@ Partial Class frmMain
         Me.btnProductConversion.Location = New System.Drawing.Point(0, 385)
         Me.btnProductConversion.Name = "btnProductConversion"
         Me.btnProductConversion.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnProductConversion.Size = New System.Drawing.Size(279, 35)
+        Me.btnProductConversion.Size = New System.Drawing.Size(232, 35)
         Me.btnProductConversion.TabIndex = 11
         Me.btnProductConversion.Text = "Product Conversion"
         Me.btnProductConversion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1506,7 +1535,7 @@ Partial Class frmMain
         Me.btnPackingList.Location = New System.Drawing.Point(0, 350)
         Me.btnPackingList.Name = "btnPackingList"
         Me.btnPackingList.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnPackingList.Size = New System.Drawing.Size(279, 35)
+        Me.btnPackingList.Size = New System.Drawing.Size(232, 35)
         Me.btnPackingList.TabIndex = 10
         Me.btnPackingList.Text = "Packing List"
         Me.btnPackingList.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1523,7 +1552,7 @@ Partial Class frmMain
         Me.btnSalesJournal.Location = New System.Drawing.Point(0, 315)
         Me.btnSalesJournal.Name = "btnSalesJournal"
         Me.btnSalesJournal.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnSalesJournal.Size = New System.Drawing.Size(279, 35)
+        Me.btnSalesJournal.Size = New System.Drawing.Size(232, 35)
         Me.btnSalesJournal.TabIndex = 9
         Me.btnSalesJournal.Text = "Sales Journal"
         Me.btnSalesJournal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1540,7 +1569,7 @@ Partial Class frmMain
         Me.btnSalesLedge.Location = New System.Drawing.Point(0, 280)
         Me.btnSalesLedge.Name = "btnSalesLedge"
         Me.btnSalesLedge.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnSalesLedge.Size = New System.Drawing.Size(279, 35)
+        Me.btnSalesLedge.Size = New System.Drawing.Size(232, 35)
         Me.btnSalesLedge.TabIndex = 8
         Me.btnSalesLedge.Text = "Sales Ledge"
         Me.btnSalesLedge.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1557,7 +1586,7 @@ Partial Class frmMain
         Me.btnGoodsReturnedToVendor.Location = New System.Drawing.Point(0, 245)
         Me.btnGoodsReturnedToVendor.Name = "btnGoodsReturnedToVendor"
         Me.btnGoodsReturnedToVendor.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnGoodsReturnedToVendor.Size = New System.Drawing.Size(279, 35)
+        Me.btnGoodsReturnedToVendor.Size = New System.Drawing.Size(232, 35)
         Me.btnGoodsReturnedToVendor.TabIndex = 7
         Me.btnGoodsReturnedToVendor.Text = "Goods Returned to Vendor"
         Me.btnGoodsReturnedToVendor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1574,7 +1603,7 @@ Partial Class frmMain
         Me.btnQuotations.Location = New System.Drawing.Point(0, 210)
         Me.btnQuotations.Name = "btnQuotations"
         Me.btnQuotations.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnQuotations.Size = New System.Drawing.Size(279, 35)
+        Me.btnQuotations.Size = New System.Drawing.Size(232, 35)
         Me.btnQuotations.TabIndex = 6
         Me.btnQuotations.Text = "Quotations"
         Me.btnQuotations.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1591,7 +1620,7 @@ Partial Class frmMain
         Me.btnReceipts.Location = New System.Drawing.Point(0, 175)
         Me.btnReceipts.Name = "btnReceipts"
         Me.btnReceipts.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnReceipts.Size = New System.Drawing.Size(279, 35)
+        Me.btnReceipts.Size = New System.Drawing.Size(232, 35)
         Me.btnReceipts.TabIndex = 5
         Me.btnReceipts.Text = "Receipts"
         Me.btnReceipts.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1608,7 +1637,7 @@ Partial Class frmMain
         Me.btnAllocations.Location = New System.Drawing.Point(0, 140)
         Me.btnAllocations.Name = "btnAllocations"
         Me.btnAllocations.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnAllocations.Size = New System.Drawing.Size(279, 35)
+        Me.btnAllocations.Size = New System.Drawing.Size(232, 35)
         Me.btnAllocations.TabIndex = 4
         Me.btnAllocations.Text = "Allocations"
         Me.btnAllocations.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1625,7 +1654,7 @@ Partial Class frmMain
         Me.btnSupplierCreditNotes.Location = New System.Drawing.Point(0, 105)
         Me.btnSupplierCreditNotes.Name = "btnSupplierCreditNotes"
         Me.btnSupplierCreditNotes.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnSupplierCreditNotes.Size = New System.Drawing.Size(279, 35)
+        Me.btnSupplierCreditNotes.Size = New System.Drawing.Size(232, 35)
         Me.btnSupplierCreditNotes.TabIndex = 3
         Me.btnSupplierCreditNotes.Text = "Supplier Credit Notes"
         Me.btnSupplierCreditNotes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1642,7 +1671,7 @@ Partial Class frmMain
         Me.btnCustomerCreditNotes.Location = New System.Drawing.Point(0, 70)
         Me.btnCustomerCreditNotes.Name = "btnCustomerCreditNotes"
         Me.btnCustomerCreditNotes.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnCustomerCreditNotes.Size = New System.Drawing.Size(279, 35)
+        Me.btnCustomerCreditNotes.Size = New System.Drawing.Size(232, 35)
         Me.btnCustomerCreditNotes.TabIndex = 2
         Me.btnCustomerCreditNotes.Text = "Customer Credit Notes"
         Me.btnCustomerCreditNotes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1659,7 +1688,7 @@ Partial Class frmMain
         Me.btnGoodsReturnedByCustomers.Location = New System.Drawing.Point(0, 35)
         Me.btnGoodsReturnedByCustomers.Name = "btnGoodsReturnedByCustomers"
         Me.btnGoodsReturnedByCustomers.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnGoodsReturnedByCustomers.Size = New System.Drawing.Size(279, 35)
+        Me.btnGoodsReturnedByCustomers.Size = New System.Drawing.Size(232, 35)
         Me.btnGoodsReturnedByCustomers.TabIndex = 1
         Me.btnGoodsReturnedByCustomers.Text = "Goods Returned by Customers"
         Me.btnGoodsReturnedByCustomers.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1676,7 +1705,7 @@ Partial Class frmMain
         Me.btnGoodsReceivedNote.Location = New System.Drawing.Point(0, 0)
         Me.btnGoodsReceivedNote.Name = "btnGoodsReceivedNote"
         Me.btnGoodsReceivedNote.Padding = New System.Windows.Forms.Padding(35, 0, 0, 0)
-        Me.btnGoodsReceivedNote.Size = New System.Drawing.Size(279, 35)
+        Me.btnGoodsReceivedNote.Size = New System.Drawing.Size(232, 35)
         Me.btnGoodsReceivedNote.TabIndex = 0
         Me.btnGoodsReceivedNote.Text = "Goods Received Note(GRN)"
         Me.btnGoodsReceivedNote.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1693,7 +1722,7 @@ Partial Class frmMain
         Me.btnTransactions.Location = New System.Drawing.Point(0, 1533)
         Me.btnTransactions.Name = "btnTransactions"
         Me.btnTransactions.Padding = New System.Windows.Forms.Padding(11, 0, 0, 0)
-        Me.btnTransactions.Size = New System.Drawing.Size(279, 45)
+        Me.btnTransactions.Size = New System.Drawing.Size(232, 45)
         Me.btnTransactions.TabIndex = 8
         Me.btnTransactions.Text = "&Transactions"
         Me.btnTransactions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1733,7 +1762,7 @@ Partial Class frmMain
         Me.pnlReportMenu.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlReportMenu.Location = New System.Drawing.Point(0, 524)
         Me.pnlReportMenu.Name = "pnlReportMenu"
-        Me.pnlReportMenu.Size = New System.Drawing.Size(279, 1009)
+        Me.pnlReportMenu.Size = New System.Drawing.Size(232, 1009)
         Me.pnlReportMenu.TabIndex = 7
         Me.pnlReportMenu.Visible = False
         '
@@ -1748,7 +1777,7 @@ Partial Class frmMain
         Me.btnMaterialStockCards.Location = New System.Drawing.Point(0, 945)
         Me.btnMaterialStockCards.Name = "btnMaterialStockCards"
         Me.btnMaterialStockCards.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnMaterialStockCards.Size = New System.Drawing.Size(279, 35)
+        Me.btnMaterialStockCards.Size = New System.Drawing.Size(232, 35)
         Me.btnMaterialStockCards.TabIndex = 27
         Me.btnMaterialStockCards.Text = "Material Stock Cards"
         Me.btnMaterialStockCards.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1765,7 +1794,7 @@ Partial Class frmMain
         Me.btnMaterialStockStatus.Location = New System.Drawing.Point(0, 910)
         Me.btnMaterialStockStatus.Name = "btnMaterialStockStatus"
         Me.btnMaterialStockStatus.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnMaterialStockStatus.Size = New System.Drawing.Size(279, 35)
+        Me.btnMaterialStockStatus.Size = New System.Drawing.Size(232, 35)
         Me.btnMaterialStockStatus.TabIndex = 26
         Me.btnMaterialStockStatus.Text = "Material Stock Status"
         Me.btnMaterialStockStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1782,7 +1811,7 @@ Partial Class frmMain
         Me.btnMaterialUsageReport.Location = New System.Drawing.Point(0, 875)
         Me.btnMaterialUsageReport.Name = "btnMaterialUsageReport"
         Me.btnMaterialUsageReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnMaterialUsageReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnMaterialUsageReport.Size = New System.Drawing.Size(232, 35)
         Me.btnMaterialUsageReport.TabIndex = 25
         Me.btnMaterialUsageReport.Text = "Material Usage Report"
         Me.btnMaterialUsageReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1799,7 +1828,7 @@ Partial Class frmMain
         Me.btnMaterialVsProductionReport.Location = New System.Drawing.Point(0, 840)
         Me.btnMaterialVsProductionReport.Name = "btnMaterialVsProductionReport"
         Me.btnMaterialVsProductionReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnMaterialVsProductionReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnMaterialVsProductionReport.Size = New System.Drawing.Size(232, 35)
         Me.btnMaterialVsProductionReport.TabIndex = 24
         Me.btnMaterialVsProductionReport.Text = "Material vs Production Report"
         Me.btnMaterialVsProductionReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1816,7 +1845,7 @@ Partial Class frmMain
         Me.btnDailyProductionReport.Location = New System.Drawing.Point(0, 805)
         Me.btnDailyProductionReport.Name = "btnDailyProductionReport"
         Me.btnDailyProductionReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnDailyProductionReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnDailyProductionReport.Size = New System.Drawing.Size(232, 35)
         Me.btnDailyProductionReport.TabIndex = 23
         Me.btnDailyProductionReport.Text = "Daily Production Report Report"
         Me.btnDailyProductionReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1833,7 +1862,7 @@ Partial Class frmMain
         Me.btnProductDamagedReport.Location = New System.Drawing.Point(0, 770)
         Me.btnProductDamagedReport.Name = "btnProductDamagedReport"
         Me.btnProductDamagedReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnProductDamagedReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnProductDamagedReport.Size = New System.Drawing.Size(232, 35)
         Me.btnProductDamagedReport.TabIndex = 22
         Me.btnProductDamagedReport.Text = "Product Damaged Report"
         Me.btnProductDamagedReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1850,7 +1879,7 @@ Partial Class frmMain
         Me.btnDebtPaymentHistoryReport.Location = New System.Drawing.Point(0, 735)
         Me.btnDebtPaymentHistoryReport.Name = "btnDebtPaymentHistoryReport"
         Me.btnDebtPaymentHistoryReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnDebtPaymentHistoryReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnDebtPaymentHistoryReport.Size = New System.Drawing.Size(232, 35)
         Me.btnDebtPaymentHistoryReport.TabIndex = 21
         Me.btnDebtPaymentHistoryReport.Text = "Debt Payment History Report"
         Me.btnDebtPaymentHistoryReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1867,7 +1896,7 @@ Partial Class frmMain
         Me.btnDebtTrackingReport.Location = New System.Drawing.Point(0, 700)
         Me.btnDebtTrackingReport.Name = "btnDebtTrackingReport"
         Me.btnDebtTrackingReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnDebtTrackingReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnDebtTrackingReport.Size = New System.Drawing.Size(232, 35)
         Me.btnDebtTrackingReport.TabIndex = 20
         Me.btnDebtTrackingReport.Text = "Debt Tracking Report"
         Me.btnDebtTrackingReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1884,7 +1913,7 @@ Partial Class frmMain
         Me.btnSupplierSalesReport.Location = New System.Drawing.Point(0, 665)
         Me.btnSupplierSalesReport.Name = "btnSupplierSalesReport"
         Me.btnSupplierSalesReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnSupplierSalesReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnSupplierSalesReport.Size = New System.Drawing.Size(232, 35)
         Me.btnSupplierSalesReport.TabIndex = 19
         Me.btnSupplierSalesReport.Text = "Supply Sales Report"
         Me.btnSupplierSalesReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1901,7 +1930,7 @@ Partial Class frmMain
         Me.btnPriceChangeReport.Location = New System.Drawing.Point(0, 630)
         Me.btnPriceChangeReport.Name = "btnPriceChangeReport"
         Me.btnPriceChangeReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnPriceChangeReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnPriceChangeReport.Size = New System.Drawing.Size(232, 35)
         Me.btnPriceChangeReport.TabIndex = 18
         Me.btnPriceChangeReport.Text = "Price Change Report"
         Me.btnPriceChangeReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1918,7 +1947,7 @@ Partial Class frmMain
         Me.btnGRNReport.Location = New System.Drawing.Point(0, 595)
         Me.btnGRNReport.Name = "btnGRNReport"
         Me.btnGRNReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnGRNReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnGRNReport.Size = New System.Drawing.Size(232, 35)
         Me.btnGRNReport.TabIndex = 17
         Me.btnGRNReport.Text = "GRN Report"
         Me.btnGRNReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1935,7 +1964,7 @@ Partial Class frmMain
         Me.btnPendingLPO.Location = New System.Drawing.Point(0, 560)
         Me.btnPendingLPO.Name = "btnPendingLPO"
         Me.btnPendingLPO.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnPendingLPO.Size = New System.Drawing.Size(279, 35)
+        Me.btnPendingLPO.Size = New System.Drawing.Size(232, 35)
         Me.btnPendingLPO.TabIndex = 16
         Me.btnPendingLPO.Text = "Pending LPO"
         Me.btnPendingLPO.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1952,7 +1981,7 @@ Partial Class frmMain
         Me.btnPrintedLPO.Location = New System.Drawing.Point(0, 525)
         Me.btnPrintedLPO.Name = "btnPrintedLPO"
         Me.btnPrintedLPO.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnPrintedLPO.Size = New System.Drawing.Size(279, 35)
+        Me.btnPrintedLPO.Size = New System.Drawing.Size(232, 35)
         Me.btnPrintedLPO.TabIndex = 15
         Me.btnPrintedLPO.Text = "Printed LPO"
         Me.btnPrintedLPO.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1969,7 +1998,7 @@ Partial Class frmMain
         Me.btnNegativeStockReport.Location = New System.Drawing.Point(0, 490)
         Me.btnNegativeStockReport.Name = "btnNegativeStockReport"
         Me.btnNegativeStockReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnNegativeStockReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnNegativeStockReport.Size = New System.Drawing.Size(232, 35)
         Me.btnNegativeStockReport.TabIndex = 14
         Me.btnNegativeStockReport.Text = "Negative Stock Report"
         Me.btnNegativeStockReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1986,7 +2015,7 @@ Partial Class frmMain
         Me.btnSlowMovingItems.Location = New System.Drawing.Point(0, 455)
         Me.btnSlowMovingItems.Name = "btnSlowMovingItems"
         Me.btnSlowMovingItems.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnSlowMovingItems.Size = New System.Drawing.Size(279, 35)
+        Me.btnSlowMovingItems.Size = New System.Drawing.Size(232, 35)
         Me.btnSlowMovingItems.TabIndex = 13
         Me.btnSlowMovingItems.Text = "Slow Moving Products"
         Me.btnSlowMovingItems.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2003,7 +2032,7 @@ Partial Class frmMain
         Me.btnFastMovingItems.Location = New System.Drawing.Point(0, 420)
         Me.btnFastMovingItems.Name = "btnFastMovingItems"
         Me.btnFastMovingItems.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnFastMovingItems.Size = New System.Drawing.Size(279, 35)
+        Me.btnFastMovingItems.Size = New System.Drawing.Size(232, 35)
         Me.btnFastMovingItems.TabIndex = 12
         Me.btnFastMovingItems.Text = "Fast Moving Products"
         Me.btnFastMovingItems.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2020,7 +2049,7 @@ Partial Class frmMain
         Me.btnSupplierStockStatus.Location = New System.Drawing.Point(0, 385)
         Me.btnSupplierStockStatus.Name = "btnSupplierStockStatus"
         Me.btnSupplierStockStatus.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnSupplierStockStatus.Size = New System.Drawing.Size(279, 35)
+        Me.btnSupplierStockStatus.Size = New System.Drawing.Size(232, 35)
         Me.btnSupplierStockStatus.TabIndex = 11
         Me.btnSupplierStockStatus.Text = "Supplier Stock Status"
         Me.btnSupplierStockStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2037,7 +2066,7 @@ Partial Class frmMain
         Me.btnStockCardReport.Location = New System.Drawing.Point(0, 350)
         Me.btnStockCardReport.Name = "btnStockCardReport"
         Me.btnStockCardReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnStockCardReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnStockCardReport.Size = New System.Drawing.Size(232, 35)
         Me.btnStockCardReport.TabIndex = 10
         Me.btnStockCardReport.Text = "Stock Card Report"
         Me.btnStockCardReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2054,7 +2083,7 @@ Partial Class frmMain
         Me.btnSupplySalesReport.Location = New System.Drawing.Point(0, 315)
         Me.btnSupplySalesReport.Name = "btnSupplySalesReport"
         Me.btnSupplySalesReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnSupplySalesReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnSupplySalesReport.Size = New System.Drawing.Size(232, 35)
         Me.btnSupplySalesReport.TabIndex = 9
         Me.btnSupplySalesReport.Text = "Supply Sales Report"
         Me.btnSupplySalesReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2071,7 +2100,7 @@ Partial Class frmMain
         Me.btnPettyCashReport.Location = New System.Drawing.Point(0, 280)
         Me.btnPettyCashReport.Name = "btnPettyCashReport"
         Me.btnPettyCashReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnPettyCashReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnPettyCashReport.Size = New System.Drawing.Size(232, 35)
         Me.btnPettyCashReport.TabIndex = 8
         Me.btnPettyCashReport.Text = "Petty Cash Report"
         Me.btnPettyCashReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2088,7 +2117,7 @@ Partial Class frmMain
         Me.btnProductListingReport.Location = New System.Drawing.Point(0, 245)
         Me.btnProductListingReport.Name = "btnProductListingReport"
         Me.btnProductListingReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnProductListingReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnProductListingReport.Size = New System.Drawing.Size(232, 35)
         Me.btnProductListingReport.TabIndex = 7
         Me.btnProductListingReport.Text = "Product Listing Report"
         Me.btnProductListingReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2105,7 +2134,7 @@ Partial Class frmMain
         Me.btnReturnedBottleReport.Location = New System.Drawing.Point(0, 210)
         Me.btnReturnedBottleReport.Name = "btnReturnedBottleReport"
         Me.btnReturnedBottleReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnReturnedBottleReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnReturnedBottleReport.Size = New System.Drawing.Size(232, 35)
         Me.btnReturnedBottleReport.TabIndex = 6
         Me.btnReturnedBottleReport.Text = "Returned Bottles"
         Me.btnReturnedBottleReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2122,7 +2151,7 @@ Partial Class frmMain
         Me.btnGiftVoucherSalesReport.Location = New System.Drawing.Point(0, 175)
         Me.btnGiftVoucherSalesReport.Name = "btnGiftVoucherSalesReport"
         Me.btnGiftVoucherSalesReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnGiftVoucherSalesReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnGiftVoucherSalesReport.Size = New System.Drawing.Size(232, 35)
         Me.btnGiftVoucherSalesReport.TabIndex = 5
         Me.btnGiftVoucherSalesReport.Text = "Gift Voucher Sales"
         Me.btnGiftVoucherSalesReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2139,7 +2168,7 @@ Partial Class frmMain
         Me.btnCreditCardSalesReport.Location = New System.Drawing.Point(0, 140)
         Me.btnCreditCardSalesReport.Name = "btnCreditCardSalesReport"
         Me.btnCreditCardSalesReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnCreditCardSalesReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnCreditCardSalesReport.Size = New System.Drawing.Size(232, 35)
         Me.btnCreditCardSalesReport.TabIndex = 4
         Me.btnCreditCardSalesReport.Text = "Credit Card Sales"
         Me.btnCreditCardSalesReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2156,7 +2185,7 @@ Partial Class frmMain
         Me.btnCreditNoteReport.Location = New System.Drawing.Point(0, 105)
         Me.btnCreditNoteReport.Name = "btnCreditNoteReport"
         Me.btnCreditNoteReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnCreditNoteReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnCreditNoteReport.Size = New System.Drawing.Size(232, 35)
         Me.btnCreditNoteReport.TabIndex = 3
         Me.btnCreditNoteReport.Text = "Credit Note Report"
         Me.btnCreditNoteReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2173,7 +2202,7 @@ Partial Class frmMain
         Me.btnCashierVariance.Location = New System.Drawing.Point(0, 70)
         Me.btnCashierVariance.Name = "btnCashierVariance"
         Me.btnCashierVariance.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnCashierVariance.Size = New System.Drawing.Size(279, 35)
+        Me.btnCashierVariance.Size = New System.Drawing.Size(232, 35)
         Me.btnCashierVariance.TabIndex = 2
         Me.btnCashierVariance.Text = "Cashier Variance"
         Me.btnCashierVariance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2190,7 +2219,7 @@ Partial Class frmMain
         Me.btnZHistoryReport.Location = New System.Drawing.Point(0, 35)
         Me.btnZHistoryReport.Name = "btnZHistoryReport"
         Me.btnZHistoryReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnZHistoryReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnZHistoryReport.Size = New System.Drawing.Size(232, 35)
         Me.btnZHistoryReport.TabIndex = 1
         Me.btnZHistoryReport.Text = "Z History"
         Me.btnZHistoryReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2207,7 +2236,7 @@ Partial Class frmMain
         Me.btnDailySalesReport.Location = New System.Drawing.Point(0, 0)
         Me.btnDailySalesReport.Name = "btnDailySalesReport"
         Me.btnDailySalesReport.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnDailySalesReport.Size = New System.Drawing.Size(279, 35)
+        Me.btnDailySalesReport.Size = New System.Drawing.Size(232, 35)
         Me.btnDailySalesReport.TabIndex = 0
         Me.btnDailySalesReport.Text = "Daily Sales Report"
         Me.btnDailySalesReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2224,7 +2253,7 @@ Partial Class frmMain
         Me.btnReports.Location = New System.Drawing.Point(0, 479)
         Me.btnReports.Name = "btnReports"
         Me.btnReports.Padding = New System.Windows.Forms.Padding(11, 0, 0, 0)
-        Me.btnReports.Size = New System.Drawing.Size(279, 45)
+        Me.btnReports.Size = New System.Drawing.Size(232, 45)
         Me.btnReports.TabIndex = 6
         Me.btnReports.Text = "&Reports"
         Me.btnReports.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2237,7 +2266,7 @@ Partial Class frmMain
         Me.pnlOrdersMenu.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlOrdersMenu.Location = New System.Drawing.Point(0, 433)
         Me.pnlOrdersMenu.Name = "pnlOrdersMenu"
-        Me.pnlOrdersMenu.Size = New System.Drawing.Size(279, 46)
+        Me.pnlOrdersMenu.Size = New System.Drawing.Size(232, 46)
         Me.pnlOrdersMenu.TabIndex = 5
         Me.pnlOrdersMenu.Visible = False
         '
@@ -2252,7 +2281,7 @@ Partial Class frmMain
         Me.btnLPO.Location = New System.Drawing.Point(0, 0)
         Me.btnLPO.Name = "btnLPO"
         Me.btnLPO.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnLPO.Size = New System.Drawing.Size(279, 35)
+        Me.btnLPO.Size = New System.Drawing.Size(232, 35)
         Me.btnLPO.TabIndex = 0
         Me.btnLPO.Text = "Local Purchase Order"
         Me.btnLPO.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2269,7 +2298,7 @@ Partial Class frmMain
         Me.btnOrders.Location = New System.Drawing.Point(0, 388)
         Me.btnOrders.Name = "btnOrders"
         Me.btnOrders.Padding = New System.Windows.Forms.Padding(11, 0, 0, 0)
-        Me.btnOrders.Size = New System.Drawing.Size(279, 45)
+        Me.btnOrders.Size = New System.Drawing.Size(232, 45)
         Me.btnOrders.TabIndex = 4
         Me.btnOrders.Text = "&Orders"
         Me.btnOrders.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2289,7 +2318,7 @@ Partial Class frmMain
         Me.pnlMastersMenu.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlMastersMenu.Location = New System.Drawing.Point(0, 90)
         Me.pnlMastersMenu.Name = "pnlMastersMenu"
-        Me.pnlMastersMenu.Size = New System.Drawing.Size(279, 298)
+        Me.pnlMastersMenu.Size = New System.Drawing.Size(232, 298)
         Me.pnlMastersMenu.TabIndex = 3
         Me.pnlMastersMenu.Visible = False
         '
@@ -2304,7 +2333,7 @@ Partial Class frmMain
         Me.btnMaterial.Location = New System.Drawing.Point(0, 245)
         Me.btnMaterial.Name = "btnMaterial"
         Me.btnMaterial.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnMaterial.Size = New System.Drawing.Size(279, 35)
+        Me.btnMaterial.Size = New System.Drawing.Size(232, 35)
         Me.btnMaterial.TabIndex = 7
         Me.btnMaterial.Text = "Materials"
         Me.btnMaterial.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2321,7 +2350,7 @@ Partial Class frmMain
         Me.btnMaterialCategory.Location = New System.Drawing.Point(0, 210)
         Me.btnMaterialCategory.Name = "btnMaterialCategory"
         Me.btnMaterialCategory.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnMaterialCategory.Size = New System.Drawing.Size(279, 35)
+        Me.btnMaterialCategory.Size = New System.Drawing.Size(232, 35)
         Me.btnMaterialCategory.TabIndex = 6
         Me.btnMaterialCategory.Text = "Material Categories"
         Me.btnMaterialCategory.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2338,7 +2367,7 @@ Partial Class frmMain
         Me.btnMassManagement.Location = New System.Drawing.Point(0, 175)
         Me.btnMassManagement.Name = "btnMassManagement"
         Me.btnMassManagement.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnMassManagement.Size = New System.Drawing.Size(279, 35)
+        Me.btnMassManagement.Size = New System.Drawing.Size(232, 35)
         Me.btnMassManagement.TabIndex = 5
         Me.btnMassManagement.Text = "Mass Management"
         Me.btnMassManagement.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2355,7 +2384,7 @@ Partial Class frmMain
         Me.btnCorporateCustomers.Location = New System.Drawing.Point(0, 140)
         Me.btnCorporateCustomers.Name = "btnCorporateCustomers"
         Me.btnCorporateCustomers.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnCorporateCustomers.Size = New System.Drawing.Size(279, 35)
+        Me.btnCorporateCustomers.Size = New System.Drawing.Size(232, 35)
         Me.btnCorporateCustomers.TabIndex = 4
         Me.btnCorporateCustomers.Text = "Corporate Customers"
         Me.btnCorporateCustomers.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2372,7 +2401,7 @@ Partial Class frmMain
         Me.btnCompanyProfile.Location = New System.Drawing.Point(0, 105)
         Me.btnCompanyProfile.Name = "btnCompanyProfile"
         Me.btnCompanyProfile.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnCompanyProfile.Size = New System.Drawing.Size(279, 35)
+        Me.btnCompanyProfile.Size = New System.Drawing.Size(232, 35)
         Me.btnCompanyProfile.TabIndex = 3
         Me.btnCompanyProfile.Text = "Company Profile"
         Me.btnCompanyProfile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2389,7 +2418,7 @@ Partial Class frmMain
         Me.btnSuppliers.Location = New System.Drawing.Point(0, 70)
         Me.btnSuppliers.Name = "btnSuppliers"
         Me.btnSuppliers.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnSuppliers.Size = New System.Drawing.Size(279, 35)
+        Me.btnSuppliers.Size = New System.Drawing.Size(232, 35)
         Me.btnSuppliers.TabIndex = 2
         Me.btnSuppliers.Text = "Suppliers"
         Me.btnSuppliers.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2406,7 +2435,7 @@ Partial Class frmMain
         Me.btnProductInquiry.Location = New System.Drawing.Point(0, 35)
         Me.btnProductInquiry.Name = "btnProductInquiry"
         Me.btnProductInquiry.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnProductInquiry.Size = New System.Drawing.Size(279, 35)
+        Me.btnProductInquiry.Size = New System.Drawing.Size(232, 35)
         Me.btnProductInquiry.TabIndex = 1
         Me.btnProductInquiry.Text = "Product Inquiry"
         Me.btnProductInquiry.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2423,7 +2452,7 @@ Partial Class frmMain
         Me.btnProductMaster.Location = New System.Drawing.Point(0, 0)
         Me.btnProductMaster.Name = "btnProductMaster"
         Me.btnProductMaster.Padding = New System.Windows.Forms.Padding(39, 0, 0, 0)
-        Me.btnProductMaster.Size = New System.Drawing.Size(279, 35)
+        Me.btnProductMaster.Size = New System.Drawing.Size(232, 35)
         Me.btnProductMaster.TabIndex = 0
         Me.btnProductMaster.Text = "Product Master"
         Me.btnProductMaster.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2440,7 +2469,7 @@ Partial Class frmMain
         Me.btnMasters.Location = New System.Drawing.Point(0, 45)
         Me.btnMasters.Name = "btnMasters"
         Me.btnMasters.Padding = New System.Windows.Forms.Padding(11, 0, 0, 0)
-        Me.btnMasters.Size = New System.Drawing.Size(279, 45)
+        Me.btnMasters.Size = New System.Drawing.Size(232, 45)
         Me.btnMasters.TabIndex = 2
         Me.btnMasters.Text = "&Masters"
         Me.btnMasters.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2457,11 +2486,18 @@ Partial Class frmMain
         Me.btnDashboard.Location = New System.Drawing.Point(0, 0)
         Me.btnDashboard.Name = "btnDashboard"
         Me.btnDashboard.Padding = New System.Windows.Forms.Padding(11, 0, 0, 0)
-        Me.btnDashboard.Size = New System.Drawing.Size(279, 45)
+        Me.btnDashboard.Size = New System.Drawing.Size(232, 45)
         Me.btnDashboard.TabIndex = 0
         Me.btnDashboard.Text = "&Dashboard"
         Me.btnDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnDashboard.UseVisualStyleBackColor = True
+        '
+        'ToolStripMenuItem27
+        '
+        Me.ToolStripMenuItem27.ForeColor = System.Drawing.Color.Black
+        Me.ToolStripMenuItem27.Name = "ToolStripMenuItem27"
+        Me.ToolStripMenuItem27.Size = New System.Drawing.Size(53, 24)
+        Me.ToolStripMenuItem27.Text = "Help"
         '
         'frmMain
         '
@@ -2477,6 +2513,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.ToolStrip1)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
+        Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.MenuStrip
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
@@ -2616,9 +2653,7 @@ Partial Class frmMain
     Friend WithEvents SalesPersonsManagementToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator10 As ToolStripSeparator
     Friend WithEvents EditToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents pnlBody As Panel
-    Friend WithEvents txtCompanyName As TextBox
     Friend WithEvents Panel2 As Panel
     Friend WithEvents pnlSideMenu As Panel
     Friend WithEvents btnDashboard As Button
@@ -2697,4 +2732,8 @@ Partial Class frmMain
     Friend WithEvents btnTillAdministration As Button
     Friend WithEvents btnUserEnrolment As Button
     Friend WithEvents btnAdminFunctions As Button
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Button3 As Button
+    Friend WithEvents Button2 As Button
+    Friend WithEvents ToolStripMenuItem27 As ToolStripMenuItem
 End Class

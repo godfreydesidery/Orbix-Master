@@ -748,299 +748,262 @@ Public Class frmMain
     End Sub
 
     Private Sub btnCashierVariance_Click(sender As Object, e As EventArgs) Handles btnCashierVariance.Click
-        Dim f As New frmCashierVariance With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmCashierVariance)
+        hideSubMenu()
     End Sub
 
     Private Sub btnCreditNoteReport_Click(sender As Object, e As EventArgs) Handles btnCreditNoteReport.Click
-        Dim f As New frmCreditNoteReport With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmCreditNoteReport)
+        hideSubMenu()
     End Sub
 
     Private Sub btnCreditCardSalesReport_Click(sender As Object, e As EventArgs) Handles btnCreditCardSalesReport.Click
-        Dim f As New frmCreditCardSales With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmCreditCardSales)
+        hideSubMenu()
     End Sub
 
     Private Sub btnGiftVoucherSalesReport_Click(sender As Object, e As EventArgs) Handles btnGiftVoucherSalesReport.Click
-        Dim f As New frmGiftVoucherSales With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmGiftVoucherSales)
+        hideSubMenu()
     End Sub
 
     Private Sub btnReturnedBottleReport_Click(sender As Object, e As EventArgs) Handles btnReturnedBottleReport.Click
-        Dim f As New frmReturnedBottles With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmReturnedBottles)
+        hideSubMenu()
     End Sub
 
     Private Sub btnProductListingReport_Click(sender As Object, e As EventArgs) Handles btnProductListingReport.Click
-        Dim f As New frmProductListingReport With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmProductListingReport)
+        hideSubMenu()
     End Sub
 
     Private Sub btnPettyCashReport_Click(sender As Object, e As EventArgs) Handles btnPettyCashReport.Click
-
+        openChildForm(New frmPettyCash)
+        hideSubMenu()
     End Sub
 
     Private Sub btnSupplySalesReport_Click(sender As Object, e As EventArgs) Handles btnSupplySalesReport.Click
-        Dim f As New frmSupplySalesReport With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmSupplySalesReport)
+        hideSubMenu()
     End Sub
 
     Private Sub btnStockCardReport_Click(sender As Object, e As EventArgs) Handles btnStockCardReport.Click
-        Dim f As New frmStockCardReports With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmStockCardReports)
+        hideSubMenu()
     End Sub
 
     Private Sub btnSupplierStockStatus_Click(sender As Object, e As EventArgs) Handles btnSupplierStockStatus.Click
-        Dim f As New frmSupplierStockStatus With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmSupplierStockStatus)
+        hideSubMenu()
     End Sub
 
     Private Sub btnFastMovingItems_Click(sender As Object, e As EventArgs) Handles btnFastMovingItems.Click
-        Dim f As New frmFastMovingItems With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmFastMovingItems)
+        hideSubMenu()
     End Sub
 
     Private Sub btnSlowMovingItems_Click(sender As Object, e As EventArgs) Handles btnSlowMovingItems.Click
-        Dim f As New frmSlowMovingItems With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmSlowMovingItems)
+        hideSubMenu()
     End Sub
 
     Private Sub btnNegativeStockReport_Click(sender As Object, e As EventArgs) Handles btnNegativeStockReport.Click
-        Dim f As New frmNegativeStockReports With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmNegativeStockReports)
+        hideSubMenu()
     End Sub
 
     Private Sub btnPrintedLPO_Click(sender As Object, e As EventArgs) Handles btnPrintedLPO.Click
-        Dim f As New frmPrintedLPO With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmPrintedLPO)
+        hideSubMenu()
     End Sub
 
     Private Sub btnPendingLPO_Click(sender As Object, e As EventArgs) Handles btnPendingLPO.Click
-        Dim f As New frmPendingLPO With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmPendingLPO)
+        hideSubMenu()
     End Sub
 
     Private Sub btnGRNReport_Click(sender As Object, e As EventArgs) Handles btnGRNReport.Click
-        Dim f As New frmGrnReport2 With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmGrnReport2)
+        hideSubMenu()
     End Sub
 
     Private Sub btnPriceChangeReport_Click(sender As Object, e As EventArgs) Handles btnPriceChangeReport.Click
-        Dim f As New frmPriceChange With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmPriceChange)
+        hideSubMenu()
     End Sub
 
     Private Sub btnSupplierSalesReport_Click(sender As Object, e As EventArgs) Handles btnSupplierSalesReport.Click
-        Dim f As New frmSupplySalesReport With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmSupplySalesReport)
+        hideSubMenu()
     End Sub
 
     Private Sub btnDebtTrackingReport_Click(sender As Object, e As EventArgs) Handles btnDebtTrackingReport.Click
-        Dim f As New frmDebtReport With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmDebtReport)
+        hideSubMenu()
     End Sub
 
     Private Sub btnDebtPaymentHistoryReport_Click(sender As Object, e As EventArgs) Handles btnDebtPaymentHistoryReport.Click
-        Dim f As New frmDebtPaymentHistory With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmDebtPaymentHistory)
+        hideSubMenu()
     End Sub
 
     Private Sub btnProductDamagedReport_Click(sender As Object, e As EventArgs) Handles btnProductDamagedReport.Click
-        Dim f As New frmDamagesReport With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmDamagesReport)
+        hideSubMenu()
     End Sub
 
     Private Sub btnDailyProductionReport_Click(sender As Object, e As EventArgs) Handles btnDailyProductionReport.Click
-        Dim f As New frmProductionReport With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmProductionReport)
+        hideSubMenu()
     End Sub
 
     Private Sub btnMaterialVsProductionReport_Click(sender As Object, e As EventArgs) Handles btnMaterialVsProductionReport.Click
-        Dim f As New frmMaterialVsProduction With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmMaterialVsProduction)
+        hideSubMenu()
     End Sub
 
     Private Sub btnMaterialUsageReport_Click(sender As Object, e As EventArgs) Handles btnMaterialUsageReport.Click
-        Dim f As New frmMaterialUsageReport With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmMaterialUsageReport)
+        hideSubMenu()
     End Sub
 
     Private Sub btnMaterialStockStatus_Click(sender As Object, e As EventArgs) Handles btnMaterialStockStatus.Click
-        Dim f As New frmMaterialStockStatus With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmMaterialStockStatus)
+        hideSubMenu()
     End Sub
 
     Private Sub btnMaterialStockCards_Click(sender As Object, e As EventArgs) Handles btnMaterialStockCards.Click
-        Dim f As New frmMaterialStockCard With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmMaterialStockCard)
+        hideSubMenu()
     End Sub
 
     Private Sub btnGoodsReceivedNote_Click(sender As Object, e As EventArgs) Handles btnGoodsReceivedNote.Click
-        Dim f As New frmGoodsReceivedNote With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmGoodsReceivedNote)
+        hideSubMenu()
     End Sub
 
     Private Sub btnGoodsReturnedByCustomers_Click(sender As Object, e As EventArgs) Handles btnGoodsReturnedByCustomers.Click
-        Dim f As New frmGoodsReturnedByCustomers With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmGoodsReturnedByCustomers)
+        hideSubMenu()
     End Sub
 
     Private Sub btnCustomerCreditNotes_Click(sender As Object, e As EventArgs) Handles btnCustomerCreditNotes.Click
-        Dim f As New frmCustomerCreditNote With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmCustomerCreditNote)
+        hideSubMenu()
     End Sub
 
     Private Sub btnSupplierCreditNotes_Click(sender As Object, e As EventArgs) Handles btnSupplierCreditNotes.Click
-        Dim f As New frmSupplierCreditNote With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmSupplierCreditNote)
+        hideSubMenu()
     End Sub
 
     Private Sub btnAllocations_Click(sender As Object, e As EventArgs) Handles btnAllocations.Click
-        Dim f As New frmAllocations With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmAllocations)
+        hideSubMenu()
     End Sub
 
     Private Sub btnReceipts_Click(sender As Object, e As EventArgs) Handles btnReceipts.Click
-        Dim f As New frmReceipts With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmReceipts)
+        hideSubMenu()
     End Sub
 
     Private Sub btnQuotations_Click(sender As Object, e As EventArgs) Handles btnQuotations.Click
-        Dim f As New frmQuotations With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmQuotations)
+        hideSubMenu()
     End Sub
 
     Private Sub btnGoodsReturnedToVendor_Click(sender As Object, e As EventArgs) Handles btnGoodsReturnedToVendor.Click
-        Dim f As New frmReturnToVendor With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmReturnToVendor)
+        hideSubMenu()
     End Sub
 
     Private Sub btnSalesLedge_Click(sender As Object, e As EventArgs) Handles btnSalesLedge.Click
-        Dim f As New frmSalesLedge With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmSalesLedge)
+        hideSubMenu()
     End Sub
 
     Private Sub btnSalesJournal_Click(sender As Object, e As EventArgs) Handles btnSalesJournal.Click
-        Dim f As New frmSalesJournal With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmSalesJournal)
+        hideSubMenu()
     End Sub
 
     Private Sub btnPackingList_Click(sender As Object, e As EventArgs) Handles btnPackingList.Click
-        Dim f As New frmPackingList With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmPackingList)
+        hideSubMenu()
     End Sub
 
     Private Sub btnProductConversion_Click(sender As Object, e As EventArgs) Handles btnProductConversion.Click
-        Dim f As New frmItemConversion With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmItemConversion)
+        hideSubMenu()
     End Sub
 
     Private Sub btnCustomProduction_Click(sender As Object, e As EventArgs) Handles btnCustomProduction.Click
-        Dim f As New frmCustomProduction With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmCustomProduction)
+        hideSubMenu()
     End Sub
 
     Private Sub btnCustomerClaims_Click(sender As Object, e As EventArgs) Handles btnCustomerClaims.Click
-        Dim f As New frmCustomerClaim With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmCustomerClaim)
+        hideSubMenu()
     End Sub
 
     Private Sub btnSalesInvoice_Click(sender As Object, e As EventArgs) Handles btnSalesInvoice.Click
-        Dim f As New frmSalesInvoice With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmSalesInvoice)
+        hideSubMenu()
     End Sub
 
     Private Sub btnUserEnrolment_Click(sender As Object, e As EventArgs) Handles btnUserEnrolment.Click
-        Dim f As New frmUserEnrolment With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmUserEnrolment)
+        hideSubMenu()
     End Sub
 
     Private Sub btnTillAdministration_Click(sender As Object, e As EventArgs) Handles btnTillAdministration.Click
-        Dim f As New frmTillAdministration With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmTillAdministration)
+        hideSubMenu()
     End Sub
 
     Private Sub btnBiometricEnrolment_Click(sender As Object, e As EventArgs) Handles btnBiometricEnrolment.Click
-        Dim f As New frmBiometricEnrolment With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmBiometricEnrolment)
+        hideSubMenu()
     End Sub
 
     Private Sub btnTillPosition_Click(sender As Object, e As EventArgs) Handles btnTillPosition.Click
-        Dim f As New frmTillPosition With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmTillPosition)
+        hideSubMenu()
     End Sub
 
     Private Sub btnAccessControl_Click(sender As Object, e As EventArgs) Handles btnAccessControl.Click
-        Dim f As New frmAccessControl With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmAccessControl)
+        hideSubMenu()
     End Sub
 
     Private Sub btnPersonelEnrolment_Click(sender As Object, e As EventArgs) Handles btnPersonelEnrolment.Click
-        Dim f As New frmPersonnel With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmPersonnel)
+        hideSubMenu()
     End Sub
 
     Private Sub btnSalesPersonEnrolment_Click(sender As Object, e As EventArgs) Handles btnSalesPersonEnrolment.Click
-        Dim f As New frmSalesPersons With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmSalesPersons)
+        hideSubMenu()
     End Sub
 
     Private Sub btnEndOfDay_Click(sender As Object, e As EventArgs) Handles btnEndOfDay.Click
-        Dim f As New frmEndDay With {.TopLevel = False, .AutoSize = False}
-        pnlBody.Controls.Add(f)
-        f.Show()
+        openChildForm(New frmEndDay)
+        hideSubMenu()
     End Sub
 
     Private Sub btnCustomDating_Click(sender As Object, e As EventArgs) Handles btnCustomDating.Click
-
+        If User.authorize("CUSTOM DATING") = False Then
+            MsgBox("You currently have no permission to change date to custom date!", vbOKOnly + vbExclamation, "Access denied")
+            Exit Sub
+        End If
+        Dim res As Integer = MsgBox("Are you sure you want to enter a custom date? Custom sets the current system date to a specified date, and all operations will be dated on custom date. Make sure you log out and log in afresh to resume the normal system date", vbYesNo + vbQuestion, "Enter custom date")
+        If res = DialogResult.Yes Then
+            If currentForm IsNot Nothing Then currentForm.Close()
+            dtCustomDate.Visible = True
+            btnUpdate.Visible = True
+            lblCustDate.Visible = True
+        End If
     End Sub
 
 

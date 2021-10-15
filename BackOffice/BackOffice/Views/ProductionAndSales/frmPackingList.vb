@@ -6,7 +6,7 @@ Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 
 Public Class frmPackingList
-    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+    Private Sub btnBack_Click(sender As Object, e As EventArgs)
         Me.Dispose()
     End Sub
 
@@ -2300,5 +2300,9 @@ Public Class frmPackingList
         End Try
         refreshPackingLists()
         Cursor = Cursors.Default
+    End Sub
+
+    Private Sub txtTotalPacked_TextChanged(sender As Object, e As EventArgs) Handles txtTotalPacked.TextChanged
+
     End Sub
 End Class
