@@ -32,6 +32,7 @@ Partial Class frmMain
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem27 = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tstrpAlias = New System.Windows.Forms.ToolStripStatusLabel()
@@ -217,7 +218,6 @@ Partial Class frmMain
         Me.btnProductMaster = New System.Windows.Forms.Button()
         Me.btnMasters = New System.Windows.Forms.Button()
         Me.btnDashboard = New System.Windows.Forms.Button()
-        Me.ToolStripMenuItem27 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
@@ -241,7 +241,7 @@ Partial Class frmMain
         Me.MenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip.Name = "MenuStrip"
         Me.MenuStrip.Padding = New System.Windows.Forms.Padding(9, 2, 0, 2)
-        Me.MenuStrip.Size = New System.Drawing.Size(1910, 28)
+        Me.MenuStrip.Size = New System.Drawing.Size(1902, 28)
         Me.MenuStrip.TabIndex = 5
         Me.MenuStrip.Text = "MenuStrip"
         '
@@ -257,22 +257,22 @@ Partial Class frmMain
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(178, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(105, 6)
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(178, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(105, 6)
         '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(178, 6)
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(105, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(181, 26)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(108, 26)
         Me.ExitToolStripMenuItem.Text = "E&xit"
         '
         'EditToolStripMenuItem
@@ -282,6 +282,13 @@ Partial Class frmMain
         Me.EditToolStripMenuItem.Size = New System.Drawing.Size(47, 24)
         Me.EditToolStripMenuItem.Text = "&Edit"
         '
+        'ToolStripMenuItem27
+        '
+        Me.ToolStripMenuItem27.ForeColor = System.Drawing.Color.Black
+        Me.ToolStripMenuItem27.Name = "ToolStripMenuItem27"
+        Me.ToolStripMenuItem27.Size = New System.Drawing.Size(53, 24)
+        Me.ToolStripMenuItem27.Text = "Help"
+        '
         'StatusStrip
         '
         Me.StatusStrip.BackColor = System.Drawing.Color.Gainsboro
@@ -290,7 +297,7 @@ Partial Class frmMain
         Me.StatusStrip.Location = New System.Drawing.Point(0, 940)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Padding = New System.Windows.Forms.Padding(1, 0, 21, 0)
-        Me.StatusStrip.Size = New System.Drawing.Size(1910, 25)
+        Me.StatusStrip.Size = New System.Drawing.Size(1902, 25)
         Me.StatusStrip.TabIndex = 7
         Me.StatusStrip.Text = "StatusStrip"
         '
@@ -1116,7 +1123,7 @@ Partial Class frmMain
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Location = New System.Drawing.Point(0, 28)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1910, 76)
+        Me.Panel2.Size = New System.Drawing.Size(1902, 76)
         Me.Panel2.TabIndex = 29
         '
         'Button3
@@ -1127,7 +1134,7 @@ Partial Class frmMain
         Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(173, Byte), Integer), CType(CType(172, Byte), Integer), CType(CType(189, Byte), Integer))
-        Me.Button3.Location = New System.Drawing.Point(1808, 44)
+        Me.Button3.Location = New System.Drawing.Point(1800, 44)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(90, 26)
         Me.Button3.TabIndex = 24
@@ -1142,7 +1149,7 @@ Partial Class frmMain
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(173, Byte), Integer), CType(CType(172, Byte), Integer), CType(CType(189, Byte), Integer))
-        Me.Button2.Location = New System.Drawing.Point(1405, 43)
+        Me.Button2.Location = New System.Drawing.Point(1397, 43)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(397, 26)
         Me.Button2.TabIndex = 23
@@ -2492,19 +2499,12 @@ Partial Class frmMain
         Me.btnDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btnDashboard.UseVisualStyleBackColor = True
         '
-        'ToolStripMenuItem27
-        '
-        Me.ToolStripMenuItem27.ForeColor = System.Drawing.Color.Black
-        Me.ToolStripMenuItem27.Name = "ToolStripMenuItem27"
-        Me.ToolStripMenuItem27.Size = New System.Drawing.Size(53, 24)
-        Me.ToolStripMenuItem27.Text = "Help"
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DarkGray
-        Me.ClientSize = New System.Drawing.Size(1910, 965)
+        Me.ClientSize = New System.Drawing.Size(1902, 965)
         Me.Controls.Add(Me.pnlSideMenu)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.pnlBody)

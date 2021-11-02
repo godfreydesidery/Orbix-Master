@@ -22,7 +22,6 @@ Partial Class frmZHistory
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnBack = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.txtTotalPettyCash = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -106,27 +105,18 @@ Partial Class frmZHistory
         Me.Label5 = New System.Windows.Forms.Label()
         Me.txtFrom = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.dateStart = New System.Windows.Forms.DateTimePicker()
         Me.dateEnd = New System.Windows.Forms.DateTimePicker()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.btnGenerate = New System.Windows.Forms.Button()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.btnExportToPDF = New System.Windows.Forms.ToolStripButton()
+        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label41 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
+        Me.Panel10.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'btnBack
-        '
-        Me.btnBack.BackColor = System.Drawing.SystemColors.Control
-        Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
-        Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnBack.Location = New System.Drawing.Point(778, 600)
-        Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(100, 40)
-        Me.btnBack.TabIndex = 2
-        Me.btnBack.UseVisualStyleBackColor = False
         '
         'Panel1
         '
@@ -185,7 +175,6 @@ Partial Class frmZHistory
         Me.Panel1.Controls.Add(Me.txtTotalCrNoteSales)
         Me.Panel1.Controls.Add(Me.Label18)
         Me.Panel1.Controls.Add(Me.txtTotalInvoiceSales)
-        Me.Panel1.Controls.Add(Me.btnBack)
         Me.Panel1.Controls.Add(Me.Label17)
         Me.Panel1.Controls.Add(Me.txtTotalCapSales)
         Me.Panel1.Controls.Add(Me.Label16)
@@ -969,20 +958,11 @@ Partial Class frmZHistory
         Me.Label4.TabIndex = 0
         Me.Label4.Text = "From"
         '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(10, 50)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(40, 17)
-        Me.Label1.TabIndex = 4
-        Me.Label1.Text = "From"
-        '
         'dateStart
         '
         Me.dateStart.CustomFormat = "yyyy-MM-dd"
         Me.dateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dateStart.Location = New System.Drawing.Point(63, 50)
+        Me.dateStart.Location = New System.Drawing.Point(55, 2)
         Me.dateStart.Name = "dateStart"
         Me.dateStart.Size = New System.Drawing.Size(112, 22)
         Me.dateStart.TabIndex = 5
@@ -991,23 +971,14 @@ Partial Class frmZHistory
         '
         Me.dateEnd.CustomFormat = "yyyy-MM-dd"
         Me.dateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dateEnd.Location = New System.Drawing.Point(212, 50)
+        Me.dateEnd.Location = New System.Drawing.Point(204, 3)
         Me.dateEnd.Name = "dateEnd"
         Me.dateEnd.Size = New System.Drawing.Size(113, 22)
         Me.dateEnd.TabIndex = 7
         '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(181, 50)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(25, 17)
-        Me.Label2.TabIndex = 6
-        Me.Label2.Text = "To"
-        '
         'btnGenerate
         '
-        Me.btnGenerate.Location = New System.Drawing.Point(331, 42)
+        Me.btnGenerate.Location = New System.Drawing.Point(345, 40)
         Me.btnGenerate.Name = "btnGenerate"
         Me.btnGenerate.Size = New System.Drawing.Size(94, 33)
         Me.btnGenerate.TabIndex = 11
@@ -1032,37 +1003,64 @@ Partial Class frmZHistory
         Me.btnExportToPDF.Size = New System.Drawing.Size(124, 24)
         Me.btnExportToPDF.Text = "Export to PDF"
         '
+        'Panel10
+        '
+        Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel10.Controls.Add(Me.Label13)
+        Me.Panel10.Controls.Add(Me.Label41)
+        Me.Panel10.Controls.Add(Me.dateStart)
+        Me.Panel10.Controls.Add(Me.dateEnd)
+        Me.Panel10.Location = New System.Drawing.Point(10, 38)
+        Me.Panel10.Name = "Panel10"
+        Me.Panel10.Size = New System.Drawing.Size(329, 35)
+        Me.Panel10.TabIndex = 108
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(5, 3)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(40, 17)
+        Me.Label13.TabIndex = 13
+        Me.Label13.Text = "From"
+        '
+        'Label41
+        '
+        Me.Label41.AutoSize = True
+        Me.Label41.Location = New System.Drawing.Point(173, 7)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(25, 17)
+        Me.Label41.TabIndex = 15
+        Me.Label41.Text = "To"
+        '
         'frmZHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(908, 729)
+        Me.Controls.Add(Me.Panel10)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.btnGenerate)
-        Me.Controls.Add(Me.dateEnd)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.dateStart)
-        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Panel1)
         Me.MinimizeBox = False
         Me.Name = "frmZHistory"
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Z History"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
+        Me.Panel10.ResumeLayout(False)
+        Me.Panel10.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnBack As System.Windows.Forms.Button
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents Label1 As Label
     Friend WithEvents dateStart As DateTimePicker
     Friend WithEvents dateEnd As DateTimePicker
-    Friend WithEvents Label2 As Label
     Friend WithEvents btnGenerate As Button
     Friend WithEvents txtTotalCashSales As TextBox
     Friend WithEvents Label9 As Label
@@ -1148,4 +1146,7 @@ Partial Class frmZHistory
     Friend WithEvents Label3 As Label
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents btnExportToPDF As ToolStripButton
+    Friend WithEvents Panel10 As Panel
+    Friend WithEvents Label13 As Label
+    Friend WithEvents Label41 As Label
 End Class

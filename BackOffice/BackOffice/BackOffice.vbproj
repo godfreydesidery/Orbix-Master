@@ -14,7 +14,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <PublishUrl>C:\Users\GODFREY\Desktop\Orbit Install Pack\Orbit Retail\BACK OFFICE\</PublishUrl>
+    <PublishUrl>C:\Users\GODFREY\Desktop\orbx\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -28,7 +28,7 @@
     <ProductName>Orbit Retail Back Office</ProductName>
     <PublisherName>Orbit Retail</PublisherName>
     <SuiteName>Retail</SuiteName>
-    <ApplicationRevision>189</ApplicationRevision>
+    <ApplicationRevision>191</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

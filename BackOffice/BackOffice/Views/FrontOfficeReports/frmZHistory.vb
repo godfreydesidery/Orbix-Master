@@ -5,7 +5,7 @@ Imports MigraDoc.DocumentObjectModel.Tables
 Imports MigraDoc.Rendering
 
 Public Class frmZHistory
-    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+    Private Sub btnBack_Click(sender As Object, e As EventArgs)
         Me.Dispose()
     End Sub
 
@@ -887,7 +887,7 @@ Public Class frmZHistory
         print()
     End Sub
 
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
+    Private Sub Label1_Click(sender As Object, e As EventArgs)
 
     End Sub
 

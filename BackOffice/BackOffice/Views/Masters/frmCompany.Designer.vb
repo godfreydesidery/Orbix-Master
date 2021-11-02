@@ -87,7 +87,6 @@ Partial Class frmCompany
         Me.Label13 = New System.Windows.Forms.Label()
         Me.txtPostCode = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
-        Me.btnBack = New System.Windows.Forms.Button()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.txtClassId = New System.Windows.Forms.TextBox()
         Me.txtClassCode = New System.Windows.Forms.TextBox()
@@ -160,6 +159,8 @@ Partial Class frmCompany
         '
         'Panel4
         '
+        Me.Panel4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel4.Controls.Add(Me.txtSubClassId)
         Me.Panel4.Controls.Add(Me.txtSubClasscode)
@@ -256,6 +257,7 @@ Partial Class frmCompany
         Me.dtgrdsubClass.AllowUserToResizeRows = False
         Me.dtgrdsubClass.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dtgrdsubClass.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.dtgrdsubClass.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dtgrdsubClass.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgrdsubClass.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.colSubClass, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.Column3})
         Me.dtgrdsubClass.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
@@ -758,20 +760,10 @@ Partial Class frmCompany
         Me.Label14.TabIndex = 45
         Me.Label14.Text = "Fax"
         '
-        'btnBack
-        '
-        Me.btnBack.BackColor = System.Drawing.SystemColors.Control
-        Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
-        Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnBack.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnBack.Location = New System.Drawing.Point(1266, 736)
-        Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(100, 40)
-        Me.btnBack.TabIndex = 18
-        Me.btnBack.UseVisualStyleBackColor = False
-        '
         'Panel3
         '
+        Me.Panel3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel3.Controls.Add(Me.txtClassId)
         Me.Panel3.Controls.Add(Me.txtClassCode)
@@ -867,15 +859,16 @@ Partial Class frmCompany
         Me.dtgrdClass.AllowUserToResizeRows = False
         Me.dtgrdClass.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dtgrdClass.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.dtgrdClass.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dtgrdClass.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgrdClass.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn2, Me.colClass, Me.colDepartment, Me.Column2})
         Me.dtgrdClass.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dtgrdClass.Location = New System.Drawing.Point(306, 3)
+        Me.dtgrdClass.Location = New System.Drawing.Point(306, -2)
         Me.dtgrdClass.MultiSelect = False
         Me.dtgrdClass.Name = "dtgrdClass"
         Me.dtgrdClass.ReadOnly = True
         Me.dtgrdClass.RowTemplate.Height = 24
-        Me.dtgrdClass.Size = New System.Drawing.Size(560, 221)
+        Me.dtgrdClass.Size = New System.Drawing.Size(560, 226)
         Me.dtgrdClass.TabIndex = 15
         '
         'DataGridViewTextBoxColumn2
@@ -951,6 +944,8 @@ Partial Class frmCompany
         '
         'Panel2
         '
+        Me.Panel2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel2.Controls.Add(Me.txtDeptId)
         Me.Panel2.Controls.Add(Me.txtDepartmentCode)
@@ -1003,6 +998,7 @@ Partial Class frmCompany
         Me.dtgrdDepartment.AllowUserToOrderColumns = True
         Me.dtgrdDepartment.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dtgrdDepartment.BackgroundColor = System.Drawing.SystemColors.Control
+        Me.dtgrdDepartment.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dtgrdDepartment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgrdDepartment.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column4, Me.colDeptName, Me.Column1})
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -1116,7 +1112,7 @@ Partial Class frmCompany
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1371, 782)
+        Me.ClientSize = New System.Drawing.Size(1371, 744)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Label28)
@@ -1124,11 +1120,11 @@ Partial Class frmCompany
         Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.btnBack)
         Me.Name = "frmCompany"
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Company Profile"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         CType(Me.dtgrdsubClass, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1202,7 +1198,6 @@ Partial Class frmCompany
     Friend WithEvents Label13 As Label
     Friend WithEvents txtPostCode As TextBox
     Friend WithEvents Label14 As Label
-    Friend WithEvents btnBack As Button
     Friend WithEvents Panel3 As Panel
     Friend WithEvents btnSaveClass As Button
     Friend WithEvents btnEditClass As Button

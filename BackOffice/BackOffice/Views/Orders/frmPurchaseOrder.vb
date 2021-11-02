@@ -8,7 +8,7 @@ Imports Newtonsoft.Json.Linq
 Public Class frmPurchaseOrder
     '   Dim EDIT_MODE As String = ""
     '  Dim ORDER_STAT As String = ""
-    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+    Private Sub btnBack_Click(sender As Object, e As EventArgs)
         Me.Dispose()
     End Sub
     Private Sub defineStyles(doc As Document)

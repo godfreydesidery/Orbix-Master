@@ -24,7 +24,6 @@ Partial Class frmSuppliers
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.btnBack = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -83,18 +82,6 @@ Partial Class frmSuppliers
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'btnBack
-        '
-        Me.btnBack.BackColor = System.Drawing.SystemColors.Control
-        Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
-        Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnBack.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnBack.Location = New System.Drawing.Point(1176, 667)
-        Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(100, 40)
-        Me.btnBack.TabIndex = 10
-        Me.btnBack.UseVisualStyleBackColor = False
         '
         'Label1
         '
@@ -245,7 +232,7 @@ Partial Class frmSuppliers
         Me.txtCode.Location = New System.Drawing.Point(123, 10)
         Me.txtCode.MaxLength = 50
         Me.txtCode.Name = "txtCode"
-        Me.txtCode.Size = New System.Drawing.Size(208, 22)
+        Me.txtCode.Size = New System.Drawing.Size(173, 22)
         Me.txtCode.TabIndex = 27
         '
         'txtContactName
@@ -253,7 +240,7 @@ Partial Class frmSuppliers
         Me.txtContactName.Location = New System.Drawing.Point(123, 79)
         Me.txtContactName.MaxLength = 100
         Me.txtContactName.Name = "txtContactName"
-        Me.txtContactName.Size = New System.Drawing.Size(319, 22)
+        Me.txtContactName.Size = New System.Drawing.Size(279, 22)
         Me.txtContactName.TabIndex = 29
         '
         'txtPostAddress
@@ -334,7 +321,7 @@ Partial Class frmSuppliers
         Me.btnProductAndService.Enabled = False
         Me.btnProductAndService.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnProductAndService.ForeColor = System.Drawing.Color.Black
-        Me.btnProductAndService.Location = New System.Drawing.Point(346, 664)
+        Me.btnProductAndService.Location = New System.Drawing.Point(299, 664)
         Me.btnProductAndService.Name = "btnProductAndService"
         Me.btnProductAndService.Size = New System.Drawing.Size(115, 43)
         Me.btnProductAndService.TabIndex = 53
@@ -397,9 +384,12 @@ Partial Class frmSuppliers
         Me.dtgrdSuppliers.AllowUserToDeleteRows = False
         Me.dtgrdSuppliers.AllowUserToOrderColumns = True
         Me.dtgrdSuppliers.AllowUserToResizeRows = False
+        Me.dtgrdSuppliers.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtgrdSuppliers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dtgrdSuppliers.BackgroundColor = System.Drawing.SystemColors.Control
-        Me.dtgrdSuppliers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.dtgrdSuppliers.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dtgrdSuppliers.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colSupCode, Me.colCompanyName, Me.colContactName})
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
@@ -410,14 +400,14 @@ Partial Class frmSuppliers
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dtgrdSuppliers.DefaultCellStyle = DataGridViewCellStyle1
         Me.dtgrdSuppliers.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dtgrdSuppliers.Location = New System.Drawing.Point(467, 70)
+        Me.dtgrdSuppliers.Location = New System.Drawing.Point(431, 50)
         Me.dtgrdSuppliers.Name = "dtgrdSuppliers"
         Me.dtgrdSuppliers.ReadOnly = True
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Gainsboro
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dtgrdSuppliers.RowsDefaultCellStyle = DataGridViewCellStyle2
         Me.dtgrdSuppliers.RowTemplate.Height = 24
-        Me.dtgrdSuppliers.Size = New System.Drawing.Size(809, 591)
+        Me.dtgrdSuppliers.Size = New System.Drawing.Size(845, 657)
         Me.dtgrdSuppliers.TabIndex = 0
         '
         'colSupCode
@@ -440,7 +430,7 @@ Partial Class frmSuppliers
         '
         'btnSearch
         '
-        Me.btnSearch.Location = New System.Drawing.Point(342, 3)
+        Me.btnSearch.Location = New System.Drawing.Point(302, 3)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(100, 40)
         Me.btnSearch.TabIndex = 48
@@ -450,7 +440,7 @@ Partial Class frmSuppliers
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(467, 50)
+        Me.Label18.Location = New System.Drawing.Point(431, 30)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(197, 17)
         Me.Label18.TabIndex = 54
@@ -500,7 +490,7 @@ Partial Class frmSuppliers
         Me.Panel1.Controls.Add(Me.Label7)
         Me.Panel1.Location = New System.Drawing.Point(10, 50)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(451, 611)
+        Me.Panel1.Size = New System.Drawing.Size(415, 611)
         Me.Panel1.TabIndex = 57
         '
         'chkDiscontinued
@@ -546,7 +536,7 @@ Partial Class frmSuppliers
         Me.cmbName.FormattingEnabled = True
         Me.cmbName.Location = New System.Drawing.Point(123, 48)
         Me.cmbName.Name = "cmbName"
-        Me.cmbName.Size = New System.Drawing.Size(319, 24)
+        Me.cmbName.Size = New System.Drawing.Size(279, 24)
         Me.cmbName.TabIndex = 108
         '
         'ToolStrip1
@@ -637,7 +627,6 @@ Partial Class frmSuppliers
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Label18)
         Me.Controls.Add(Me.dtgrdSuppliers)
-        Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.btnProductAndService)
         Me.MinimizeBox = False
         Me.Name = "frmSuppliers"
@@ -654,7 +643,6 @@ Partial Class frmSuppliers
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnBack As System.Windows.Forms.Button
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label

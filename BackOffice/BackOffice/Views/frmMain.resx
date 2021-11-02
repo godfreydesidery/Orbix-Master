@@ -205,6 +205,13 @@
         TgDQASA1MVpwzwAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="ToolStripMenuItem24.ToolTipText" xml:space="preserve">
+    <value>Sets the current date to a custom date within a user session.
+This feature is used in back dating or foward dating, for operations that require a different date other than the normal system date.
+After enabling this feature, all operations shall be dated on the custom date.
+Remember to log in afresh so as to resume the normal system date.
+NB. You can not end the day when this feature is enabled, log in afresh to be able to end the day</value>
+  </data>
   <data name="ToolStripDropDownButton8.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -219,13 +226,6 @@
         kx0g8BTA3aZlButjSTyjODq/WcQcW/B/Je4OQhLvKQDnzN1mp0nnkvAhR8VuMzNrpm1mpjgkoVwB/v8D
         TgDQASA1MVpwzwAAAABJRU5ErkJggg==
 </value>
-  </data>
-  <data name="ToolStripMenuItem24.ToolTipText" xml:space="preserve">
-    <value>Sets the current date to a custom date within a user session.
-This feature is used in back dating or foward dating, for operations that require a different date other than the normal system date.
-After enabling this feature, all operations shall be dated on the custom date.
-Remember to log in afresh so as to resume the normal system date.
-NB. You can not end the day when this feature is enabled, log in afresh to be able to end the day</value>
   </data>
   <data name="ToolStripDropDownButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -395,7 +395,7 @@ NB. You can not end the day when this feature is enabled, log in afresh to be ab
         P4f4kP1xnx3+w1bzD1Aw5tqfVeGvw/EAsj7FvwLi377/smQVv5C8sy/lyKk7sgLnF0P8rO/X4edYi89j
         ow92n9k+Ckc26Cj+EIofdp/CD5ybKf7I+rT7vuz029l9ip9TdTXzU/zM/BQ/6v5xEP/YWSelz4j9Ur/9
         BuntuV+GQ7Ajpx2XEQqBsvD8uYBb0ICY3xblgWBCASKnK+BxHMRM4Vt9BI482ICA1zMMKJSHAYcgJ4ek
-        oSQo0inEczjcuazQgEAsywADAkEAp39Mga43mDk/TyaHZcmImckyAD/futs6qd2Q+yjE2lYh1nAe/M/V
+        oSQo0inEczjcuazQgEAsywADAkEAp39Mga43mDk/TyaHZcmImckyAD/futs6qd2Q+yjE2lYh1nAe9M/V
         nead5USiqo4BfegGuL7D6A3olmXvIPBneDOyPihOmpPqVRxmNeAmlrVdI7wHDN28q2efrd8OHbFP5+sz
         K7BG9MaXkDU+sz7FT4EzKP49yOxHjhuPD0D0zP60/tYqO07AofjX4lgA259z5gWye4k2/azVelyiy/sc
         Ddi856Ks5GIc/Mw8ZPwodvkR4bD5PIYupPizDfEj+zPr0/LbMj9tP7K/D7L/dIofMdUUP7M+xT+e4vel
@@ -712,14 +712,14 @@ NB. You can not end the day when this feature is enabled, log in afresh to be ab
         0HH8UemNEoSinw7X4YN/zwfv7YP7HHbkxCQ3zglg5mfYTTDSCUUDdosrZwqqEzBBYLqBMgjsEBecN9xA
         GQQGBaLWn5Mrw8NyxZPDgyFZCoBhAMAI1P+80MlkAgDnB/ulSt+px/RCp07t1uv1CBxbrzM2HsXn64a/
         Wb/JR6Tr6GMmBAgAAwKOcAUGAIxSwIKAo1usTAw4LgeS7sv+xHsyPSRBHBrEAgLzbC6ghlPUPV5lqIpz
-        WFtHx5CafwbDgvxwxnz/XzoGNKviFDyymmPIVgeXof/cosM6qYc/BIf99h26UlbvQ/jLTLuvWR/Cp/ij
+        WFtHx5CafwbDgvxwxnz/XzoGNKviFDyymmPIVgeXIf/cosM6qYc/BIf99h26UlbvQ/jLTLuvWR/Cp/ij
         IXqKf/7yAp3wwwZgSvZDBcDKLaWG5Yf4Q2Ng+U27H8WfWXNaxW9YfiPrU/zhywslaHGebIm7oXP9dcqv
         Oe3XAACF/51meA7l/fg7Q/yffP07uYHz56wGIEqDM3chfgDg9O0y+28rAQCCXBwNF2AAIM10AEb2/1iH
         A3k8aIqfsQ/Zfx8gsB9OIK7kQzly+rUEbjgv7SewWccMDeGbmZrRYdIJPfptulgGAFPkCgCEPQDW4PzW
         zOeym7DJf4V/4yPZnPZU2iH7NvCEaOE4GA0g4A5TTsrYBXABav2LzOB9I3jeFw5gOkoABQIA4D0/V9pO
         iDcchR2o6FbUtdjBoCE+N53B0MBTOrfANuzIEQjEBGR/zj5shZq/Caw/nUJjHNkf4BCiAgEQ0JmEg7mK
         sQIELBCYEHDBecsNWBBoChi1G0UAJcuw0GzxDElRAAw1ewIjwnPFKzLPaAz6n5Ie+Htby4k1TAg4IWrz
-        catV4tp1jbh03mQrBRQCTVYCAIzyLoD7B7TqvVn8YrJkLwCwaf958YIrqlnPuAS5sZfg4H+GC1hRxTl4
+        catV4tp1jbh03mQrBRQCTVYCAIzyLoD7B7TqvVn8YrJkLwCwaf958YIrqlnPuAS5sZfgoH+GC1hRxTl4
         AJfO/2d3AUb2d5j8N1zqy+zP/f1q1p73kCufOvXcrNl/0fJ8W9OP4mfWj7UTfswKQ/wLIPz5eC0X9Kzf
         cV4iY/Mks+CxlFz4QBajXGD2p/iDIXyj1s/WiOSQ4MqicuIPXIQyAee3H7upQ3T3Xn6vEKD4tf5Hxuf6
         +u+Z8X/3jyp+dvXpDowG4Ndy7r41GmBkf3UAlgtAFMIJ5N/4QsVP+0/hM+vT6qdeYNY3gsLPAhiOQeRq
@@ -728,7 +728,7 @@ NB. You can not end the day when this feature is enabled, log in afresh to be ab
         FPaQUmiZIGBJoI8BADf8Wy3HHIWtTpdp+L+xH26cuABZOShVWsCZsIFojB7slXoIDh+6ohxogqzbFEBo
         jPfixiXNh5eVBW+6AQAA596YSmxXDnCtAScleYbSCQA+JgTYEBwGSLFB2NHrqC4iIgRcum4t5wTq4L5D
         q7Xi1Gql1G613NYULA8BAKACBFri8w2afBgJK0e2xV2WxWvhOEYd1OFxAoAgqO4w9xYvjvNn4AJ4tROj
-        9mf25xVRqjsFb3J0GfbPtDRd+myV/sP3oPY/JyvXn1bbv5R2H6Kn+GNWFkD8yOAQKsU/Dxl+Hmw+xR+F
+        9mf25xVRqjsFb3J0GfrPtDRd+myV/sP3oPY/JyvXn1bbv5R2H6Kn+GNWFkD8yOAQKsU/Dxl+Hmw+xR+F
         Gj9iSa7klTyT4gsvdWkvsz/FHxhtCN+w/EbWj8DPRyDj+8zNhBPIRo0Fl7HjAsT/vc73Z/a3APDwwx90
         ui47+hT+l9//nULiMuz+JdT6FDzr/QsPkf1RHpzD/VKUAWfufmUrAQpY/yNs9p8jAIAArX8aQut/RBKs
         Px+nwBEcLjJqfwsA+wGAQzh36uKnkgwAUPyH4AJ2534gg+dkQfQQJ6I+BNpqfIIEbr4kG1KfykZkcRsA
@@ -1055,7 +1055,7 @@ NB. You can not end the day when this feature is enabled, log in afresh to be ab
         4E0ItJ5FABg9AWuIkOEG8XM5sQJAIWAAgP2AxuMh/PGHpcnYI9KwXClgQcBoCLpyToD7QemFzz1WAWBB
         gABACUAAQPhsCBpRor2B0bjvu+GC7Ef2z4D9z7rwoeRc+kjyLn8kmWefy+YT92Vc9GkDAOH5NhegADB7
         AZwQpABQCJgAmLBTlwgTAJ44Ny0qV7wmxkk9lOF1XM3JQHZDgVy1y6FAu0VB/9dlgAKAnUTOLeYc42Fe
-        m/fXqD34n+u4GssQOQXY0dUAQPeBu6Tn0D3CZcCRi3Nh/y/I6BkJtuW/NgDA/tdFxrcHgC37v8X+1+tr
+        m/fXqD3on+u4GssQOQXY0dUAQPeBu6Tn0D3CZcCRi3Nh/y/I6BkJtuW/NgDA/tdFxrcHgC37v8X+1+tr
         1P7M/rpPmwmAsLVn5Mq9z2TFvis6aYMTOCYtKpQhoRnSc2aSknzLqftlANCRAAMAN+zKgFs4RzjwPgGg
         EEDsznkurZABuBlmU3zhuM9ewLaLsiweYtp7VeYeuCHHSl9r9j9U/Eoi9l/XiIKQN6Q/lvQbXxhOwAKA
         GeoCENl3v5YIS/yHb+r9KAiSHfr5xyBOCtsKU8CVB17L+P/Z+w/wqq5kzRu//5n57jcz904DwjYoIyFA
@@ -1260,7 +1260,7 @@ NB. You can not end the day when this feature is enabled, log in afresh to be ab
         sFIYQoAAcOkqzAwCAIBjipAAsEHAngpwl6H8TAFYA3BTAWGJ67UYmLkKIAAsFWDUAfJAPYa0QMRvthDy
         33U6MKLlSumIqJ8w9iAUwD7J12CRBAEAnIYu03mLNFUAHJUmaoel8TCjDsAdggiBxjSoOy4Kiqq30Nj4
         tohxFL4BAPgCAJC72ERp1HGVtOuxUb6CCigNNVCq6TKp1227KoCuE47Kl11mSvN286Re8+kSFDVKPkfk
-        57bg3Aosu3flP2fL2Wm40QXYIU/27D3+5iYg66UAcPYCxNfP6hk/Nm+B0d83a71E6jVdIGGFxkEJrNej
+        57bg3Aosu3elP2fL2Wm40QXYIU/27D3+5iYg66UAcPYCxNfP6hk/Nm+B0d83a71E6jVdIGGFxkEJrNej
         wSwAcFtwbzi+AsDcESgQdIusMO1XAcC39FRxnAKcEQCqz9XtvwMQ/QMR+dmrrSe9mgVAR/svAECiR7db
         K9cevJG7gAAbOaI7bfhY/nOQqPMb8p8AKEUAcFBxcGGQtZhyUiO+nvoLCOjR30gF2AhEANDO0wAEfn7M
         ttvq/Fx2S/lP5++79rp0hzpgq22JMXCoQYaTKABcnN9wKgWA6XBqltO7O35GjkxDhMrISkJRRI0BANy/
@@ -1328,7 +1328,7 @@ NB. You can not end the day when this feature is enabled, log in afresh to be ab
         5xUmDJAOGA5lOBedP5oOCKdj3q6O7+6g7g6P6P4pKz0DAJgIAGTwNZef4w6DjEDggIDxe1OxEGKRMLYo
         FxxzVIpAwpYdf1ghUGTUIaQDcH6kUNotaDYLuaQCH80K7JEIQNZ9RsBdBdjTAK0DmAuEMisE8jBR7gsR
         02m99IPzD154VqM/m8c0iGQIAJgCgLMAcH5bDYAACMBVV7Fi/HJZuz+u3OtSAcBxbgcAUmGmAGXqTZWS
-        NUdJQGwf8Y0drdPnOdhRCwXQDAGrNeDAWTZOtweG9dcWYG+k2wYAKv85q2fCBKToDTxyJv0uLcDuL6MO
+        NUdJQGwf8Y0drdPnOdhRCwXQDAGrNeDAWTZOtweG9dcWYG+k2wYAKv05q2fCBKToDTxyJv0uLcDuL6MO
         oPsDxodyz/HP/RLHly0/+S13B9JChK0QaC0KsvYFiCk/Vbrz/EDuB2gBwJoKLJzmAgB/3ChdEuy2GjAX
         nD8Azv8pBRDYcLEEc9qviQkA2xQgCW8BgPKvWPdtcuvJW7mDVKDyoD0uAAhL2SZF++7OWP5nEP11gLJy
         jQEbg4E8+8hjhcCY3fclZeVV6Q8AdFl1VQrCISzZr7LYzPnp/IyW0XCgggBACYCgzNSzDqu/8Ir03/lA
@@ -1381,7 +1381,7 @@ NB. You can not end the day when this feature is enabled, log in afresh to be ab
         ArAAwPUzuQuMk27jjyD6r5eOsObtl0u+mJHiGdhNPvPt65z/z9l5JQJxC7bp6wKgf9IFQP9WAMAPDkn9
         Z/5Hui4A/3HZSqMWVq0948dIyJng6NHONMCtDlCg0nTxRvSnxGE/AA8J8bUWQ+BmBFeYLk1T1kvLnpsl
         GjdUAYAbaACAdQADAPnqLpCYpngoeACBhIAJAG4IEvblCqnTd7uu4Oow7qCU6gL6w/FdAWDm/zYAcGA0
-        HHtIAXD72Ttpmn7MBoBPyOF2cmQAAJrGSURBVH9EJHv050o/DlxGMQWAWejSqjcHOwc9zFHxh1M0Q+R3
+        HHtIAXD72Ttpmn7MBoBPyDXD9/wAAJrGSURBVH9EJHv050o/DlxGMQWAWejSqjcHOwc9zFHxh1M0Q+R3
         AsCwTTdorgBQcwGAYVYa4AAAzALAoouEwBuFgEMFKASMVGHOuW+l6erbUnDGRUDggoLAMlcYfAoEcHib
         GmAh0l4XcEAAf2sUQFCIR47ZZgYMCOD+OAAAs9UCoggBAIDbi7MOoCckZwQAKw2wASAUMj8Ueb0dAE0R
         7Sdtug67JkOXX5RQAEHHxd8IgHy1phvRnwBgkCIAqFoxbn3KTJFcpUZKYPGB4ld8lKFwbcuAOfZ9YPQF
@@ -1548,7 +1548,7 @@ NB. You can not end the day when this feature is enabled, log in afresh to be ab
         fsDHNH4eV+tjXHfg6/z+bTT8230ACX/OZvy8TUg5NkBh6NTirXdQEuww5FQhOwa5tPiNLLryrSy8/C0g
         YABg5gXY+W9k6jlrufBrVQH2NMClDnDUqAOMMQHAgiALgZkBYMbxF3IeEf/ysw9yBbYfKmAgIn/vzQ8M
         AGy8J03mXHTuB0D57w6AxC0SkbT2o/zfPv8fzGlAs/qfmfx3Nv+YxT9cOfdPAPhhLPIIcE1TS9Lg/Kxd
-        EQBUAkgDfIuNF78iIzW4cQesuKozpF3XFdK++0YpxCXyrIXB+amONfr7Vvlzds/ktVk9O2rln7l/9uxf
+        EQBUAkgDfIuNF78iIzW4cQesuKozpF3XFdK++0YpxCXyrIXB+amONfr7Vv5zds/ktVk9O2rln7l/9uxf
         /Z//7NHfehkqwOwLyJ6zUwEQ7MtsOTqlZffuftcTEocnm3wROEgKAQDcMZizAb6xYyGN0qR0owWSDzDw
         RQ7lSwWAG+un0Z8yy3B+v/IztRCYuypIDAUQRFmmdQA8JOvAEPc0AA/XngaQ/nkxEII1KjjTgPyIGiX6
         244Gd5sJcAIAKgAA4PQUt67qsOyKqoD7r3+QlksuOwFgmwJkKyxP5J1+6oUDAEcQ9ffh6gIAmAWA7SYA
@@ -1577,7 +1577,7 @@ NB. You can not end the day when this feature is enabled, log in afresh to be ab
         WxrgVgeYcIQAMJqChhEAUAETAYdzTz7IDTj+jZc/ytnH38v4Q09lwA5jJsAOgJ7I/eNwr429AEz5n1EB
         ENE/X/xGCYuHs9vkf762+Filv7P5J8PiH6O/rfin0d8EQG68z10hXWekGJgUAnD+XGXSJVdpjF9VrjAz
         FeAmN9wMJE+pyVK+0XQpVRdjlNI/ZIROifvi+rl/KqR/92ce3oljs3omNeNe/1zvb5z1h5T67yv6Wy9Q
-        KyT1n7P49c6WndOCOdgiHN8XEmeLZ2C1P+sZ50FDpEDZyZJDVcBIXSLMA0OYL/kUZSEQeRRkVtFmSzTv
+        KyT1n7P49c6WndOCOdgiHN8XEmeLZ2DVP+sZ50FDpEDZyZJDVcBIXSLMA0OYL/kUZSEQeRRkVtFmSzTv
         p+z3r2QUYkq0XiH+VRD1YbnwkIL4wBQAiP6aBoDiCoDMi4FMA6zZgPxw/mAogJL9AIBEAMCeBpgAcNYB
         TACYdQACIJzHgY08JpWmnZVrz95rUXDW8ccfAYAn8sZNuyAVF16V/VABNDr/xwBgsc+oA2yD4zsBwMId
         AWA4/3rTCIC1d3j94IDAytsfVAkQAHYIrMb3LIEaWHTje1lopgLzYfOQDjAVcAEADQBwVQEGABw1gMwA
@@ -2041,7 +2041,7 @@ NB. You can not end the day when this feature is enabled, log in afresh to be ab
         P0DrQExctzOZnaGQeozYE8mNURxTJ+fffQ/JFaIrVXoFyv/r/J8rwjzu2CjHa6pNtX9Mc+pkEzqf0iGd
         OynDfcSBYBcIJaUYE4nJhUKBM6kmw5iIOEMh5f0w2XfGE3giJhKaoOz32O+Q7TrhvgRXMBnRCfcQXcEU
         4afag9HsHXGyToq4rzgQvkYgnEGksQuGI1raiXWvePzXwnkbzttmUAh9P1IruB+5FSj/0WT/3xjRCVNt
-        qn1jmlPHnaxjO+FrRWIiFDLZMRnh/lGYuO1J988JX0vsiXD+v6baP65961v/F0ArTsIFC6ICAAAAAElF
+        qn1jmlPHnaxjO+FrRWIiFDLZMRnh/lGYuO1J988JX0vsiXD+v6baP65961v/FzdITrb8R1YnAAAAAElF
         TkSuQmCC
 </value>
   </data>

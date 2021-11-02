@@ -100,7 +100,7 @@ Public Class frmSuppliers
         End If
         Return valid
     End Function
-    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+    Private Sub btnBack_Click(sender As Object, e As EventArgs)
         Me.Dispose()
     End Sub
     Public Shared GLOBAL_SUPPLIER_CODE As String = ""

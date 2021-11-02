@@ -74,8 +74,6 @@ Partial Class frmCorporateCustomers
         Me.Label18 = New System.Windows.Forms.Label()
         Me.txtBankAccountName = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
-        Me.Label20 = New System.Windows.Forms.Label()
-        Me.Label21 = New System.Windows.Forms.Label()
         Me.dtgrdCustomerList = New System.Windows.Forms.DataGridView()
         Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -89,8 +87,6 @@ Partial Class frmCorporateCustomers
         Me.Label23 = New System.Windows.Forms.Label()
         Me.txtCreditDays = New System.Windows.Forms.TextBox()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.btnBack = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -326,7 +322,7 @@ Partial Class frmCorporateCustomers
         Me.Panel2.Controls.Add(Me.txtPostAddress)
         Me.Panel2.Controls.Add(Me.Label7)
         Me.Panel2.Controls.Add(Me.txtPhysicalAddress)
-        Me.Panel2.Location = New System.Drawing.Point(12, 390)
+        Me.Panel2.Location = New System.Drawing.Point(12, 348)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(528, 211)
         Me.Panel2.TabIndex = 104
@@ -456,7 +452,7 @@ Partial Class frmCorporateCustomers
         Me.Panel3.Controls.Add(Me.txtBankAddress)
         Me.Panel3.Controls.Add(Me.Label18)
         Me.Panel3.Controls.Add(Me.txtBankAccountName)
-        Me.Panel3.Location = New System.Drawing.Point(12, 624)
+        Me.Panel3.Location = New System.Drawing.Point(12, 565)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(528, 160)
         Me.Panel3.TabIndex = 105
@@ -550,24 +546,6 @@ Partial Class frmCorporateCustomers
         Me.Label19.TabIndex = 106
         Me.Label19.Text = "Basic Inf"
         '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(9, 370)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(140, 17)
-        Me.Label20.TabIndex = 107
-        Me.Label20.Text = "Addres and Contacts"
-        '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(11, 604)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(59, 17)
-        Me.Label21.TabIndex = 108
-        Me.Label21.Text = "Bank Inf"
-        '
         'dtgrdCustomerList
         '
         Me.dtgrdCustomerList.AllowUserToAddRows = False
@@ -580,7 +558,7 @@ Partial Class frmCorporateCustomers
         Me.dtgrdCustomerList.Location = New System.Drawing.Point(546, 59)
         Me.dtgrdCustomerList.Name = "dtgrdCustomerList"
         Me.dtgrdCustomerList.RowTemplate.Height = 24
-        Me.dtgrdCustomerList.Size = New System.Drawing.Size(993, 592)
+        Me.dtgrdCustomerList.Size = New System.Drawing.Size(993, 666)
         Me.dtgrdCustomerList.TabIndex = 109
         '
         'Column5
@@ -668,44 +646,18 @@ Partial Class frmCorporateCustomers
         Me.Panel4.Controls.Add(Me.txtCreditLimit)
         Me.Panel4.Controls.Add(Me.txtInvoiceLimit)
         Me.Panel4.Controls.Add(Me.Label22)
-        Me.Panel4.Location = New System.Drawing.Point(12, 267)
+        Me.Panel4.Location = New System.Drawing.Point(12, 242)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(526, 100)
         Me.Panel4.TabIndex = 116
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(12, 247)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(64, 17)
-        Me.Label24.TabIndex = 117
-        Me.Label24.Text = "Credit Inf"
-        '
-        'btnBack
-        '
-        Me.btnBack.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnBack.BackColor = System.Drawing.SystemColors.Control
-        Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
-        Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnBack.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnBack.Location = New System.Drawing.Point(1424, 744)
-        Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(100, 40)
-        Me.btnBack.TabIndex = 118
-        Me.btnBack.UseVisualStyleBackColor = False
         '
         'frmCorporateCustomers
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1566, 796)
-        Me.Controls.Add(Me.btnBack)
-        Me.Controls.Add(Me.Label24)
+        Me.ClientSize = New System.Drawing.Size(1566, 731)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.dtgrdCustomerList)
-        Me.Controls.Add(Me.Label21)
-        Me.Controls.Add(Me.Label20)
         Me.Controls.Add(Me.Label19)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
@@ -717,6 +669,7 @@ Partial Class frmCorporateCustomers
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Corporate Customers"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
@@ -779,8 +732,6 @@ Partial Class frmCorporateCustomers
     Friend WithEvents Label18 As Label
     Friend WithEvents txtBankAccountName As TextBox
     Friend WithEvents Label19 As Label
-    Friend WithEvents Label20 As Label
-    Friend WithEvents Label21 As Label
     Friend WithEvents chkActive As CheckBox
     Friend WithEvents dtgrdCustomerList As DataGridView
     Friend WithEvents Label12 As Label
@@ -800,6 +751,4 @@ Partial Class frmCorporateCustomers
     Friend WithEvents Label23 As Label
     Friend WithEvents txtCreditDays As TextBox
     Friend WithEvents Panel4 As Panel
-    Friend WithEvents Label24 As Label
-    Friend WithEvents btnBack As Button
 End Class

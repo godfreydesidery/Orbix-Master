@@ -22,7 +22,6 @@ Partial Class frmProductInquiry
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.btnBack = New System.Windows.Forms.Button()
         Me.txtPacksize = New System.Windows.Forms.TextBox()
         Me.txtPrimarySupplier = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -85,18 +84,6 @@ Partial Class frmProductInquiry
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'btnBack
-        '
-        Me.btnBack.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
-        Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnBack.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnBack.Location = New System.Drawing.Point(814, 541)
-        Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(100, 40)
-        Me.btnBack.TabIndex = 10
-        Me.btnBack.UseVisualStyleBackColor = False
         '
         'txtPacksize
         '
@@ -693,7 +680,6 @@ Partial Class frmProductInquiry
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.Label14)
-        Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.txtStandardUOM)
         Me.Controls.Add(Me.txtShortDescription)
         Me.Controls.Add(Me.Label2)
@@ -717,7 +703,6 @@ Partial Class frmProductInquiry
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnBack As System.Windows.Forms.Button
     Friend WithEvents txtPacksize As TextBox
     Friend WithEvents txtPrimarySupplier As TextBox
     Friend WithEvents Label16 As Label

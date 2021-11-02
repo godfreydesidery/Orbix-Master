@@ -9,7 +9,7 @@ Imports Newtonsoft.Json.Linq
 
 Public Class frmProductListingReport
 
-    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+    Private Sub btnBack_Click(sender As Object, e As EventArgs)
         Me.Dispose()
     End Sub
     Private Sub refreshList()

@@ -22,9 +22,8 @@ Partial Class frmProductListingReport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.btnBack = New System.Windows.Forms.Button()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dtgrdList = New System.Windows.Forms.DataGridView()
         Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -70,18 +69,6 @@ Partial Class frmProductListingReport
         Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
         '
-        'btnBack
-        '
-        Me.btnBack.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnBack.BackColor = System.Drawing.SystemColors.Control
-        Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
-        Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnBack.Location = New System.Drawing.Point(1241, 630)
-        Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(100, 40)
-        Me.btnBack.TabIndex = 5
-        Me.btnBack.UseVisualStyleBackColor = False
-        '
         'dtgrdList
         '
         Me.dtgrdList.AllowUserToAddRows = False
@@ -90,20 +77,20 @@ Partial Class frmProductListingReport
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dtgrdList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dtgrdList.BackgroundColor = System.Drawing.SystemColors.ButtonFace
-        Me.dtgrdList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.dtgrdList.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dtgrdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgrdList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column6, Me.Column1, Me.Column7, Me.Column5, Me.Column2, Me.Column3, Me.Column8, Me.Column4})
         Me.dtgrdList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dtgrdList.Location = New System.Drawing.Point(356, 90)
+        Me.dtgrdList.Location = New System.Drawing.Point(356, 79)
         Me.dtgrdList.Name = "dtgrdList"
         Me.dtgrdList.RowTemplate.Height = 24
-        Me.dtgrdList.Size = New System.Drawing.Size(985, 534)
+        Me.dtgrdList.Size = New System.Drawing.Size(985, 582)
         Me.dtgrdList.TabIndex = 6
         '
         'Column6
         '
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.Column6.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.Column6.DefaultCellStyle = DataGridViewCellStyle7
         Me.Column6.FillWeight = 68.95222!
         Me.Column6.HeaderText = "Date"
         Me.Column6.Name = "Column6"
@@ -122,8 +109,8 @@ Partial Class frmProductListingReport
         '
         'Column5
         '
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column5.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column5.DefaultCellStyle = DataGridViewCellStyle8
         Me.Column5.FillWeight = 99.76032!
         Me.Column5.HeaderText = "Amount"
         Me.Column5.Name = "Column5"
@@ -155,7 +142,7 @@ Partial Class frmProductListingReport
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(3, 7)
+        Me.Label1.Location = New System.Drawing.Point(3, 3)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(40, 17)
         Me.Label1.TabIndex = 7
@@ -165,7 +152,7 @@ Partial Class frmProductListingReport
         '
         Me.dateStart.CustomFormat = "yyyy-MM-dd"
         Me.dateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dateStart.Location = New System.Drawing.Point(49, 7)
+        Me.dateStart.Location = New System.Drawing.Point(49, 2)
         Me.dateStart.Name = "dateStart"
         Me.dateStart.Size = New System.Drawing.Size(127, 22)
         Me.dateStart.TabIndex = 8
@@ -174,7 +161,7 @@ Partial Class frmProductListingReport
         '
         Me.dateEnd.CustomFormat = "yyyy-MM-dd"
         Me.dateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dateEnd.Location = New System.Drawing.Point(213, 7)
+        Me.dateEnd.Location = New System.Drawing.Point(213, 3)
         Me.dateEnd.Name = "dateEnd"
         Me.dateEnd.Size = New System.Drawing.Size(118, 22)
         Me.dateEnd.TabIndex = 10
@@ -182,7 +169,7 @@ Partial Class frmProductListingReport
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(182, 10)
+        Me.Label2.Location = New System.Drawing.Point(182, 3)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(25, 17)
         Me.Label2.TabIndex = 9
@@ -190,7 +177,7 @@ Partial Class frmProductListingReport
         '
         'btnView
         '
-        Me.btnView.Location = New System.Drawing.Point(356, 50)
+        Me.btnView.Location = New System.Drawing.Point(356, 39)
         Me.btnView.Name = "btnView"
         Me.btnView.Size = New System.Drawing.Size(104, 34)
         Me.btnView.TabIndex = 11
@@ -204,7 +191,7 @@ Partial Class frmProductListingReport
         Me.Panel1.Controls.Add(Me.dateStart)
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.dateEnd)
-        Me.Panel1.Location = New System.Drawing.Point(10, 50)
+        Me.Panel1.Location = New System.Drawing.Point(10, 39)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(340, 34)
         Me.Panel1.TabIndex = 15
@@ -246,7 +233,7 @@ Partial Class frmProductListingReport
         Me.Panel2.Controls.Add(Me.cmbDepartment)
         Me.Panel2.Controls.Add(Me.Label4)
         Me.Panel2.Controls.Add(Me.cmbSupplier)
-        Me.Panel2.Location = New System.Drawing.Point(10, 90)
+        Me.Panel2.Location = New System.Drawing.Point(10, 79)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(340, 139)
         Me.Panel2.TabIndex = 125
@@ -332,7 +319,7 @@ Partial Class frmProductListingReport
         Me.Panel3.Controls.Add(Me.Label11)
         Me.Panel3.Controls.Add(Me.txtItemCodeS)
         Me.Panel3.Controls.Add(Me.Label10)
-        Me.Panel3.Location = New System.Drawing.Point(10, 235)
+        Me.Panel3.Location = New System.Drawing.Point(10, 224)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(340, 261)
         Me.Panel3.TabIndex = 126
@@ -419,7 +406,7 @@ Partial Class frmProductListingReport
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(3, 60)
+        Me.Label10.Location = New System.Drawing.Point(6, 60)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(79, 17)
         Me.Label10.TabIndex = 57
@@ -436,7 +423,6 @@ Partial Class frmProductListingReport
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.btnView)
         Me.Controls.Add(Me.dtgrdList)
-        Me.Controls.Add(Me.btnBack)
         Me.MinimizeBox = False
         Me.Name = "frmProductListingReport"
         Me.ShowIcon = False
@@ -457,7 +443,6 @@ Partial Class frmProductListingReport
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnBack As System.Windows.Forms.Button
     Friend WithEvents dtgrdList As DataGridView
     Friend WithEvents Label1 As Label
     Friend WithEvents dateStart As DateTimePicker

@@ -55,7 +55,6 @@ Partial Class frmProductMaster
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.btnBack = New System.Windows.Forms.Button()
         Me.lstBarCodes = New System.Windows.Forms.ListBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -384,16 +383,6 @@ Partial Class frmProductMaster
         Me.Label15.TabIndex = 22
         Me.Label15.Text = "Select downwards"
         '
-        'btnBack
-        '
-        Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
-        Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnBack.Location = New System.Drawing.Point(854, 443)
-        Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(100, 40)
-        Me.btnBack.TabIndex = 24
-        Me.btnBack.UseVisualStyleBackColor = True
-        '
         'lstBarCodes
         '
         Me.lstBarCodes.Enabled = False
@@ -646,7 +635,7 @@ Partial Class frmProductMaster
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(23, 165)
+        Me.Label21.Location = New System.Drawing.Point(20, 166)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(104, 17)
         Me.Label21.TabIndex = 112
@@ -711,7 +700,6 @@ Partial Class frmProductMaster
         Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.txtStandardUom)
-        Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.txtShortDescription)
         Me.Controls.Add(Me.Label15)
@@ -771,7 +759,6 @@ Partial Class frmProductMaster
     Friend WithEvents Label15 As Label
     Friend WithEvents Label16 As Label
     Friend WithEvents txtShortDescription As TextBox
-    Friend WithEvents btnBack As Button
     Friend WithEvents lstBarCodes As ListBox
     Friend WithEvents Label18 As Label
     Friend WithEvents Button1 As Button

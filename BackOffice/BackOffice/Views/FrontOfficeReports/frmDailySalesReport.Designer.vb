@@ -22,16 +22,19 @@ Partial Class frmDailySalesReport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.btnBack = New System.Windows.Forms.Button()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnView = New System.Windows.Forms.Button()
         Me.dateEnd = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.dateStart = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtgrdList = New System.Windows.Forms.DataGridView()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.txtTotalSales = New System.Windows.Forms.TextBox()
         Me.txtTotalDiscount = New System.Windows.Forms.TextBox()
         Me.txtTotalVat = New System.Windows.Forms.TextBox()
@@ -43,30 +46,15 @@ Partial Class frmDailySalesReport
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.btnExportToPDF = New System.Windows.Forms.ToolStripButton()
         Me.btnExportToExcel = New System.Windows.Forms.ToolStripButton()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dtgrdList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'btnBack
-        '
-        Me.btnBack.BackColor = System.Drawing.SystemColors.Control
-        Me.btnBack.BackgroundImage = Global.BackOffice.My.Resources.Resources.red_back_arrow
-        Me.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnBack.Location = New System.Drawing.Point(1232, 589)
-        Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(100, 40)
-        Me.btnBack.TabIndex = 4
-        Me.btnBack.UseVisualStyleBackColor = False
-        '
         'btnView
         '
-        Me.btnView.Location = New System.Drawing.Point(369, 63)
+        Me.btnView.Location = New System.Drawing.Point(369, 50)
         Me.btnView.Name = "btnView"
         Me.btnView.Size = New System.Drawing.Size(105, 35)
         Me.btnView.TabIndex = 17
@@ -77,7 +65,7 @@ Partial Class frmDailySalesReport
         '
         Me.dateEnd.CustomFormat = "yyyy-MM-dd"
         Me.dateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dateEnd.Location = New System.Drawing.Point(214, 9)
+        Me.dateEnd.Location = New System.Drawing.Point(214, 4)
         Me.dateEnd.Name = "dateEnd"
         Me.dateEnd.Size = New System.Drawing.Size(127, 22)
         Me.dateEnd.TabIndex = 16
@@ -85,7 +73,7 @@ Partial Class frmDailySalesReport
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(183, 9)
+        Me.Label2.Location = New System.Drawing.Point(183, 4)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(25, 17)
         Me.Label2.TabIndex = 15
@@ -95,7 +83,7 @@ Partial Class frmDailySalesReport
         '
         Me.dateStart.CustomFormat = "yyyy-MM-dd"
         Me.dateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dateStart.Location = New System.Drawing.Point(51, 9)
+        Me.dateStart.Location = New System.Drawing.Point(51, 3)
         Me.dateStart.Name = "dateStart"
         Me.dateStart.Size = New System.Drawing.Size(126, 22)
         Me.dateStart.TabIndex = 14
@@ -103,7 +91,7 @@ Partial Class frmDailySalesReport
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(5, 9)
+        Me.Label1.Location = New System.Drawing.Point(5, 3)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(40, 17)
         Me.Label1.TabIndex = 13
@@ -118,11 +106,37 @@ Partial Class frmDailySalesReport
         Me.dtgrdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgrdList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4})
         Me.dtgrdList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dtgrdList.Location = New System.Drawing.Point(10, 104)
+        Me.dtgrdList.Location = New System.Drawing.Point(10, 91)
         Me.dtgrdList.Name = "dtgrdList"
         Me.dtgrdList.RowTemplate.Height = 24
-        Me.dtgrdList.Size = New System.Drawing.Size(1322, 403)
+        Me.dtgrdList.Size = New System.Drawing.Size(1261, 416)
         Me.dtgrdList.TabIndex = 12
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "Date"
+        Me.Column1.Name = "Column1"
+        '
+        'Column2
+        '
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column2.DefaultCellStyle = DataGridViewCellStyle4
+        Me.Column2.HeaderText = "Amount"
+        Me.Column2.Name = "Column2"
+        '
+        'Column3
+        '
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column3.DefaultCellStyle = DataGridViewCellStyle5
+        Me.Column3.HeaderText = "Discount"
+        Me.Column3.Name = "Column3"
+        '
+        'Column4
+        '
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column4.DefaultCellStyle = DataGridViewCellStyle6
+        Me.Column4.HeaderText = "Tax"
+        Me.Column4.Name = "Column4"
         '
         'txtTotalSales
         '
@@ -163,7 +177,7 @@ Partial Class frmDailySalesReport
         Me.Panel1.Controls.Add(Me.dateEnd)
         Me.Panel1.Location = New System.Drawing.Point(10, 50)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(353, 48)
+        Me.Panel1.Size = New System.Drawing.Size(353, 36)
         Me.Panel1.TabIndex = 26
         '
         'Panel2
@@ -233,32 +247,6 @@ Partial Class frmDailySalesReport
         Me.btnExportToExcel.Size = New System.Drawing.Size(180, 24)
         Me.btnExportToExcel.Text = "Export to Spreadsheet"
         '
-        'Column1
-        '
-        Me.Column1.HeaderText = "Date"
-        Me.Column1.Name = "Column1"
-        '
-        'Column2
-        '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column2.DefaultCellStyle = DataGridViewCellStyle7
-        Me.Column2.HeaderText = "Amount"
-        Me.Column2.Name = "Column2"
-        '
-        'Column3
-        '
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column3.DefaultCellStyle = DataGridViewCellStyle8
-        Me.Column3.HeaderText = "Discount"
-        Me.Column3.Name = "Column3"
-        '
-        'Column4
-        '
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Column4.DefaultCellStyle = DataGridViewCellStyle9
-        Me.Column4.HeaderText = "Tax"
-        Me.Column4.Name = "Column4"
-        '
         'frmDailySalesReport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -269,7 +257,6 @@ Partial Class frmDailySalesReport
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.dtgrdList)
         Me.Controls.Add(Me.btnView)
-        Me.Controls.Add(Me.btnBack)
         Me.MinimizeBox = False
         Me.Name = "frmDailySalesReport"
         Me.ShowIcon = False
@@ -286,7 +273,6 @@ Partial Class frmDailySalesReport
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnBack As System.Windows.Forms.Button
     Friend WithEvents btnView As Button
     Friend WithEvents dateEnd As DateTimePicker
     Friend WithEvents Label2 As Label
