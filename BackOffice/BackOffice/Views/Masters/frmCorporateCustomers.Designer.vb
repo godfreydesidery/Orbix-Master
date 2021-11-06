@@ -73,7 +73,6 @@ Partial Class frmCorporateCustomers
         Me.txtBankAddress = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.txtBankAccountName = New System.Windows.Forms.TextBox()
-        Me.Label19 = New System.Windows.Forms.Label()
         Me.dtgrdCustomerList = New System.Windows.Forms.DataGridView()
         Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -87,12 +86,17 @@ Partial Class frmCorporateCustomers
         Me.Label23 = New System.Windows.Forms.Label()
         Me.txtCreditDays = New System.Windows.Forms.TextBox()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.Panel8 = New System.Windows.Forms.Panel()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
         CType(Me.dtgrdCustomerList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel4.SuspendLayout()
+        Me.Panel5.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -111,7 +115,7 @@ Partial Class frmCorporateCustomers
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.txtNo)
         Me.Panel1.Controls.Add(Me.txtId)
-        Me.Panel1.Location = New System.Drawing.Point(12, 62)
+        Me.Panel1.Location = New System.Drawing.Point(3, 3)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(528, 174)
         Me.Panel1.TabIndex = 0
@@ -322,7 +326,7 @@ Partial Class frmCorporateCustomers
         Me.Panel2.Controls.Add(Me.txtPostAddress)
         Me.Panel2.Controls.Add(Me.Label7)
         Me.Panel2.Controls.Add(Me.txtPhysicalAddress)
-        Me.Panel2.Location = New System.Drawing.Point(12, 348)
+        Me.Panel2.Location = New System.Drawing.Point(5, 289)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(528, 211)
         Me.Panel2.TabIndex = 104
@@ -452,7 +456,7 @@ Partial Class frmCorporateCustomers
         Me.Panel3.Controls.Add(Me.txtBankAddress)
         Me.Panel3.Controls.Add(Me.Label18)
         Me.Panel3.Controls.Add(Me.txtBankAccountName)
-        Me.Panel3.Location = New System.Drawing.Point(12, 565)
+        Me.Panel3.Location = New System.Drawing.Point(5, 506)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(528, 160)
         Me.Panel3.TabIndex = 105
@@ -537,15 +541,6 @@ Partial Class frmCorporateCustomers
         Me.txtBankAccountName.Size = New System.Drawing.Size(372, 22)
         Me.txtBankAccountName.TabIndex = 0
         '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(9, 42)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(61, 17)
-        Me.Label19.TabIndex = 106
-        Me.Label19.Text = "Basic Inf"
-        '
         'dtgrdCustomerList
         '
         Me.dtgrdCustomerList.AllowUserToAddRows = False
@@ -555,10 +550,10 @@ Partial Class frmCorporateCustomers
         Me.dtgrdCustomerList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dtgrdCustomerList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column5, Me.Column1, Me.Column2, Me.Column3, Me.Column4})
         Me.dtgrdCustomerList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dtgrdCustomerList.Location = New System.Drawing.Point(546, 59)
+        Me.dtgrdCustomerList.Location = New System.Drawing.Point(540, 60)
         Me.dtgrdCustomerList.Name = "dtgrdCustomerList"
         Me.dtgrdCustomerList.RowTemplate.Height = 24
-        Me.dtgrdCustomerList.Size = New System.Drawing.Size(993, 666)
+        Me.dtgrdCustomerList.Size = New System.Drawing.Size(985, 638)
         Me.dtgrdCustomerList.TabIndex = 109
         '
         'Column5
@@ -646,23 +641,58 @@ Partial Class frmCorporateCustomers
         Me.Panel4.Controls.Add(Me.txtCreditLimit)
         Me.Panel4.Controls.Add(Me.txtInvoiceLimit)
         Me.Panel4.Controls.Add(Me.Label22)
-        Me.Panel4.Location = New System.Drawing.Point(12, 242)
+        Me.Panel4.Location = New System.Drawing.Point(5, 183)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(526, 100)
         Me.Panel4.TabIndex = 116
+        '
+        'Panel5
+        '
+        Me.Panel5.Controls.Add(Me.Panel1)
+        Me.Panel5.Controls.Add(Me.Panel4)
+        Me.Panel5.Controls.Add(Me.Panel3)
+        Me.Panel5.Controls.Add(Me.Panel2)
+        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel5.Location = New System.Drawing.Point(0, 27)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(537, 704)
+        Me.Panel5.TabIndex = 117
+        '
+        'Panel6
+        '
+        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel6.Location = New System.Drawing.Point(537, 27)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(1029, 33)
+        Me.Panel6.TabIndex = 118
+        '
+        'Panel7
+        '
+        Me.Panel7.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel7.Location = New System.Drawing.Point(537, 698)
+        Me.Panel7.Name = "Panel7"
+        Me.Panel7.Size = New System.Drawing.Size(1029, 33)
+        Me.Panel7.TabIndex = 119
+        '
+        'Panel8
+        '
+        Me.Panel8.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Panel8.Location = New System.Drawing.Point(1531, 60)
+        Me.Panel8.Name = "Panel8"
+        Me.Panel8.Size = New System.Drawing.Size(35, 638)
+        Me.Panel8.TabIndex = 120
         '
         'frmCorporateCustomers
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1566, 731)
-        Me.Controls.Add(Me.Panel4)
+        Me.Controls.Add(Me.Panel8)
+        Me.Controls.Add(Me.Panel7)
+        Me.Controls.Add(Me.Panel6)
+        Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.dtgrdCustomerList)
-        Me.Controls.Add(Me.Label19)
-        Me.Controls.Add(Me.Panel3)
-        Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.Panel1)
         Me.MinimizeBox = False
         Me.Name = "frmCorporateCustomers"
         Me.ShowIcon = False
@@ -681,6 +711,7 @@ Partial Class frmCorporateCustomers
         CType(Me.dtgrdCustomerList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
+        Me.Panel5.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -731,7 +762,6 @@ Partial Class frmCorporateCustomers
     Friend WithEvents txtBankAddress As TextBox
     Friend WithEvents Label18 As Label
     Friend WithEvents txtBankAccountName As TextBox
-    Friend WithEvents Label19 As Label
     Friend WithEvents chkActive As CheckBox
     Friend WithEvents dtgrdCustomerList As DataGridView
     Friend WithEvents Label12 As Label
@@ -751,4 +781,8 @@ Partial Class frmCorporateCustomers
     Friend WithEvents Label23 As Label
     Friend WithEvents txtCreditDays As TextBox
     Friend WithEvents Panel4 As Panel
+    Friend WithEvents Panel5 As Panel
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents Panel7 As Panel
+    Friend WithEvents Panel8 As Panel
 End Class
